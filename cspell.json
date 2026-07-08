@@ -4,6 +4,8 @@
   "words": [
     "oxfmt",
     "oxlint",
+    "oxfmtrc",
+    "oxlintrc",
     "commitlint",
     "commitlintrc",
     "vite",

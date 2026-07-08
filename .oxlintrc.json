@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "categories": {
+    "correctness": "error", // 绝对错误或无用的代码
+    "suspicious": "warn" // 可能是错误或无用的代码
+  },
+  "rules": {
+    "vue/component-definition-name-casing": "error"
+  },
+  "ignorePatterns": ["dist/**", "coverage/**", "vendor/**", "test/snapshots/**"],
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue"]
+}

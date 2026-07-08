@@ -4,6 +4,10 @@
   import heroImg from '../assets/hero.png';
   import vueLogo from '../assets/vue.svg';
 
+  defineOptions({
+    name: 'HelloWorld',
+  });
+
   const count = ref(0);
 </script>
 
