@@ -23,3 +23,9 @@ pnpm add @commitlint/cli @commitlint/config-conventional lefthook --save-dev
 # 测试配置是否生效
 echo 'feat: 这是一段提交信息' | npx commitlint
 ```
+
+## oxlint、oxfmt、cspell
+
+- oxlint - 代码质量检查
+- oxfmt - 代码风格检查
+- cspell - 单词拼写检查
