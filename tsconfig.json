@@ -1,4 +1,13 @@
 {
   "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@gritty-lots/*": ["packages/*/src"]
+    }
+  },
+  "references": [
+    { "path": "./apps/admin/tsconfig.app.json" },
+    { "path": "./apps/admin/tsconfig.node.json" }
+  ]
 }

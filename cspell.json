@@ -18,6 +18,6 @@
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
   "import": ["@cspell/dict-vue/cspell-ext.json", "@cspell/dict-typescript/cspell-ext.json"],
-  "files": ["src/**/*", "*.md", "*.json", "*.yml", "*.ts", "*.js", "*.vue"],
+  "files": ["packages/**/*", "apps/**/*", "*.md", "*.json", "*.yml", "*.ts", "*.js", "*.vue"],
   "ignorePaths": ["node_modules", "dist", ".git", "pnpm-lock.yaml"]
 }

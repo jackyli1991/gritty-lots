@@ -5,13 +5,28 @@
     "node": true,
     "es2024": true
   },
+  "globals": {
+    "defineOptions": true,
+    "defineProps": true,
+    "defineEmits": true,
+    "defineExpose": true,
+    "withDefaults": true
+  },
   "categories": {
-    "correctness": "error", // 绝对错误或无用的代码
-    "suspicious": "warn" // 可能是错误或无用的代码
+    "correctness": "error",
+    "suspicious": "warn"
   },
   "rules": {
-    "vue/component-definition-name-casing": "error"
+    "vue/component-definition-name-casing": "error",
+    "no-undef": "error"
   },
-  "ignorePatterns": ["dist/**", "coverage/**", "vendor/**", "test/snapshots/**"],
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "vendor/**",
+    "test/snapshots/**",
+    "packages/*/dist/**",
+    "apps/*/dist/**"
+  ],
   "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue"]
 }
