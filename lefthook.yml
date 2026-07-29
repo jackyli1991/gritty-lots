@@ -1,8 +1,10 @@
 pre-commit:
   commands:
     oxfmt:
+      glob: "**/*.{js,jsx,ts,tsx,vue,css,scss,html,json,md}"
       run: pnpm format {staged_files}
     oxlint:
+      glob: "**/*.{js,jsx,ts,tsx,vue}"
       run: pnpm lint {staged_files}
     cspell:
       run: pnpm spellcheck {staged_files}

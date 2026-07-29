@@ -26,7 +26,8 @@
     "vendor/**",
     "test/snapshots/**",
     "packages/*/dist/**",
-    "apps/*/dist/**"
+    "apps/*/dist/**",
+    "**/*.md"
   ],
   "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue"]
 }
