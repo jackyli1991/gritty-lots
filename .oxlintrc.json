@@ -5,12 +5,13 @@
     "node": true,
     "es2024": true
   },
+  // vue全局宏定义
   "globals": {
-    "defineOptions": true,
-    "defineProps": true,
-    "defineEmits": true,
-    "defineExpose": true,
-    "withDefaults": true
+    "defineOptions": "readonly",
+    "defineProps": "readonly",
+    "defineEmits": "readonly",
+    "defineExpose": "readonly",
+    "withDefaults": "readonly"
   },
   "categories": {
     "correctness": "error",
@@ -29,5 +30,5 @@
     "apps/*/dist/**",
     "**/*.md"
   ],
-  "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue"]
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue", "import"]
 }

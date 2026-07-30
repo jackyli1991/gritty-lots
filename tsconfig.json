@@ -7,7 +7,11 @@
     }
   },
   "references": [
-    { "path": "./apps/admin/tsconfig.app.json" },
-    { "path": "./apps/admin/tsconfig.node.json" }
+    {
+      "path": "./apps/admin/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/admin/tsconfig.node.json"
+    }
   ]
 }
