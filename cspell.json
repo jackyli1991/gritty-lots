@@ -13,7 +13,9 @@
     "vue",
     "xlink",
     "iconify",
-    "labelledby"
+    "labelledby",
+    "lefthook",
+    "demi"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
