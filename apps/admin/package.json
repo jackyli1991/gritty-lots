@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gritty-lots/ui": "workspace:*",
     "vue": "^3.5.39"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-vue": "^6.0.7",
     "vite": "^8.1.1",
     "vue-tsc": "^3.3.5"
