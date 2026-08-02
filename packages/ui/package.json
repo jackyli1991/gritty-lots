@@ -17,6 +17,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/colors": "^3.0.0",
     "@remixicon/vue": "^4.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

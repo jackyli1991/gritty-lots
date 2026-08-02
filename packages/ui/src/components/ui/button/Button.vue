@@ -6,6 +6,7 @@
 
   import type { ButtonVariants } from '.';
   import { buttonVariants } from '.';
+  import { useRipple } from '../../../composables/useRipple';
   import { cn } from '../../../lib/utils';
 
   interface Props extends PrimitiveProps {
@@ -29,6 +30,7 @@
   });
 
   const mergedDisabled = computed(() => props.disabled || props.loading);
+  const { trigger: triggerRipple } = useRipple();
 </script>
 
 <template>
@@ -47,6 +49,7 @@
         props.class
       )
     "
+    @pointerdown="triggerRipple"
   >
     <svg
       v-if="loading"

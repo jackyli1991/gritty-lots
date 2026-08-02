@@ -8,6 +8,7 @@
     "oxlintrc",
     "commitlint",
     "commitlintrc",
+    "FOUC",
     "vite",
     "Vite",
     "vue",
@@ -15,7 +16,8 @@
     "iconify",
     "labelledby",
     "lefthook",
-    "demi"
+    "demi",
+    "styl"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

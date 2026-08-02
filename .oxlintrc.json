@@ -19,7 +19,13 @@
   },
   "rules": {
     "vue/component-definition-name-casing": "error",
-    "no-undef": "error"
+    "no-undef": "error",
+    "import/no-unassigned-import": [
+      "warn",
+      {
+        "allow": ["**/*.css", "**/*.scss", "**/*.less", "**/*.sass", "**/*.styl"]
+      }
+    ]
   },
   "ignorePatterns": [
     "dist/**",

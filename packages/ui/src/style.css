@@ -3,6 +3,26 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Radix Colors — light + dark scales per color.
+   Dark scales are scoped to `.dark` by the package, so each `--{color}-N`
+   auto-adapts to the active color scheme. */
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/blue-dark.css';
+@import '@radix-ui/colors/indigo.css';
+@import '@radix-ui/colors/indigo-dark.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/violet-dark.css';
+@import '@radix-ui/colors/purple.css';
+@import '@radix-ui/colors/purple-dark.css';
+@import '@radix-ui/colors/pink.css';
+@import '@radix-ui/colors/pink-dark.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/red-dark.css';
+@import '@radix-ui/colors/cyan.css';
+@import '@radix-ui/colors/cyan-dark.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/green-dark.css';
+
 @source "./components";
 
 @custom-variant dark (&:is(.dark *));
@@ -151,6 +171,46 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/*
+ * Theme color presets — `primary` variant uses Radix Colors step-10.
+ * Set `<html data-theme-color="blue">` (etc.) to switch the primary color.
+ * `--{color}-10` auto-adapts to dark mode (dark scales are `.dark`-scoped).
+ * `--{color}-1` is used as foreground: near-white in light, near-black in dark.
+ * These rules sit after `.dark` so attribute specificity + source order win.
+ */
+[data-theme-color='blue'] {
+  --primary: var(--blue-10);
+  --primary-foreground: var(--blue-1);
+}
+[data-theme-color='indigo'] {
+  --primary: var(--indigo-10);
+  --primary-foreground: var(--indigo-1);
+}
+[data-theme-color='violet'] {
+  --primary: var(--violet-10);
+  --primary-foreground: var(--violet-1);
+}
+[data-theme-color='purple'] {
+  --primary: var(--purple-10);
+  --primary-foreground: var(--purple-1);
+}
+[data-theme-color='pink'] {
+  --primary: var(--pink-10);
+  --primary-foreground: var(--pink-1);
+}
+[data-theme-color='red'] {
+  --primary: var(--red-10);
+  --primary-foreground: var(--red-1);
+}
+[data-theme-color='cyan'] {
+  --primary: var(--cyan-10);
+  --primary-foreground: var(--cyan-1);
+}
+[data-theme-color='green'] {
+  --primary: var(--green-10);
+  --primary-foreground: var(--green-1);
 }
 
 @layer base {
