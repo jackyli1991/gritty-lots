@@ -52,40 +52,6 @@ createApp(App).use(GrittyUI).mount('#app');
 import { GButton, buttonVariants, cn } from '@gritty-lots/ui';
 ```
 
-## 组件
-
-### Button
-
-`<g-button>` / `<Button>`
-
-| Prop     | 类型                                                                                              | 默认值    | 说明                                                      |
-| -------- | ------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------- |
-| variant  | `default` `primary` `success` `warning` `info` `destructive` `outline` `secondary` `ghost` `link` | `default` | 视觉风格                                                  |
-| size     | `mini` `xs` `sm` `default` `lg` `icon-xs` `icon-sm` `icon` `icon-lg`                              | `default` | 尺寸（`icon-*` 用于纯图标按钮）                           |
-| shape    | `default` `circle` `round`                                                                        | `default` | 形状：圆角矩形 / 正圆 / 胶囊                              |
-| loading  | `boolean`                                                                                         | `false`   | 加载中：显示 spinner 并禁用交互                           |
-| disabled | `boolean`                                                                                         | `false`   | 禁用                                                      |
-| danger   | `boolean`                                                                                         | `false`   | 危险语义：将当前 variant 配色覆盖为 destructive 红色      |
-| ghost    | `boolean`                                                                                         | `false`   | 幽灵模式：背景透明保留文字色，hover 显示淡色背景          |
-| as       | `string` `Component`                                                                              | `button`  | 渲染底层元素（基于 reka-ui `Primitive`，支持 `as-child`） |
-| class    | `HTMLAttributes['class']`                                                                         | -         | 附加类名（与 variants 自动合并）                          |
-
-**特性：**
-
-- 点击波纹效果自动跟随当前文字色（`currentColor`），无需配置即随主题色/明暗联动
-- `loading` / `disabled` 状态会自动屏蔽波纹
-- 完整示例见 [src/components/ui/button/doc.vue](src/components/ui/button/doc.vue)，可直接 `import { ButtonDoc } from '@gritty-lots/ui'` 渲染
-
-```vue
-<script setup lang="ts">
-  import { ButtonDoc } from '@gritty-lots/ui';
-</script>
-
-<template>
-  <ButtonDoc />
-</template>
-```
-
 ## Composables
 
 ### useColorMode

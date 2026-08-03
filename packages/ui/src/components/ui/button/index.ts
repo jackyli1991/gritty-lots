@@ -14,7 +14,7 @@ export const buttonVariants = cva(
         warning: 'bg-warning text-warning-foreground hover:bg-warning/90',
         info: 'bg-info text-info-foreground hover:bg-info/90',
         destructive:
-          'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
         outline:
           'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
@@ -51,28 +51,32 @@ export const buttonVariants = cva(
       {
         danger: true,
         variant: 'default',
-        class: 'bg-destructive text-white hover:bg-destructive/90',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       },
       {
         danger: true,
         variant: 'primary',
-        class: 'bg-destructive text-white hover:bg-destructive/90',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       },
       {
         danger: true,
         variant: 'success',
-        class: 'bg-destructive text-white hover:bg-destructive/90',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       },
       {
         danger: true,
         variant: 'warning',
-        class: 'bg-destructive text-white hover:bg-destructive/90',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       },
-      { danger: true, variant: 'info', class: 'bg-destructive text-white hover:bg-destructive/90' },
+      {
+        danger: true,
+        variant: 'info',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+      },
       {
         danger: true,
         variant: 'destructive',
-        class: 'bg-destructive text-white hover:bg-destructive/90',
+        class: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
       },
       {
         danger: true,
