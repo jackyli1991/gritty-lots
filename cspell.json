@@ -18,7 +18,8 @@
     "lefthook",
     "demi",
     "styl",
-    "reka"
+    "reka",
+    "remixicon"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

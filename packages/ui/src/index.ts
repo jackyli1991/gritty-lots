@@ -16,8 +16,6 @@ export type { UseRippleOptions } from './composables/useRipple';
 // Components (named exports for explicit import)
 export { Button as GButton, buttonVariants } from './components/ui/button';
 export type { ButtonVariants } from './components/ui/button';
-// Component docs (demo/example files co-located with components)
-export { default as ButtonDoc } from './components/ui/button/doc.vue';
 
 // Component registry for global registration with g- prefix
 const components = {
