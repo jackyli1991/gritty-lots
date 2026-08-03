@@ -1,6 +1,7 @@
 import type { Plugin } from 'vue';
 
 import { Button } from './components/ui/button';
+import { Input } from './components/ui/input';
 
 // Utilities
 export { cn } from './lib/utils';
@@ -16,10 +17,13 @@ export type { UseRippleOptions } from './composables/useRipple';
 // Components (named exports for explicit import)
 export { Button as GButton, buttonVariants } from './components/ui/button';
 export type { ButtonVariants } from './components/ui/button';
+export { Input as GInput, inputVariants } from './components/ui/input';
+export type { InputVariants, InputStatus } from './components/ui/input';
 
 // Component registry for global registration with g- prefix
 const components = {
   GButton: Button,
+  GInput: Input,
 };
 
 // Vue plugin: app.use(GUI) => <g-button> available in all templates

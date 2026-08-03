@@ -19,7 +19,9 @@
     "demi",
     "styl",
     "reka",
-    "remixicon"
+    "remixicon",
+    "vueuse",
+    "mysite"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
