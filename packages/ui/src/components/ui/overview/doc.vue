@@ -172,6 +172,53 @@
   ] as const;
 
   const disabledOpacity = 0.15;
+
+  const borderColors = [
+    {
+      key: 'border',
+      label: 'Border',
+      cssVar: '--gritty-design-border',
+      tailwind: 'border-border',
+      desc: '默认边框色，用于卡片、分隔线等',
+    },
+  ] as const;
+
+  const radiusTokens = [
+    {
+      key: 'sm',
+      cssVar: '--radius-sm',
+      formula: 'calc(var(--gritty-design-radius) - 4px)',
+      tailwind: 'rounded-sm',
+    },
+    {
+      key: 'md',
+      cssVar: '--radius-md',
+      formula: 'calc(var(--gritty-design-radius) - 2px)',
+      tailwind: 'rounded-md',
+    },
+    {
+      key: 'lg',
+      cssVar: '--radius-lg',
+      formula: 'var(--gritty-design-radius)',
+      tailwind: 'rounded-lg',
+    },
+    {
+      key: 'xl',
+      cssVar: '--radius-xl',
+      formula: 'calc(var(--gritty-design-radius) + 4px)',
+      tailwind: 'rounded-xl',
+    },
+  ] as const;
+
+  const ringTokens = [
+    {
+      key: 'ring',
+      label: 'Focus Ring',
+      cssVar: '--gritty-design-ring',
+      tailwind: 'ring-ring',
+      desc: '焦点环颜色，用于 :focus-visible 状态',
+    },
+  ] as const;
 </script>
 
 <template>
@@ -351,7 +398,7 @@
                 :style="{
                   backgroundColor: s.cssVar,
                   height: s.step === 10 ? '2.5rem' : '1.25rem',
-                  outline: s.step === 10 ? '2px solid var(--ring)' : 'none',
+                  outline: s.step === 10 ? '2px solid var(--gritty-design-ring)' : 'none',
                   outlineOffset: s.step === 10 ? '2px' : '0',
                 }"
                 :title="`${themeColor}-${s.step}`"
@@ -579,7 +626,7 @@
             控制全局禁用态不透明度。
           </p>
         </div>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-4 gap-3">
           <div
             v-for="c in statusColors"
             :key="c.key"
@@ -627,6 +674,116 @@
             disabled: opacity = {{ disabledOpacity }}
           </code>
         </div>
+      </section>
+
+      <!-- 边框颜色 -->
+      <section class="flex flex-col gap-3 rounded-lg border border-border p-4">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-sm font-semibold">边框颜色（Border Colors）</h3>
+          <p class="text-xs text-muted-foreground">
+            统一的边框与输入框边框色，在 light / dark 模式下自动切换。
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div
+            v-for="b in borderColors"
+            :key="b.key"
+            class="flex flex-col gap-2 rounded-md border border-border p-3"
+          >
+            <div
+              class="h-8 rounded-md"
+              :style="{
+                backgroundColor: 'var(' + b.cssVar + ')',
+                border: '1px solid var(' + b.cssVar + ')',
+              }"
+            />
+            <div class="flex flex-col gap-1 text-[10px] font-mono">
+              <div class="flex justify-between">
+                <span class="text-muted-foreground">token</span>
+                <span>{{ b.cssVar }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-muted-foreground">tailwind</span>
+                <span>{{ b.tailwind }}</span>
+              </div>
+            </div>
+            <span class="text-xs text-muted-foreground">{{ b.desc }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 焦点环 -->
+      <section class="flex flex-col gap-3 rounded-lg border border-border p-4">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-sm font-semibold">焦点环（Focus Ring）</h3>
+          <p class="text-xs text-muted-foreground">
+            用于 :focus-visible 状态的视觉反馈，通过
+            <code :class="codeBlock">--gritty-design-ring</code> 控制。
+          </p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div
+            v-for="r in ringTokens"
+            :key="r.key"
+            class="flex flex-col gap-2 rounded-md border border-border p-3"
+          >
+            <button
+              type="button"
+              class="h-8 w-8 rounded-md outline-ring"
+              :style="{ outlineColor: 'var(' + r.cssVar + ')' }"
+              :class="{ 'outline outline-2 outline-offset-2': true }"
+            />
+            <div class="flex flex-col gap-1 text-[10px] font-mono">
+              <div class="flex justify-between">
+                <span class="text-muted-foreground">token</span>
+                <span>{{ r.cssVar }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-muted-foreground">tailwind</span>
+                <span>{{ r.tailwind }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 圆角 -->
+      <section class="flex flex-col gap-3 rounded-lg border border-border p-4">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-sm font-semibold">圆角（Border Radius）</h3>
+          <p class="text-xs text-muted-foreground">
+            全局圆角基于 <code :class="codeBlock">--gritty-design-radius</code>（默认 10px）， 派生
+            <code :class="codeBlock">sm/md/lg/xl</code> 四个档位。
+          </p>
+        </div>
+        <div class="flex items-end gap-4">
+          <div v-for="r in radiusTokens" :key="r.key" class="flex flex-col items-center gap-1">
+            <div
+              class="w-14 h-14 bg-primary/20 border border-border"
+              :style="{ borderRadius: 'var(' + r.cssVar + ')' }"
+            />
+            <span class="text-[10px] font-mono text-muted-foreground">{{ r.cssVar }}</span>
+            <span class="text-[10px] font-medium text-foreground">{{ r.tailwind }}</span>
+          </div>
+        </div>
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="text-muted-foreground">
+              <th class="text-left font-medium py-1 pr-3">Token</th>
+              <th class="text-left font-medium py-1 pr-3">公式</th>
+              <th class="text-left font-medium py-1">Tailwind 工具类</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="r in radiusTokens" :key="'row-' + r.key" class="border-t border-border">
+              <td class="py-1 pr-3">
+                <code :class="codeBlock">{{ r.cssVar }}</code>
+              </td>
+              <td class="py-1 pr-3 font-mono">{{ r.formula }}</td>
+              <td class="py-1 font-mono text-muted-foreground">{{ r.tailwind }}</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </section>
 

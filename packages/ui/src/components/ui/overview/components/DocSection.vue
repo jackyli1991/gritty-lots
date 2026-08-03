@@ -18,7 +18,7 @@
 
 <template>
   <section
-    class="flex flex-col gap-2 rounded-lg border border-border p-4"
+    class="flex flex-col gap-2 rounded-lg border border-border p-4 hover:shadow-md transition-shadow"
     :class="{ 'col-span-2': span2 }"
   >
     <div class="flex flex-col gap-0.5">
