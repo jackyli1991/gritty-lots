@@ -419,7 +419,9 @@
           <div class="flex flex-col gap-2 rounded-md border border-border p-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-medium text-foreground">CSS 变量映射</span>
-              <span class="text-[10px] text-muted-foreground">step-10 → --primary · step-1 → --primary-foreground</span>
+              <span class="text-[10px] text-muted-foreground"
+                >step-10 → --primary · step-1 → --primary-foreground</span
+              >
             </div>
             <div class="flex items-center gap-2">
               <div

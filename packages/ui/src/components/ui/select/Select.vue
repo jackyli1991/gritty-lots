@@ -532,7 +532,9 @@
 
         <!-- 单选：选中值 -->
         <span v-if="!isMultiple" class="min-w-0 flex-1 truncate text-left">
-          <span v-if="hasValue">{{ selectedOptions.length ? selectedOptions[0].label : innerValue }}</span>
+          <span v-if="hasValue">{{
+            selectedOptions.length ? selectedOptions[0].label : innerValue
+          }}</span>
           <span v-else class="text-muted-foreground">{{ placeholder }}</span>
         </span>
 
