@@ -415,6 +415,39 @@
             </div>
           </div>
 
+          <!-- --primary / --primary-foreground 映射 -->
+          <div class="flex flex-col gap-2 rounded-md border border-border p-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-foreground">CSS 变量映射</span>
+              <span class="text-[10px] text-muted-foreground">step-10 → --primary · step-1 → --primary-foreground</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div
+                class="flex h-10 flex-1 items-center justify-center rounded-md text-xs font-medium"
+                :style="{
+                  backgroundColor: `var(--${themeColor}-10)`,
+                  color: `var(--${themeColor}-1)`,
+                }"
+              >
+                bg-primary / text-primary-foreground
+              </div>
+              <span class="text-xs text-muted-foreground">=</span>
+              <div
+                class="flex h-10 flex-1 items-center justify-center rounded-md border border-border text-xs font-medium"
+                :style="{
+                  backgroundColor: `var(--${themeColor}-1)`,
+                  color: `var(--${themeColor}-10)`,
+                }"
+              >
+                反转：step-1 底 + step-10 字
+              </div>
+            </div>
+            <p class="text-[11px] text-muted-foreground">
+              以 purple 为例：<code :class="codeBlock">--primary-foreground: var(--purple-1)</code
+              >，确保浅色文字在深色 <code :class="codeBlock">--primary</code> 背景上有足够对比度。
+            </p>
+          </div>
+
           <!-- 主题色切换 -->
           <div class="flex flex-wrap items-center gap-1.5">
             <button

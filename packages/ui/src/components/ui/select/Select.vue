@@ -20,7 +20,6 @@
     SelectScrollDownButton as RSelectScrollDownButton,
     SelectScrollUpButton as RSelectScrollUpButton,
     SelectTrigger as RSelectTrigger,
-    SelectValue as RSelectValue,
     SelectViewport,
   } from 'reka-ui';
   import type { HTMLAttributes } from 'vue';
@@ -77,6 +76,8 @@
     optionFilterProp?: string;
     /** 下拉面板自定义类名 */
     popupClass?: HTMLAttributes['class'];
+    /** 下拉面板最大高度（CSS 值，如 '256px'、'50vh'） */
+    maxHeight?: string;
     /** 自定义类名 */
     class?: HTMLAttributes['class'];
   }
@@ -95,6 +96,7 @@
     notFoundContent: '暂无数据',
     filterOption: true,
     optionFilterProp: 'value',
+    maxHeight: '350px',
   });
 
   const emit = defineEmits<{
@@ -419,11 +421,14 @@
       isMultiple.value ? 'py-0.5 min-h-8' : `h-control-${props.size}`,
       !props.bordered && 'border-0 shadow-none',
       props.status === 'error' &&
-        'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 focus-within:border-destructive focus-within:ring-destructive/20 data-[state=open]:border-destructive data-[state=open]:ring-destructive/20',
+        'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 focus-within:border-destructive focus-within:ring-destructive/20 focus-within:ring-3 data-[state=open]:border-destructive data-[state=open]:ring-destructive/20 data-[state=open]:ring-3',
       props.status === 'warning' &&
-        'border-warning focus-visible:border-warning focus-visible:ring-warning/20 focus-within:border-warning focus-within:ring-warning/20 data-[state=open]:border-warning data-[state=open]:ring-warning/20',
+        'border-warning focus-visible:border-warning focus-visible:ring-warning/20 focus-within:border-warning focus-within:ring-warning/20 focus-within:ring-3 data-[state=open]:border-warning data-[state=open]:ring-warning/20 data-[state=open]:ring-3',
       props.status === 'default' &&
-        'focus-visible:border-primary focus-visible:ring-primary/20 focus-within:border-primary focus-within:ring-primary/20 data-[state=open]:border-primary data-[state=open]:ring-primary/20',
+        'focus-visible:border-primary focus-visible:ring-primary/20 focus-within:border-primary focus-within:ring-primary/20 focus-within:ring-3 data-[state=open]:border-primary data-[state=open]:ring-primary/20 data-[state=open]:ring-3',
+      !props.disabled && props.status === 'default' && 'hover:border-primary',
+      !props.disabled && props.status === 'error' && 'hover:border-destructive',
+      !props.disabled && props.status === 'warning' && 'hover:border-warning',
       props.disabled && 'opacity-disabled',
       props.class
     )
@@ -432,6 +437,18 @@
   const triggerMinHeight = computed(() =>
     isMultiple.value ? { minHeight: `var(--gritty-design-control-${props.size})` } : undefined
   );
+
+  /** 覆盖层布局：与 trigger 的 px/gap/text-size 保持一致，确保对齐 */
+  const overlayLayoutClass = computed(() => {
+    const map: Record<string, string> = {
+      mini: 'px-1.5 gap-0.5 text-xs',
+      xs: 'px-2 gap-1 text-xs',
+      sm: 'px-2.5 gap-1.5 text-xs',
+      default: 'px-3 gap-2 text-sm',
+      lg: 'px-4 gap-2 text-base',
+    };
+    return map[props.size] ?? 'px-3 gap-2 text-sm';
+  });
 
   // ---- 焦点 / 失焦 ----
   function getTriggerEl(): HTMLElement | null {
@@ -480,6 +497,30 @@
         @blur="onBlur"
         @focus="onFocus"
       >
+        <!-- 无障碍：选中值文本 -->
+        <span class="sr-only">{{
+          hasValue ? selectedOptions.map((o) => o.label).join(', ') : placeholder
+        }}</span>
+
+        <!-- 占位，保持 trigger flex 布局 -->
+        <span class="min-w-0 flex-1"></span>
+
+        <!-- 箭头 / 加载 -->
+        <SelectIcon v-if="showArrow" as-child>
+          <slot v-if="loading" name="loadingIcon">
+            <RiLoader4Line class="size-4 animate-spin opacity-50" />
+          </slot>
+          <slot v-else name="suffixIcon">
+            <RiArrowDownSLine class="size-4 opacity-50" />
+          </slot>
+        </SelectIcon>
+      </RSelectTrigger>
+
+      <!-- 选中值/标签展示（在 trigger 外部，绝对定位覆盖在 trigger 上） -->
+      <div
+        class="pointer-events-none absolute inset-0 flex items-center overflow-hidden"
+        :class="overlayLayoutClass"
+      >
         <!-- 前缀 -->
         <span
           v-if="prefix || slots.prefix"
@@ -489,12 +530,12 @@
           <slot name="prefix">{{ prefix }}</slot>
         </span>
 
-        <!-- 单选：SelectValue -->
-        <RSelectValue
-          v-if="!isMultiple"
-          :placeholder="placeholder"
-          class="min-w-0 flex-1 truncate text-left"
-        />
+        <!-- 单选：选中值 -->
+        <span v-if="!isMultiple" class="min-w-0 flex-1 truncate text-left">
+          <span v-if="hasValue">{{ selectedOptions.length ? selectedOptions[0].label : innerValue }}</span>
+          <span v-else class="text-muted-foreground">{{ placeholder }}</span>
+        </span>
+
         <!-- 多选：标签展示 -->
         <template v-else>
           <div v-if="hasValue" class="flex flex-wrap items-center gap-1 min-w-0 flex-1">
@@ -510,8 +551,8 @@
                 role="button"
                 tabindex="-1"
                 aria-label="remove"
-                class="inline-flex cursor-pointer items-center justify-center opacity-60 hover:opacity-100"
-                @click.stop.prevent="removeTag(tag.value, $event)"
+                class="pointer-events-auto inline-flex cursor-pointer items-center justify-center opacity-60 hover:opacity-100"
+                @click.stop="removeTag(tag.value, $event)"
               >
                 <RiCloseLine class="size-3" />
               </span>
@@ -524,19 +565,12 @@
               +{{ overflowCount }}
             </span>
           </div>
-          <span v-else class="text-muted-foreground text-sm">{{ placeholder }}</span>
+          <span v-else class="text-muted-foreground">{{ placeholder }}</span>
         </template>
 
-        <!-- 箭头 / 加载 -->
-        <SelectIcon v-if="showArrow" as-child>
-          <slot v-if="loading" name="loadingIcon">
-            <RiLoader4Line class="size-4 animate-spin opacity-50" />
-          </slot>
-          <slot v-else name="suffixIcon">
-            <RiArrowDownSLine class="size-4 opacity-50" />
-          </slot>
-        </SelectIcon>
-      </RSelectTrigger>
+        <!-- 右侧留白（给箭头腾出空间） -->
+        <span v-if="showArrow" class="w-4 shrink-0"></span>
+      </div>
 
       <!-- 清除按钮（在 trigger 外部，避免 button 嵌套问题） -->
       <span
@@ -560,6 +594,7 @@
         data-slot="select-content"
         position="popper"
         side="bottom"
+        :style="maxHeight ? { maxHeight } : undefined"
         :class="
           cn(
             'bg-popover text-popover-foreground data-[state=open]:slide-in data-[state=closed]:slide-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--reka-select-content-available-height) min-w-[8rem] min-w-(--reka-select-trigger-width) overflow-x-hidden overflow-y-auto rounded-md border shadow-md data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
@@ -605,7 +640,7 @@
                   :value="opt.value"
                   :disabled="opt.disabled"
                   data-slot="select-item"
-                  class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                 >
                   <span class="absolute right-2 flex size-3.5 items-center justify-center">
                     <SelectItemIndicator>
@@ -635,7 +670,7 @@
                   :value="opt.value"
                   :disabled="opt.disabled"
                   data-slot="select-item"
-                  class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
                 >
                   <span class="absolute right-2 flex size-3.5 items-center justify-center">
                     <SelectItemIndicator>
