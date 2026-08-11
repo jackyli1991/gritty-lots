@@ -408,11 +408,11 @@
       isMultiple.value ? 'py-0.5 min-h-8' : `h-control-${props.size}`,
       !props.bordered && 'border-0 shadow-none',
       props.status === 'error' &&
-        'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20 focus-within:border-destructive focus-within:ring-destructive/20 focus-within:ring-3 data-[state=open]:border-destructive data-[state=open]:ring-destructive/20 data-[state=open]:ring-3',
+        'border-destructive focus-visible:border-destructive focus-visible:ring-focus-ring-destructive focus-within:border-destructive focus-within:ring-focus-ring-destructive focus-within:ring-[length:var(--gritty-design-focus-ring-width)] data-[state=open]:border-destructive data-[state=open]:ring-focus-ring-destructive data-[state=open]:ring-[length:var(--gritty-design-focus-ring-width)]',
       props.status === 'warning' &&
-        'border-warning focus-visible:border-warning focus-visible:ring-warning/20 focus-within:border-warning focus-within:ring-warning/20 focus-within:ring-3 data-[state=open]:border-warning data-[state=open]:ring-warning/20 data-[state=open]:ring-3',
+        'border-warning focus-visible:border-warning focus-visible:ring-focus-ring-warning focus-within:border-warning focus-within:ring-focus-ring-warning focus-within:ring-[length:var(--gritty-design-focus-ring-width)] data-[state=open]:border-warning data-[state=open]:ring-focus-ring-warning data-[state=open]:ring-[length:var(--gritty-design-focus-ring-width)]',
       props.status === 'default' &&
-        'focus-visible:border-primary focus-visible:ring-primary/20 focus-within:border-primary focus-within:ring-primary/20 focus-within:ring-3 data-[state=open]:border-primary data-[state=open]:ring-primary/20 data-[state=open]:ring-3',
+        'focus-visible:border-primary focus-visible:ring-focus-ring-primary focus-within:border-primary focus-within:ring-focus-ring-primary focus-within:ring-[length:var(--gritty-design-focus-ring-width)] data-[state=open]:border-primary data-[state=open]:ring-focus-ring-primary data-[state=open]:ring-[length:var(--gritty-design-focus-ring-width)]',
       !props.disabled && props.status === 'default' && 'hover:border-primary',
       !props.disabled && props.status === 'error' && 'hover:border-destructive',
       !props.disabled && props.status === 'warning' && 'hover:border-warning',
@@ -610,7 +610,7 @@
             <input
               ref="searchRef"
               :value="searchText"
-              class="h-8 w-full rounded-md border border-input bg-transparent pl-7 pr-2 text-sm outline-none focus:border-primary focus:ring-3 focus:ring-primary/20"
+              class="h-8 w-full rounded-md border border-input bg-transparent pl-7 pr-2 text-sm outline-none focus:border-primary focus:ring-[length:var(--gritty-design-focus-ring-width)] focus:ring-focus-ring-primary"
               placeholder="搜索..."
               @input="onSearchInput"
               @keydown.enter.prevent="onSearchEnter"

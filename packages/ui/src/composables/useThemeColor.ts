@@ -11,7 +11,7 @@ export interface ThemeColorOption {
 
 /**
  * Available theme colors. Each maps to a Radix Colors scale whose step-10
- * drives `--primary` (see style.css `[data-theme-color]` rules).
+ * drives `--gritty-design-primary` (see style.css `[data-theme-color]` rules).
  * Only saturated scales are listed so a single foreground token stays legible.
  */
 export const THEME_COLORS: readonly ThemeColorOption[] = [

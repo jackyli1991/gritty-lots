@@ -55,6 +55,21 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--gritty-design-ring);
+  --color-focus-ring-primary: color-mix(
+    in oklab,
+    var(--gritty-design-primary) var(--gritty-design-focus-ring-opacity),
+    transparent
+  );
+  --color-focus-ring-destructive: color-mix(
+    in oklab,
+    var(--gritty-design-destructive) var(--gritty-design-focus-ring-opacity),
+    transparent
+  );
+  --color-focus-ring-warning: color-mix(
+    in oklab,
+    var(--gritty-design-warning) var(--gritty-design-focus-ring-opacity),
+    transparent
+  );
   --color-input: var(--gritty-design-border);
   --color-border: var(--gritty-design-border);
   --color-destructive: var(--gritty-design-destructive);
@@ -71,8 +86,8 @@
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  --color-primary-foreground: var(--gritty-design-primary-foreground);
+  --color-primary: var(--gritty-design-primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -95,14 +110,17 @@
   --gritty-design-control-lg: 2.25rem; /* 36px */
   /* Disabled state opacity — shared across all components */
   --gritty-design-disabled-opacity: 0.15;
+  /* Focus ring — shared across all components */
+  --gritty-design-focus-ring-width: 2px;
+  --gritty-design-focus-ring-opacity: 15%;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --gritty-design-primary: oklch(0.205 0 0);
+  --gritty-design-primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -141,8 +159,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --gritty-design-primary: oklch(0.922 0 0);
+  --gritty-design-primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -175,43 +193,43 @@
 }
 
 /*
- * Theme color presets — `primary` variant uses Radix Colors step-10.
+ * Theme color presets — `gritty-design-primary` variant uses Radix Colors step-10.
  * Set `<html data-theme-color="blue">` (etc.) to switch the primary color.
  * `--{color}-10` auto-adapts to dark mode (dark scales are `.dark`-scoped).
  * `--{color}-1` is used as foreground: near-white in light, near-black in dark.
  * These rules sit after `.dark` so attribute specificity + source order win.
  */
 [data-theme-color='blue'] {
-  --primary: var(--blue-10);
-  --primary-foreground: var(--blue-1);
+  --gritty-design-primary: var(--blue-10);
+  --gritty-design-primary-foreground: var(--blue-1);
 }
 [data-theme-color='indigo'] {
-  --primary: var(--indigo-10);
-  --primary-foreground: var(--indigo-1);
+  --gritty-design-primary: var(--indigo-10);
+  --gritty-design-primary-foreground: var(--indigo-1);
 }
 [data-theme-color='violet'] {
-  --primary: var(--violet-10);
-  --primary-foreground: var(--violet-1);
+  --gritty-design-primary: var(--violet-10);
+  --gritty-design-primary-foreground: var(--violet-1);
 }
 [data-theme-color='purple'] {
-  --primary: var(--purple-10);
-  --primary-foreground: var(--purple-1);
+  --gritty-design-primary: var(--purple-10);
+  --gritty-design-primary-foreground: var(--purple-1);
 }
 [data-theme-color='pink'] {
-  --primary: var(--pink-10);
-  --primary-foreground: var(--pink-1);
+  --gritty-design-primary: var(--pink-10);
+  --gritty-design-primary-foreground: var(--pink-1);
 }
 [data-theme-color='red'] {
-  --primary: var(--red-10);
-  --primary-foreground: var(--red-1);
+  --gritty-design-primary: var(--red-10);
+  --gritty-design-primary-foreground: var(--red-1);
 }
 [data-theme-color='cyan'] {
-  --primary: var(--cyan-10);
-  --primary-foreground: var(--cyan-1);
+  --gritty-design-primary: var(--cyan-10);
+  --gritty-design-primary-foreground: var(--cyan-1);
 }
 [data-theme-color='green'] {
-  --primary: var(--green-10);
-  --primary-foreground: var(--green-1);
+  --gritty-design-primary: var(--green-10);
+  --gritty-design-primary-foreground: var(--green-1);
 }
 
 @layer base {

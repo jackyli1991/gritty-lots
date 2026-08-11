@@ -75,8 +75,8 @@
   const snippetThemeCustomize = [
     `/* 新增主题色：在 style.css 添加规则 */`,
     `[data-theme-color="teal"] {`,
-    `  --primary: var(--teal-10);`,
-    `  --primary-foreground: var(--teal-1);`,
+    `  --gritty-design-primary: var(--teal-10);`,
+    `  --gritty-design-primary-foreground: var(--teal-1);`,
     `}`,
     `/* 并在 useThemeColor.ts 的 THEME_COLORS 中加入条目 */`,
   ].join('\n');
@@ -210,13 +210,49 @@
     },
   ] as const;
 
-  const ringTokens = [
+  const focusRingTokens = [
     {
-      key: 'ring',
-      label: 'Focus Ring',
-      cssVar: '--gritty-design-ring',
-      tailwind: 'ring-ring',
-      desc: '焦点环颜色，用于 :focus-visible 状态',
+      key: 'width',
+      label: '宽度',
+      cssVar: '--gritty-design-focus-ring-width',
+      value: '3px',
+      tailwind: 'ring-[length:var(--gritty-design-focus-ring-width)]',
+      desc: 'focus-within / focus-visible / data-[state=open] 时的 ring 宽度',
+    },
+    {
+      key: 'opacity',
+      label: '透明度',
+      cssVar: '--gritty-design-focus-ring-opacity',
+      value: '20%',
+      tailwind: 'color-mix(in oklab, var(--color) 20%, transparent)',
+      desc: 'ring 颜色相对于基础色的混合比例',
+    },
+  ] as const;
+
+  const focusRingColors = [
+    {
+      key: 'primary',
+      label: 'Primary',
+      colorToken: '--color-focus-ring-primary',
+      baseVar: '--gritty-design-primary',
+      tailwind: 'ring-focus-ring-primary',
+      status: 'default',
+    },
+    {
+      key: 'destructive',
+      label: 'Destructive',
+      colorToken: '--color-focus-ring-destructive',
+      baseVar: '--gritty-design-destructive',
+      tailwind: 'ring-focus-ring-destructive',
+      status: 'error',
+    },
+    {
+      key: 'warning',
+      label: 'Warning',
+      colorToken: '--color-focus-ring-warning',
+      baseVar: '--gritty-design-warning',
+      tailwind: 'ring-focus-ring-warning',
+      status: 'warning',
     },
   ] as const;
 </script>
@@ -366,130 +402,17 @@
           </h3>
           <p class="text-xs text-muted-foreground">
             主题色控制器：8 套 Radix 色阶（blue / indigo / violet / purple / pink / red / cyan /
-            green），step-10 驱动 <code :class="codeBlock">--primary</code>。持久化到
+            green），step-10 驱动 <code :class="codeBlock">--gritty-design-primary</code>。持久化到
             localStorage（key: <code :class="codeBlock">gritty-theme-color</code>），写入
             <code :class="codeBlock">{{ tagHtmlDataThemeColor }}</code
             >。
           </p>
+          <p class="text-xs text-muted-foreground">详见下文：设计 Token-主题色</p>
         </div>
         <div class="rounded-lg border border-border bg-muted/30 p-3">
           <pre
             class="text-xs font-mono leading-relaxed whitespace-pre-wrap"
           ><code>{{ snippetThemeColor }}</code></pre>
-        </div>
-        <!-- 实时演示 -->
-        <div class="flex flex-col gap-3 rounded-md bg-background p-4 border border-border">
-          <div class="flex items-center justify-between">
-            <span class="text-xs text-muted-foreground">
-              当前主题色：
-              <span class="font-medium text-foreground capitalize">{{ themeColor }}</span>
-              <span class="text-muted-foreground">（Radix 12 阶色阶）</span>
-            </span>
-            <span class="text-xs text-muted-foreground">存储键：gritty-theme-color</span>
-          </div>
-
-          <!-- Radix 12 步色阶 -->
-          <div class="flex flex-col gap-1">
-            <div class="flex items-end gap-0.5">
-              <div
-                v-for="s in currentScaleSteps"
-                :key="s.step"
-                class="flex-1 rounded-sm"
-                :style="{
-                  backgroundColor: s.cssVar,
-                  height: s.step === 10 ? '2.5rem' : '1.25rem',
-                  outline: s.step === 10 ? '2px solid var(--gritty-design-ring)' : 'none',
-                  outlineOffset: s.step === 10 ? '2px' : '0',
-                }"
-                :title="`${themeColor}-${s.step}`"
-              />
-            </div>
-            <div class="flex items-center gap-0.5">
-              <span
-                v-for="s in currentScaleSteps"
-                :key="s.step"
-                class="flex-1 text-center text-[9px] font-mono text-muted-foreground"
-              >
-                {{ s.step }}
-              </span>
-            </div>
-          </div>
-
-          <!-- --primary / --primary-foreground 映射 -->
-          <div class="flex flex-col gap-2 rounded-md border border-border p-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-medium text-foreground">CSS 变量映射</span>
-              <span class="text-[10px] text-muted-foreground"
-                >step-10 → --primary · step-1 → --primary-foreground</span
-              >
-            </div>
-            <div class="flex items-center gap-2">
-              <div
-                class="flex h-10 flex-1 items-center justify-center rounded-md text-xs font-medium"
-                :style="{
-                  backgroundColor: `var(--${themeColor}-10)`,
-                  color: `var(--${themeColor}-1)`,
-                }"
-              >
-                bg-primary / text-primary-foreground
-              </div>
-              <span class="text-xs text-muted-foreground">=</span>
-              <div
-                class="flex h-10 flex-1 items-center justify-center rounded-md border border-border text-xs font-medium"
-                :style="{
-                  backgroundColor: `var(--${themeColor}-1)`,
-                  color: `var(--${themeColor}-10)`,
-                }"
-              >
-                反转：step-1 底 + step-10 字
-              </div>
-            </div>
-            <p class="text-[11px] text-muted-foreground">
-              以 purple 为例：<code :class="codeBlock">--primary-foreground: var(--purple-1)</code
-              >，确保浅色文字在深色 <code :class="codeBlock">--primary</code> 背景上有足够对比度。
-            </p>
-          </div>
-
-          <!-- 主题色切换 -->
-          <div class="flex flex-wrap items-center gap-1.5">
-            <button
-              v-for="c in themeColors"
-              :key="c.value"
-              type="button"
-              :title="c.label"
-              :aria-label="c.label"
-              :aria-pressed="themeColor === c.value"
-              class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              :class="
-                themeColor === c.value
-                  ? 'bg-primary text-primary-foreground font-medium'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
-              "
-              @click="setThemeColor(c.value)"
-            >
-              <span class="size-3 rounded-full" :style="{ backgroundColor: c.swatch }" />
-              {{ c.label }}
-            </button>
-          </div>
-
-          <!-- 按钮变体预览 -->
-          <div class="flex flex-wrap gap-2 pt-1">
-            <g-button
-              v-for="v in [
-                'primary',
-                'success',
-                'warning',
-                'info',
-                'destructive',
-                'outline',
-                'ghost',
-              ]"
-              :key="v"
-              :variant="v"
-            >
-              {{ v }}
-            </g-button>
-          </div>
         </div>
       </section>
 
@@ -587,7 +510,7 @@
           <code :class="codeBlock">主题色</code>
           <span class="text-xs text-muted-foreground">
             <code :class="codeBlock">[data-theme-color="..."]</code> 规则块将
-            <code :class="codeBlock">--primary</code> 映射到对应 Radix 色阶的 step-10
+            <code :class="codeBlock">--gritty-design-primary</code> 映射到对应 Radix 色阶的 step-10
           </span>
         </div>
       </div>
@@ -605,6 +528,117 @@
         <code :class="codeBlock">--gritty-design-*</code>
         开头的设计系统变量，统一控制组件的尺寸、状态配色与交互反馈。
       </p>
+
+      <!-- 主题色 -->
+      <section class="flex flex-col gap-3 rounded-lg border border-border p-4">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-sm font-semibold">主题色（Theme Color）</h3>
+          <p class="text-xs text-muted-foreground">
+            8 套 Radix 色阶（blue / indigo / violet / purple / pink / red / cyan / green），step-10
+            驱动 <code :class="codeBlock">--gritty-design-primary</code>，step-1 驱动
+            <code :class="codeBlock">--gritty-design-primary-foreground</code>。通过
+            <code :class="codeBlock">useThemeColor()</code>
+            切换，持久化到 localStorage（key:
+            <code :class="codeBlock">gritty-theme-color</code>）。
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 rounded-md bg-background p-4 border border-border">
+          <!-- 主题色切换 -->
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button
+              v-for="c in themeColors"
+              :key="c.value"
+              type="button"
+              :title="c.label"
+              :aria-label="c.label"
+              :aria-pressed="themeColor === c.value"
+              class="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              :class="
+                themeColor === c.value
+                  ? 'bg-primary text-primary-foreground font-medium'
+                  : 'bg-muted text-muted-foreground hover:text-foreground'
+              "
+              @click="setThemeColor(c.value)"
+            >
+              <span class="size-3 rounded-full" :style="{ backgroundColor: c.swatch }" />
+              {{ c.label }}
+            </button>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-muted-foreground">
+              当前主题色：
+              <span class="font-medium text-foreground capitalize">{{ themeColor }}</span>
+              <span class="text-muted-foreground">（Radix 12 阶色阶）</span>
+            </span>
+            <span class="text-xs text-muted-foreground">存储键：gritty-theme-color</span>
+          </div>
+
+          <!-- Radix 12 步色阶 -->
+          <div class="flex flex-col gap-1">
+            <div class="flex items-end gap-0.5">
+              <div
+                v-for="s in currentScaleSteps"
+                :key="s.step"
+                class="flex-1 rounded-sm"
+                :style="{
+                  backgroundColor: s.cssVar,
+                  height: s.step === 10 ? '2.5rem' : '1.25rem',
+                  outline: s.step === 10 ? '2px solid var(--gritty-design-ring)' : 'none',
+                  outlineOffset: s.step === 10 ? '2px' : '0',
+                }"
+                :title="`${themeColor}-${s.step}`"
+              />
+            </div>
+            <div class="flex items-center gap-0.5">
+              <span
+                v-for="s in currentScaleSteps"
+                :key="s.step"
+                class="flex-1 text-center text-[9px] font-mono text-muted-foreground"
+              >
+                {{ s.step }}
+              </span>
+            </div>
+          </div>
+
+          <!-- --gritty-design-primary / --gritty-design-primary-foreground 映射 -->
+          <div class="flex flex-col gap-2 rounded-md border border-border p-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-foreground">CSS 变量映射</span>
+              <span class="text-[10px] text-muted-foreground"
+                >step-10 → --gritty-design-primary · step-1 →
+                --gritty-design-primary-foreground</span
+              >
+            </div>
+            <div class="flex items-center gap-2">
+              <div
+                class="flex h-10 flex-1 items-center justify-center rounded-md text-xs font-medium"
+                :style="{
+                  backgroundColor: `var(--${themeColor}-10)`,
+                  color: `var(--${themeColor}-1)`,
+                }"
+              >
+                bg-primary / text-primary-foreground
+              </div>
+              <span class="text-xs text-muted-foreground">=</span>
+              <div
+                class="flex h-10 flex-1 items-center justify-center rounded-md border border-border text-xs font-medium"
+                :style="{
+                  backgroundColor: `var(--${themeColor}-1)`,
+                  color: `var(--${themeColor}-10)`,
+                }"
+              >
+                反转：step-1 底 + step-10 字
+              </div>
+            </div>
+            <p class="text-[11px] text-muted-foreground">
+              <code :class="codeBlock">--gritty-design-primary-foreground: var(--purple-1)</code
+              >，确保浅色文字在深色
+              <code :class="codeBlock">--gritty-design-primary</code> 背景上有足够对比度。
+            </p>
+          </div>
+        </div>
+      </section>
 
       <!-- 控制尺寸 -->
       <section class="flex flex-col gap-3 rounded-lg border border-border p-4">
@@ -752,30 +786,65 @@
         <div class="flex flex-col gap-1">
           <h3 class="text-sm font-semibold">焦点环（Focus Ring）</h3>
           <p class="text-xs text-muted-foreground">
-            用于 :focus-visible 状态的视觉反馈，通过
-            <code :class="codeBlock">--gritty-design-ring</code> 控制。
+            <code :class="codeBlock">--gritty-design-ring</code> 控制
+            <code :class="codeBlock">:focus-visible</code> 的 outline 颜色；
+            <code :class="codeBlock">--gritty-design-focus-ring-width</code> 和
+            <code :class="codeBlock">--gritty-design-focus-ring-opacity</code>
+            统一控制 Input / Select 等组件在 focus-within / focus-visible / data-[state=open] 时的
+            ring 宽度与颜色透明度。
           </p>
         </div>
-        <div class="flex items-center gap-4">
+
+        <!-- 基础焦点环变量 -->
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="text-muted-foreground">
+              <th class="text-left font-medium py-1 pr-3">Token</th>
+              <th class="text-left font-medium py-1 pr-3">值</th>
+              <th class="text-left font-medium py-1">Tailwind 工具类</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="t in focusRingTokens" :key="t.key" class="border-t border-border">
+              <td class="py-1 pr-3">
+                <code :class="codeBlock">{{ t.cssVar }}</code>
+              </td>
+              <td class="py-1 pr-3 font-mono">{{ t.value }}</td>
+              <td class="py-1 font-mono text-muted-foreground">{{ t.tailwind }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 派生焦点环颜色 Token -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-medium text-foreground">派生颜色 Token（@theme inline）</span>
+          <p class="text-[11px] text-muted-foreground">
+            每个颜色 Token =
+            <code :class="codeBlock"
+              >color-mix(in oklab, var(--gritty-design-{color})
+              var(--gritty-design-focus-ring-opacity), transparent)</code
+            >，修改透明度变量即可全局生效。
+          </p>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
           <div
-            v-for="r in ringTokens"
-            :key="r.key"
+            v-for="c in focusRingColors"
+            :key="c.key"
             class="flex flex-col gap-2 rounded-md border border-border p-3"
           >
-            <button
-              type="button"
-              class="h-8 w-8 rounded-md outline-ring"
-              :style="{ outlineColor: 'var(' + r.cssVar + ')' }"
-              :class="{ 'outline outline-2 outline-offset-2': true }"
-            />
+            <g-input :status="c.status as any" :placeholder="`点击聚焦-${c.label}`" />
             <div class="flex flex-col gap-1 text-[10px] font-mono">
               <div class="flex justify-between">
                 <span class="text-muted-foreground">token</span>
-                <span>{{ r.cssVar }}</span>
+                <span>{{ c.colorToken }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-muted-foreground">tailwind</span>
-                <span>{{ r.tailwind }}</span>
+                <span class="text-muted-foreground">base</span>
+                <span>{{ c.baseVar }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-muted-foreground">tw</span>
+                <span>{{ c.tailwind }}</span>
               </div>
             </div>
           </div>

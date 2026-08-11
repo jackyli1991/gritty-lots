@@ -117,11 +117,11 @@
       'rounded-md border border-input bg-transparent shadow-xs transition-[color,border-color,box-shadow] duration-200',
       !props.bordered && 'border-0 shadow-none',
       props.status === 'error' &&
-        'border-destructive focus-within:border-destructive focus-within:ring-destructive/30 focus-within:ring-3',
+        'border-destructive focus-within:border-destructive focus-within:ring-focus-ring-destructive focus-within:ring-[length:var(--gritty-design-focus-ring-width)]',
       props.status === 'warning' &&
-        'border-warning focus-within:border-warning focus-within:ring-warning/30 focus-within:ring-3',
+        'border-warning focus-within:border-warning focus-within:ring-focus-ring-warning focus-within:ring-[length:var(--gritty-design-focus-ring-width)]',
       props.status === 'default' &&
-        'focus-within:border-primary focus-within:ring-primary/20 focus-within:ring-3',
+        'focus-within:border-primary focus-within:ring-focus-ring-primary focus-within:ring-[length:var(--gritty-design-focus-ring-width)]',
       !props.disabled && props.status === 'default' && 'hover:border-primary',
       !props.disabled && props.status === 'error' && 'hover:border-destructive',
       !props.disabled && props.status === 'warning' && 'hover:border-warning',
