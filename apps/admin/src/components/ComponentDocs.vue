@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { OverviewDoc, ButtonDoc, InputDoc, SelectDoc } from '@gritty-lots/ui/doc';
+  import { OverviewDoc, IconDoc, ButtonDoc, InputDoc, SelectDoc } from '@gritty-lots/ui/doc';
   import { markRaw, ref, computed } from 'vue';
 
   import ColorModeSwitcher from './ColorModeSwitcher.vue';
@@ -15,6 +15,7 @@
 
   const components: DocEntry[] = [
     { key: 'overview', label: '框架总览', doc: markRaw(OverviewDoc) },
+    { key: 'icon', label: 'Icon 图标', doc: markRaw(IconDoc) },
     { key: 'button', label: 'Button 按钮', doc: markRaw(ButtonDoc) },
     { key: 'input', label: 'Input 输入框', doc: markRaw(InputDoc) },
     { key: 'select', label: 'Select 选择器', doc: markRaw(SelectDoc) },

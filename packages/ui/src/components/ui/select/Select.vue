@@ -1,11 +1,4 @@
 <script setup lang="ts" generic="T = string | number | boolean">
-  import {
-    RiAddLine,
-    RiArrowDownSLine,
-    RiCloseLine,
-    RiLoader4Line,
-    RiSearchLine,
-  } from '@remixicon/vue';
   import { useVModel } from '@vueuse/core';
   import {
     SelectContent as RSelectContent,
@@ -28,6 +21,7 @@
   import type { SelectFieldNames, SelectMode, SelectOption, SelectStatus } from '.';
   import { selectTriggerVariants } from '.';
   import { cn } from '../../../lib/utils';
+  import { Icon } from '../icon';
 
   defineOptions({ name: 'GSelect' });
 
@@ -501,10 +495,11 @@
         <!-- 箭头 / 加载 -->
         <SelectIcon v-if="showArrow" as-child>
           <slot v-if="loading" name="loadingIcon">
-            <RiLoader4Line class="size-4 animate-spin opacity-50" />
+            <Icon name="loader4" class="size-4 animate-spin opacity-50" />
           </slot>
           <slot v-else name="suffixIcon">
-            <RiArrowDownSLine
+            <Icon
+              name="arrow-down-s"
               class="size-4 opacity-50 transition-transform duration-200"
               :class="isOpen ? 'rotate-180' : ''"
             />
@@ -552,7 +547,7 @@
                 class="pointer-events-auto inline-flex cursor-pointer items-center justify-center opacity-60 hover:opacity-100"
                 @click.stop="removeTag(tag.value, $event)"
               >
-                <RiCloseLine class="size-3" />
+                <Icon name="close" :size="'xs'" />
               </span>
             </span>
             <span
@@ -581,7 +576,7 @@
         @click.stop.prevent="clearValue"
       >
         <slot name="clearIcon">
-          <RiCloseLine class="size-4" />
+          <Icon name="close" />
         </slot>
       </span>
     </div>
@@ -608,7 +603,8 @@
           class="sticky top-0 z-10 border-b border-border bg-popover p-2"
         >
           <div class="relative">
-            <RiSearchLine
+            <Icon
+              name="search"
               class="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
             />
             <input
@@ -643,18 +639,7 @@
                   <span class="absolute right-2 flex size-3.5 items-center justify-center">
                     <SelectItemIndicator>
                       <slot name="itemIcon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="size-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
+                        <Icon name="check" :size="'sm'" />
                       </slot>
                     </SelectItemIndicator>
                   </span>
@@ -673,18 +658,7 @@
                   <span class="absolute right-2 flex size-3.5 items-center justify-center">
                     <SelectItemIndicator>
                       <slot name="itemIcon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="size-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
+                        <Icon name="check" :size="'sm'" />
                       </slot>
                     </SelectItemIndicator>
                   </span>
@@ -704,7 +678,7 @@
                 class="text-primary hover:bg-accent flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm"
                 @click="createTag"
               >
-                <RiAddLine class="size-4" />
+                <Icon name="add" />
                 创建"{{ searchText }}"
               </button>
             </div>

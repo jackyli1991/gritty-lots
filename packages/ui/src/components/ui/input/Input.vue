@@ -6,6 +6,7 @@
   import type { InputStatus, InputVariants } from '.';
   import { inputVariants } from '.';
   import { cn } from '../../../lib/utils';
+  import { Icon } from '../icon';
 
   defineOptions({ name: 'GInput' });
 
@@ -237,21 +238,7 @@
             class="inline-flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
             @click="clearValue"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="m15 9-6 6" />
-              <path d="m9 9 6 6" />
-            </svg>
+            <Icon name="close" />
           </button>
         </slot>
         <slot v-if="suffix || slots.suffix" name="suffix">{{ suffix }}</slot>
@@ -312,21 +299,7 @@
           class="inline-flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
           @click="clearValue"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="m15 9-6 6" />
-            <path d="m9 9 6 6" />
-          </svg>
+          <Icon name="close" />
         </button>
       </slot>
       <slot v-if="suffix || slots.suffix" name="suffix">{{ suffix }}</slot>

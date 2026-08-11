@@ -1,6 +1,7 @@
 import type { Plugin } from 'vue';
 
 import { Button } from './components/ui/button';
+import { Icon } from './components/ui/icon';
 import { Input } from './components/ui/input';
 import { Select } from './components/ui/select';
 
@@ -18,6 +19,7 @@ export type { UseRippleOptions } from './composables/useRipple';
 // Components (named exports for explicit import)
 export { Button as GButton, buttonVariants } from './components/ui/button';
 export type { ButtonVariants } from './components/ui/button';
+export { Icon as GIcon } from './components/ui/icon';
 export { Input as GInput, inputVariants } from './components/ui/input';
 export type { InputVariants, InputStatus } from './components/ui/input';
 export { Select as GSelect, selectTriggerVariants } from './components/ui/select';
@@ -32,6 +34,7 @@ export type {
 // Component registry for global registration with g- prefix
 const components = {
   GButton: Button,
+  GIcon: Icon,
   GInput: Input,
   GSelect: Select,
 };

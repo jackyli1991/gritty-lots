@@ -1,4 +1,5 @@
 export { default as OverviewDoc } from './components/ui/overview/doc.vue';
 export { default as ButtonDoc } from './components/ui/button/doc.vue';
+export { default as IconDoc } from './components/ui/icon/doc.vue';
 export { default as InputDoc } from './components/ui/input/doc.vue';
 export { default as SelectDoc } from './components/ui/select/doc.vue';

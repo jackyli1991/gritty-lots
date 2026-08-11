@@ -21,7 +21,8 @@
     "reka",
     "remixicon",
     "vueuse",
-    "mysite"
+    "mysite",
+    "wechat"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
