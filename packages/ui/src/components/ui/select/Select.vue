@@ -22,7 +22,7 @@
     SelectTrigger as RSelectTrigger,
     SelectViewport,
   } from 'reka-ui';
-  import type { HTMLAttributes } from 'vue';
+  import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
   import { computed, nextTick, ref, useSlots, watch } from 'vue';
 
   import type { SelectFieldNames, SelectMode, SelectOption, SelectStatus } from '.';
@@ -112,13 +112,12 @@
   }>();
 
   const slots = useSlots();
-  const triggerRef = ref<HTMLElement | null>(null);
+  const triggerRef = ref<HTMLElement | ComponentPublicInstance | null>(null);
   const searchRef = ref<HTMLInputElement | null>(null);
 
   const isMultiple = computed(() => props.mode === 'multiple' || props.mode === 'tags');
   const isTags = computed(() => props.mode === 'tags');
   const effectiveShowSearch = computed(() => props.showSearch || isTags.value);
-  const isInternalChange = ref(false);
 
   // ---- 值管理 ----
   const innerValue = useVModel(props, 'value', emit, {
@@ -323,10 +322,6 @@
   }
 
   function onValueChange(val: T | T[]) {
-    if (isInternalChange.value) {
-      isInternalChange.value = false;
-      return;
-    }
     applyValueChange(val);
   }
 
@@ -373,7 +368,6 @@
   function clearValue(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
-    isInternalChange.value = true;
     const cleared = isMultiple.value ? ([] as T[]) : (undefined as unknown as T);
     if (isMultiple.value) {
       const opts = selectedOptions.value.map((o) => o.raw);
@@ -397,7 +391,6 @@
     const arr = Array.isArray(innerValue.value) ? [...(innerValue.value as T[])] : [];
     const idx = arr.findIndex((v) => String(v) === String(val));
     if (idx >= 0) {
-      isInternalChange.value = true;
       const [removed] = arr.splice(idx, 1);
       const opt = findOptionByValue(removed);
       innerValue.value = arr as T[];
