@@ -504,7 +504,10 @@
             <RiLoader4Line class="size-4 animate-spin opacity-50" />
           </slot>
           <slot v-else name="suffixIcon">
-            <RiArrowDownSLine class="size-4 opacity-50" />
+            <RiArrowDownSLine
+              class="size-4 opacity-50 transition-transform duration-200"
+              :class="isOpen ? 'rotate-180' : ''"
+            />
           </slot>
         </SelectIcon>
       </RSelectTrigger>
@@ -635,7 +638,7 @@
                   :value="opt.value"
                   :disabled="opt.disabled"
                   data-slot="select-item"
-                  class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
                 >
                   <span class="absolute right-2 flex size-3.5 items-center justify-center">
                     <SelectItemIndicator>

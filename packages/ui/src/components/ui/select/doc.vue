@@ -28,7 +28,7 @@
       label: '蔬菜',
       options: [
         { label: '白菜', value: 'cabbage' },
-        { label: '萝卜', value: 'radish' },
+        { label: '萝卜', value: 'radish', disabled: true },
       ],
     },
   ];
