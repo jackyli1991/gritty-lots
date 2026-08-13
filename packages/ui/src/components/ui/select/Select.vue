@@ -15,8 +15,8 @@
     SelectTrigger as RSelectTrigger,
     SelectViewport,
   } from 'reka-ui';
-  import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
-  import { computed, nextTick, ref, useSlots, watch } from 'vue';
+  import type { ComponentPublicInstance, HTMLAttributes, Ref } from 'vue';
+  import { computed, nextTick, ref, shallowRef, useSlots, watch } from 'vue';
 
   import type { SelectFieldNames, SelectMode, SelectOption, SelectStatus } from '.';
   import { selectTriggerVariants } from '.';
@@ -108,6 +108,7 @@
   const slots = useSlots();
   const triggerRef = ref<HTMLElement | ComponentPublicInstance | null>(null);
   const searchRef = ref<HTMLInputElement | null>(null);
+  const isHovered = ref(false);
 
   const isMultiple = computed(() => props.mode === 'multiple' || props.mode === 'tags');
   const isTags = computed(() => props.mode === 'tags');
@@ -116,12 +117,21 @@
   // ---- 值管理 ----
   const innerValue = useVModel(props, 'value', emit, {
     passive: true,
-    defaultValue: props.defaultValue ?? (isMultiple.value ? ([] as T[]) : undefined),
+    defaultValue: (props.defaultValue ?? (isMultiple.value ? ([] as T[]) : undefined)) as
+      | T
+      | T[]
+      | undefined,
     eventName: 'update:value',
-  });
+  }) as Ref<T | T[]>;
 
   // ---- 字段映射 ----
-  const resolvedFieldNames = computed<SelectFieldNames>(() => ({
+  interface ResolvedFieldNames {
+    label: string;
+    value: string;
+    disabled: string;
+    options: string;
+  }
+  const resolvedFieldNames = computed<ResolvedFieldNames>(() => ({
     label: 'label',
     value: 'value',
     disabled: 'disabled',
@@ -179,7 +189,7 @@
   );
 
   // ---- tags 模式：用户创建的新标签 ----
-  const createdTags = ref<NormalizedOption[]>([]);
+  const createdTags = shallowRef<NormalizedOption[]>([]);
   watch(
     () => props.options,
     () => {
@@ -242,9 +252,9 @@
       label: String(val),
       value: val,
       disabled: false,
-      raw: { label: String(val), value: val },
+      raw: { label: String(val), value: val as SelectOption['value'] },
     };
-    createdTags.value.push(newOpt);
+    createdTags.value = [...createdTags.value, newOpt];
     if (isMultiple.value) {
       const arr = Array.isArray(innerValue.value) ? [...(innerValue.value as T[])] : [];
       if (!arr.includes(val)) arr.push(val);
@@ -268,7 +278,7 @@
     passive: true,
     defaultValue: props.defaultOpen ?? false,
     eventName: 'update:open',
-  });
+  }) as Ref<boolean>;
 
   function onOpenChange(open: boolean) {
     isOpen.value = open;
@@ -292,7 +302,7 @@
       emit(
         'change',
         newVal,
-        arr.map((v) => findOptionByValue(v)?.raw ?? { value: v })
+        arr.map((v) => findOptionByValue(v)?.raw ?? ({ value: v } as SelectOption))
       );
 
       // select / deselect
@@ -301,17 +311,25 @@
       const newSet = new Set(arr.map((v) => String(v)));
       for (const v of arr) {
         if (!oldSet.has(String(v))) {
-          emit('select', v, findOptionByValue(v)?.raw ?? { value: v });
+          emit('select', v, findOptionByValue(v)?.raw ?? ({ value: v } as SelectOption));
         }
       }
       for (const v of oldArr) {
         if (!newSet.has(String(v))) {
-          emit('deselect', v, findOptionByValue(v)?.raw ?? { value: v });
+          emit('deselect', v, findOptionByValue(v)?.raw ?? ({ value: v } as SelectOption));
         }
       }
     } else {
-      emit('change', newVal, findOptionByValue(newVal as T)?.raw ?? { value: newVal });
-      emit('select', newVal as T, findOptionByValue(newVal as T)?.raw ?? { value: newVal });
+      emit(
+        'change',
+        newVal,
+        findOptionByValue(newVal as T)?.raw ?? ({ value: newVal } as SelectOption)
+      );
+      emit(
+        'select',
+        newVal as T,
+        findOptionByValue(newVal as T)?.raw ?? ({ value: newVal } as SelectOption)
+      );
     }
   }
 
@@ -333,7 +351,7 @@
     if (isMultiple.value) {
       return Array.isArray(innerValue.value) && innerValue.value.length > 0;
     }
-    return innerValue.value !== undefined && innerValue.value !== null && innerValue.value !== '';
+    return innerValue.value !== undefined && innerValue.value !== null;
   });
 
   const visibleTags = computed<NormalizedOption[]>(() => {
@@ -370,7 +388,7 @@
     } else {
       const opt = selectedOptions.value[0]?.raw;
       innerValue.value = cleared;
-      emit('change', cleared, opt ?? { value: cleared });
+      emit('change', cleared, opt ?? ({ value: cleared } as SelectOption));
     }
     nextTick(() => {
       isOpen.value = false;
@@ -393,7 +411,7 @@
         arr as T[],
         selectedOptions.value.map((o) => o.raw)
       );
-      emit('deselect', removed, opt?.raw ?? { value: removed });
+      emit('deselect', removed, opt?.raw ?? ({ value: removed } as SelectOption));
       nextTick(() => {
         isOpen.value = false;
         getTriggerEl()?.blur();
@@ -465,16 +483,21 @@
 <template>
   <SelectRoot
     data-slot="select"
-    :model-value="innerValue"
+    :model-value="innerValue as any"
     :multiple="isMultiple"
     :disabled="disabled"
     :open="isOpen"
-    :default-value="defaultValue"
-    @update:model-value="onValueChange"
+    :default-value="defaultValue as any"
+    @update:model-value="onValueChange as any"
     @update:open="onOpenChange"
   >
     <!-- 触发器 -->
-    <div data-slot="select-wrapper" class="relative inline-flex w-full">
+    <div
+      data-slot="select-wrapper"
+      class="relative inline-flex w-full"
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
+    >
       <RSelectTrigger
         ref="triggerRef"
         data-slot="select-trigger"
@@ -497,7 +520,11 @@
           <slot v-if="loading" name="loadingIcon">
             <Icon name="loader4" class="size-4 animate-spin opacity-50" />
           </slot>
-          <slot v-else name="suffixIcon">
+          <!-- （hover 有值时隐藏，让位给清除按钮） -->
+          <slot
+            v-if="!(allowClear && isHovered && hasValue && !disabled) && !loading"
+            name="suffixIcon"
+          >
             <Icon
               name="arrow-down-s"
               class="size-4 opacity-50 transition-transform duration-200"
@@ -565,14 +592,14 @@
         <span v-if="showArrow" class="w-4 shrink-0"></span>
       </div>
 
-      <!-- 清除按钮（在 trigger 外部，避免 button 嵌套问题） -->
+      <!-- 清除按钮（hover 时显示，替代箭头位置） -->
       <span
-        v-if="allowClear && hasValue && !disabled"
+        v-if="allowClear && hasValue && !disabled && isHovered"
         role="button"
         tabindex="-1"
         aria-label="clear"
         data-slot="select-clear"
-        class="absolute right-6 top-1/2 z-10 inline-flex h-4 w-4 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm bg-background opacity-50 hover:opacity-100 transition-opacity"
+        class="absolute right-2 top-1/2 z-10 inline-flex h-6 w-6 p-1 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm bg-background transition-opacity"
         @click.stop.prevent="clearValue"
       >
         <slot name="clearIcon">
@@ -631,7 +658,7 @@
                 <RSelectItem
                   v-for="opt in g.options"
                   :key="String(opt.value)"
-                  :value="opt.value"
+                  :value="opt.value as any"
                   :disabled="opt.disabled"
                   data-slot="select-item"
                   class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
@@ -650,7 +677,7 @@
                 <RSelectItem
                   v-for="opt in g.options"
                   :key="String(opt.value)"
-                  :value="opt.value"
+                  :value="opt.value as any"
                   :disabled="opt.disabled"
                   data-slot="select-item"
                   class="focus:bg-accent focus:text-accent-foreground data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary relative flex w-full cursor-pointer items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
