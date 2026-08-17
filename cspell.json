@@ -22,7 +22,9 @@
     "remixicon",
     "vueuse",
     "mysite",
-    "wechat"
+    "wechat",
+    "ntvs",
+    "njsproj"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

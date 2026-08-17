@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gritty-lots/page-neural": "workspace:*",
     "@gritty-lots/ui": "workspace:*",
     "vue": "^3.5.40"
   },
