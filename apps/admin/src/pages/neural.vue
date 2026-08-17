@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { NeuralPage } from '@gritty-lots/page-neural';
+  import { NeuralGraph } from '@gritty-lots/page-neural';
 </script>
 
 <template>
-  <NeuralPage />
+  <NeuralGraph />
 </template>

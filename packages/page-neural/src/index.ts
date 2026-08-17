@@ -1,1 +1,2 @@
-export { default as NeuralPage } from './App.vue';
+import './style.css';
+export { NeuralGraph } from './core/index';

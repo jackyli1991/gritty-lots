@@ -24,7 +24,8 @@
     "mysite",
     "wechat",
     "ntvs",
-    "njsproj"
+    "njsproj",
+    "Lucide"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
