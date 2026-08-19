@@ -25,7 +25,10 @@
     "wechat",
     "ntvs",
     "njsproj",
-    "Lucide"
+    "Lucide",
+    "pannable",
+    "zoomable",
+    "datas"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

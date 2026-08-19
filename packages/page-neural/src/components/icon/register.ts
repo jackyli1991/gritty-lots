@@ -1,3 +1,31 @@
-import { ArrowBigDown, AlarmClock } from '@lucide/vue';
+import {
+  ArrowBigDown,
+  AlarmClock,
+  Database,
+  CirclePlus,
+  ChevronRight,
+  Braces,
+  Brackets,
+  ToggleRight,
+  CaseSensitive,
+  Ban,
+  Pi,
+  Trash2,
+  Settings2,
+} from '@lucide/vue';
 
-export default { ArrowBigDown, AlarmClock };
+export default {
+  ArrowBigDown,
+  AlarmClock,
+  Database,
+  CirclePlus,
+  ChevronRight,
+  Braces,
+  Brackets,
+  ToggleRight,
+  CaseSensitive,
+  Ban,
+  Pi,
+  Trash2,
+  Settings2,
+};

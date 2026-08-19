@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <NeuralGraph />
+  <NeuralGraph style="height: 100vh; width: 100vw" />
 </template>
