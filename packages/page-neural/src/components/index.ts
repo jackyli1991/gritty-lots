@@ -1,6 +1,7 @@
 import { message } from 'ant-design-vue';
 
 import NeuralButton from './button/button.vue';
+import NeuralCheckbox from './checkbox/checkbox.vue';
 import NeuralIcon from './icon/icon.vue';
 import NeuralInput from './input/input.vue';
 import NeuralInputNumber from './inputNumber/inputNumber.vue';
@@ -29,4 +30,5 @@ export {
   NeuralRadio,
   NeuralRadioGroup,
   NeuralRadioButton,
+  NeuralCheckbox,
 };

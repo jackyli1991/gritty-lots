@@ -1,30 +1,22 @@
 <script setup lang="ts">
-  import { InputNumber } from 'ant-design-vue';
+  import { Checkbox } from 'ant-design-vue';
   import { useAttrs, useSlots } from 'vue';
 
-  interface InputNumberProps {
-    block?: boolean;
-  }
+  interface CheckboxProps {}
 
-  defineProps<InputNumberProps>();
+  defineProps<CheckboxProps>();
 
   const attrs = useAttrs();
   const slots = useSlots();
 </script>
 
 <template>
-  <InputNumber
-    v-bind="attrs"
-    :style="{
-      width: block ? '100%' : '',
-    }"
-    class="gritty-neural-input-number"
-  >
+  <Checkbox v-bind="attrs" class="gritty-neural-checkbox">
     <!-- 透传全部具名/默认 slot -->
     <template v-for="(_, name) in slots" :key="name" #[name]="slotData">
       <slot :name="name" v-bind="slotData || {}" />
     </template>
-  </InputNumber>
+  </Checkbox>
 </template>
 
 <style lang="scss" scoped></style>

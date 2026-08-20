@@ -8,6 +8,7 @@
     NeuralSelect,
     NeuralRadioButton,
     NeuralRadioGroup,
+    NeuralCheckbox,
   } from '../../components';
   import { type JSONSchemaObject, type JSONSchemaType } from './types';
 
@@ -114,24 +115,16 @@
           <NeuralRadioButton :value="BehaviorMode.WriteOnly">只写</NeuralRadioButton>
         </NeuralRadioGroup>
       </div>
+      <div class="properties-item">
+        <span class="properties-label">所有元素唯一</span>
+        <NeuralSwitch v-model:checked="data.uniqueItems" size="small" />
+      </div>
     </div>
     <div class="properties-row properties-values">
       <div class="properties-item">
         <span class="properties-label">默认值</span>
         <div class="properties-value">
-          <NeuralInput v-model:value="data.default" size="small" />
-        </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">枚举值(enum)</span>
-        <div class="properties-value">
-          <NeuralSelect v-model:value="data.enum" size="small" mode="tags" block />
-        </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">示例值</span>
-        <div class="properties-value">
-          <NeuralSelect v-model:value="data.examples" size="small" mode="tags" block />
+          <NeuralInput v-model:value="data.default" size="small" placeholder="默认值" />
         </div>
       </div>
       <div class="properties-item">
@@ -140,19 +133,138 @@
           <NeuralSwitch :checked="isConstAllowed" size="small" @change="onChangeConst" />
         </span>
         <div class="properties-value">
-          <NeuralInput v-if="isConstAllowed" v-model:value="data.const" size="small" />
+          <NeuralInput
+            v-if="isConstAllowed"
+            v-model:value="data.const"
+            size="small"
+            placeholder="常量"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">枚举值(enum)</span>
+        <div class="properties-value">
+          <NeuralSelect
+            v-model:value="data.enum"
+            size="small"
+            mode="tags"
+            block
+            placeholder="手动输入，可设置多个"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">示例值</span>
+        <div class="properties-value">
+          <NeuralSelect
+            v-model:value="data.examples"
+            size="small"
+            mode="tags"
+            block
+            placeholder="手动输入，可设置多个"
+          />
         </div>
       </div>
       <div class="properties-item">
         <span class="properties-label">最小长度</span>
         <div class="properties-value">
-          <NeuralInputNumber v-model:value="data.minLength" size="small" min="0" />
+          <NeuralInputNumber
+            v-model:value="data.minLength"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
         </div>
       </div>
       <div class="properties-item">
         <span class="properties-label">最大长度</span>
         <div class="properties-value">
-          <NeuralInputNumber v-model:value="data.maxLength" size="small" min="0" />
+          <NeuralInputNumber
+            v-model:value="data.maxLength"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最小元素数</span>
+        <div class="properties-value">
+          <NeuralInputNumber
+            v-model:value="data.minItems"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最大元素数</span>
+        <div class="properties-value">
+          <NeuralInputNumber
+            v-model:value="data.maxItems"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最小属性数</span>
+        <div class="properties-value">
+          <NeuralInputNumber
+            v-model:value="data.minProperties"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最大属性数</span>
+        <div class="properties-value">
+          <NeuralInputNumber
+            v-model:value="data.maxProperties"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最小值</span>
+        <div class="properties-value properties-value-number">
+          <NeuralInputNumber
+            v-model:value="data.minimum"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+          <NeuralCheckbox v-model:checked="data.exclusiveMinimum" size="small"
+            >不能等于最小值</NeuralCheckbox
+          >
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">最大值</span>
+        <div class="properties-value properties-value-number">
+          <NeuralInputNumber
+            v-model:value="data.maximum"
+            size="small"
+            min="0"
+            block
+            placeholder="大于等于0"
+          />
+          <NeuralCheckbox v-model:checked="data.exclusiveMaximum" size="small"
+            >不能等于最大值</NeuralCheckbox
+          >
         </div>
       </div>
       <div class="properties-item">
@@ -164,7 +276,19 @@
       <div class="properties-item">
         <span class="properties-label">pattern</span>
         <div class="properties-value">
-          <NeuralInput v-model:value="data.pattern" size="small" />
+          <NeuralInput v-model:value="data.pattern" size="small" placeholder="正则表达式" />
+        </div>
+      </div>
+      <div class="properties-item">
+        <span class="properties-label">倍数</span>
+        <div class="properties-value properties-value-number">
+          <NeuralInputNumber
+            v-model:value="data.multipleOf"
+            size="small"
+            min="0"
+            block
+            placeholder="倍数"
+          />
         </div>
       </div>
     </div>
@@ -193,6 +317,11 @@
     }
     .properties-value {
       flex: 1;
+      &.properties-value-number {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     }
 
     .properties-values {

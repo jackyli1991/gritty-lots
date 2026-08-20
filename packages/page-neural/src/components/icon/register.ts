@@ -3,6 +3,8 @@ import {
   AlarmClock,
   Database,
   CirclePlus,
+  CircleX,
+  CircleCheck,
   ChevronRight,
   Braces,
   Brackets,
@@ -12,13 +14,18 @@ import {
   Pi,
   Trash2,
   Settings2,
+  ArrowLeft,
 } from '@lucide/vue';
+
+import Null from './null.vue';
 
 export default {
   ArrowBigDown,
   AlarmClock,
   Database,
   CirclePlus,
+  CircleX,
+  CircleCheck,
   ChevronRight,
   Braces,
   Brackets,
@@ -28,4 +35,6 @@ export default {
   Pi,
   Trash2,
   Settings2,
+  ArrowLeft,
+  Null,
 };

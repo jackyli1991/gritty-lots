@@ -35,7 +35,9 @@
 
 <template>
   <button :aria-label="label" @click="handleClick">
-    <component v-if="icon" :is="icon" v-bind="$attrs" />
+    <component v-if="icon" :is="icon" v-bind="$attrs">
+      <slot></slot>
+    </component>
     <template v-else>图标未找到</template>
   </button>
 </template>

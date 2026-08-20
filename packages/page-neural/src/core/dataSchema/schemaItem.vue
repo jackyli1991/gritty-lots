@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
 
   import {
     NeuralIcon,
@@ -28,6 +28,11 @@
   const emit = defineEmits(['update:field', 'update:required', 'remove:field']);
   const propertiesExpanded = ref(false);
   const groupExpanded = ref(true);
+
+  // 是否允许Null
+  const isNullIncluded = computed(
+    () => Array.isArray(props.data.type) && props.data.type.includes('null')
+  );
 
   /**
    * 切换属性编辑面板展开状态
@@ -89,18 +94,18 @@
 </script>
 
 <template>
-  <div class="schema-item-container">
+  <div
+    class="schema-item-container"
+    :class="{
+      'is-deprecated': data.deprecated,
+    }"
+  >
     <div class="schema-main">
       <div class="schema-field schema-item">
         <NeuralInput :value="field" bottomBorder placeholder="字段" @blur="updateField" />
       </div>
       <div class="schema-field schema-item">
-        <NeuralInput
-          v-model:value="data.title"
-          bottomBorder
-          placeholder="中文名"
-          @blur="updateField"
-        />
+        <NeuralInput v-model:value="data.title" bottomBorder placeholder="中文名" />
       </div>
       <div class="schema-description schema-item">
         <NeuralInput v-model:value="data.description" bottomBorder placeholder="字段描述" />
@@ -119,11 +124,6 @@
           </NeuralSelectOption>
         </NeuralSelect>
       </div>
-      <div class="schema-required schema-item">
-        <NeuralCheckableTag :checked="required" @update:checked="updateRequired">{{
-          required ? '必填' : '可选'
-        }}</NeuralCheckableTag>
-      </div>
       <div class="schema-actions schema-item">
         <NeuralTooltip title="折叠/展开">
           <NeuralIcon
@@ -136,6 +136,15 @@
             @click="toggleGroupExpanded"
           />
         </NeuralTooltip>
+        <NeuralCheckableTag
+          :checked="required"
+          :style="{ marginRight: 0 }"
+          @update:checked="updateRequired"
+        >
+          {{ required ? '必填' : '可选' }}
+        </NeuralCheckableTag>
+        <!-- 允许null -->
+        <NeuralIcon v-if="isNullIncluded" name="Null" color="red" stroke-width="0.5"></NeuralIcon>
         <NeuralTooltip title="高级设置">
           <NeuralIcon name="Settings2" @click="togglePropertiesExpanded" />
         </NeuralTooltip>
@@ -158,19 +167,19 @@
 <style lang="scss" scoped>
   .schema-item-container {
     margin-bottom: 6px;
-    font-size: 12px;
     .schema-main {
       display: flex;
       align-items: center;
       padding: 4px;
       background-color: #fafafa;
       border-radius: 4px;
+      border: 1px solid transparent;
       .schema-item {
         padding: 0 4px;
       }
 
       .schema-type-selector {
-        width: 95px;
+        width: 90px !important;
       }
 
       .schema-actions {
@@ -200,6 +209,12 @@
       &.is-expanded {
         transform: rotate(90deg);
       }
+    }
+
+    // 已废弃状态下的样式
+    &.is-deprecated .schema-main {
+      background-color: #fff2f0;
+      border-color: #ffccc7;
     }
   }
 </style>

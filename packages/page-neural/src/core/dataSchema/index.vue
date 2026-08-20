@@ -34,6 +34,7 @@
     height: 100%;
     border-radius: 4px;
     background-color: #fff;
+    font-size: 12px;
     .data-schema-panel {
       display: flex;
       height: 100%;

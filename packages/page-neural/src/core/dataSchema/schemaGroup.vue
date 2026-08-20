@@ -94,6 +94,10 @@
         <NeuralIcon name="CirclePlus" @click="addProperty" />
       </NeuralTooltip>
     </div>
+    <div v-if="Object.keys(schemaProperties).length === 0" class="schema-no-fields">
+      <NeuralIcon name="ArrowLeft" />
+      点击添加字段
+    </div>
     <div class="schema-fields">
       <SchemaItem
         v-for="(item, k) in schemaProperties"
@@ -112,7 +116,7 @@
 <style lang="scss" scoped>
   .schema-group {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     border-radius: 4px;
     padding: 4px 0;
     margin: 4px 0;
@@ -122,6 +126,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      align-self: flex-start;
+    }
+    .schema-no-fields {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
     }
     .schema-fields {
       flex: 1;
