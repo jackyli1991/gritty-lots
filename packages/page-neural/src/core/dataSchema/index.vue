@@ -6,7 +6,7 @@
   import { type JSONSchemaObject } from './types';
 
   const schemaData = ref<JSONSchemaObject>({
-    $schema: 'https://json-schema.org/draft-07/schema',
+    $schema: 'http://json-schema.org/draft-07/schema',
     type: 'object',
     properties: {},
     required: [],
@@ -17,13 +17,15 @@
   <div class="gritty-data-schema">
     <div class="data-schema-panel">
       <div class="panel-content">
-        <SchemaGroup
-          :schemaProperties="schemaData.properties || {}"
-          :requiredList="schemaData.required || []"
-        />
+        <div class="schema-config">
+          <SchemaGroup
+            :schemaProperties="schemaData.properties || {}"
+            :requiredList="schemaData.required || []"
+          />
+        </div>
       </div>
       <div class="panel-content panel-view">
-        <SchemaViewer :jsonData="schemaData" />
+        <SchemaViewer :jsonData="schemaData" @update:jsonData="schemaData = $event" />
       </div>
     </div>
   </div>
@@ -43,6 +45,11 @@
         flex: 1;
         height: 100%;
         padding: 12px;
+        overflow: hidden;
+        .schema-config {
+          height: 100%;
+          overflow: auto;
+        }
       }
     }
   }

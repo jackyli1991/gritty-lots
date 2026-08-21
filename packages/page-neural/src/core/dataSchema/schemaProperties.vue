@@ -144,6 +144,7 @@
               size="small"
               placeholder="默认值"
               block
+              allowClear
               :options="[
                 { label: 'true', value: true },
                 { label: 'false', value: false },
