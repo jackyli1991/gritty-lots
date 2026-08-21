@@ -10,11 +10,15 @@
     NeuralRadioGroup,
     NeuralCheckbox,
   } from '../../components';
+  import { formatOptions } from './datas';
+  import propertyControl from './propertyControl.vue';
   import { type JSONSchemaObject, type JSONSchemaType } from './types';
+  import { is } from './utils';
 
   interface Props {
     data: JSONSchemaObject;
     required: boolean | undefined;
+    isArrayItems: boolean;
   }
 
   const BehaviorMode = {
@@ -28,9 +32,7 @@
   const emit = defineEmits(['update:required']);
 
   // 是否允许Null
-  const isNullIncluded = computed(
-    () => Array.isArray(props.data.type) && props.data.type.includes('null')
-  );
+  const isNullIncluded = computed(() => is(props.data.type, 'null'));
 
   // 是否允许常量
   const isConstAllowed = computed(() => props.data.const !== undefined);
@@ -92,11 +94,21 @@
     <div class="properties-row">
       <div class="properties-item">
         <span class="properties-label">必填</span>
-        <NeuralSwitch :checked="required" size="small" @change="onChangeRequired" />
+        <NeuralSwitch
+          :checked="required"
+          size="small"
+          :disabled="isArrayItems"
+          @change="onChangeRequired"
+        />
       </div>
       <div class="properties-item">
         <span class="properties-label">允许NULL</span>
-        <NeuralSwitch :checked="isNullIncluded" size="small" @change="onChangeNullAllowed" />
+        <NeuralSwitch
+          :disabled="data.type === 'null'"
+          :checked="isNullIncluded"
+          size="small"
+          @change="onChangeNullAllowed"
+        />
       </div>
       <div class="properties-item">
         <span class="properties-label">废弃</span>
@@ -115,182 +127,219 @@
           <NeuralRadioButton :value="BehaviorMode.WriteOnly">只写</NeuralRadioButton>
         </NeuralRadioGroup>
       </div>
-      <div class="properties-item">
-        <span class="properties-label">所有元素唯一</span>
-        <NeuralSwitch v-model:checked="data.uniqueItems" size="small" />
-      </div>
+      <propertyControl :type="data.type" fieldName="uniqueItems">
+        <div class="properties-item">
+          <span class="properties-label">所有元素唯一</span>
+          <NeuralSwitch v-model:checked="data.uniqueItems" size="small" />
+        </div>
+      </propertyControl>
     </div>
     <div class="properties-row properties-values">
-      <div class="properties-item">
-        <span class="properties-label">默认值</span>
-        <div class="properties-value">
-          <NeuralInput v-model:value="data.default" size="small" placeholder="默认值" />
+      <propertyControl :type="data.type" fieldName="default">
+        <div class="properties-item">
+          <span class="properties-label">默认值</span>
+          <div v-if="is(data.type, 'boolean')" class="properties-value">
+            <NeuralSelect
+              v-model:value="data.default"
+              size="small"
+              placeholder="默认值"
+              block
+              :options="[
+                { label: 'true', value: true },
+                { label: 'false', value: false },
+              ]"
+            />
+          </div>
+          <div v-else class="properties-value">
+            <NeuralInput v-model:value="data.default" size="small" placeholder="默认值" />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">
-          常量
-          <NeuralSwitch :checked="isConstAllowed" size="small" @change="onChangeConst" />
-        </span>
-        <div class="properties-value">
-          <NeuralInput
-            v-if="isConstAllowed"
-            v-model:value="data.const"
-            size="small"
-            placeholder="常量"
-          />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="const_enum_examples">
+        <div class="properties-item">
+          <span class="properties-label">
+            常量
+            <NeuralSwitch :checked="isConstAllowed" size="small" @change="onChangeConst" />
+          </span>
+          <div class="properties-value">
+            <NeuralInput
+              v-if="isConstAllowed"
+              v-model:value="data.const"
+              size="small"
+              placeholder="常量"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">枚举值(enum)</span>
-        <div class="properties-value">
-          <NeuralSelect
-            v-model:value="data.enum"
-            size="small"
-            mode="tags"
-            block
-            placeholder="手动输入，可设置多个"
-          />
+        <div class="properties-item">
+          <span class="properties-label">枚举值(enum)</span>
+          <div class="properties-value">
+            <NeuralSelect
+              v-model:value="data.enum"
+              size="small"
+              mode="tags"
+              block
+              placeholder="手动输入，可设置多个"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">示例值</span>
-        <div class="properties-value">
-          <NeuralSelect
-            v-model:value="data.examples"
-            size="small"
-            mode="tags"
-            block
-            placeholder="手动输入，可设置多个"
-          />
+        <div class="properties-item">
+          <span class="properties-label">示例值</span>
+          <div class="properties-value">
+            <NeuralSelect
+              v-model:value="data.examples"
+              size="small"
+              mode="tags"
+              block
+              placeholder="手动输入，可设置多个"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最小长度</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.minLength"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="minLength_maxLength">
+        <div class="properties-item">
+          <span class="properties-label">最小长度</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.minLength"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最大长度</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.maxLength"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+        <div class="properties-item">
+          <span class="properties-label">最大长度</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.maxLength"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最小元素数</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.minItems"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="minItems_maxItems">
+        <div class="properties-item">
+          <span class="properties-label">最小元素个数</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.minItems"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最大元素数</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.maxItems"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+        <div class="properties-item">
+          <span class="properties-label">最大元素个数</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.maxItems"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最小属性数</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.minProperties"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="minProperties_maxProperties">
+        <div class="properties-item">
+          <span class="properties-label">最小属性个数</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.minProperties"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最大属性数</span>
-        <div class="properties-value">
-          <NeuralInputNumber
-            v-model:value="data.maxProperties"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
+        <div class="properties-item">
+          <span class="properties-label">最大属性个数</span>
+          <div class="properties-value">
+            <NeuralInputNumber
+              v-model:value="data.maxProperties"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最小值</span>
-        <div class="properties-value properties-value-number">
-          <NeuralInputNumber
-            v-model:value="data.minimum"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
-          <NeuralCheckbox v-model:checked="data.exclusiveMinimum" size="small"
-            >不能等于最小值</NeuralCheckbox
-          >
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="minimum_maximum">
+        <div class="properties-item">
+          <span class="properties-label">最小值</span>
+          <div class="properties-value properties-value-number">
+            <NeuralInputNumber
+              v-model:value="data.minimum"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+            <NeuralCheckbox v-model:checked="data.exclusiveMinimum" size="small"
+              >不能等于最小值</NeuralCheckbox
+            >
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">最大值</span>
-        <div class="properties-value properties-value-number">
-          <NeuralInputNumber
-            v-model:value="data.maximum"
-            size="small"
-            min="0"
-            block
-            placeholder="大于等于0"
-          />
-          <NeuralCheckbox v-model:checked="data.exclusiveMaximum" size="small"
-            >不能等于最大值</NeuralCheckbox
-          >
+        <div class="properties-item">
+          <span class="properties-label">最大值</span>
+          <div class="properties-value properties-value-number">
+            <NeuralInputNumber
+              v-model:value="data.maximum"
+              size="small"
+              min="0"
+              block
+              placeholder="大于等于0"
+            />
+            <NeuralCheckbox v-model:checked="data.exclusiveMaximum" size="small"
+              >不能等于最大值</NeuralCheckbox
+            >
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">format</span>
-        <div class="properties-value">
-          <NeuralSelect style="width: 100%" v-model:value="data.format" size="small" />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="format">
+        <div class="properties-item">
+          <span class="properties-label">format</span>
+          <div class="properties-value">
+            <NeuralSelect
+              style="width: 100%"
+              v-model:value="data.format"
+              size="small"
+              :options="formatOptions"
+            />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">pattern</span>
-        <div class="properties-value">
-          <NeuralInput v-model:value="data.pattern" size="small" placeholder="正则表达式" />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="pattern">
+        <div class="properties-item">
+          <span class="properties-label">pattern</span>
+          <div class="properties-value">
+            <NeuralInput v-model:value="data.pattern" size="small" placeholder="正则表达式" />
+          </div>
         </div>
-      </div>
-      <div class="properties-item">
-        <span class="properties-label">倍数</span>
-        <div class="properties-value properties-value-number">
-          <NeuralInputNumber
-            v-model:value="data.multipleOf"
-            size="small"
-            min="0"
-            block
-            placeholder="倍数"
-          />
+      </propertyControl>
+      <propertyControl :type="data.type" fieldName="multipleOf">
+        <div class="properties-item">
+          <span class="properties-label">倍数</span>
+          <div class="properties-value properties-value-number">
+            <NeuralInputNumber
+              v-model:value="data.multipleOf"
+              size="small"
+              min="0"
+              block
+              placeholder="倍数"
+            />
+          </div>
         </div>
-      </div>
+      </propertyControl>
     </div>
     <!-- <div class="properties-empty">暂无属性</div> -->
   </div>

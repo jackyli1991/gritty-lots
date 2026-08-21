@@ -2,6 +2,7 @@
   import { ref } from 'vue';
 
   import SchemaGroup from './schemaGroup.vue';
+  import SchemaViewer from './schemaViewer.vue';
   import { type JSONSchemaObject } from './types';
 
   const schemaData = ref<JSONSchemaObject>({
@@ -22,7 +23,7 @@
         />
       </div>
       <div class="panel-content panel-view">
-        {{ schemaData }}
+        <SchemaViewer :jsonData="schemaData" />
       </div>
     </div>
   </div>

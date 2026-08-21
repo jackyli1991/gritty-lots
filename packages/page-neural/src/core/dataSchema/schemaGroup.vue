@@ -117,9 +117,7 @@
   .schema-group {
     display: flex;
     align-items: center;
-    border-radius: 4px;
-    padding: 4px 0;
-    margin: 4px 0;
+    border-radius: 8px;
     gap: 8px;
     .schema-add-btn {
       height: 40px;
@@ -136,6 +134,9 @@
     }
     .schema-fields {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
   }
 </style>

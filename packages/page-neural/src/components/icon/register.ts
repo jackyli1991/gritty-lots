@@ -15,6 +15,11 @@ import {
   Trash2,
   Settings2,
   ArrowLeft,
+  List,
+  FileBraces,
+  Download,
+  Copy,
+  Import,
 } from '@lucide/vue';
 
 import Null from './null.vue';
@@ -36,5 +41,10 @@ export default {
   Trash2,
   Settings2,
   ArrowLeft,
+  List,
+  FileBraces,
+  Download,
+  Copy,
+  Import,
   Null,
 };
