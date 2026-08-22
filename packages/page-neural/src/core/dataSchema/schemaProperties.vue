@@ -9,9 +9,12 @@
     NeuralRadioButton,
     NeuralRadioGroup,
     NeuralCheckbox,
+    NeuralPopover,
+    NeuralIcon,
   } from '../../components';
   import { formatOptions } from './datas';
   import propertyControl from './propertyControl.vue';
+  import SchemaItemViewer from './schemaItemViewer.vue';
   import { type JSONSchemaObject, type JSONSchemaType } from './types';
   import { is } from './utils';
 
@@ -133,6 +136,14 @@
           <NeuralSwitch v-model:checked="data.uniqueItems" size="small" />
         </div>
       </propertyControl>
+      <div class="properties-schema-view">
+        <NeuralPopover placement="bottom" trigger="click">
+          <template #content>
+            <SchemaItemViewer :json-data="data" />
+          </template>
+          <NeuralIcon class="properties-item" name="FileBraces" />
+        </NeuralPopover>
+      </div>
     </div>
     <div class="properties-row properties-values">
       <propertyControl :type="data.type" fieldName="default">
@@ -352,6 +363,12 @@
     .properties-row {
       line-height: 30px;
       display: flex;
+      align-items: center;
+    }
+    .properties-schema-view {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
       align-items: center;
     }
     .properties-item {

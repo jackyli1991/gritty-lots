@@ -2,5 +2,7 @@ packages:
   - 'apps/*'
   - 'packages/*'
 allowBuilds:
+  '@parcel/watcher': false
+  core-js: false
   lefthook: false
   vue-demi: false

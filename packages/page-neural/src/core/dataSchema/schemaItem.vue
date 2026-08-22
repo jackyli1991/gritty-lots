@@ -32,7 +32,6 @@
   });
   const emit = defineEmits(['update:field', 'update:required', 'remove:field']);
   const propertiesExpanded = ref(false);
-  const groupExpanded = ref(true);
 
   // 是否允许Null
   const isNullIncluded = computed(() => is(props.data.type, 'null'));
@@ -56,13 +55,6 @@
    */
   function togglePropertiesExpanded() {
     propertiesExpanded.value = !propertiesExpanded.value;
-  }
-
-  /**
-   * 切换子项展开状态
-   */
-  function toggleGroupExpanded() {
-    groupExpanded.value = !groupExpanded.value;
   }
 
   /**
@@ -158,17 +150,6 @@
         </NeuralSelect>
       </div>
       <div class="schema-actions schema-item">
-        <NeuralTooltip title="折叠/展开">
-          <NeuralIcon
-            v-if="data.type === 'object'"
-            :class="{
-              'schema-group-expand-icon': true,
-              'is-expanded': groupExpanded,
-            }"
-            name="ChevronRight"
-            @click="toggleGroupExpanded"
-          />
-        </NeuralTooltip>
         <NeuralCheckableTag
           v-if="!isArrayItems"
           :checked="required"
@@ -200,11 +181,11 @@
   </div>
   <div class="schema-children" v-if="isObject || isArray">
     <SchemaGroup
-      v-if="data.properties && isObject && groupExpanded"
+      v-if="data.properties && isObject"
       :schemaProperties="data.properties || {}"
       :requiredList="data.required || []"
     />
-    <SchemaItems v-if="data.items && isArray && groupExpanded" :data="data.items || {}" />
+    <SchemaItems v-if="data.items && isArray" :data="data.items || {}" />
   </div>
 </template>
 
@@ -259,14 +240,6 @@
         .schema-actions {
           opacity: 1;
         }
-      }
-    }
-
-    // 展开状态下的样式
-    .schema-group-expand-icon {
-      transition: transform 0.12s ease-in-out;
-      &.is-expanded {
-        transform: rotate(90deg);
       }
     }
 

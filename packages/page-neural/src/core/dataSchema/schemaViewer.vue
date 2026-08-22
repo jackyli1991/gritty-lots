@@ -4,7 +4,7 @@
   import { JsonViewer } from 'vue3-json-viewer';
 
   import { NeuralIcon, NeuralTooltip } from '../../components';
-  import ajv from './ajv-instance.ts';
+  // import ajv from './ajv-instance.ts';
   import { type JSONSchemaObject } from './types';
   import { exportJSON, importJSON } from './utils';
 
@@ -40,18 +40,10 @@
     try {
       const data = await importJSON((event.target as HTMLInputElement).files?.[0]);
       console.log(data);
-      const validate = ajv.compile(data as JSONSchemaObject) as any;
-      const valid = validate(validate);
-      if (!valid) {
-        message.error('json schema 校验失败');
-        console.log(validate.errors);
-        return;
-      }
       emit('update:jsonData', data);
       message.success('导入完成');
     } catch (error: any) {
       message.error(error?.message || '导入失败');
-      console.dir(error);
     }
   };
 </script>
