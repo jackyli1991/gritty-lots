@@ -6,6 +6,7 @@
     NeuralInput,
     NeuralSelect,
     NeuralSelectOption,
+    NeuralSelectOptGroup,
     NeuralCheckableTag,
     NeuralTooltip,
   } from '../../components';
@@ -47,7 +48,14 @@
     if (Array.isArray(type)) {
       type = type.filter((item) => item !== 'null')[0];
     }
-    return SchemaTypes.find((item) => item.value === type);
+    let option: Record<string, any> | undefined = {};
+    for (const item of SchemaTypes) {
+      option = item.options.find((opt) => opt.value === type);
+      if (option) {
+        return option;
+      }
+    }
+    return option;
   });
 
   /**
@@ -143,10 +151,21 @@
           popupClassName="schema-type-selector-dropdown"
           @change="onSchemaTypeChange"
         >
-          <NeuralSelectOption v-for="item in SchemaTypes" :key="item.value" :value="item.value">
-            <NeuralIcon :name="item.icon" :size="14" />
-            <span>{{ item.label }}</span>
-          </NeuralSelectOption>
+          <!-- 类型分组 -->
+          <NeuralSelectOptGroup
+            v-for="(group, index) in SchemaTypes"
+            :key="index"
+            :label="group.label"
+          >
+            <NeuralSelectOption
+              v-for="option in group.options"
+              :key="option.value"
+              :value="option.value"
+            >
+              <NeuralIcon :name="option.icon" :size="14" />
+              <span>{{ option.label }}</span>
+            </NeuralSelectOption>
+          </NeuralSelectOptGroup>
         </NeuralSelect>
       </div>
       <div class="schema-actions schema-item">

@@ -1,4 +1,4 @@
-export const SchemaTypes = [
+const baseTypes = [
   {
     label: 'null',
     value: 'null',
@@ -41,6 +41,13 @@ export const SchemaTypes = [
     backgroundColor: '#F4FBF6',
     color: '#3E9B4F',
     children: true,
+  },
+];
+
+export const SchemaTypes = [
+  {
+    label: '基础类型',
+    options: baseTypes,
   },
 ];
 

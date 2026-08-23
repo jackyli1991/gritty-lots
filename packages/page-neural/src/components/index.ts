@@ -9,6 +9,7 @@ import NeuralPopover from './popover/popover.vue';
 import NeuralRadio from './radio/radio.vue';
 import NeuralRadioButton from './radio/radioButton.vue';
 import NeuralRadioGroup from './radio/radioGroup.vue';
+import NeuralSelectOptGroup from './select/optGroup.vue';
 import NeuralSelect from './select/select.vue';
 import NeuralSelectOption from './select/selectOption.vue';
 import NeuralSwitch from './switch/switch.vue';
@@ -23,6 +24,7 @@ export {
   NeuralInput,
   NeuralSelect,
   NeuralSelectOption,
+  NeuralSelectOptGroup,
   NeuralTag,
   NeuralCheckableTag,
   NeuralTooltip,
