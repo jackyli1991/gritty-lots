@@ -9,6 +9,7 @@
     NeuralSelectOptGroup,
     NeuralCheckableTag,
     NeuralTooltip,
+    NeuralPopConfirm,
   } from '../../components';
   import { baseTypes, combinationOptions, SchemaTypes } from './datas';
   import SchemaCombination from './schemaCombination.vue';
@@ -56,6 +57,9 @@
   const isObject = computed(() => is(props.data.type, 'object'));
   // 是否是数组
   const isArray = computed(() => is(props.data.type, 'array'));
+
+  // 是否子项高亮显示
+  const isHighlighting = computed(() => hoverItemField.value === props.field);
 
   // 选中的选项
   const selectedTypeOption = computed(() => {
@@ -169,7 +173,6 @@
   function onSchemaMouseOver() {
     if (isObject.value || isArray.value || isCombinationType.value) {
       hoverItemField.value = props.field || '';
-      console.log(hoverItemField.value);
     }
   }
 </script>
@@ -245,7 +248,25 @@
             @click="togglePropertiesExpanded"
           />
         </NeuralTooltip>
-        <NeuralIcon v-if="!isArrayItems" name="Trash2" @click="removeField" />
+        <!-- 删除字段 -->
+        <NeuralPopConfirm
+          v-if="!isArrayItems"
+          title="确认删除吗？"
+          okText="删除"
+          cancelText="取消"
+          :cancelButtonProps="{
+            type: 'text',
+          }"
+          :okButtonProps="{
+            danger: true,
+          }"
+          @confirm="removeField"
+        >
+          <template #icon>
+            <NeuralIcon name="CircleAlert" color="#CE2C31" stroke-width="2" />
+          </template>
+          <NeuralIcon name="Trash2" />
+        </NeuralPopConfirm>
       </div>
     </div>
     <div v-if="propertiesExpanded">
@@ -263,18 +284,18 @@
       v-if="data.properties && isObject"
       :schemaProperties="data.properties || {}"
       :requiredList="data.required || []"
-      :highlight="hoverItemField === field"
+      :highlight="isHighlighting"
     />
     <SchemaItems
       v-if="data.items && isArray"
       :data="data.items || {}"
-      :highlight="hoverItemField === field"
+      :highlight="isHighlighting"
     />
     <SchemaCombination
       v-if="isCombinationType"
       :data="data"
       :combinationType="selectedTypeOption?.value || ''"
-      :highlight="hoverItemField === field"
+      :highlight="isHighlighting"
     />
   </div>
 </template>
@@ -289,7 +310,7 @@
       background-color: #fafafa;
       border-radius: 8px;
       border: 1px solid transparent;
-      transition: background-color 0.15s ease-in-out;
+      transition: background-color 0.1s ease-in-out;
       .schema-item {
         padding: 0 4px;
       }
@@ -347,11 +368,16 @@
         background-color: #e6f4fe;
       }
     }
+    &:not(.is-deprecated):hover {
+      .schema-main {
+        border-color: #5eb1ef;
+      }
+    }
   }
 
-  .schema-children {
-    // padding-top: 4px;
-  }
+  // .schema-children {
+  //   padding-top: 4px;
+  // }
 </style>
 
 <style>

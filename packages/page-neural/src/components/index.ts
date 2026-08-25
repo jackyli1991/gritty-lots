@@ -1,10 +1,12 @@
 import { message } from 'ant-design-vue';
 
+import NeuralBadge from './badge/badge.vue';
 import NeuralButton from './button/button.vue';
 import NeuralCheckbox from './checkbox/checkbox.vue';
 import NeuralIcon from './icon/icon.vue';
 import NeuralInput from './input/input.vue';
 import NeuralInputNumber from './inputNumber/inputNumber.vue';
+import NeuralPopConfirm from './popConfirm/popConfirm.vue';
 import NeuralPopover from './popover/popover.vue';
 import NeuralRadio from './radio/radio.vue';
 import NeuralRadioButton from './radio/radioButton.vue';
@@ -35,4 +37,6 @@ export {
   NeuralRadioButton,
   NeuralCheckbox,
   NeuralPopover,
+  NeuralBadge,
+  NeuralPopConfirm,
 };

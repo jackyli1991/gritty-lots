@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted } from 'vue';
 
-  import { NeuralIcon, NeuralTooltip } from '../../components';
+  import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
   import SchemaItem from './schemaItem.vue';
   import { type JSONSchemaObject } from './types';
   import { createField } from './utils';
@@ -11,6 +11,7 @@
   });
 
   const propertiesExpanded = ref(true);
+  const propertyFieldList = ref<string[]>([]);
 
   const props = defineProps<{
     schemaProperties: Exclude<JSONSchemaObject['properties'], undefined>;
@@ -29,6 +30,7 @@
     props.schemaProperties[fieldName] = {
       ...jsonSchema,
     };
+    propertyFieldList.value.push(fieldName);
   };
 
   // 移除必填字段
@@ -68,6 +70,8 @@
       removeRequiredField(oldField);
       addRequiredField(newField);
     }
+    // 更新 propertyFieldList
+    propertyFieldList.value.splice(propertyFieldList.value.indexOf(oldField), 1, newField);
   };
 
   /**
@@ -80,6 +84,8 @@
     }
     delete props.schemaProperties[field];
     removeRequiredField(field);
+    // 更新 propertyFieldList
+    propertyFieldList.value.splice(propertyFieldList.value.indexOf(field), 1);
   };
 
   /**
@@ -100,10 +106,15 @@
   function togglePropertiesExpanded() {
     propertiesExpanded.value = !propertiesExpanded.value;
   }
+
+  onMounted(() => {
+    propertyFieldList.value = Object.keys(props.schemaProperties || {});
+  });
 </script>
 
 <template>
   <div class="schema-group">
+    <!-- <div>{{ propertyFieldList }}</div> -->
     <div class="schema-group-btn">
       <NeuralTooltip title="折叠/展开" v-if="hasProperties">
         <NeuralIcon
@@ -116,7 +127,12 @@
         />
       </NeuralTooltip>
       <NeuralTooltip title="添加字段">
-        <NeuralIcon name="CirclePlus" @click="addProperty" />
+        <NeuralBadge>
+          <template #count>
+            <span class="schema-badge-count">{{ propertyFieldList.length }}</span>
+          </template>
+          <NeuralIcon name="CirclePlus" @click="addProperty" />
+        </NeuralBadge>
       </NeuralTooltip>
     </div>
     <div v-if="!hasProperties" class="schema-no-fields">
@@ -125,15 +141,15 @@
     </div>
     <div class="schema-fields" v-show="propertiesExpanded">
       <SchemaItem
-        v-for="(item, k) in schemaProperties"
-        :key="k"
-        :field="k"
-        :data="item"
+        v-for="(item, idx) in propertyFieldList"
+        :key="idx"
+        :field="item"
+        :data="props.schemaProperties[item]"
         :highlight="highlight"
-        :required="requiredList?.includes(k)"
-        @update:field="updateField(k, $event)"
-        @update:required="updateRequired(k)"
-        @remove:field="removeField(k)"
+        :required="requiredList?.includes(item)"
+        @update:field="updateField(item, $event)"
+        @update:required="updateRequired(item)"
+        @remove:field="removeField(item)"
       />
     </div>
   </div>
@@ -159,6 +175,18 @@
         &.is-expanded {
           transform: rotate(90deg);
         }
+      }
+
+      .schema-badge-count {
+        padding: 2px;
+        min-width: 14px;
+        border-radius: 6px;
+        color: #e5484d;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1;
+        background-color: #feebec;
       }
     }
     .schema-no-fields {

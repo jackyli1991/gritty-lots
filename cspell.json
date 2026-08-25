@@ -28,7 +28,8 @@
     "Lucide",
     "pannable",
     "zoomable",
-    "datas"
+    "datas",
+    "Popconfirm"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
