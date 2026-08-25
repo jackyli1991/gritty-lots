@@ -20,6 +20,9 @@ import {
   Download,
   Copy,
   Import,
+  Ampersand,
+  Tally1,
+  ChevronUp,
 } from '@lucide/vue';
 
 import Null from './null.vue';
@@ -46,5 +49,8 @@ export default {
   Download,
   Copy,
   Import,
+  Ampersand,
+  Tally1,
+  ChevronUp,
   Null,
 };

@@ -9,6 +9,7 @@
 
   interface Props {
     data: JSONSchema;
+    highlight?: boolean;
   }
 
   defineProps<Props>();
@@ -21,7 +22,7 @@
         <NeuralIcon name="List" />
       </NeuralTooltip>
     </span>
-    <SchemaItem :data="data" :field="data.field" isArrayItems />
+    <SchemaItem :data="data" :highlight="highlight" field="fieldArray" isArrayItems />
   </div>
 </template>
 

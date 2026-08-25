@@ -22,6 +22,7 @@
     data: JSONSchemaObject;
     required: boolean | undefined;
     isArrayItems: boolean;
+    isCombinationItem: boolean;
   }
 
   const BehaviorMode = {
@@ -100,7 +101,7 @@
         <NeuralSwitch
           :checked="required"
           size="small"
-          :disabled="isArrayItems"
+          :disabled="isArrayItems || isCombinationItem"
           @change="onChangeRequired"
         />
       </div>
@@ -183,14 +184,14 @@
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">枚举值(enum)</span>
+          <span class="properties-label">枚举值</span>
           <div class="properties-value">
             <NeuralSelect
               v-model:value="data.enum"
               size="small"
               mode="tags"
               block
-              placeholder="手动输入，可设置多个"
+              placeholder="手动输入，可多个"
             />
           </div>
         </div>
@@ -202,7 +203,7 @@
               size="small"
               mode="tags"
               block
-              placeholder="手动输入，可设置多个"
+              placeholder="手动输入，可多个"
             />
           </div>
         </div>
@@ -334,7 +335,7 @@
         <div class="properties-item">
           <span class="properties-label">pattern</span>
           <div class="properties-value">
-            <NeuralInput v-model:value="data.pattern" size="small" placeholder="正则表达式" />
+            <NeuralInput v-model:value="data.pattern" size="small" placeholder="^[a-zA-Z]+$" />
           </div>
         </div>
       </propertyControl>

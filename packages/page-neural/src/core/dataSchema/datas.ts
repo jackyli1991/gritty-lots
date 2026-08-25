@@ -1,16 +1,16 @@
-const baseTypes = [
+export const baseTypes = [
   {
     label: 'null',
     value: 'null',
     icon: 'Ban',
-    backgroundColor: '#FFF7F8',
-    color: '#CA244D',
+    backgroundColor: '#FFF8F7',
+    color: '#D13415',
   },
   {
     label: 'string',
     value: 'string',
     icon: 'CaseSensitive',
-    backgroundColor: '#FEFCFE',
+    backgroundColor: '#FBF7FE',
     color: '#8145B5',
   },
   {
@@ -31,8 +31,8 @@ const baseTypes = [
     label: 'array',
     value: 'array',
     icon: 'Brackets',
-    backgroundColor: '#FEFCE9',
-    color: '#9E6C00',
+    backgroundColor: '#FEF7FB',
+    color: '#CF3897',
   },
   {
     label: 'object',
@@ -44,10 +44,38 @@ const baseTypes = [
   },
 ];
 
+export const combinationOptions = [
+  {
+    label: 'allOf', // 与
+    value: 'allOf',
+    icon: 'Ampersand',
+    color: '#26997B',
+    backgroundColor: '#E6F7ED',
+  },
+  {
+    label: 'anyOf', // 或
+    value: 'anyOf',
+    icon: 'Tally1',
+    color: '#FFBA18',
+    backgroundColor: '#FFF7C2',
+  },
+  {
+    label: 'oneOf', // 异或
+    value: 'oneOf',
+    icon: 'ChevronUp',
+    color: '#8C7A5E',
+    backgroundColor: '#F2F0E7',
+  },
+];
+
 export const SchemaTypes = [
   {
     label: '基础类型',
     options: baseTypes,
+  },
+  {
+    label: '组合类型',
+    options: combinationOptions,
   },
 ];
 

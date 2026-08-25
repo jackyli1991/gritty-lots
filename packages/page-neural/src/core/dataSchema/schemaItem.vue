@@ -10,7 +10,8 @@
     NeuralCheckableTag,
     NeuralTooltip,
   } from '../../components';
-  import { SchemaTypes } from './datas';
+  import { baseTypes, combinationOptions, SchemaTypes } from './datas';
+  import SchemaCombination from './schemaCombination.vue';
   import SchemaGroup from './schemaGroup.vue';
   import SchemaItems from './schemaItems.vue';
   import SchemaProperties from './schemaProperties.vue';
@@ -22,17 +23,31 @@
   });
 
   interface Props {
-    data: JSONSchemaObject;
-    field?: string;
-    required?: boolean;
-    isArrayItems?: boolean;
+    data: JSONSchemaObject; // 数据项
+    field?: string; // 字段名
+    required?: boolean; // 是否必填
+    isArrayItems?: boolean; // 是否是数组项
+    isCombinationItem?: boolean; // 是否是组合项
+    highlight?: boolean; // 是否高亮显示
   }
 
   const props = withDefaults(defineProps<Props>(), {
     isArrayItems: false,
+    isCombinationItem: false,
   });
   const emit = defineEmits(['update:field', 'update:required', 'remove:field']);
   const propertiesExpanded = ref(false);
+  const hoverItemField = ref('');
+
+  // 基础类型
+  const isBaseType = computed(() =>
+    baseTypes.map((item) => item.value).includes(selectedTypeOption.value?.value || '')
+  );
+
+  // 组合类型
+  const isCombinationType = computed(() =>
+    combinationOptions.map((item) => item.value).includes(selectedTypeOption.value?.value || '')
+  );
 
   // 是否允许Null
   const isNullIncluded = computed(() => is(props.data.type, 'null'));
@@ -96,6 +111,26 @@
   }
 
   /**
+   * 创建分组类型
+   */
+  function createGroupType(group: string) {
+    const hasGroupType = props.data.oneOf || props.data.anyOf || props.data.allOf;
+    if (hasGroupType) {
+      delete props.data.oneOf;
+      delete props.data.anyOf;
+      delete props.data.allOf;
+    }
+    props.data[group] = hasGroupType || [
+      {
+        type: 'string',
+      },
+      {
+        type: 'string',
+      },
+    ];
+  }
+
+  /**
    * 处理数据类型变化
    */
   function onSchemaTypeChange(type: string) {
@@ -115,6 +150,26 @@
           };
         }
         break;
+      case 'oneOf':
+        createGroupType('oneOf');
+        break;
+      case 'anyOf':
+        createGroupType('anyOf');
+        break;
+      case 'allOf':
+        createGroupType('allOf');
+        break;
+    }
+  }
+
+  /**
+   * 处理鼠标悬停事件
+   * 高亮object 和 array 子项
+   */
+  function onSchemaMouseOver() {
+    if (isObject.value || isArray.value || isCombinationType.value) {
+      hoverItemField.value = props.field || '';
+      console.log(hoverItemField.value);
     }
   }
 </script>
@@ -125,10 +180,15 @@
     :class="{
       'is-deprecated': data.deprecated,
       'is-property-expanded': propertiesExpanded,
+      'is-highlight': highlight,
     }"
   >
-    <div class="schema-main">
-      <div v-if="!isArrayItems" class="schema-field schema-item">
+    <div
+      class="schema-main"
+      @mouseenter.stop="onSchemaMouseOver"
+      @mouseleave.stop="hoverItemField = ''"
+    >
+      <div v-if="!isArrayItems && !isCombinationItem" class="schema-field schema-item">
         <NeuralInput :value="field" bottomBorder placeholder="字段" @blur="updateField" />
       </div>
       <div v-if="!isArrayItems" class="schema-field schema-item">
@@ -146,7 +206,6 @@
           :style="{
             backgroundColor: selectedTypeOption?.backgroundColor || 'transparent',
             color: selectedTypeOption?.color || 'transparent',
-            borderColor: selectedTypeOption?.color || 'transparent',
           }"
           popupClassName="schema-type-selector-dropdown"
           @change="onSchemaTypeChange"
@@ -170,7 +229,7 @@
       </div>
       <div class="schema-actions schema-item">
         <NeuralCheckableTag
-          v-if="!isArrayItems"
+          v-if="!isArrayItems && !isCombinationItem"
           :checked="required"
           :style="{ marginRight: 0 }"
           @update:checked="updateRequired"
@@ -179,7 +238,7 @@
         </NeuralCheckableTag>
         <!-- 允许null -->
         <NeuralIcon v-if="isNullIncluded" name="Null" color="red" stroke-width="0.5"></NeuralIcon>
-        <NeuralTooltip title="高级设置">
+        <NeuralTooltip v-if="isBaseType" title="高级设置">
           <NeuralIcon
             name="Settings2"
             :color="propertiesExpanded ? '#52c41a' : undefined"
@@ -194,17 +253,29 @@
         :data="data"
         :required="required"
         :isArrayItems="isArrayItems"
+        :isCombinationItem="isCombinationItem"
         @update:required="updateRequired"
       />
     </div>
   </div>
-  <div class="schema-children" v-if="isObject || isArray">
+  <div class="schema-children" v-if="isObject || isArray || isCombinationType">
     <SchemaGroup
       v-if="data.properties && isObject"
       :schemaProperties="data.properties || {}"
       :requiredList="data.required || []"
+      :highlight="hoverItemField === field"
     />
-    <SchemaItems v-if="data.items && isArray" :data="data.items || {}" />
+    <SchemaItems
+      v-if="data.items && isArray"
+      :data="data.items || {}"
+      :highlight="hoverItemField === field"
+    />
+    <SchemaCombination
+      v-if="isCombinationType"
+      :data="data"
+      :combinationType="selectedTypeOption?.value || ''"
+      :highlight="hoverItemField === field"
+    />
   </div>
 </template>
 
@@ -218,18 +289,16 @@
       background-color: #fafafa;
       border-radius: 8px;
       border: 1px solid transparent;
+      transition: background-color 0.15s ease-in-out;
       .schema-item {
         padding: 0 4px;
       }
 
       .schema-type-selector {
-        // width: 90px !important;
-        border: 1px solid transparent;
         border-radius: 12px !important;
         :deep(.ant-select-selector) {
           height: 20px;
           line-height: 20px;
-          padding: 0 6px;
           border-radius: 12px !important;
           border: 0 none;
           background-color: inherit;
@@ -272,15 +341,21 @@
       background-color: #fff2f0;
       border-color: #ffccc7;
     }
+
+    &.is-highlight {
+      .schema-main {
+        background-color: #e6f4fe;
+      }
+    }
   }
 
   .schema-children {
-    padding-top: 4px;
+    // padding-top: 4px;
   }
 </style>
 
 <style>
   .schema-type-selector-dropdown {
-    width: 90px !important;
+    width: 110px !important;
   }
 </style>

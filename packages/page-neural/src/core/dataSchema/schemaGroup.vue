@@ -15,6 +15,7 @@
   const props = defineProps<{
     schemaProperties: Exclude<JSONSchemaObject['properties'], undefined>;
     requiredList: string[];
+    highlight?: boolean;
   }>();
 
   // 展开状态下的样式
@@ -128,6 +129,7 @@
         :key="k"
         :field="k"
         :data="item"
+        :highlight="highlight"
         :required="requiredList?.includes(k)"
         @update:field="updateField(k, $event)"
         @update:required="updateRequired(k)"
