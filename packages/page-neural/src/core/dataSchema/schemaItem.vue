@@ -264,8 +264,15 @@
               :key="option.value"
               :value="option.value"
             >
-              <NeuralIcon :name="option.icon" :size="14" />
-              <span>{{ option.label }}</span>
+              <div class="schema-type-option-content">
+                <div class="schema-type-option-item">
+                  <NeuralIcon :name="option.icon" :size="14" />
+                  <span>{{ option.label }}</span>
+                </div>
+                <div v-if="option.description" class="schema-type-option-description">
+                  {{ option.description || '' }}
+                </div>
+              </div>
             </NeuralSelectOption>
           </NeuralSelectOptGroup>
         </NeuralSelect>
@@ -359,7 +366,14 @@
           background-color: inherit;
           color: inherit;
           .ant-select-selection-item {
-            justify-content: center;
+            .schema-type-option-item {
+              display: flex;
+              justify-content: center;
+              gap: 4px;
+            }
+            .schema-type-option-description {
+              display: none;
+            }
           }
         }
       }
@@ -429,8 +443,29 @@
   }
 </style>
 
-<style>
+<style lang="scss">
   .schema-type-selector-dropdown {
-    width: 110px !important;
+    width: 180px !important;
+    .ant-select-item-group {
+      font-weight: 700;
+      color: #333;
+      font-size: 14px;
+    }
+    .schema-type-option-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      .schema-type-option-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        line-height: 1;
+      }
+      .schema-type-option-description {
+        font-size: 12px;
+        color: #666;
+        font-weight: 300;
+      }
+    }
   }
 </style>

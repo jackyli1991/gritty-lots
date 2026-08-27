@@ -5,6 +5,7 @@ export const baseTypes = [
     icon: 'Ban',
     backgroundColor: '#FFF8F7',
     color: '#D13415',
+    description: '空值',
   },
   {
     label: 'string',
@@ -12,6 +13,7 @@ export const baseTypes = [
     icon: 'CaseSensitive',
     backgroundColor: '#FBF7FE',
     color: '#8145B5',
+    description: '字符串类型',
   },
   {
     label: 'number',
@@ -19,6 +21,7 @@ export const baseTypes = [
     icon: 'Pi',
     backgroundColor: '#F4FAFF',
     color: '#0D74CE',
+    description: '数字类型',
   },
   {
     label: 'boolean',
@@ -26,6 +29,7 @@ export const baseTypes = [
     icon: 'ToggleRight',
     backgroundColor: '#FFF7ED',
     color: '#CC4E00',
+    description: '布尔类型',
   },
   {
     label: 'array',
@@ -33,6 +37,7 @@ export const baseTypes = [
     icon: 'Brackets',
     backgroundColor: '#FEF7FB',
     color: '#CF3897',
+    description: '数组类型',
   },
   {
     label: 'object',
@@ -41,6 +46,7 @@ export const baseTypes = [
     backgroundColor: '#F4FBF6',
     color: '#3E9B4F',
     children: true,
+    description: '对象类型',
   },
 ];
 
@@ -51,6 +57,7 @@ export const combinationOptions = [
     icon: 'Ampersand',
     color: '#26997B',
     backgroundColor: '#E6F7ED',
+    description: '所有选项都必须符合要求',
   },
   {
     label: 'anyOf', // 或
@@ -58,6 +65,7 @@ export const combinationOptions = [
     icon: 'Tally1',
     color: '#FFBA18',
     backgroundColor: '#FFF7C2',
+    description: '至少有一个选项符合要求',
   },
   {
     label: 'oneOf', // 异或
@@ -65,6 +73,7 @@ export const combinationOptions = [
     icon: 'ChevronUp',
     color: '#8C7A5E',
     backgroundColor: '#F2F0E7',
+    description: '只能有一个选项符合要求',
   },
 ];
 
