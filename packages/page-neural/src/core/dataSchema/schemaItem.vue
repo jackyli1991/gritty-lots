@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, useTemplateRef } from 'vue';
 
   import {
     NeuralIcon,
@@ -9,7 +9,6 @@
     NeuralSelectOptGroup,
     NeuralCheckableTag,
     NeuralTooltip,
-    NeuralPopConfirm,
   } from '../../components';
   import { baseTypes, combinationOptions, SchemaTypes } from './datas';
   import SchemaCombination from './schemaCombination.vue';
@@ -39,6 +38,11 @@
   const emit = defineEmits(['update:field', 'update:required', 'remove:field']);
   const propertiesExpanded = ref(false);
   const hoverItemField = ref('');
+  const removeFieldConfirmFlag = ref(false);
+  const timer = ref<number>();
+  const schemaGroupRef = useTemplateRef<typeof SchemaGroup>('schemaGroupRef');
+  const schemaItemsRef = useTemplateRef<typeof SchemaItems>('schemaItemsRef');
+  const schemaCombinationRef = useTemplateRef<typeof SchemaCombination>('schemaCombinationRef');
 
   // 基础类型
   const isBaseType = computed(() =>
@@ -112,6 +116,19 @@
    */
   function removeField() {
     emit('remove:field', props.field);
+    removeFieldConfirmFlag.value = false;
+    clearTimeout(timer.value);
+  }
+
+  /**
+   * 删除字段确认
+   */
+  function removeFieldConfirm() {
+    removeFieldConfirmFlag.value = true;
+    timer.value = setTimeout(() => {
+      removeFieldConfirmFlag.value = false;
+      clearTimeout(timer.value);
+    }, 1800);
   }
 
   /**
@@ -175,6 +192,26 @@
       hoverItemField.value = props.field || '';
     }
   }
+
+  /**
+   * 折叠所有配置
+   */
+  function foldOptions() {
+    propertiesExpanded.value = false;
+    if (schemaGroupRef.value) {
+      schemaGroupRef.value.foldOptions();
+    }
+    if (schemaItemsRef.value) {
+      schemaItemsRef.value.foldOptions();
+    }
+    if (schemaCombinationRef.value) {
+      schemaCombinationRef.value.foldOptions();
+    }
+  }
+
+  defineExpose({
+    foldOptions,
+  });
 </script>
 
 <template>
@@ -241,7 +278,7 @@
         </NeuralCheckableTag>
         <!-- 允许null -->
         <NeuralIcon v-if="isNullIncluded" name="Null" color="red" stroke-width="0.5"></NeuralIcon>
-        <NeuralTooltip v-if="isBaseType" title="高级设置">
+        <NeuralTooltip v-if="isBaseType" title="高级配置">
           <NeuralIcon
             name="Settings2"
             :color="propertiesExpanded ? '#52c41a' : undefined"
@@ -249,24 +286,14 @@
           />
         </NeuralTooltip>
         <!-- 删除字段 -->
-        <NeuralPopConfirm
-          v-if="!isArrayItems"
-          title="确认删除吗？"
-          okText="删除"
-          cancelText="取消"
-          :cancelButtonProps="{
-            type: 'text',
-          }"
-          :okButtonProps="{
-            danger: true,
-          }"
-          @confirm="removeField"
-        >
-          <template #icon>
-            <NeuralIcon name="CircleAlert" color="#CE2C31" stroke-width="2" />
-          </template>
-          <NeuralIcon name="Trash2" />
-        </NeuralPopConfirm>
+        <transition name="slide-up" mode="out-in">
+          <NeuralIcon v-if="!removeFieldConfirmFlag" name="Trash2" @click="removeFieldConfirm" />
+          <span class="delete-action-confirm" v-else>
+            <NeuralTooltip title="确认删除">
+              <NeuralIcon name="CircleX" color="red" stroke-width="2.5" @click="removeField" />
+            </NeuralTooltip>
+          </span>
+        </transition>
       </div>
     </div>
     <div v-if="propertiesExpanded">
@@ -282,17 +309,20 @@
   <div class="schema-children" v-if="isObject || isArray || isCombinationType">
     <SchemaGroup
       v-if="data.properties && isObject"
+      ref="schemaGroupRef"
       :schemaProperties="data.properties || {}"
       :requiredList="data.required || []"
       :highlight="isHighlighting"
     />
     <SchemaItems
       v-if="data.items && isArray"
+      ref="schemaItemsRef"
       :data="data.items || {}"
       :highlight="isHighlighting"
     />
     <SchemaCombination
       v-if="isCombinationType"
+      ref="schemaCombinationRef"
       :data="data"
       :combinationType="selectedTypeOption?.value || ''"
       :highlight="isHighlighting"
@@ -303,6 +333,7 @@
 <style lang="scss" scoped>
   .schema-item-container {
     border: 1px solid transparent;
+    border-radius: 8px;
     .schema-main {
       display: flex;
       align-items: center;
@@ -337,6 +368,10 @@
         align-items: center;
         gap: 8px;
         opacity: 0.6;
+        .delete-action-confirm {
+          display: flex;
+          align-items: center;
+        }
       }
 
       .gritty-neural-checkable-tag {
@@ -369,15 +404,26 @@
       }
     }
     &:not(.is-deprecated):hover {
-      .schema-main {
-        border-color: #5eb1ef;
-      }
+      border-color: #5eb1ef;
     }
   }
 
   // .schema-children {
   //   padding-top: 4px;
   // }
+
+  .slide-up-enter-active,
+  .slide-up-leave-active {
+    transition: all 0.1s ease-out;
+  }
+
+  .slide-up-enter-from {
+    opacity: 0;
+  }
+
+  .slide-up-leave-to {
+    opacity: 0;
+  }
 </style>
 
 <style>

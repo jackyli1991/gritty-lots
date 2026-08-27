@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { useTemplateRef } from 'vue';
+
   import { NeuralIcon, NeuralTooltip } from '../../components';
   import SchemaItem from './schemaItem.vue';
   import { type JSONSchema } from './types';
@@ -13,6 +15,21 @@
   }
 
   defineProps<Props>();
+
+  const schemaItemRef = useTemplateRef<typeof SchemaItem>('schemaItemRef');
+
+  /**
+   * 折叠所有配置
+   */
+  function foldOptions() {
+    if (schemaItemRef.value) {
+      schemaItemRef.value.foldOptions();
+    }
+  }
+
+  defineExpose({
+    foldOptions,
+  });
 </script>
 
 <template>
@@ -22,7 +39,13 @@
         <NeuralIcon name="List" />
       </NeuralTooltip>
     </span>
-    <SchemaItem :data="data" :highlight="highlight" field="fieldArray" isArrayItems />
+    <SchemaItem
+      ref="schemaItemRef"
+      :data="data"
+      :highlight="highlight"
+      field="fieldArray"
+      isArrayItems
+    />
   </div>
 </template>
 

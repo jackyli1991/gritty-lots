@@ -24,6 +24,8 @@ import {
   Ampersand,
   Tally1,
   ChevronUp,
+  FoldVertical,
+  ListIndentIncrease,
 } from '@lucide/vue';
 
 import Null from './null.vue';
@@ -54,5 +56,7 @@ export default {
   Ampersand,
   Tally1,
   ChevronUp,
+  FoldVertical,
+  ListIndentIncrease,
   Null,
 };

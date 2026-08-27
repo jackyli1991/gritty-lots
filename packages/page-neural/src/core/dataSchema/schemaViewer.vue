@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  import { useClipboard } from '@vueuse/core';
-  import { message } from 'ant-design-vue';
   import { JsonViewer } from 'vue3-json-viewer';
 
-  import { NeuralIcon, NeuralTooltip } from '../../components';
   // import ajv from './ajv-instance.ts';
   import { type JSONSchemaObject } from './types';
-  import { exportJSON, importJSON } from './utils';
 
   import 'vue3-json-viewer/dist/vue3-json-viewer.css';
 
@@ -15,60 +11,12 @@
   }
 
   const props = defineProps<Props>();
-  const emit = defineEmits(['update:jsonData']);
-
-  const { copy } = useClipboard({ legacy: true });
-
-  // 复制 JSON 数据
-  const copyJson = () => {
-    copy(JSON.stringify(props.jsonData, null, 2));
-    message.success('已复制到剪贴板');
-  };
-
-  // 导出 JSON 数据
-  const exportJson = () => {
-    exportJSON(props.jsonData, 'json-schema.json');
-  };
-
-  // 导入 JSON 数据
-  const importJsonClick = () => {
-    document.getElementById('fileInput')?.click();
-  };
-
-  // 导入 JSON 数据
-  const importJson = async (event: Event) => {
-    try {
-      const data = await importJSON((event.target as HTMLInputElement).files?.[0]);
-      console.log(data);
-      emit('update:jsonData', data);
-      message.success('导入完成');
-    } catch (error: any) {
-      message.error(error?.message || '导入失败');
-    }
-  };
 </script>
 
 <template>
   <div class="gritty-data-schema-viewer">
-    <div class="schema-view-header">
-      <NeuralIcon name="FileBraces" />
-      <span class="title">JSON Schema</span>
-      <div class="tools">
-        <NeuralTooltip title="导入">
-          <NeuralIcon name="Import" @click="importJsonClick" />
-        </NeuralTooltip>
-        <NeuralTooltip title="复制">
-          <NeuralIcon name="Copy" @click="copyJson" />
-        </NeuralTooltip>
-        <NeuralTooltip title="下载">
-          <NeuralIcon name="Download" @click="exportJson" />
-        </NeuralTooltip>
-      </div>
-    </div>
     <JsonViewer :value="jsonData" boxed theme="light" />
   </div>
-  <!-- 隐藏的 上传选择input -->
-  <input type="file" id="fileInput" accept=".json" style="display: none" @change="importJson" />
 </template>
 
 <style lang="scss" scoped>

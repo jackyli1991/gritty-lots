@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue';
+  import { ref, computed, onMounted, useTemplateRef } from 'vue';
 
   import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
   import SchemaItem from './schemaItem.vue';
@@ -12,6 +12,7 @@
 
   const propertiesExpanded = ref(true);
   const propertyFieldList = ref<string[]>([]);
+  const schemaItemRef = useTemplateRef<typeof SchemaItem>('schemaItemRef');
 
   const props = defineProps<{
     schemaProperties: Exclude<JSONSchemaObject['properties'], undefined>;
@@ -107,8 +108,26 @@
     propertiesExpanded.value = !propertiesExpanded.value;
   }
 
-  onMounted(() => {
+  // 重置属性编辑面板
+  function init() {
+    propertiesExpanded.value = true;
     propertyFieldList.value = Object.keys(props.schemaProperties || {});
+  }
+
+  // 折叠所有配置
+  function foldOptions() {
+    schemaItemRef.value?.forEach((item: typeof SchemaItem) => {
+      item.foldOptions();
+    });
+  }
+
+  onMounted(() => {
+    init();
+  });
+
+  defineExpose({
+    init,
+    foldOptions,
   });
 </script>
 
@@ -139,9 +158,14 @@
       <NeuralIcon name="ArrowLeft" />
       点击添加字段
     </div>
+    <div v-if="hasProperties && !propertiesExpanded" class="schema-no-fields">
+      <NeuralIcon name="ArrowLeft" />
+      点击展开查看全部字段
+    </div>
     <div class="schema-fields" v-show="propertiesExpanded">
       <SchemaItem
         v-for="(item, idx) in propertyFieldList"
+        ref="schemaItemRef"
         :key="idx"
         :field="item"
         :data="props.schemaProperties[item]"
@@ -181,12 +205,12 @@
         padding: 2px;
         min-width: 14px;
         border-radius: 6px;
-        color: #e5484d;
+        color: #0588f0;
         font-size: 10px;
         font-weight: bold;
         text-align: center;
         line-height: 1;
-        background-color: #feebec;
+        background-color: #e6f4fe;
       }
     }
     .schema-no-fields {
