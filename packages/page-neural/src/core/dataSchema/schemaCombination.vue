@@ -31,7 +31,6 @@
    */
   const hasOptions = computed(() => props.data[props.combinationType || '']?.length > 0);
 
-  
   /**
    * 添加字段
    */
@@ -63,7 +62,7 @@
       emptyText="点击添加选项"
       foldingTooltip="点击展开查看全部选项"
       @add="addOptions"
-      />
+    />
     <div class="schema-combination-content" v-show="optionsExpanded">
       <SchemaItem
         v-for="(item, index) in data[combinationType || ''] || []"
