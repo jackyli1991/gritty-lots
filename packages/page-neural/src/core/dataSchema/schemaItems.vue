@@ -58,7 +58,7 @@
       line-height: 40px;
       padding: 4px;
       position: absolute;
-      top: 4px;
+      top: 0;
       left: 0;
     }
     :deep(.schema-item-container) {

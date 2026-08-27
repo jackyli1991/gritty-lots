@@ -35,7 +35,7 @@
     isArrayItems: false,
     isCombinationItem: false,
   });
-  const emit = defineEmits(['update:field', 'update:required', 'remove:field']);
+  const emit = defineEmits(['update:field', 'update:required', 'remove']);
   const propertiesExpanded = ref(false);
   const hoverItemField = ref('');
   const removeFieldConfirmFlag = ref(false);
@@ -64,6 +64,9 @@
 
   // 是否子项高亮显示
   const isHighlighting = computed(() => hoverItemField.value === props.field);
+
+  // 允许删除
+  const isRemovable = computed(() => !props.isArrayItems);
 
   // 选中的选项
   const selectedTypeOption = computed(() => {
@@ -115,7 +118,7 @@
    * 删除字段
    */
   function removeField() {
-    emit('remove:field', props.field);
+    emit('remove', props.field);
     removeFieldConfirmFlag.value = false;
     clearTimeout(timer.value);
   }
@@ -286,7 +289,7 @@
           />
         </NeuralTooltip>
         <!-- 删除字段 -->
-        <transition name="slide-up" mode="out-in">
+        <transition v-if="isRemovable" name="slide-up" mode="out-in">
           <NeuralIcon v-if="!removeFieldConfirmFlag" name="Trash2" @click="removeFieldConfirm" />
           <span class="delete-action-confirm" v-else>
             <NeuralTooltip title="确认删除">

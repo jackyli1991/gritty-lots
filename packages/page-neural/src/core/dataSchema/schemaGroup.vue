@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref, computed, onMounted, useTemplateRef } from 'vue';
 
-  import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
   import SchemaItem from './schemaItem.vue';
+  import SchemaItemTool from './schemaItemTool.vue';
   import { type JSONSchemaObject } from './types';
   import { createField } from './utils';
 
@@ -101,13 +101,6 @@
     }
   };
 
-  /**
-   * 切换属性编辑面板展开状态
-   */
-  function togglePropertiesExpanded() {
-    propertiesExpanded.value = !propertiesExpanded.value;
-  }
-
   // 重置属性编辑面板
   function init() {
     propertiesExpanded.value = true;
@@ -134,34 +127,16 @@
 <template>
   <div class="schema-group">
     <!-- <div>{{ propertyFieldList }}</div> -->
-    <div class="schema-group-btn">
-      <NeuralTooltip title="折叠/展开" v-if="hasProperties">
-        <NeuralIcon
-          :class="{
-            'schema-group-expand-icon': true,
-            'is-expanded': propertiesExpanded,
-          }"
-          name="ChevronRight"
-          @click="togglePropertiesExpanded"
-        />
-      </NeuralTooltip>
-      <NeuralTooltip title="添加字段">
-        <NeuralBadge>
-          <template #count>
-            <span class="schema-badge-count">{{ propertyFieldList.length }}</span>
-          </template>
-          <NeuralIcon name="CirclePlus" @click="addProperty" />
-        </NeuralBadge>
-      </NeuralTooltip>
-    </div>
-    <div v-if="!hasProperties" class="schema-no-fields">
-      <NeuralIcon name="ArrowLeft" />
-      点击添加字段
-    </div>
-    <div v-if="hasProperties && !propertiesExpanded" class="schema-no-fields">
-      <NeuralIcon name="ArrowLeft" />
-      点击展开查看全部字段
-    </div>
+    <SchemaItemTool
+      v-model="propertiesExpanded"
+      addBtnTooltip="添加字段"
+      :isEmpty="!hasProperties"
+      :num="propertyFieldList.length"
+      emptyText="点击添加字段"
+      foldingTooltip="点击展开查看全部字段"
+      @add="addProperty"
+    />
+
     <div class="schema-fields" v-show="propertiesExpanded">
       <SchemaItem
         v-for="(item, idx) in propertyFieldList"
@@ -173,7 +148,7 @@
         :required="requiredList?.includes(item)"
         @update:field="updateField(item, $event)"
         @update:required="updateRequired(item)"
-        @remove:field="removeField(item)"
+        @remove="removeField(item)"
       />
     </div>
   </div>
@@ -185,39 +160,8 @@
     align-items: center;
     border-radius: 8px;
     gap: 8px;
-
-    .schema-group-btn {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    :deep(.schema-item-tool) {
       align-self: flex-start;
-      gap: 4px;
-      // 展开状态下的样式
-      .schema-group-expand-icon {
-        transition: transform 0.12s ease-in-out;
-        &.is-expanded {
-          transform: rotate(90deg);
-        }
-      }
-
-      .schema-badge-count {
-        padding: 2px;
-        min-width: 14px;
-        border-radius: 6px;
-        color: #0588f0;
-        font-size: 10px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 1;
-        background-color: #e6f4fe;
-      }
-    }
-    .schema-no-fields {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
     }
     .schema-fields {
       flex: 1;
