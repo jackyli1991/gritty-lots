@@ -23,6 +23,7 @@
     required: boolean | undefined;
     isArrayItems: boolean;
     isCombinationItem: boolean;
+    readonly?: boolean;
   }
 
   const BehaviorMode = {
@@ -41,6 +42,9 @@
   // 是否允许常量
   const isConstAllowed = computed(() => props.data.const !== undefined);
 
+  // 是否禁用
+  const isDisabled = computed(() => props.readonly);
+
   // 行为模式
   const behaviorMode = computed(() => {
     if (!props.data.readOnly && !props.data.writeOnly) {
@@ -56,11 +60,17 @@
   });
 
   function onChangeRequired(checked: boolean) {
+    if (isDisabled.value) {
+      return;
+    }
     emit('update:required', checked);
   }
 
   // 允许Null切换
   function onChangeNullAllowed() {
+    if (isDisabled.value) {
+      return;
+    }
     if (isNullIncluded.value) {
       const types = (props.data.type as JSONSchemaType[]).filter((item) => item !== 'null');
       props.data.type = types[0];
@@ -101,14 +111,14 @@
         <NeuralSwitch
           :checked="required"
           size="small"
-          :disabled="isArrayItems || isCombinationItem"
+          :disabled="isArrayItems || isCombinationItem || isDisabled"
           @change="onChangeRequired"
         />
       </div>
       <div class="properties-item">
         <span class="properties-label">允许NULL</span>
         <NeuralSwitch
-          :disabled="data.type === 'null'"
+          :disabled="data.type === 'null' || isDisabled"
           :checked="isNullIncluded"
           size="small"
           @change="onChangeNullAllowed"
@@ -116,13 +126,14 @@
       </div>
       <div class="properties-item">
         <span class="properties-label">废弃</span>
-        <NeuralSwitch v-model:checked="data.deprecated" size="small" />
+        <NeuralSwitch v-model:checked="data.deprecated" :disabled="isDisabled" size="small" />
       </div>
       <div class="properties-item">
         <span class="properties-label">行为</span>
         <NeuralRadioGroup
           :value="behaviorMode"
           size="small"
+          :disabled="isDisabled"
           button-style="solid"
           @update:value="onChangeBehaviorMode"
         >
@@ -134,7 +145,7 @@
       <propertyControl :type="data.type" fieldName="uniqueItems">
         <div class="properties-item">
           <span class="properties-label">所有元素唯一</span>
-          <NeuralSwitch v-model:checked="data.uniqueItems" size="small" />
+          <NeuralSwitch v-model:checked="data.uniqueItems" :disabled="isDisabled" size="small" />
         </div>
       </propertyControl>
       <div class="properties-schema-view">
@@ -156,6 +167,7 @@
               size="small"
               placeholder="默认值"
               block
+              :disabled="isDisabled"
               allowClear
               :options="[
                 { label: 'true', value: true },
@@ -164,7 +176,12 @@
             />
           </div>
           <div v-else class="properties-value">
-            <NeuralInput v-model:value="data.default" size="small" placeholder="默认值" />
+            <NeuralInput
+              v-model:value="data.default"
+              :disabled="isDisabled"
+              size="small"
+              placeholder="默认值"
+            />
           </div>
         </div>
       </propertyControl>
@@ -172,11 +189,17 @@
         <div class="properties-item">
           <span class="properties-label">
             常量
-            <NeuralSwitch :checked="isConstAllowed" size="small" @change="onChangeConst" />
+            <NeuralSwitch
+              :checked="isConstAllowed"
+              :disabled="isDisabled"
+              size="small"
+              @change="onChangeConst"
+            />
           </span>
           <div class="properties-value">
             <NeuralInput
               v-if="isConstAllowed"
+              :readonly="isDisabled"
               v-model:value="data.const"
               size="small"
               placeholder="常量"
@@ -190,6 +213,7 @@
               v-model:value="data.enum"
               size="small"
               mode="tags"
+              :disabled="isDisabled"
               block
               placeholder="手动输入，可多个"
             />
@@ -202,6 +226,7 @@
               v-model:value="data.examples"
               size="small"
               mode="tags"
+              :disabled="isDisabled"
               block
               placeholder="手动输入，可多个"
             />
@@ -216,6 +241,7 @@
               v-model:value="data.minLength"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -228,6 +254,7 @@
               v-model:value="data.maxLength"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -242,6 +269,7 @@
               v-model:value="data.minItems"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -254,6 +282,7 @@
               v-model:value="data.maxItems"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -268,6 +297,7 @@
               v-model:value="data.minProperties"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -280,6 +310,7 @@
               v-model:value="data.maxProperties"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
@@ -294,10 +325,14 @@
               v-model:value="data.minimum"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
-            <NeuralCheckbox v-model:checked="data.exclusiveMinimum" size="small"
+            <NeuralCheckbox
+              v-model:checked="data.exclusiveMinimum"
+              size="small"
+              :disabled="isDisabled"
               >不能等于最小值</NeuralCheckbox
             >
           </div>
@@ -309,10 +344,14 @@
               v-model:value="data.maximum"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="大于等于0"
             />
-            <NeuralCheckbox v-model:checked="data.exclusiveMaximum" size="small"
+            <NeuralCheckbox
+              v-model:checked="data.exclusiveMaximum"
+              size="small"
+              :disabled="isDisabled"
               >不能等于最大值</NeuralCheckbox
             >
           </div>
@@ -326,6 +365,7 @@
               style="width: 100%"
               v-model:value="data.format"
               size="small"
+              :disabled="isDisabled"
               :options="formatOptions"
             />
           </div>
@@ -335,7 +375,12 @@
         <div class="properties-item">
           <span class="properties-label">pattern</span>
           <div class="properties-value">
-            <NeuralInput v-model:value="data.pattern" size="small" placeholder="^[a-zA-Z]+$" />
+            <NeuralInput
+              v-model:value="data.pattern"
+              :disabled="isDisabled"
+              size="small"
+              placeholder="^[a-zA-Z]+$"
+            />
           </div>
         </div>
       </propertyControl>
@@ -347,6 +392,7 @@
               v-model:value="data.multipleOf"
               size="small"
               min="0"
+              :disabled="isDisabled"
               block
               placeholder="倍数"
             />

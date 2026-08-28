@@ -9,6 +9,7 @@
     num: number; // 字段数量
     emptyText: string; // 为空时的提示
     foldingTooltip: string; // 折叠时提示信息
+    readonly?: boolean; // 是否只读
   }
 
   const props = defineProps<Props>();
@@ -24,7 +25,7 @@
 <template>
   <div class="schema-item-tool">
     <div class="schema-tool-btn">
-      <NeuralTooltip :title="addBtnTooltip">
+      <NeuralTooltip v-if="!readonly" :title="addBtnTooltip">
         <NeuralBadge>
           <template #count>
             <span class="schema-badge-count">{{ num }}</span>

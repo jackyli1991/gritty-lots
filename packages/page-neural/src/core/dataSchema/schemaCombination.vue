@@ -10,6 +10,7 @@
     data: JSONSchemaObject;
     combinationType?: string;
     highlight?: boolean;
+    readonly?: boolean; // 是否只读
   }
 
   const optionsExpanded = ref(true);
@@ -56,6 +57,7 @@
   <div class="schema-combination">
     <SchemaItemTool
       v-model="optionsExpanded"
+      :readonly="readonly"
       addBtnTooltip="添加选项"
       :isEmpty="!hasOptions"
       :num="data[combinationType || '']?.length"
@@ -68,6 +70,7 @@
         v-for="(item, index) in data[combinationType || ''] || []"
         ref="schemaItemRef"
         :key="index"
+        :readonly="readonly"
         :data="item"
         :highlight="highlight"
         field="fieldCombination"
@@ -79,7 +82,7 @@
 </template>
 <style lang="scss" scoped>
   .schema-combination {
-    padding-left: 12px;
+    // padding-left: 12px;
     display: flex;
     gap: 4px;
     .schema-combination-content {

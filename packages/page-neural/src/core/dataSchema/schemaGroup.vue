@@ -18,6 +18,7 @@
     schemaProperties: Exclude<JSONSchemaObject['properties'], undefined>;
     requiredList: string[];
     highlight?: boolean;
+    readonly?: boolean; // 是否只读
   }>();
 
   // 展开状态下的样式
@@ -129,6 +130,7 @@
     <!-- <div>{{ propertyFieldList }}</div> -->
     <SchemaItemTool
       v-model="propertiesExpanded"
+      :readonly="readonly"
       addBtnTooltip="添加字段"
       :isEmpty="!hasProperties"
       :num="propertyFieldList.length"
@@ -141,6 +143,7 @@
       <SchemaItem
         v-for="(item, idx) in propertyFieldList"
         ref="schemaItemRef"
+        :readonly="readonly"
         :key="idx"
         :field="item"
         :data="props.schemaProperties[item]"

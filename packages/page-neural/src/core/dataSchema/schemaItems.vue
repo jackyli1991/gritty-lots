@@ -12,6 +12,7 @@
   interface Props {
     data: JSONSchema;
     highlight?: boolean;
+    readonly?: boolean; // 是否只读
   }
 
   defineProps<Props>();
@@ -43,6 +44,7 @@
       ref="schemaItemRef"
       :data="data"
       :highlight="highlight"
+      :readonly="readonly"
       field="fieldArray"
       isArrayItems
     />

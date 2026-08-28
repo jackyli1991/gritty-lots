@@ -29,6 +29,7 @@
     isArrayItems?: boolean; // 是否是数组项
     isCombinationItem?: boolean; // 是否是组合项
     highlight?: boolean; // 是否高亮显示
+    readonly?: boolean; // 是否只读
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -66,7 +67,7 @@
   const isHighlighting = computed(() => hoverItemField.value === props.field);
 
   // 允许删除
-  const isRemovable = computed(() => !props.isArrayItems);
+  const isRemovable = computed(() => !props.isArrayItems && !props.readonly);
 
   // 选中的选项
   const selectedTypeOption = computed(() => {
@@ -111,6 +112,9 @@
    * 更新必填状态
    */
   function updateRequired(checked: boolean) {
+    if (props.readonly) {
+      return;
+    }
     emit('update:required', checked);
   }
 
@@ -232,13 +236,29 @@
       @mouseleave.stop="hoverItemField = ''"
     >
       <div v-if="!isArrayItems && !isCombinationItem" class="schema-field schema-item">
-        <NeuralInput :value="field" bottomBorder placeholder="字段" @blur="updateField" />
+        <NeuralInput
+          :value="field"
+          bottomBorder
+          placeholder="字段"
+          :readonly="readonly"
+          @blur="updateField"
+        />
       </div>
       <div v-if="!isArrayItems" class="schema-field schema-item">
-        <NeuralInput v-model:value="data.title" bottomBorder placeholder="中文名" />
+        <NeuralInput
+          v-model:value="data.title"
+          bottomBorder
+          placeholder="中文名"
+          :readonly="readonly"
+        />
       </div>
       <div class="schema-description schema-item">
-        <NeuralInput v-model:value="data.description" bottomBorder placeholder="字段描述" />
+        <NeuralInput
+          v-model:value="data.description"
+          bottomBorder
+          placeholder="字段描述"
+          :readonly="readonly"
+        />
       </div>
       <div class="schema-type schema-item">
         <NeuralSelect
@@ -246,6 +266,7 @@
           v-model:value="data.type"
           :showArrow="false"
           size="small"
+          :disabled="readonly"
           :style="{
             backgroundColor: selectedTypeOption?.backgroundColor || 'transparent',
             color: selectedTypeOption?.color || 'transparent',
@@ -291,7 +312,7 @@
         <NeuralTooltip v-if="isBaseType" title="高级配置">
           <NeuralIcon
             name="Settings2"
-            :color="propertiesExpanded ? '#52c41a' : undefined"
+            :color="propertiesExpanded ? '#0588f0' : undefined"
             @click="togglePropertiesExpanded"
           />
         </NeuralTooltip>
@@ -310,6 +331,7 @@
       <SchemaProperties
         :data="data"
         :required="required"
+        :readonly="readonly"
         :isArrayItems="isArrayItems"
         :isCombinationItem="isCombinationItem"
         @update:required="updateRequired"
@@ -320,6 +342,7 @@
     <SchemaGroup
       v-if="data.properties && isObject"
       ref="schemaGroupRef"
+      :readonly="readonly"
       :schemaProperties="data.properties || {}"
       :requiredList="data.required || []"
       :highlight="isHighlighting"
@@ -327,12 +350,14 @@
     <SchemaItems
       v-if="data.items && isArray"
       ref="schemaItemsRef"
+      :readonly="readonly"
       :data="data.items || {}"
       :highlight="isHighlighting"
     />
     <SchemaCombination
       v-if="isCombinationType"
       ref="schemaCombinationRef"
+      :readonly="readonly"
       :data="data"
       :combinationType="selectedTypeOption?.value || ''"
       :highlight="isHighlighting"

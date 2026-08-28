@@ -9,6 +9,12 @@
   import { type JSONSchemaObject } from './types';
   import { exportJSON, importJSON } from './utils';
 
+  interface Props {
+    readonly?: boolean; // 是否只读
+  }
+
+  const props = defineProps<Props>();
+
   const schemaData = ref<JSONSchemaObject>({
     $schema: 'http://json-schema.org/draft-07/schema',
     type: 'object',
@@ -70,6 +76,7 @@
         <div class="schema-config">
           <SchemaGroup
             ref="schemaGroupRef"
+            :readonly="readonly"
             :schemaProperties="schemaData.properties || {}"
             :requiredList="schemaData.required || []"
           />
