@@ -1,9 +1,14 @@
 <script setup lang="ts">
   import { useClipboard } from '@vueuse/core';
-  import { message } from 'ant-design-vue';
-  import { ref, nextTick, useTemplateRef } from 'vue';
+  import { ref, nextTick, useTemplateRef, watch, onMounted } from 'vue';
 
-  import { NeuralIcon, NeuralTooltip } from '../../components';
+  import {
+    NeuralIcon,
+    NeuralTooltip,
+    NeuralMessage,
+    NeuralConfigProvider,
+    NeuralTheme,
+  } from '../../components';
   import SchemaGroup from './schemaGroup.vue';
   import SchemaViewer from './schemaViewer.vue';
   import { type JSONSchemaObject } from './types';
@@ -11,9 +16,13 @@
 
   interface Props {
     readonly?: boolean; // 是否只读
+    colorPrimary?: string; // 主色
   }
 
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    readonly: false,
+    colorPrimary: '#12A594',
+  });
 
   const schemaData = ref<JSONSchemaObject>({
     $schema: 'http://json-schema.org/draft-07/schema',
@@ -24,10 +33,13 @@
   const { copy } = useClipboard({ legacy: true });
   const schemaGroupRef = useTemplateRef<typeof SchemaGroup>('schemaGroupRef');
 
+  const { useToken } = NeuralTheme;
+  const { token } = useToken();
+
   // 复制 JSON 数据
   const copyJson = () => {
     copy(JSON.stringify(schemaData.value, null, 2));
-    message.success('已复制到剪贴板');
+    NeuralMessage.success('已复制到剪贴板');
   };
 
   // 导出 JSON 数据
@@ -48,9 +60,9 @@
       schemaData.value = data as JSONSchemaObject;
       await nextTick();
       schemaGroupRef.value?.init();
-      message.success('导入完成');
+      NeuralMessage.success('导入完成');
     } catch (error: any) {
-      message.error(error?.message || '导入失败');
+      NeuralMessage.error(error?.message || '导入失败');
     }
   };
 
@@ -58,62 +70,89 @@
   const foldOptions = () => {
     schemaGroupRef.value?.foldOptions();
   };
+
+  // 更新主色css变量
+  async function updateColorPrimary() {
+    await nextTick();
+    const el = document.querySelector('.gritty-data-schema') as HTMLElement;
+    if (el) {
+      el.style.setProperty('--gritty-schema-color-primary', token.value.colorPrimary);
+      el.style.setProperty('--gritty-schema-color-primary-bg', token.value.colorPrimaryBg);
+    }
+  }
+
+  onMounted(() => {
+    updateColorPrimary();
+  });
+
+  // 监听 colorPrimary 变化
+  watch(() => props.colorPrimary, updateColorPrimary, { immediate: true });
 </script>
 
 <template>
-  <div class="gritty-data-schema">
-    <div class="data-schema-panel">
-      <div class="panel-content">
-        <div class="schema-content-header">
-          <NeuralIcon name="ListIndentIncrease" />
-          <span class="title">Editor</span>
-          <div class="tools">
-            <NeuralTooltip title="折叠配置">
-              <NeuralIcon name="FoldVertical" @click="foldOptions" />
-            </NeuralTooltip>
+  <NeuralConfigProvider
+    :theme="{
+      token: {
+        colorPrimary,
+      },
+    }"
+  >
+    <div class="gritty-data-schema">
+      <div class="data-schema-panel">
+        <div class="panel-content">
+          <div class="schema-content-header">
+            <NeuralIcon name="ListIndentIncrease" />
+            <span class="title">Editor</span>
+            <div class="tools">
+              <NeuralTooltip title="折叠配置">
+                <NeuralIcon name="FoldVertical" @click="foldOptions" />
+              </NeuralTooltip>
+            </div>
+          </div>
+          <div class="schema-config">
+            <SchemaGroup
+              ref="schemaGroupRef"
+              :readonly="readonly"
+              :schemaProperties="schemaData.properties || {}"
+              :requiredList="schemaData.required || []"
+            />
           </div>
         </div>
-        <div class="schema-config">
-          <SchemaGroup
-            ref="schemaGroupRef"
-            :readonly="readonly"
-            :schemaProperties="schemaData.properties || {}"
-            :requiredList="schemaData.required || []"
+        <div class="panel-content panel-view">
+          <div class="schema-content-header">
+            <NeuralIcon name="FileBraces" />
+            <span class="title">JSON Schema</span>
+            <div class="tools">
+              <NeuralTooltip title="导入">
+                <NeuralIcon name="Import" @click="importJsonClick" />
+              </NeuralTooltip>
+              <NeuralTooltip title="复制">
+                <NeuralIcon name="Copy" @click="copyJson" />
+              </NeuralTooltip>
+              <NeuralTooltip title="下载">
+                <NeuralIcon name="Download" @click="exportJson" />
+              </NeuralTooltip>
+            </div>
+          </div>
+          <SchemaViewer :jsonData="schemaData" />
+          <!-- 隐藏的 上传选择input -->
+          <input
+            type="file"
+            id="fileInput"
+            accept=".json"
+            style="display: none"
+            @change="importJson"
           />
         </div>
       </div>
-      <div class="panel-content panel-view">
-        <div class="schema-content-header">
-          <NeuralIcon name="FileBraces" />
-          <span class="title">JSON Schema</span>
-          <div class="tools">
-            <NeuralTooltip title="导入">
-              <NeuralIcon name="Import" @click="importJsonClick" />
-            </NeuralTooltip>
-            <NeuralTooltip title="复制">
-              <NeuralIcon name="Copy" @click="copyJson" />
-            </NeuralTooltip>
-            <NeuralTooltip title="下载">
-              <NeuralIcon name="Download" @click="exportJson" />
-            </NeuralTooltip>
-          </div>
-        </div>
-        <SchemaViewer :jsonData="schemaData" />
-        <!-- 隐藏的 上传选择input -->
-        <input
-          type="file"
-          id="fileInput"
-          accept=".json"
-          style="display: none"
-          @change="importJson"
-        />
-      </div>
     </div>
-  </div>
+  </NeuralConfigProvider>
 </template>
 
 <style lang="scss" scoped>
   .gritty-data-schema {
+    --gritty-schema-color-primary: #0588f0; // 主色
+    --gritty-schema-color-primary-bg: #e6f4fe; // 主色背景
     width: 100%;
     height: 100%;
     border-radius: 4px;

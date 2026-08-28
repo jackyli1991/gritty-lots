@@ -312,7 +312,7 @@
         <NeuralTooltip v-if="isBaseType" title="高级配置">
           <NeuralIcon
             name="Settings2"
-            :color="propertiesExpanded ? '#0588f0' : undefined"
+            :color="propertiesExpanded ? `var(--gritty-schema-color-primary)` : undefined"
             @click="togglePropertiesExpanded"
           />
         </NeuralTooltip>
@@ -446,7 +446,7 @@
       }
     }
     &:not(.is-deprecated):hover {
-      border-color: #5eb1ef;
+      border-color: var(--gritty-schema-color-primary);
     }
   }
 

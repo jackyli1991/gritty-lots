@@ -1,8 +1,10 @@
 import { message } from 'ant-design-vue';
+import { theme } from 'ant-design-vue';
 
 import NeuralBadge from './badge/badge.vue';
 import NeuralButton from './button/button.vue';
 import NeuralCheckbox from './checkbox/checkbox.vue';
+import NeuralConfigProvider from './configProvider/configProvider.vue';
 import NeuralIcon from './icon/icon.vue';
 import NeuralInput from './input/input.vue';
 import NeuralInputNumber from './inputNumber/inputNumber.vue';
@@ -21,6 +23,7 @@ import NeuralTooltip from './tooltip/tooltip.vue';
 
 export {
   message as NeuralMessage,
+  theme as NeuralTheme,
   NeuralIcon,
   NeuralButton,
   NeuralInput,
@@ -39,4 +42,5 @@ export {
   NeuralPopover,
   NeuralBadge,
   NeuralPopConfirm,
+  NeuralConfigProvider,
 };

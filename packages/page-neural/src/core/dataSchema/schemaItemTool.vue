@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-
   import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
 
   interface Props {
@@ -79,12 +77,12 @@
         padding: 2px;
         min-width: 14px;
         border-radius: 6px;
-        color: #0588f0;
+        color: var(--gritty-schema-color-primary);
         font-size: 10px;
         font-weight: bold;
         text-align: center;
         line-height: 1;
-        background-color: #e6f4fe;
+        background-color: var(--gritty-schema-color-primary-bg);
       }
     }
     .schema-empty,
