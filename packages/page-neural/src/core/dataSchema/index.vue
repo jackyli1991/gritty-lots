@@ -74,6 +74,7 @@
   // 更新主色css变量
   async function updateColorPrimary() {
     await nextTick();
+    console.log(token.value);
     const el = document.querySelector('.gritty-data-schema') as HTMLElement;
     if (el) {
       el.style.setProperty('--gritty-schema-color-primary', token.value.colorPrimary);
@@ -151,8 +152,8 @@
 
 <style lang="scss" scoped>
   .gritty-data-schema {
-    --gritty-schema-color-primary: #0588f0; // 主色
-    --gritty-schema-color-primary-bg: #e6f4fe; // 主色背景
+    --gritty-schema-color-primary: ''; // 主色
+    --gritty-schema-color-primary-bg: ''; // 主色背景
     width: 100%;
     height: 100%;
     border-radius: 4px;

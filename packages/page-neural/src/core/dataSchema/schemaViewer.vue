@@ -15,7 +15,7 @@
 
 <template>
   <div class="gritty-data-schema-viewer">
-    <JsonViewer :value="jsonData" boxed theme="light" />
+    <JsonViewer :value="jsonData" boxed theme="light" :expandDepth="10" />
   </div>
 </template>
 

@@ -313,6 +313,7 @@
           <NeuralIcon
             name="Settings2"
             :color="propertiesExpanded ? `var(--gritty-schema-color-primary)` : undefined"
+            :stroke-width="propertiesExpanded ? 2.5 : 1"
             @click="togglePropertiesExpanded"
           />
         </NeuralTooltip>
@@ -442,7 +443,7 @@
 
     &.is-highlight {
       .schema-main {
-        background-color: #e6f4fe;
+        background-color: var(--gritty-schema-color-primary-bg);
       }
     }
     &:not(.is-deprecated):hover {
