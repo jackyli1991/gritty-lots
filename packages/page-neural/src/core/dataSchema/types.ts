@@ -156,3 +156,8 @@ export type JSONSchemaType =
   | 'number'
   | 'integer'
   | 'string';
+
+export interface DataSchemaProps {
+  readonly?: boolean; // 是否只读
+  colorPrimary?: string; // 主色
+}
