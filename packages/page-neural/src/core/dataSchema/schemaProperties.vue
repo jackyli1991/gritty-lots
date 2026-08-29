@@ -12,6 +12,7 @@
     NeuralPopover,
     NeuralIcon,
   } from '../../components';
+  import { useNeuralI18n } from '../../i18n';
   import { formatOptions } from './datas';
   import propertyControl from './propertyControl.vue';
   import SchemaItemViewer from './schemaItemViewer.vue';
@@ -31,6 +32,8 @@
     ReadOnly: 'readOnly',
     WriteOnly: 'writeOnly',
   };
+
+  const { t } = useNeuralI18n();
 
   const props = defineProps<Props>();
 
@@ -107,7 +110,7 @@
   <div class="schema-properties">
     <div class="properties-row">
       <div class="properties-item">
-        <span class="properties-label">必填</span>
+        <span class="properties-label">{{ t('neural.jsonSchema.required') }}</span>
         <NeuralSwitch
           :checked="required"
           size="small"
@@ -116,7 +119,7 @@
         />
       </div>
       <div class="properties-item">
-        <span class="properties-label">允许NULL</span>
+        <span class="properties-label">{{ t('neural.jsonSchema.allowNull') }}</span>
         <NeuralSwitch
           :disabled="data.type === 'null' || isDisabled"
           :checked="isNullIncluded"
@@ -125,11 +128,11 @@
         />
       </div>
       <div class="properties-item">
-        <span class="properties-label">废弃</span>
+        <span class="properties-label">{{ t('neural.jsonSchema.deprecated') }}</span>
         <NeuralSwitch v-model:checked="data.deprecated" :disabled="isDisabled" size="small" />
       </div>
       <div class="properties-item">
-        <span class="properties-label">行为</span>
+        <span class="properties-label">{{ t('neural.jsonSchema.behavior') }}</span>
         <NeuralRadioGroup
           :value="behaviorMode"
           size="small"
@@ -137,17 +140,17 @@
           button-style="solid"
           @update:value="onChangeBehaviorMode"
         >
-          <NeuralRadioButton :value="BehaviorMode.All">读/写</NeuralRadioButton>
-          <NeuralRadioButton :value="BehaviorMode.ReadOnly">只读</NeuralRadioButton>
-          <NeuralRadioButton :value="BehaviorMode.WriteOnly">只写</NeuralRadioButton>
+          <NeuralRadioButton :value="BehaviorMode.All">{{
+            t('neural.jsonSchema.readWrite')
+          }}</NeuralRadioButton>
+          <NeuralRadioButton :value="BehaviorMode.ReadOnly">{{
+            t('neural.jsonSchema.readOnly')
+          }}</NeuralRadioButton>
+          <NeuralRadioButton :value="BehaviorMode.WriteOnly">{{
+            t('neural.jsonSchema.writeOnly')
+          }}</NeuralRadioButton>
         </NeuralRadioGroup>
       </div>
-      <propertyControl :type="data.type" fieldName="uniqueItems">
-        <div class="properties-item">
-          <span class="properties-label">所有元素唯一</span>
-          <NeuralSwitch v-model:checked="data.uniqueItems" :disabled="isDisabled" size="small" />
-        </div>
-      </propertyControl>
       <div class="properties-schema-view">
         <NeuralPopover placement="bottom" trigger="click">
           <template #content>
@@ -160,12 +163,12 @@
     <div class="properties-row properties-values">
       <propertyControl :type="data.type" fieldName="default">
         <div class="properties-item">
-          <span class="properties-label">默认值</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.defaultValue') }}</span>
           <div v-if="is(data.type, 'boolean')" class="properties-value">
             <NeuralSelect
               v-model:value="data.default"
               size="small"
-              placeholder="默认值"
+              :placeholder="t('neural.jsonSchema.defaultValue')"
               block
               :disabled="isDisabled"
               allowClear
@@ -180,7 +183,7 @@
               v-model:value="data.default"
               :disabled="isDisabled"
               size="small"
-              placeholder="默认值"
+              :placeholder="t('neural.jsonSchema.defaultValue')"
             />
           </div>
         </div>
@@ -188,7 +191,7 @@
       <propertyControl :type="data.type" fieldName="const_enum_examples">
         <div class="properties-item">
           <span class="properties-label">
-            常量
+            {{ t('neural.jsonSchema.const') }}
             <NeuralSwitch
               :checked="isConstAllowed"
               :disabled="isDisabled"
@@ -202,12 +205,12 @@
               :readonly="isDisabled"
               v-model:value="data.const"
               size="small"
-              placeholder="常量"
+              :placeholder="t('neural.jsonSchema.const')"
             />
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">枚举值</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.enum') }}</span>
           <div class="properties-value">
             <NeuralSelect
               v-model:value="data.enum"
@@ -215,12 +218,12 @@
               mode="tags"
               :disabled="isDisabled"
               block
-              placeholder="手动输入，可多个"
+              :placeholder="t('neural.jsonSchema.multiValuesTips')"
             />
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">示例值</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.examples') }}</span>
           <div class="properties-value">
             <NeuralSelect
               v-model:value="data.examples"
@@ -228,14 +231,14 @@
               mode="tags"
               :disabled="isDisabled"
               block
-              placeholder="手动输入，可多个"
+              :placeholder="t('neural.jsonSchema.multiValuesTips')"
             />
           </div>
         </div>
       </propertyControl>
       <propertyControl :type="data.type" fieldName="minLength_maxLength">
         <div class="properties-item">
-          <span class="properties-label">最小长度</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.minLength') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.minLength"
@@ -243,12 +246,12 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">最大长度</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.maxLength') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.maxLength"
@@ -256,14 +259,14 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
       </propertyControl>
       <propertyControl :type="data.type" fieldName="minItems_maxItems">
         <div class="properties-item">
-          <span class="properties-label">最小元素个数</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.minItemsNum') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.minItems"
@@ -271,12 +274,12 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">最大元素个数</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.maxItemsNum') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.maxItems"
@@ -284,14 +287,20 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
       </propertyControl>
+      <propertyControl :type="data.type" fieldName="uniqueItems">
+        <div class="properties-item">
+          <span class="properties-label">{{ t('neural.jsonSchema.uniqueItems') }}</span>
+          <NeuralSwitch v-model:checked="data.uniqueItems" :disabled="isDisabled" size="small" />
+        </div>
+      </propertyControl>
       <propertyControl :type="data.type" fieldName="minProperties_maxProperties">
         <div class="properties-item">
-          <span class="properties-label">最小属性个数</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.minProperties') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.minProperties"
@@ -299,12 +308,12 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">最大属性个数</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.maxProperties') }}</span>
           <div class="properties-value">
             <NeuralInputNumber
               v-model:value="data.maxProperties"
@@ -312,14 +321,14 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
           </div>
         </div>
       </propertyControl>
       <propertyControl :type="data.type" fieldName="minimum_maximum">
         <div class="properties-item">
-          <span class="properties-label">最小值</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.minimum') }}</span>
           <div class="properties-value properties-value-number">
             <NeuralInputNumber
               v-model:value="data.minimum"
@@ -327,18 +336,18 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
             <NeuralCheckbox
               v-model:checked="data.exclusiveMinimum"
               size="small"
               :disabled="isDisabled"
-              >不能等于最小值</NeuralCheckbox
+              >{{ t('neural.jsonSchema.exclusiveMinimum') }}</NeuralCheckbox
             >
           </div>
         </div>
         <div class="properties-item">
-          <span class="properties-label">最大值</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.maximum') }}</span>
           <div class="properties-value properties-value-number">
             <NeuralInputNumber
               v-model:value="data.maximum"
@@ -346,25 +355,26 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="大于等于0"
+              :placeholder="t('neural.jsonSchema.lengthTips')"
             />
             <NeuralCheckbox
               v-model:checked="data.exclusiveMaximum"
               size="small"
               :disabled="isDisabled"
-              >不能等于最大值</NeuralCheckbox
+              >{{ t('neural.jsonSchema.exclusiveMaximum') }}</NeuralCheckbox
             >
           </div>
         </div>
       </propertyControl>
       <propertyControl :type="data.type" fieldName="format">
         <div class="properties-item">
-          <span class="properties-label">format</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.format') }}</span>
           <div class="properties-value">
             <NeuralSelect
               style="width: 100%"
               v-model:value="data.format"
               size="small"
+              :placeholder="t('neural.jsonSchema.selectTips')"
               :disabled="isDisabled"
               :options="formatOptions"
             />
@@ -373,7 +383,7 @@
       </propertyControl>
       <propertyControl :type="data.type" fieldName="pattern">
         <div class="properties-item">
-          <span class="properties-label">pattern</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.pattern') }}</span>
           <div class="properties-value">
             <NeuralInput
               v-model:value="data.pattern"
@@ -386,7 +396,7 @@
       </propertyControl>
       <propertyControl :type="data.type" fieldName="multipleOf">
         <div class="properties-item">
-          <span class="properties-label">倍数</span>
+          <span class="properties-label">{{ t('neural.jsonSchema.multipleOf') }}</span>
           <div class="properties-value properties-value-number">
             <NeuralInputNumber
               v-model:value="data.multipleOf"
@@ -394,7 +404,7 @@
               min="0"
               :disabled="isDisabled"
               block
-              placeholder="倍数"
+              :placeholder="t('neural.jsonSchema.multipleOf')"
             />
           </div>
         </div>
@@ -444,7 +454,7 @@
         width: 50%;
       }
       .properties-label {
-        width: 80px;
+        width: 85px;
         display: flex;
         align-items: center;
         gap: 4px;

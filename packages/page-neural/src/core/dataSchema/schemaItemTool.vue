@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
+  import { useNeuralI18n } from '../../i18n';
 
   interface Props {
     addBtnTooltip: string; // 添加字段按钮提示
@@ -12,6 +13,7 @@
 
   const props = defineProps<Props>();
   const emit = defineEmits(['add']);
+  const { t } = useNeuralI18n();
 
   const modelValue = defineModel<boolean>(); // 是否展开
 
@@ -31,7 +33,7 @@
           <NeuralIcon name="CirclePlus" @click="add" />
         </NeuralBadge>
       </NeuralTooltip>
-      <NeuralTooltip title="折叠/展开" v-if="!isEmpty">
+      <NeuralTooltip :title="t('neural.jsonSchema.fold&expand')" v-if="!isEmpty">
         <NeuralIcon
           :class="{
             'schema-expand-icon': true,

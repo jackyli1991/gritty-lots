@@ -2,6 +2,7 @@
   import { useTemplateRef } from 'vue';
 
   import { NeuralIcon, NeuralTooltip } from '../../components';
+  import { useNeuralI18n } from '../../i18n';
   import SchemaItem from './schemaItem.vue';
   import { type JSONSchema } from './types';
 
@@ -18,6 +19,7 @@
   defineProps<Props>();
 
   const schemaItemRef = useTemplateRef<typeof SchemaItem>('schemaItemRef');
+  const { t } = useNeuralI18n();
 
   /**
    * 折叠所有配置
@@ -36,7 +38,7 @@
 <template>
   <div class="schema-items-container">
     <span class="schema-items-flag">
-      <NeuralTooltip title="数组项">
+      <NeuralTooltip :title="t('neural.jsonSchema.arrayItems')">
         <NeuralIcon name="List" />
       </NeuralTooltip>
     </span>

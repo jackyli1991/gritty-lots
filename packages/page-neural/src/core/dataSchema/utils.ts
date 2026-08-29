@@ -1,4 +1,7 @@
+import { useNeuralI18n } from '../../i18n';
 import { type JSONSchemaObject, type JSONSchemaType } from './types';
+
+const { t } = useNeuralI18n();
 
 export function createField(fieldName?: string): {
   fieldName: string;
@@ -45,7 +48,7 @@ export function exportJSON(data: JSONSchemaObject, filename = 'json-schema.json'
 // 导入 JSON 数据
 export function importJSON(file: File | undefined) {
   if (!file) {
-    return Promise.reject(new Error('文件不能为空'));
+    return Promise.reject(new Error(t('neural.jsonSchema.fileEmpty')));
   }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -53,7 +56,7 @@ export function importJSON(file: File | undefined) {
       try {
         resolve(JSON.parse(e.target?.result as string));
       } catch {
-        reject(new Error('JSON 解析失败'));
+        reject(new Error(t('neural.jsonSchema.jsonParseError')));
       }
     };
     reader.onerror = reject;

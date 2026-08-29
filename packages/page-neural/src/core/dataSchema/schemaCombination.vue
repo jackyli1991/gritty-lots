@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { computed, useTemplateRef, ref } from 'vue';
 
+  // import { combinationOptions } from './datas';
+  import { useNeuralI18n } from '../../i18n';
   import SchemaItem from './schemaItem.vue';
   import SchemaItemTool from './schemaItemTool.vue';
   import { type JSONSchemaObject } from './types';
-  // import { combinationOptions } from './datas';
 
   interface Props {
     data: JSONSchemaObject;
@@ -15,6 +16,7 @@
 
   const optionsExpanded = ref(true);
   const props = defineProps<Props>();
+  const { t } = useNeuralI18n();
 
   const schemaItemRef = useTemplateRef<typeof SchemaItem>('schemaItemRef');
 
@@ -58,11 +60,11 @@
     <SchemaItemTool
       v-model="optionsExpanded"
       :readonly="readonly"
-      addBtnTooltip="添加选项"
+      :addBtnTooltip="t('neural.jsonSchema.addOptions')"
       :isEmpty="!hasOptions"
       :num="data[combinationType || '']?.length"
-      emptyText="点击添加选项"
-      foldingTooltip="点击展开查看全部选项"
+      :emptyText="t('neural.jsonSchema.addOptionsTips')"
+      :foldingTooltip="t('neural.jsonSchema.foldOptionsTips')"
       @add="addOptions"
     />
     <div class="schema-combination-content" v-show="optionsExpanded">

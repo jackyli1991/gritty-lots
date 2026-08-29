@@ -5,8 +5,7 @@
   import { MiniMap } from '@vue-flow/minimap';
   import { ref } from 'vue';
 
-  import { NeuralIcon } from '../components';
-  import DataSchema from './dataSchema/index.vue';
+  // import { NeuralIcon } from '../components';
 
   // these are our nodes
   const nodes = ref([]);
@@ -22,10 +21,8 @@
       <MiniMap pannable zoomable />
       <Controls />
     </VueFlow>
-    <NeuralIcon class="gritty-neural-database" name="Database" />
-    <div class="gritty-neural-data-schema-container">
-      <DataSchema />
-    </div>
+    <!-- <NeuralIcon class="gritty-neural-database" name="Database" /> -->
+    <div></div>
   </div>
 </template>
 
@@ -40,13 +37,6 @@
       padding: 4px;
       border-radius: 4px;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.125);
-    }
-    .gritty-neural-data-schema-container {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
     }
   }
 </style>

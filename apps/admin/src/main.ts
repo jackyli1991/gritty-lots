@@ -1,8 +1,15 @@
-import { GrittyUI } from '@gritty-lots/ui';
-
 import './style.css';
+import NeuralGraph from '@gritty-lots/page-neural';
 import { createApp } from 'vue';
 
 import App from './App.vue';
+// import { GrittyUI } from '@gritty-lots/ui';
+import i18n from './i18n';
 
-createApp(App).use(GrittyUI).mount('#app');
+const app = createApp(App);
+
+// app.use(GrittyUI);
+app.use(i18n);
+app.use(NeuralGraph, { i18n });
+
+app.mount('#app');

@@ -9,6 +9,7 @@
     NeuralConfigProvider,
     NeuralTheme,
   } from '../../components';
+  import { useNeuralI18n } from '../../i18n';
   import SchemaGroup from './schemaGroup.vue';
   import SchemaViewer from './schemaViewer.vue';
   import { type JSONSchemaObject } from './types';
@@ -35,11 +36,12 @@
 
   const { useToken } = NeuralTheme;
   const { token } = useToken();
+  const { t } = useNeuralI18n();
 
   // 复制 JSON 数据
   const copyJson = () => {
     copy(JSON.stringify(schemaData.value, null, 2));
-    NeuralMessage.success('已复制到剪贴板');
+    NeuralMessage.success(t('neural.jsonSchema.copySuccess'));
   };
 
   // 导出 JSON 数据
@@ -60,9 +62,9 @@
       schemaData.value = data as JSONSchemaObject;
       await nextTick();
       schemaGroupRef.value?.init();
-      NeuralMessage.success('导入完成');
+      NeuralMessage.success(t('neural.jsonSchema.importSuccess'));
     } catch (error: any) {
-      NeuralMessage.error(error?.message || '导入失败');
+      NeuralMessage.error(error?.message || t('neural.jsonSchema.importError'));
     }
   };
 
@@ -102,12 +104,12 @@
         <div class="panel-content">
           <div class="schema-content-header">
             <NeuralIcon name="ListIndentIncrease" />
-            <span class="title">Editor</span>
+            <span class="title">{{ t('neural.jsonSchema.title') }}</span>
             <div class="tools">
-              <NeuralTooltip title="导入">
+              <NeuralTooltip :title="t('neural.jsonSchema.import')">
                 <NeuralIcon name="Import" @click="importJsonClick" />
               </NeuralTooltip>
-              <NeuralTooltip title="折叠配置">
+              <NeuralTooltip :title="t('neural.jsonSchema.foldOptions')">
                 <NeuralIcon name="FoldVertical" @click="foldOptions" />
               </NeuralTooltip>
             </div>
@@ -124,12 +126,12 @@
         <div class="panel-content panel-view">
           <div class="schema-content-header">
             <NeuralIcon name="FileBraces" />
-            <span class="title">JSON Schema</span>
+            <span class="title">{{ t('neural.jsonSchema.previewTitle') }}</span>
             <div class="tools">
-              <NeuralTooltip title="复制">
+              <NeuralTooltip :title="t('neural.jsonSchema.copy')">
                 <NeuralIcon name="Copy" @click="copyJson" />
               </NeuralTooltip>
-              <NeuralTooltip title="下载">
+              <NeuralTooltip :title="t('neural.jsonSchema.download')">
                 <NeuralIcon name="Download" @click="exportJson" />
               </NeuralTooltip>
             </div>
@@ -205,7 +207,7 @@
     }
   }
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1580px) {
     .gritty-data-schema {
       .panel-content {
         &.panel-view {
@@ -215,7 +217,7 @@
     }
   }
 
-  @media screen and (max-width: 1080px) {
+  @media screen and (max-width: 1120px) {
     .gritty-data-schema {
       .data-schema-panel {
         flex-direction: column;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref, computed, onMounted, useTemplateRef } from 'vue';
 
+  import { useNeuralI18n } from '../../i18n';
   import SchemaItem from './schemaItem.vue';
   import SchemaItemTool from './schemaItemTool.vue';
   import { type JSONSchemaObject } from './types';
@@ -13,6 +14,7 @@
   const propertiesExpanded = ref(true);
   const propertyFieldList = ref<string[]>([]);
   const schemaItemRef = useTemplateRef<typeof SchemaItem>('schemaItemRef');
+  const { t } = useNeuralI18n();
 
   const props = defineProps<{
     schemaProperties: Exclude<JSONSchemaObject['properties'], undefined>;
@@ -131,11 +133,11 @@
     <SchemaItemTool
       v-model="propertiesExpanded"
       :readonly="readonly"
-      addBtnTooltip="添加字段"
+      :addBtnTooltip="t('neural.jsonSchema.addFields')"
       :isEmpty="!hasProperties"
       :num="propertyFieldList.length"
-      emptyText="点击添加字段"
-      foldingTooltip="点击展开查看全部字段"
+      :emptyText="t('neural.jsonSchema.addFieldsTips')"
+      :foldingTooltip="t('neural.jsonSchema.foldFieldsTips')"
       @add="addProperty"
     />
 

@@ -10,6 +10,7 @@
     NeuralCheckableTag,
     NeuralTooltip,
   } from '../../components';
+  import { useNeuralI18n } from '../../i18n';
   import { baseTypes, combinationOptions, SchemaTypes } from './datas';
   import SchemaCombination from './schemaCombination.vue';
   import SchemaGroup from './schemaGroup.vue';
@@ -44,6 +45,7 @@
   const schemaGroupRef = useTemplateRef<typeof SchemaGroup>('schemaGroupRef');
   const schemaItemsRef = useTemplateRef<typeof SchemaItems>('schemaItemsRef');
   const schemaCombinationRef = useTemplateRef<typeof SchemaCombination>('schemaCombinationRef');
+  const { t } = useNeuralI18n();
 
   // 基础类型
   const isBaseType = computed(() =>
@@ -239,7 +241,7 @@
         <NeuralInput
           :value="field"
           bottomBorder
-          placeholder="字段"
+          :placeholder="t('neural.jsonSchema.field')"
           :readonly="readonly"
           @blur="updateField"
         />
@@ -248,7 +250,7 @@
         <NeuralInput
           v-model:value="data.title"
           bottomBorder
-          placeholder="中文名"
+          :placeholder="t('neural.jsonSchema.fieldName')"
           :readonly="readonly"
         />
       </div>
@@ -256,7 +258,7 @@
         <NeuralInput
           v-model:value="data.description"
           bottomBorder
-          placeholder="字段描述"
+          :placeholder="t('neural.jsonSchema.description')"
           :readonly="readonly"
         />
       </div>
@@ -305,11 +307,18 @@
           :style="{ marginRight: 0 }"
           @update:checked="updateRequired"
         >
-          {{ required ? '必填' : '可选' }}
+          {{ required ? t('neural.jsonSchema.required') : t('neural.jsonSchema.optional') }}
         </NeuralCheckableTag>
         <!-- 允许null -->
         <NeuralIcon v-if="isNullIncluded" name="Null" color="red" stroke-width="0.5"></NeuralIcon>
-        <NeuralTooltip v-if="isBaseType" title="高级配置">
+        <NeuralTooltip
+          v-if="isBaseType"
+          :title="
+            propertiesExpanded
+              ? t('neural.jsonSchema.foldOptions')
+              : t('neural.jsonSchema.expandOptions')
+          "
+        >
           <NeuralIcon
             name="Settings2"
             :color="propertiesExpanded ? `var(--gritty-schema-color-primary)` : undefined"
@@ -321,7 +330,7 @@
         <transition v-if="isRemovable" name="slide-up" mode="out-in">
           <NeuralIcon v-if="!removeFieldConfirmFlag" name="Trash2" @click="removeFieldConfirm" />
           <span class="delete-action-confirm" v-else>
-            <NeuralTooltip title="确认删除">
+            <NeuralTooltip :title="t('neural.jsonSchema.confirmDelete')">
               <NeuralIcon name="CircleX" color="red" stroke-width="2.5" @click="removeField" />
             </NeuralTooltip>
           </span>
