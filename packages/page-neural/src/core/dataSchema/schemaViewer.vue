@@ -48,6 +48,13 @@
       flex: 1;
       overflow: hidden;
       border-radius: 0 0 8px 8px;
+
+      &.boxed {
+        border: 1px solid #e5e5e5;
+        &:hover {
+          box-shadow: none;
+        }
+      }
       .jv-code {
         padding: 6px;
         height: 100%;

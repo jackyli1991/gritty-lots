@@ -104,6 +104,9 @@
             <NeuralIcon name="ListIndentIncrease" />
             <span class="title">Editor</span>
             <div class="tools">
+              <NeuralTooltip title="导入">
+                <NeuralIcon name="Import" @click="importJsonClick" />
+              </NeuralTooltip>
               <NeuralTooltip title="折叠配置">
                 <NeuralIcon name="FoldVertical" @click="foldOptions" />
               </NeuralTooltip>
@@ -123,9 +126,6 @@
             <NeuralIcon name="FileBraces" />
             <span class="title">JSON Schema</span>
             <div class="tools">
-              <NeuralTooltip title="导入">
-                <NeuralIcon name="Import" @click="importJsonClick" />
-              </NeuralTooltip>
               <NeuralTooltip title="复制">
                 <NeuralIcon name="Copy" @click="copyJson" />
               </NeuralTooltip>
@@ -176,6 +176,8 @@
           font-weight: 500;
           color: #333;
           border-radius: 8px 8px 0 0;
+          border: 1px solid #e5e5e5;
+          border-bottom: none;
           background-color: #f5f5f5;
           display: flex;
           align-items: center;
@@ -193,6 +195,11 @@
         .schema-viewer {
           flex: 1;
           overflow: auto;
+        }
+        .schema-config {
+          padding: 6px;
+          border: 1px solid #e5e5e5;
+          border-radius: 0 0 8px 8px;
         }
       }
     }
