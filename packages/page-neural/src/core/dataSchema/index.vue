@@ -74,7 +74,6 @@
   // 更新主色css变量
   async function updateColorPrimary() {
     await nextTick();
-    console.log(token.value);
     const el = document.querySelector('.gritty-data-schema') as HTMLElement;
     if (el) {
       el.style.setProperty('--gritty-schema-color-primary', token.value.colorPrimary);
@@ -135,7 +134,9 @@
               </NeuralTooltip>
             </div>
           </div>
-          <SchemaViewer :jsonData="schemaData" />
+          <div class="schema-viewer">
+            <SchemaViewer :jsonData="schemaData" />
+          </div>
           <!-- 隐藏的 上传选择input -->
           <input
             type="file"
@@ -188,10 +189,29 @@
             gap: 12px;
           }
         }
-        .schema-config {
+        .schema-config,
+        .schema-viewer {
           flex: 1;
           overflow: auto;
         }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    .gritty-data-schema {
+      .panel-content {
+        &.panel-view {
+          flex: 0 0 30%;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1080px) {
+    .gritty-data-schema {
+      .data-schema-panel {
+        flex-direction: column;
       }
     }
   }
