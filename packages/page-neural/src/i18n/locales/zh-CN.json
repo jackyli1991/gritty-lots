@@ -53,7 +53,18 @@
       "fileEmpty": "文件不能为空",
       "importSuccess": "导入完成",
       "importError": "导入失败",
-      "jsonParseError": "JSON 解析失败"
+      "jsonParseError": "JSON 解析失败",
+      "null": "空值",
+      "string": "字符串",
+      "number": "数字",
+      "boolean": "布尔",
+      "array": "数组",
+      "object": "对象",
+      "allOf": "allOf: 所有选项都必须符合要求",
+      "anyOf": "anyOf: 至少有一个选项符合要求",
+      "oneOf": "oneof: 只能有一个选项符合要求",
+      "baseTypes": "基础类型",
+      "combinationTypes": "组合类型"
     }
   }
 }

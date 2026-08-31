@@ -280,7 +280,7 @@
           <NeuralSelectOptGroup
             v-for="(group, index) in SchemaTypes"
             :key="index"
-            :label="group.label"
+            :label="t(group.label)"
           >
             <NeuralSelectOption
               v-for="option in group.options"
@@ -293,7 +293,7 @@
                   <span>{{ option.label }}</span>
                 </div>
                 <div v-if="option.description" class="schema-type-option-description">
-                  {{ option.description || '' }}
+                  {{ t(option.description) || '' }}
                 </div>
               </div>
             </NeuralSelectOption>
@@ -490,6 +490,7 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      white-space: wrap;
       .schema-type-option-item {
         display: flex;
         align-items: center;

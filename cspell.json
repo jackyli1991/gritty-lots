@@ -29,7 +29,8 @@
     "pannable",
     "zoomable",
     "datas",
-    "Popconfirm"
+    "Popconfirm",
+    "subschemas"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

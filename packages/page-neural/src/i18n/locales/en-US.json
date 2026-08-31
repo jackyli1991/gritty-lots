@@ -53,7 +53,18 @@
       "fileEmpty": "File cannot be empty",
       "importSuccess": "Import Success",
       "importError": "Import Error",
-      "jsonParseError": "JSON Parse Error"
+      "jsonParseError": "JSON Parse Error",
+      "null": "Null",
+      "string": "String",
+      "number": "Number",
+      "boolean": "Boolean",
+      "array": "Array",
+      "object": "Object",
+      "allOf": "allOf: must be valid against all of the subschemas",
+      "anyOf": "anyOf: must be valid against any of the subschemas",
+      "oneOf": "oneof: must be valid against exactly one of the subschemas",
+      "baseTypes": "Base Types",
+      "combinationTypes": "Combination Types"
     }
   }
 }

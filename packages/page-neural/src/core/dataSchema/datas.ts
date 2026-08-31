@@ -5,7 +5,7 @@ export const baseTypes = [
     icon: 'Ban',
     backgroundColor: '#FFF8F7',
     color: '#D13415',
-    description: '空值',
+    description: 'neural.jsonSchema.null',
   },
   {
     label: 'string',
@@ -13,7 +13,7 @@ export const baseTypes = [
     icon: 'CaseSensitive',
     backgroundColor: '#FBF7FE',
     color: '#8145B5',
-    description: '字符串类型',
+    description: 'neural.jsonSchema.string',
   },
   {
     label: 'number',
@@ -21,7 +21,7 @@ export const baseTypes = [
     icon: 'Pi',
     backgroundColor: '#F4FAFF',
     color: '#0D74CE',
-    description: '数字类型',
+    description: 'neural.jsonSchema.number',
   },
   {
     label: 'boolean',
@@ -29,7 +29,7 @@ export const baseTypes = [
     icon: 'ToggleRight',
     backgroundColor: '#FFF7ED',
     color: '#CC4E00',
-    description: '布尔类型',
+    description: 'neural.jsonSchema.boolean',
   },
   {
     label: 'array',
@@ -37,7 +37,7 @@ export const baseTypes = [
     icon: 'Brackets',
     backgroundColor: '#FEF7FB',
     color: '#CF3897',
-    description: '数组类型',
+    description: 'neural.jsonSchema.array',
   },
   {
     label: 'object',
@@ -46,44 +46,44 @@ export const baseTypes = [
     backgroundColor: '#F4FBF6',
     color: '#3E9B4F',
     children: true,
-    description: '对象类型',
+    description: 'neural.jsonSchema.object',
   },
 ];
 
 export const combinationOptions = [
   {
-    label: 'allOf', // 与
+    label: 'AND', // 与
     value: 'allOf',
     icon: 'Ampersand',
     color: '#26997B',
     backgroundColor: '#E6F7ED',
-    description: '所有选项都必须符合要求',
+    description: 'neural.jsonSchema.allOf',
   },
   {
-    label: 'anyOf', // 或
+    label: 'OR', // 或
     value: 'anyOf',
     icon: 'Tally1',
     color: '#FFBA18',
     backgroundColor: '#FFF7C2',
-    description: '至少有一个选项符合要求',
+    description: 'neural.jsonSchema.anyOf',
   },
   {
-    label: 'oneOf', // 异或
+    label: 'XOR', // 异或
     value: 'oneOf',
     icon: 'ChevronUp',
     color: '#8C7A5E',
     backgroundColor: '#F2F0E7',
-    description: '只能有一个选项符合要求',
+    description: 'neural.jsonSchema.oneOf',
   },
 ];
 
 export const SchemaTypes = [
   {
-    label: '基础类型',
+    label: 'neural.jsonSchema.baseTypes',
     options: baseTypes,
   },
   {
-    label: '组合类型',
+    label: 'neural.jsonSchema.combinationTypes',
     options: combinationOptions,
   },
 ];
