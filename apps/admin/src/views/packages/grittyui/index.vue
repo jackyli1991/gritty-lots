@@ -27,7 +27,7 @@
 
 <template>
   <main
-    class="mx-auto p-3 h-screen bg-background text-foreground flex flex-col gap-6 overflow-hidden"
+    class="mx-auto p-3 h-full bg-background text-foreground flex flex-col gap-6 overflow-hidden"
   >
     <header
       class="flex flex-wrap items-center gap-x-8 gap-y-3 border-b border-border bg-background pb-3"

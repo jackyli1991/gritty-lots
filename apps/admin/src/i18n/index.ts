@@ -7,6 +7,11 @@ import zhCN from './locales/zh-CN.json';
 // 语言类型
 export type LocaleType = 'zh-CN' | 'en-US';
 
+export const localeList = [
+  { value: 'zh-CN', label: '简体中文' },
+  { value: 'en-US', label: 'English' },
+];
+
 const defaultLocale = 'zh-CN';
 
 // 获取本地存储的语言，默认中文

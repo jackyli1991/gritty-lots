@@ -1,0 +1,10 @@
+[
+  {
+    "id": 2,
+    "type": "dir",
+    "name": "packages",
+    "title": "Packages",
+    "icon": "packages",
+    "requiresAuth": true
+  }
+]

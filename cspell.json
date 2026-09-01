@@ -30,7 +30,11 @@
     "zoomable",
     "datas",
     "Popconfirm",
-    "subschemas"
+    "subschemas",
+    "pallete",
+    "overlayscrollbars",
+    "sider",
+    "grittyui"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 201,
+    "type": "page",
+    "name": "jsonschema",
+    "title": "JSON Schema",
+    "icon": "jsonSchema",
+    "requiresAuth": true
+  },
+  {
+    "id": 202,
+    "type": "page",
+    "name": "neural",
+    "title": "Neural",
+    "icon": "graph",
+    "requiresAuth": true
+  },
+  {
+    "id": 203,
+    "type": "page",
+    "name": "grittyui",
+    "title": "Gritty UI",
+    "icon": "library",
+    "requiresAuth": true
+  }
+]
