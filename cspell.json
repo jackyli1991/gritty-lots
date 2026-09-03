@@ -34,7 +34,9 @@
     "pallete",
     "overlayscrollbars",
     "sider",
-    "grittyui"
+    "grittyui",
+    "autoroutes",
+    "axios"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

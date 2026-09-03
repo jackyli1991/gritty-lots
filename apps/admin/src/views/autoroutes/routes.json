@@ -1,0 +1,45 @@
+[
+  {
+    "id": 101,
+    "type": "page",
+    "name": "router",
+    "title": "Vue Router",
+    "icon": "route",
+    "requiresAuth": true,
+    "nestedRoute": [
+      {
+        "id": 10101,
+        "type": "page",
+        "name": "introduce",
+        "title": "基础简介",
+        "icon": "route",
+        "requiresAuth": true
+      },
+      {
+        "id": 10102,
+        "type": "page",
+        "name": "config",
+        "title": "路由配置",
+        "icon": "route",
+        "requiresAuth": true,
+        "redirectToMe": true
+      },
+      {
+        "id": 10103,
+        "type": "page",
+        "name": "meta",
+        "title": "meta说明",
+        "icon": "route",
+        "requiresAuth": true
+      },
+      {
+        "id": 10104,
+        "type": "group",
+        "name": "group",
+        "title": "分组名",
+        "icon": "route",
+        "requiresAuth": true
+      }
+    ]
+  }
+]

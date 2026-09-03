@@ -3,8 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useProgressStore } from '@/stores/progress';
 import { useRouteStore } from '@/stores/route';
 
-import { notFoundRoute } from './autoRoute';
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,7 +12,11 @@ const router = createRouter({
       component: () => import('@/views/layout/LayoutIndex.vue'),
       children: [], // 由路由权限管理动态添加
     },
-    notFoundRoute,
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: () => import('@/views/404.vue'),
+    },
   ],
 });
 

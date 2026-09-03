@@ -1,5 +1,13 @@
 [
   {
+    "id": 1,
+    "type": "dir",
+    "name": "autoroutes",
+    "title": "Auto Routes",
+    "icon": "route",
+    "requiresAuth": true
+  },
+  {
     "id": 2,
     "type": "dir",
     "name": "packages",

@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1010401,
+    "type": "page",
+    "name": "permission",
+    "title": "权限控制",
+    "icon": "route",
+    "requiresAuth": true
+  },
+  {
+    "id": 1010402,
+    "type": "page",
+    "name": "async",
+    "title": "动态路由",
+    "icon": "route",
+    "requiresAuth": true,
+    "params": ["id*", "name+"],
+    "props": true,
+    "routeName": "myAsyncPage"
+  }
+]

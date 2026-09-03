@@ -8,4 +8,5 @@ export const ICONIFY_ICONS: Record<string, string> = {
   graph: 'solar:graph-new-broken',
   library: 'solar:library-broken',
   loading: 'svg-spinners:6-dots-rotate',
+  route: 'solar:routing-3-broken',
 };

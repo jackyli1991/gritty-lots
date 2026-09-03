@@ -1,14 +1,30 @@
 import type { ItemType } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
-import { h } from 'vue';
 import type { VNode } from 'vue';
+import { h } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
+import type { VuePages, JsonPages } from '@/autoRoute';
+import { createAutoRoutes, createPermissionRoutes } from '@/autoRoute';
 import Iconify from '@/components/Iconify/Iconify.vue';
 import { ICONIFY_ICONS } from '@/icons';
 import router from '@/router';
-import { autoRoutes } from '@/router/autoRoute';
 import type { BreadcrumbRoute } from '@/types/routeJson';
+import { sleep } from '@/utils';
+
+// 导入所有 vue 组件
+const pages: VuePages = import.meta.glob('@/views/**/*.vue', { eager: true });
+// 导入所有 routes.json 文件
+const routesJson: JsonPages = import.meta.glob('@/views/**/routes.json', { eager: true });
+
+const autoRoutes = createAutoRoutes({
+  routesJson,
+  pages,
+  separator: '_',
+  pagesDir: '/src/views/',
+  routeConfFile: 'routes.json',
+});
 
 interface State {
   isPermissionRequest: boolean; // 是否已请求权限路由
@@ -32,14 +48,19 @@ interface MenuItem {
  * 3. 处理菜单项的图标、标题等属性
  * @param {RouteRecordRaw[]} routes 路由配置数组
  * @param {ItemType[]} target 菜单项数组
+ * @param {boolean} hideHidden 是否处理隐藏路由
  */
-function convertPermissionRoutesToMenuItems(routes: RouteRecordRaw[], target: ItemType[]) {
+function convertPermissionRoutesToMenuItems(
+  routes: RouteRecordRaw[],
+  target: ItemType[],
+  hideHidden: boolean = true
+) {
   routes.forEach((route) => {
     // 隐藏路由不添加到菜单中
-    if (route.meta?.hidden) {
+    if (route.meta?.hidden && hideHidden) {
       return;
     }
-    const { type = 'page', title, icon } = route.meta || {};
+    const { type = 'page', title, icon, hasNestedRoute } = route.meta || {};
     const menuItem: MenuItem = {
       key: route.name as string,
       label: (title || route.name || '') as string,
@@ -47,49 +68,11 @@ function convertPermissionRoutesToMenuItems(routes: RouteRecordRaw[], target: It
       type: type as 'group' | 'divider' | undefined,
     };
     // 子路由
-    if (route.children?.length) {
+    if (!hasNestedRoute && route.children?.length) {
       menuItem.children = [];
-      convertPermissionRoutesToMenuItems(route.children, menuItem?.children || []);
+      convertPermissionRoutesToMenuItems(route.children, menuItem?.children || [], hideHidden);
     }
     target.push(menuItem);
-  });
-}
-
-/**
- * 递归处理路由权限，根据权限路由ID数组筛选出有权限访问的路由
- * @param {string | number[]} ids 权限路由ID数组
- * @param {RouteRecordRaw[]} originalRoutes 原始路由数组
- * @param {RouteRecordRaw[]} target 目标路由数组
- */
-function dealPermissionRoutes(
-  ids: (string | number)[],
-  originalRoutes: RouteRecordRaw[],
-  target: RouteRecordRaw[]
-) {
-  originalRoutes.forEach((route: RouteRecordRaw) => {
-    if (ids.includes(route.meta?.id as never)) {
-      const newRoute = {
-        ...route,
-        children: [],
-      };
-      if (route.children?.length) {
-        dealPermissionRoutes(ids, route.children, newRoute.children);
-      }
-      target.push(newRoute);
-    }
-  });
-}
-
-/**
- * 递归处理路由重定向
- * @param routes 路由数组
- */
-function dealRoutesRedirect(routes: RouteRecordRaw[]) {
-  routes.forEach((route) => {
-    if (route.children?.length) {
-      route.redirect = { name: route.children[0]?.name };
-      dealRoutesRedirect(route.children);
-    }
   });
 }
 
@@ -137,19 +120,20 @@ export const useRouteStore = defineStore('route', {
     async getPermissionRoutes() {
       // 标记为已请求权限路由，防止权限为空或者接口异常时重复请求
       this.isPermissionRequest = true;
+      message.loading({
+        content: '加载权限路由中...',
+        duration: 1.5,
+      });
+      // 等待 1 秒，确保路由配置加载完成
+      await sleep(1500);
       const permissionResponse = await import('@/router/permissionRoutes');
+      message.destroy();
+      message.success('权限路由加载完成');
       await this.createPermissionRoutes(permissionResponse.default);
     },
     // 创建有权限访问的路由
     createPermissionRoutes(permissionRouteIds: (string | number)[]) {
-      const permissionRoutes: RouteRecordRaw[] = [];
-      if (this.enableRoutePermission) {
-        dealPermissionRoutes(permissionRouteIds, this.allRoutes, permissionRoutes);
-      } else {
-        permissionRoutes.push(...this.allRoutes);
-      }
-      // 处理路由重定向
-      dealRoutesRedirect(permissionRoutes);
+      const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds);
       // 处理根路由重定向
       const rootRoute: RouteRecordRaw | undefined = router
         .getRoutes()
@@ -167,5 +151,6 @@ export const useRouteStore = defineStore('route', {
         router.addRoute('home', route);
       });
     },
+    convertPermissionRoutesToMenuItems,
   },
 });
