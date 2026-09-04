@@ -12,6 +12,7 @@ const defaultOptions: Partial<AutoRouteOptions> = {
   pagesDir: '/src/views/', // 页面所在目录
   routeConfFile: 'routes.json', // 路由配置文件名
   separator: '_', // 连接符
+  btnPermission: true, // 是否开启按钮权限，默认值为 true
 };
 
 /**

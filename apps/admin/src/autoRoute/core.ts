@@ -16,7 +16,7 @@ export function createRoutes(
   parentPath: string = '',
   options: AutoRouteOptions
 ) {
-  const { separator = '_', pages, routesJson, pagesDir = '' } = options;
+  const { separator = '_', pages, routesJson, pagesDir = '', btnPermission } = options;
   routes.forEach((route) => {
     const { name, routeName, title, icon, type, nestedRoute, params, props, ...rest } = route;
     const isDir = ['dir', 'group'].includes(type || ''); // 是否有子路由
@@ -58,6 +58,8 @@ export function createRoutes(
     const _name =
       routeName ||
       `${parentRoute.length ? parentRoute.join(separator) + separator : ''}${name.replace(/\[([^\]]+)\]/g, '')}`;
+    // 按钮权限
+    const _btnPermission = rest.btnPermission ?? btnPermission;
     const routeItem: RouteRecordRaw = {
       path, // 路径
       name: _name, // 名称
@@ -68,6 +70,7 @@ export function createRoutes(
         type, // 路由类型
         icon: icon || '', // 图标
         title: title || '', // 标题
+        btnPermission: _btnPermission, // 按钮权限
         parentRoute: _parentRoute, // 父路由路径
         hasNestedRoute: !!(route.nestedRoute && route.nestedRoute?.length > 0), // 是否有嵌套路由
       },

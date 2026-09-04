@@ -10,6 +10,7 @@ export interface AutoRouteOptions {
   separator?: string;
   routesJson: JsonPages;
   pages: VuePages;
+  btnPermission?: boolean; // 是否开启按钮权限
 }
 
 export interface RouteJsonConfig {

@@ -11,7 +11,7 @@
     <section>
       <h2 class="text-lg font-semibold text-gray-800 mb-3">菜单权限</h2>
       <p class="text-sm text-gray-500 mb-4">
-        通过查询路由权限数据后，调用createPermissionRoutes函数，创建有权限访问的路由。
+        查询路由权限数据后，调用createPermissionRoutes函数，创建有权限访问的路由。
       </p>
       <pre class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto">
 <code>// 获取权限数据
@@ -20,7 +20,7 @@ const permissionRouteIds = await axios.get('/api/permissionRoutes');
 // 创建有权限访问的路由
 const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds, 'id');
 </code></pre>
-      <p class="text text-gray-900 my-3">权限数据支持以下三种形式：</p>
+      <p class="text text-gray-900 my-3">权限数据支持以下三种格式：</p>
       <div class="space-y-3">
         <div class="bg-gray-50 rounded-md p-3">
           <div class="text-sm text-gray-700 mb-1">
@@ -47,7 +47,7 @@ const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds, 
         <div class="bg-gray-50 rounded-md p-3">
           <div class="text-sm text-gray-700 mb-1">
             <span class="font-medium">全路由模式</span>
-            <span class="text-gray-400">· 包含详细路由信息，传入字段优先于 routes.json</span>
+            <span class="text-gray-400">· 包含详细路由信息，传入字段优先级高于routes.json</span>
           </div>
           <pre
             class="bg-gray-900 text-green-400 rounded p-3 text-xs overflow-x-auto"
@@ -59,10 +59,32 @@ const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds, 
       </div>
     </section>
     <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">按钮权限</h2>
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">按钮权限配置</h2>
       <p class="text-sm text-gray-500 mb-4">
-        试试更改路由权限中按钮的权限，查看按钮是否显示。 新增：1010401:add、 删除：1010401:delete、
-        更新：1010401:update、 查询：1010401:query
+        在调用函数createAutoRoutes时，可以通过btnPermission参数全局控制是否开启按钮权限。默认值为
+        true。
+      </p>
+      <pre class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto">
+<code>const autoRoutes = createAutoRoutes({
+  // ...
+  btnPermission: true, // 是否开启按钮权限，默认值为 true
+});
+</code></pre>
+      <p class="text-sm text-gray-500 my-4">
+        也可在routes.json中配置btnPermission参数，用于控制单个路由是否开启按钮权限。
+      </p>
+      <pre class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto">
+<code>{
+  "name": "permission",
+  "btnPermission": true
+}
+</code></pre>
+    </section>
+    <section>
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">按钮权限测试</h2>
+      <p class="text-sm text-gray-500 mb-4">
+        试试更改路由权限MOCK数据中的按钮权限，查看按钮是否显示。<br />
+        新增：1010401:add、 删除：1010401:delete、更新：1010401:update、 查询：1010401:query
       </p>
       <div class="flex flex-wrap items-center gap-4">
         <aButton v-permission:add type="primary">新增</aButton>
