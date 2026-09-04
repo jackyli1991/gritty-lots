@@ -1,11 +1,33 @@
 <script setup lang="ts">
   import { Tag as ATag } from 'ant-design-vue';
+
+  const configExample = `{
+  "id": 1,
+  "name": "home",
+  "routeName": "home",
+  "title": "首页",
+  "icon": "home",
+  "requiresAuth": true,
+  "btnPermission": true,
+  "hidden": false,
+  "transition": "fade",
+  "props": true,
+  "type": "page",
+  "nestedRoute": [
+    {
+      "name": "detail",
+      "title": "详情",
+      "type": "page"
+    }
+  ],
+  "params": ['id+', 'name*'],
+  "redirectToMe": true
+}`;
 </script>
 
 <template>
   <div class="mx-auto p-2 space-y-6 bg-white rounded-lg">
-    <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">routes.json 配置说明</h2>
+    <DocSection title="routes.json 配置说明">
       <div class="overflow-x-auto">
         <table class="min-w-full text-sm text-left text-gray-600">
           <thead class="bg-gray-50 text-gray-700">
@@ -157,31 +179,9 @@
           </tbody>
         </table>
       </div>
-    </section>
-    <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">配置示例</h2>
-      <pre class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto"><code>{
-  "id": 1,
-  "name": "home",
-  "routeName": "home",
-  "title": "首页",
-  "icon": "home",
-  "requiresAuth": true,
-  "btnPermission": true,
-  "hidden": false,
-  "transition": "fade",
-  "props": true,
-  "type": "page",
-  "nestedRoute": [
-    {
-      "name": "detail",
-      "title": "详情",
-      "type": "page"
-    }
-  ],
-  "params": ['id+', 'name*'],
-  "redirectToMe": true
-}</code></pre>
-    </section>
+    </DocSection>
+    <DocSection title="配置示例">
+      <CodeBlock :code="configExample" />
+    </DocSection>
   </div>
 </template>

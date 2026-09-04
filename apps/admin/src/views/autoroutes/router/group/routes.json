@@ -17,5 +17,14 @@
     "params": ["id*", "name+"],
     "props": true,
     "routeName": "myAsyncPage"
+  },
+  {
+    "id": 1010403,
+    "type": "page",
+    "name": "hidden",
+    "title": "隐藏路由",
+    "icon": "route",
+    "hidden": true,
+    "requiresAuth": true
   }
 ]

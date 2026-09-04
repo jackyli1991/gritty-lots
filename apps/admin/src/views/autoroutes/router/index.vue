@@ -62,7 +62,7 @@
     };
     const nestedMenus: ItemType[] = [];
     // 转换路由为菜单项
-    routeStore.convertPermissionRoutesToMenuItems(parentRoute.children || [], nestedMenus, false);
+    routeStore.convertPermissionRoutesToMenuItems(parentRoute.children || [], nestedMenus);
     nestedRouteMenus.value = nestedMenus;
   };
 

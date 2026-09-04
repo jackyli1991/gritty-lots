@@ -1,11 +1,25 @@
 <script setup lang="ts">
   import { Tag as ATag } from 'ant-design-vue';
+
+  const metaUsageExample = `import { useRoute, useRouter } from 'vue-router'
+
+// 选项式 / 守卫中
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !isLogin) {
+    return { name: 'login' }
+  }
+})
+
+// 组合式 API 中
+const route = useRoute()
+console.log(route.meta)          // 当前路由完整 meta
+console.log(route.meta.title)    // 标题
+console.log(route.meta.permissionBtnList) // 按钮权限`;
 </script>
 
 <template>
   <div class="mx-auto p-2 space-y-6 bg-white rounded-lg">
-    <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">路由 meta 说明</h2>
+    <DocSection title="路由 meta 说明">
       <p class="text-sm text-gray-500 mb-4">
         路由记录的 meta 字段，来源于 routes.json
         配置、组件导出及自动生成，可在路由守卫、菜单、面包屑等场景中使用：
@@ -123,31 +137,12 @@
           </tbody>
         </table>
       </div>
-    </section>
-    <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">使用示例</h2>
-      <pre
-        class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto"
-      ><code>import { useRoute, useRouter } from 'vue-router'
-
-// 选项式 / 守卫中
-router.beforeEach((to) => {
-  if (to.meta.requiresAuth && !isLogin) {
-    return { name: 'login' }
-  }
-})
-
-// 组合式 API 中
-const route = useRoute()
-console.log(route.meta)          // 当前路由完整 meta
-console.log(route.meta.title)    // 标题
-console.log(route.meta.btnPermission) // 按钮权限</code></pre>
-    </section>
-    <section>
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">当前路由meta</h2>
-      <pre
-        class="bg-gray-900 text-green-400 rounded-md p-4 text-sm overflow-x-auto"
-      ><code>{{ $route.meta }}</code></pre>
-    </section>
+    </DocSection>
+    <DocSection title="使用示例">
+      <CodeBlock :code="metaUsageExample" />
+    </DocSection>
+    <DocSection title="当前路由meta">
+      <CodeBlock :code="JSON.stringify($route.meta, null, 2)" />
+    </DocSection>
   </div>
 </template>
