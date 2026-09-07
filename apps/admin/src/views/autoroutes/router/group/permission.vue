@@ -12,7 +12,7 @@
     </DocSection>
     <DocSection title="菜单权限">
       <p class="text-sm text-gray-500 mb-4">
-        查询路由权限数据后，调用<b>createPermissionRoutes</b>函数，创建有权限访问的路由。
+        查询路由权限数据后，调用<b>createAutoRoutes</b>函数，创建有权限访问的路由。
       </p>
       <CodeBlock :code="permissionCode" />
       <p class="text text-gray-900 my-3">权限数据支持以下三种格式：</p>
@@ -52,7 +52,7 @@
         按钮权限数据保存在<b>$route.meta.permissionBtnList</b>字段中。
       </p>
       <p class="text-sm text-gray-500 mb-4">
-        在调用函数createAutoRoutes时，可以通过btnPermission参数全局控制是否开启按钮权限。默认值为true。
+        在调用函数<b>createAutoRoutes</b>时，可以通过<b>btnPermission</b>参数全局控制是否开启按钮权限。默认值为true。
       </p>
       <CodeBlock :code="btnPermGlobal" />
       <p class="text-sm text-gray-500 my-4">
@@ -66,14 +66,37 @@
     </DocSection>
     <DocSection title="按钮权限测试">
       <p class="text-sm text-gray-500 mb-4">
-        试试更改路由权限MOCK数据中的按钮权限，查看按钮是否显示。<br />
-        新增：1010401:add、 删除：1010401:delete、更新：1010401:update、查询：1010401:query
+        试试更改路由权限MOCK数据中的按钮权限，查看按钮是否显示： 新增：1010401:add、
+        删除：1010401:delete、更新：1010401:update、查询：1010401:query
+      </p>
+      <p class="text-sm text-gray-500 mb-4">单个按钮权限：v-permission.actionName</p>
+      <div class="flex flex-wrap items-center gap-4">
+        <aButton v-permission.add type="primary">新增</aButton>
+        <aButton v-permission.delete type="primary" danger>删除</aButton>
+        <aButton v-permission.update type="text">更新</aButton>
+        <aButton v-permission.query type="link">查询</aButton>
+      </div>
+      <p class="text-sm text-gray-500 my-4">
+        根据多个权限值同时控制显示或隐藏：v-permission.actionName1.actionName2
       </p>
       <div class="flex flex-wrap items-center gap-4">
-        <aButton v-permission:add type="primary">新增</aButton>
-        <aButton v-permission:delete type="primary" danger>删除</aButton>
-        <aButton v-permission:update type="text">更新</aButton>
-        <aButton v-permission:query type="link">查询</aButton>
+        <aButton v-permission.add.query type="primary">同时具有add和query权限值时才显示</aButton>
+      </div>
+      <p class="text-sm text-gray-500 my-4">
+        根据其他页面的按钮权限，控制当前页面按钮的显示或隐藏：v-permission:routeName.actionName
+      </p>
+      <div class="flex flex-wrap items-center gap-4 my-4">
+        <aButton v-permission:10103.add type="primary" ghost
+          >根据【路由配置】页面add权限显示或隐藏</aButton
+        >
+      </div>
+      <p class="text-sm text-gray-500 my-4">
+        根据自定义权限数据控制：v-permission:routeName.actionName="[]"
+      </p>
+      <div class="flex flex-wrap items-center gap-4 my-4">
+        <aButton v-permission:10103.add.query="['10103:add', '10103:query']" type="primary" ghost
+          >根据自定义权限数据控制</aButton
+        >
       </div>
     </DocSection>
   </div>
@@ -88,11 +111,12 @@
     name: 'Permission',
   });
 
-  const permissionCode = `// 获取权限数据
-const permissionRouteIds = await axios.get('/api/permissionRoutes');
-
-// 创建有权限访问的路由
-const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds, 'id');
+  const permissionCode = `const autoRoutes = createAutoRoutes({
+  // ...
+  routePermission: true, // 是否开启路由权限，默认值为 true
+  routePermissionKey: 'id', // 路由权限匹配键名，默认值为 'id'
+  routePermissionList: [], // 权限数据
+});
 `;
 
   const permissionFormat1 = `[1010401, 1010402, '1010401:add']`;
@@ -102,8 +126,7 @@ const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds, 
   const btnPermGlobal = `const autoRoutes = createAutoRoutes({
   // ...
   btnPermission: true, // 是否开启按钮权限，默认值为 true
-});
-`;
+});`;
 
   const btnPermLocal = `{
   // ...

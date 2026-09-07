@@ -54,10 +54,10 @@ export function dealPermissionRoutes(
   permissions: (string | number)[],
   originalRoutes: RouteRecordRaw[],
   target: RouteRecordRaw[],
-  key: string
+  key?: string
 ) {
   originalRoutes.forEach((route: RouteRecordRaw) => {
-    const val = getKey(route, key);
+    const val = getKey(route, key || 'id');
     if (permissions.includes(val)) {
       const newRoute = {
         ...route,

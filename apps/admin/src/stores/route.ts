@@ -6,7 +6,7 @@ import { h } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 import type { VuePages, JsonPages } from '@/autoRoute';
-import { createAutoRoutes, createPermissionRoutes } from '@/autoRoute';
+import { createAutoRoutes } from '@/autoRoute';
 import Iconify from '@/components/Iconify/Iconify.vue';
 import { ICONIFY_ICONS } from '@/icons';
 import router from '@/router';
@@ -18,18 +18,9 @@ const pages: VuePages = import.meta.glob('@/views/**/*.vue', { eager: true });
 // 导入所有 routes.json 文件
 const routesJson: JsonPages = import.meta.glob('@/views/**/routes.json', { eager: true });
 
-const autoRoutes = createAutoRoutes({
-  routesJson,
-  pages,
-  separator: '_',
-  pagesDir: '/src/views/',
-  routeConfFile: 'routes.json',
-});
-
 interface State {
   isPermissionRequest: boolean; // 是否已请求权限路由
   enableRoutePermission: boolean; // 是否开启路由权限管理
-  allRoutes: RouteRecordRaw[]; // 所有路由配置
   permissionRoutes: RouteRecordRaw[]; // 有权限访问的路由
 }
 
@@ -80,7 +71,6 @@ export const useRouteStore = defineStore('route', {
   state: (): State => ({
     isPermissionRequest: false,
     enableRoutePermission: import.meta.env.VITE_ENABLE_ROUTE_PERMISSION === 'true',
-    allRoutes: autoRoutes,
     permissionRoutes: [],
   }),
   getters: {
@@ -104,19 +94,12 @@ export const useRouteStore = defineStore('route', {
     // 有权限访问的路由
     accessibleRoutes: (state) => {
       const routes: ItemType[] = [];
-      let allRoutes: RouteRecordRaw[];
-      // 根据环境变量判断是否开启路由权限管理
-      if (state.enableRoutePermission) {
-        allRoutes = state.permissionRoutes;
-      } else {
-        allRoutes = state.allRoutes;
-      }
-      convertPermissionRoutesToMenuItems(allRoutes, routes);
+      convertPermissionRoutesToMenuItems(state.permissionRoutes, routes);
       return routes;
     },
   },
   actions: {
-    // 请求权限路由
+    // 模拟请求权限路由
     async getPermissionRoutes() {
       // 标记为已请求权限路由，防止权限为空或者接口异常时重复请求
       this.isPermissionRequest = true;
@@ -132,24 +115,24 @@ export const useRouteStore = defineStore('route', {
       await this.createPermissionRoutes(permissionResponse.default);
     },
     // 创建有权限访问的路由
-    createPermissionRoutes(permissionRouteIds: (string | number)[]) {
-      const permissionRoutes = createPermissionRoutes(autoRoutes, permissionRouteIds);
-      // 处理根路由重定向
-      const rootRoute: RouteRecordRaw | undefined = router
+    createPermissionRoutes(routePermissionList: (string | number)[]) {
+      // 动态路由要挂载的路由
+      const mountRoute: RouteRecordRaw | undefined = router
         .getRoutes()
         .find((item) => item.name === 'home');
-      if (rootRoute && permissionRoutes.length) {
-        rootRoute.redirect = {
-          name: permissionRoutes[0]?.name,
-        };
-      }
-      this.permissionRoutes = permissionRoutes;
-    },
-    // 动态添加路由
-    addRoutes() {
-      this.permissionRoutes.forEach((route) => {
-        router.addRoute('home', route);
+      const permissionRoutes = createAutoRoutes({
+        routesJson,
+        pages,
+        separator: '_',
+        pagesDir: '/src/views/',
+        routeConfFile: 'routes.json',
+        routePermission: this.enableRoutePermission,
+        routePermissionList,
+        routePermissionKey: 'id',
+        btnPermission: true,
+        mountRoute, // 挂载到此路由
       });
+      this.permissionRoutes = permissionRoutes;
     },
     convertPermissionRoutesToMenuItems,
   },

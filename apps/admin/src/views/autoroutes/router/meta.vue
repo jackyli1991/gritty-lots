@@ -105,7 +105,7 @@ console.log(route.meta.permissionBtnList) // 按钮权限`;
               <td class="px-4 py-2 font-mono text-blue-600">btnPermission</td>
               <td class="px-4 py-2 font-mono text-gray-500">boolean</td>
               <td class="px-4 py-2">
-                <ATag color="orange" :bordered="false">routes.json</ATag>
+                <ATag color="orange" :bordered="false">routes.json | init</ATag>
               </td>
               <td class="px-4 py-2">是否开启按钮权限</td>
             </tr>

@@ -42,7 +42,6 @@ router.beforeEach(async () => {
   try {
     console.log('路由初始化【start】');
     await routerStore.getPermissionRoutes(); // 获取权限路由
-    await routerStore.addRoutes(); // 动态添加路由
     console.log('路由初始化【finish】');
     progressStore.finish();
     return { name: 'home' }; // 重定向到首页

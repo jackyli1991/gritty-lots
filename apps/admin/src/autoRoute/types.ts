@@ -1,16 +1,21 @@
 import type { Component } from 'vue';
 import type { Router } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 
 export interface InstallOptions {
   router: Router;
 }
 export interface AutoRouteOptions {
-  pagesDir?: string;
-  routeConfFile?: string;
-  separator?: string;
-  routesJson: JsonPages;
-  pages: VuePages;
+  pagesDir?: string; // 页面所在目录
+  routeConfFile?: string; // 路由配置文件名
+  separator?: string; // 连接符，默认值为下划线
+  routesJson: JsonPages; // 路由配置文件
+  pages: VuePages; // 页面模块
+  routePermission?: boolean; // 是否开启路由权限
+  routePermissionList?: (string | number)[]; // 路由权限列表，默认值为空数组,当开启路由权限时，必须指定路由权限列表
+  routePermissionKey?: string; // 路由权限键，默认值为 'id'
   btnPermission?: boolean; // 是否开启按钮权限
+  mountRoute?: RouteRecordRaw; // 要挂载到的路由，默认值为 null
 }
 
 export interface RouteJsonConfig {
