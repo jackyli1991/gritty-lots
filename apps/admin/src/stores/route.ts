@@ -115,7 +115,7 @@ export const useRouteStore = defineStore('route', {
       await this.createPermissionRoutes(permissionResponse.default);
     },
     // 创建有权限访问的路由
-    createPermissionRoutes(routePermissionList: (string | number)[]) {
+    createPermissionRoutes(routePermissionList: (string | number | Record<string, any>)[]) {
       // 动态路由要挂载的路由
       const mountRoute: RouteRecordRaw | undefined = router
         .getRoutes()

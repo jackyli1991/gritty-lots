@@ -28,19 +28,53 @@ export function isString(str: any): boolean {
  * @param route 路由配置
  * @param permissions 权限数据，包含路由ID和按钮权限ID
  */
-function dealPermissionBtns(route: RouteRecordRaw, permissions: (string | number)[]) {
+function dealPermissionBtns(
+  route: RouteRecordRaw,
+  permissions: Record<string, any>[],
+  key: string
+) {
   // 不需要按钮权限的路由，直接返回
   if (route.meta?.btnPermission === false) return;
-  const id = getKey(route, 'id'); // 路由ID
-  const name = getKey(route, 'name'); // 路由名称
-  const permissionList = permissions.filter(
-    (item) =>
-      isString(item) &&
-      ((item as string).includes(`${id}:`) || (item as string).includes(`${name}:`))
+  const valueOfKey = getKey(route, key); // 路由ID
+  const permissionValues = permissions.map((item) => item[key]);
+  const permissionBtnList = permissionValues.filter(
+    (item) => isString(item) && (item as string).includes(`${valueOfKey}:`)
   );
   if (route.meta) {
-    route.meta.permissionBtnList = permissionList;
+    route.meta.permissionBtnList = permissionBtnList;
   }
+}
+
+/**
+ * 判断路由是否有权限访问
+ * @param route 路由配置
+ * @param permissions 权限数据，包含路由ID和按钮权限ID
+ * @param key 路由权限键名
+ * @returns 是否有权限访问
+ */
+function hasPermission(route: RouteRecordRaw, permissions: Record<string, any>[], key: string) {
+  const value = getKey(route, key);
+  return permissions.find((item) => item[key] === value);
+}
+
+/**
+ * 创建新的路由配置
+ * @param route 路由配置
+ * @param matchRoute 匹配的权限路由
+ * @returns 新的路由配置
+ */
+function createNewRoute(route: RouteRecordRaw, matchRoute: Record<string, any>) {
+  const newRoute = {
+    ...route,
+    path: matchRoute.path || route.path,
+    name: matchRoute.name || route.name,
+    meta: {
+      ...route.meta,
+      ...(matchRoute.meta || matchRoute),
+    },
+    children: [],
+  };
+  return newRoute;
 }
 
 /**
@@ -51,22 +85,19 @@ function dealPermissionBtns(route: RouteRecordRaw, permissions: (string | number
  * @param {string} key 路由权限键名
  */
 export function dealPermissionRoutes(
-  permissions: (string | number)[],
+  permissions: Record<string, any>[],
   originalRoutes: RouteRecordRaw[],
   target: RouteRecordRaw[],
-  key?: string
+  key: string
 ) {
   originalRoutes.forEach((route: RouteRecordRaw) => {
-    const val = getKey(route, key || 'id');
-    if (permissions.includes(val)) {
-      const newRoute = {
-        ...route,
-        children: [],
-      };
+    const matchRoute = hasPermission(route, permissions, key);
+    if (matchRoute) {
+      const newRoute = createNewRoute(route, matchRoute);
 
       // 按钮权限, 仅对页面路由生效
       if (route.meta?.type === 'page') {
-        dealPermissionBtns(newRoute, permissions);
+        dealPermissionBtns(newRoute, permissions, key);
       }
 
       if (route.children?.length) {
@@ -93,5 +124,23 @@ export function dealRoutesRedirect(routes: RouteRecordRaw[]) {
       }
       dealRoutesRedirect(route.children);
     }
+  });
+}
+
+/**
+ * 递归拍平路由树
+ * @param tree 路由树数组
+ * @returns 拍平后的路由树数组
+ */
+export function flattenTree(
+  tree: (string | number | Record<string, any>)[],
+  key: string
+): Record<string, any>[] {
+  return tree.flatMap((item: any) => {
+    if (isObject(item)) {
+      const { children, ...rest } = item;
+      return [rest, ...flattenTree(children || [], key)];
+    }
+    return [{ [key]: item }];
   });
 }

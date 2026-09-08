@@ -5,7 +5,7 @@
       theme="light"
       mode="inline"
       :inlineIndent="12"
-      :selected-keys="activeRoute"
+      :selected-keys="activeRouteParent.concat(activeRoute)"
       :open-keys="activeRouteParent"
       :items="accessibleRoutes"
       @select="handleSelect"

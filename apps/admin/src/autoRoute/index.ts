@@ -3,11 +3,12 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { createRoutes } from './core';
 import type { AutoRouteOptions, InstallOptions } from './types';
-import { dealPermissionRoutes, dealRoutesRedirect, getKey } from './utils';
+import { dealPermissionRoutes, dealRoutesRedirect, getKey, flattenTree } from './utils';
 
 export * from './types';
 
 let _router: any;
+let mergeOptions: Partial<AutoRouteOptions> = {};
 
 // 默认选项
 const defaultOptions: Partial<AutoRouteOptions> = {
@@ -28,12 +29,14 @@ const defaultOptions: Partial<AutoRouteOptions> = {
  */
 function createPermissionRoutes(
   autoRoutes: RouteRecordRaw[],
-  permissions: (string | number)[],
+  permissions: (string | number | Record<string, any>)[],
   key?: string
 ) {
   const permissionRoutes: RouteRecordRaw[] = [];
+  // 如果传入的permissions 是嵌套的对象数据格式，先拍平成一维数组
+  const permissionList = flattenTree(permissions, key as string);
   // 处理路由权限和按钮权限
-  dealPermissionRoutes(permissions, autoRoutes, permissionRoutes, key);
+  dealPermissionRoutes(permissionList, autoRoutes, permissionRoutes, key as string);
   return permissionRoutes;
 }
 
@@ -67,7 +70,7 @@ function dealMountRoute(routes: RouteRecordRaw[], mountRoute: RouteRecordRaw) {
  * @returns 路由配置数组
  */
 export function createAutoRoutes(options?: AutoRouteOptions) {
-  const mergeOptions = Object.assign({}, defaultOptions, options) as AutoRouteOptions;
+  const _mergeOptions = Object.assign({}, defaultOptions, options) as AutoRouteOptions;
   const {
     pagesDir = '',
     routeConfFile = '',
@@ -76,8 +79,15 @@ export function createAutoRoutes(options?: AutoRouteOptions) {
     routePermissionKey,
     routePermission,
     mountRoute,
-  } = mergeOptions;
-  console.log(mergeOptions);
+  } = _mergeOptions;
+  console.log(_mergeOptions);
+  mergeOptions = _mergeOptions;
+
+  if (mountRoute && !_router) {
+    console.error('路由实例不存在，请传入');
+    return [];
+  }
+
   const levelOneJson = routesJson?.[pagesDir + routeConfFile]; // 第一级路由配置
   if (!levelOneJson) {
     console.error(`路由配置入口文件${pagesDir + routeConfFile} 不存在，请检查文件路径是否正确`);
@@ -85,7 +95,7 @@ export function createAutoRoutes(options?: AutoRouteOptions) {
   }
   const autoRoutes: RouteRecordRaw[] = []; // 所有路由配置
   // 创建路由
-  createRoutes(levelOneJson?.default || [], autoRoutes, '', mergeOptions);
+  createRoutes(levelOneJson?.default || [], autoRoutes, '', _mergeOptions);
 
   let routes: RouteRecordRaw[] = [];
 
@@ -108,7 +118,7 @@ export function createAutoRoutes(options?: AutoRouteOptions) {
   if (mountRoute) {
     dealMountRoute(routes, mountRoute);
   }
-
+  console.log('autoRoutes：', routes);
   return routes;
 }
 
@@ -127,8 +137,7 @@ export default {
     // 按钮权限指令
     app.directive('permission', (el, binding) => {
       const curRoute = _router?.currentRoute.value as unknown as RouteRecordRaw;
-      const id = getKey(curRoute, 'id');
-      const name = getKey(curRoute, 'name');
+      const valueOfKey = getKey(curRoute, mergeOptions.routePermissionKey as string);
       if (!curRoute.meta?.permissionBtnList || curRoute.meta.btnPermission === false) return;
       const { value, arg, modifiers } = binding;
       const actions = Object.keys(modifiers);
@@ -141,12 +150,12 @@ export default {
       let permissionFlag: string | number = '';
       if (value) {
         permissionList = value;
-        permissionFlag = arg || id || name;
+        permissionFlag = arg || valueOfKey;
       } else {
         // 根据当前路由的权限列表判断是否有权限
         if (!arg) {
           permissionList = (curRoute.meta?.permissionBtnList as (string | number)[]) || [];
-          permissionFlag = id || name;
+          permissionFlag = valueOfKey;
         } else {
           // 获取 arg 指定的路由的按钮权限
           const allRoutes = _router.getRoutes();
