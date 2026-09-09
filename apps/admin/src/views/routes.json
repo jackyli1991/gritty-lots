@@ -14,5 +14,13 @@
     "title": "Packages",
     "icon": "packages",
     "requiresAuth": true
+  },
+  {
+    "id": 3,
+    "type": "dir",
+    "name": "playground",
+    "title": "Playground",
+    "icon": "playground",
+    "requiresAuth": true
   }
 ]

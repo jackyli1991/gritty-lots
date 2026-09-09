@@ -9,4 +9,6 @@ export const ICONIFY_ICONS: Record<string, string> = {
   library: 'solar:library-broken',
   loading: 'svg-spinners:6-dots-rotate',
   route: 'solar:routing-3-broken',
+  playground: 'solar:test-tube-broken',
+  code: 'solar:code-2-broken',
 };

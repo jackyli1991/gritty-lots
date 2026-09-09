@@ -1,0 +1,10 @@
+[
+  {
+    "id": 301,
+    "type": "page",
+    "name": "css",
+    "title": "Css",
+    "icon": "code",
+    "requiresAuth": true
+  }
+]

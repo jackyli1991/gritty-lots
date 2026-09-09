@@ -17,6 +17,8 @@ export default [
   201,
   202,
   203,
+  3,
+  301,
 ];
 
 // 以路由名作为权限路由匹配字段
@@ -39,6 +41,8 @@ export const permissionRouteNames = [
   'packages_jsonschema',
   'packages_neural',
   'packages_grittyui',
+  'playground',
+  'playground_css',
 ];
 
 export const permissionRoutes = [
@@ -151,6 +155,24 @@ export const permissionRoutes = [
         name: 'packages_grittyui',
         path: '/packages/grittyui',
         title: 'Gritty UI',
+      },
+    ],
+  },
+  {
+    id: 3,
+    type: 'dir',
+    title: '开发工具',
+    icon: 'playground',
+    name: 'playground',
+    path: '/playground',
+    children: [
+      {
+        id: 301,
+        type: 'page',
+        icon: 'code',
+        name: 'playground_css',
+        path: '/playground/css',
+        title: 'CSS编辑器',
       },
     ],
   },
