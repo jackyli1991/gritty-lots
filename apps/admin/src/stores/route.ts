@@ -1,3 +1,5 @@
+import type { VuePages, JsonPages } from '@gritty-lots/auto-route';
+import { createAutoRoutes } from '@gritty-lots/auto-route';
 import type { ItemType } from 'ant-design-vue';
 import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
@@ -5,8 +7,6 @@ import type { VNode } from 'vue';
 import { h } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
-import type { VuePages, JsonPages } from '@/autoRoute';
-import { createAutoRoutes } from '@/autoRoute';
 import Iconify from '@/components/Iconify/Iconify.vue';
 import { ICONIFY_ICONS } from '@/icons';
 import router from '@/router';

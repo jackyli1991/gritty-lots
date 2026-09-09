@@ -1,11 +1,11 @@
 import './style.css';
+import autoRoute from '@gritty-lots/auto-route';
 import NeuralGraph from '@gritty-lots/page-neural';
 import { GrittyUI } from '@gritty-lots/ui';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 
 import App from './App.vue';
-import autoRoute from './autoRoute';
 import components from './components';
 import i18n from './i18n';
 import router from './router';
