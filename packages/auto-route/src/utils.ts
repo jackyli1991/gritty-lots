@@ -1,6 +1,11 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-// 获取路由对应的key值
+/**
+ * 获取路由对应的 key 值
+ * @param route 路由配置
+ * @param key 权限键名
+ * @returns 路由对应的 key 值
+ */
 export function getKey(route: RouteRecordRaw, key: string): string | number {
   return (route.meta?.[key] || route?.[key as keyof RouteRecordRaw]) as string | number;
 }
@@ -27,6 +32,7 @@ export function isString(str: any): boolean {
  * 处理路由按钮权限
  * @param route 路由配置
  * @param permissions 权限数据，包含路由ID和按钮权限ID
+ * @param key 路由权限键名
  */
 function dealPermissionBtns(
   route: RouteRecordRaw,
@@ -59,9 +65,9 @@ function hasPermission(route: RouteRecordRaw, permissions: Record<string, any>[]
 
 /**
  * 创建新的路由配置
- * @param route 路由配置
- * @param matchRoute 匹配的权限路由
- * @returns 新的路由配置
+ * @param route 原始路由配置
+ * @param matchRoute 匹配的权限路由数据
+ * @returns 合并后的新路由配置
  */
 function createNewRoute(route: RouteRecordRaw, matchRoute: Record<string, any>) {
   const newRoute = {
@@ -78,11 +84,11 @@ function createNewRoute(route: RouteRecordRaw, matchRoute: Record<string, any>) 
 }
 
 /**
- * 递归处理路由权限，根据权限路由ID数组筛选出有权限访问的路由
- * @param {string | number[]} permissions 权限数据，包含路由ID和按钮权限ID
- * @param {RouteRecordRaw[]} originalRoutes 原始路由数组
- * @param {RouteRecordRaw[]} target 目标路由数组
- * @param {string} key 路由权限键名
+ * 递归处理路由权限，根据权限数据筛选出有权限访问的路由
+ * @param permissions 权限数据，包含路由ID和按钮权限ID
+ * @param originalRoutes 原始路由数组
+ * @param target 目标路由数组
+ * @param key 路由权限键名
  */
 export function dealPermissionRoutes(
   permissions: Record<string, any>[],
@@ -130,7 +136,8 @@ export function dealRoutesRedirect(routes: RouteRecordRaw[]) {
 /**
  * 递归拍平路由树
  * @param tree 路由树数组
- * @returns 拍平后的路由树数组
+ * @param key 权限键名
+ * @returns 拍平后的路由数组
  */
 export function flattenTree(
   tree: (string | number | Record<string, any>)[],
