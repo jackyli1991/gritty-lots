@@ -117,10 +117,7 @@
   // ---- 值管理 ----
   const innerValue = useVModel(props, 'value', emit, {
     passive: true,
-    defaultValue: (props.defaultValue ?? (isMultiple.value ? ([] as T[]) : undefined)) as
-      | T
-      | T[]
-      | undefined,
+    defaultValue: (props.defaultValue ?? (isMultiple.value ? ([] as T[]) : undefined)) as any,
     eventName: 'update:value',
   }) as Ref<T | T[]>;
 

@@ -1,9 +1,8 @@
 {
   "files": [],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@gritty-lots/*": ["packages/*/src"]
+      "@gritty-lots/*": ["./packages/*/src"]
     }
   },
   "references": [

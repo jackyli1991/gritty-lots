@@ -46,7 +46,6 @@
   }));
 
   const basicValue = ref<string>('apple');
-  const lazyValue = ref<string>('');
   const sizeValue = ref<string>('');
   const disabledValue = ref<string>('apple');
   const statusValue = ref<string>('');
@@ -60,7 +59,6 @@
   const multipleValue = ref<string[]>(['apple', 'banana']);
   const tagsValue = ref<string[]>(['tag1', 'tag2']);
   const maxTagValue = ref<string[]>(['opt-1', 'opt-2', 'opt-3', 'opt-4', 'opt-5']);
-  const suffixValue = ref<string>('');
   const openValue = ref<string>('');
   const combinedValue = ref<string | string[]>('');
   const lastChange = ref('');
