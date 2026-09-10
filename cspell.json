@@ -36,7 +36,8 @@
     "sider",
     "grittyui",
     "autoroutes",
-    "axios"
+    "axios",
+    "darkmode"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

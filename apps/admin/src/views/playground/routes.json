@@ -6,5 +6,21 @@
     "title": "Css",
     "icon": "code",
     "requiresAuth": true
+  },
+  {
+    "id": 302,
+    "type": "page",
+    "name": "vue",
+    "title": "Vue",
+    "icon": "code",
+    "requiresAuth": true
+  },
+  {
+    "id": 303,
+    "type": "page",
+    "name": "javascript",
+    "title": "JavaScript",
+    "icon": "code",
+    "requiresAuth": true
   }
 ]

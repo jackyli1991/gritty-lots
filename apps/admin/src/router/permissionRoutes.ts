@@ -19,6 +19,8 @@ export default [
   203,
   3,
   301,
+  302,
+  303,
 ];
 
 // 以路由名作为权限路由匹配字段
@@ -161,7 +163,7 @@ export const permissionRoutes = [
   {
     id: 3,
     type: 'dir',
-    title: '开发工具',
+    title: '演练场',
     icon: 'playground',
     name: 'playground',
     path: '/playground',
@@ -172,7 +174,7 @@ export const permissionRoutes = [
         icon: 'code',
         name: 'playground_css',
         path: '/playground/css',
-        title: 'CSS编辑器',
+        title: 'CSS',
       },
     ],
   },
