@@ -1,7 +1,11 @@
 ---
 name: auto-route-page-creator
-version: 1.0.0
 description: 基于auto-route包约定创建目录或页面，自动生成routes.json配置和.vue文件。当用户需要新建页面、新建目录、添加路由、创建菜单项时触发。
+license: MIT
+metadata:
+  author: li yang
+  email: 2008042226@163.com
+  version: 1.0.0
 ---
 
 # Skill: Auto-Route 页面/目录创建
@@ -103,31 +107,11 @@ ID 采用层级编码，格式为父 ID × 100 + 子级序号：
 
 ### 简单页面
 
-```vue
-<template>
-  <div>{{ pageTitle }}</div>
-</template>
-
-<script setup lang="ts">
-  defineOptions({
-    name: 'PageName',
-  });
-</script>
-```
+使用 `assets/page-simple.md` 中的模板创建。
 
 ### 带动态路由参数的页面
 
-```vue
-<template>
-  <div>参数：id = {{ $route.params.id }}</div>
-</template>
-
-<script setup lang="ts">
-  defineOptions({
-    name: 'asyncPageName',
-  });
-</script>
-```
+使用 `assets/page-with-params.md` 中的模板创建。
 
 ## 限制
 

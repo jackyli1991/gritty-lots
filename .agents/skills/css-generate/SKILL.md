@@ -1,7 +1,10 @@
 ---
 name: css-generate
-version: 1.0.0
 description: 根据需求生成符合项目规范的页面/组件样式，优先使用TailwindCSS，适配暗黑主题，保证响应式
+metadata:
+  author: li yang
+  email: 2008042226@163.com
+  version: 1.0.0
 ---
 
 # Skill: CSS & Tailwind 样式生成技能
