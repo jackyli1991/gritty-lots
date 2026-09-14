@@ -31,7 +31,6 @@
     background: rgba(255, 255, 255, 0.2);
     // 真正的毛玻璃：模糊背后背景图
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 0.25em 1.875em rgba(0, 0, 0, 0.1);
     position: absolute;

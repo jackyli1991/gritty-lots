@@ -1,5 +1,5 @@
 <template>
-  <div class="cards w-full h-full overflow-hidden">
+  <div class="cards w-full h-full overflow-auto">
     <GradientBorder />
     <GlassMatte />
   </div>
