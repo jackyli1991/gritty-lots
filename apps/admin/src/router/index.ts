@@ -20,7 +20,7 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach(async () => {
+router.beforeEach(async (to) => {
   const progressStore = useProgressStore();
   const routerStore = useRouteStore();
   // 开始显示进度条
@@ -42,7 +42,8 @@ router.beforeEach(async () => {
   try {
     await routerStore.getPermissionRoutes(); // 获取权限路由
     progressStore.finish();
-    return { name: 'home' }; // 重定向到首页
+    // 跳转到重定向目标
+    return routerStore.getRedirectRoute(to);
   } catch (error) {
     console.error('路由初始化【Error】', error);
     progressStore.error();

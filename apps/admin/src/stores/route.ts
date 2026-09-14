@@ -5,7 +5,7 @@ import { message } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 import type { VNode } from 'vue';
 import { h } from 'vue';
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteLocationNormalized, RouteLocationRaw, RouteRecordRaw } from 'vue-router';
 
 import Iconify from '@/components/Iconify/Iconify.vue';
 import { ICONIFY_ICONS } from '@/icons';
@@ -113,6 +113,19 @@ export const useRouteStore = defineStore('route', {
       message.destroy();
       message.success('权限路由加载完成');
       await this.createPermissionRoutes(permissionResponse.default);
+    },
+    /**
+     * 获取权限路由加载完成后的重定向目标
+     * 权限路由已通过 createAutoRoutes 注册到 router，重新解析当前路径判断是否命中权限路由：
+     * - 命中：放行到当前 hash 所在页面（用 fullPath 触发重新解析，避免使用注册前的旧 to 对象）
+     * - 未命中：重定向到首页
+     * @param {RouteLocationNormalized} to 当前导航目标
+     * @returns {RouteLocationRaw} 重定向目标
+     */
+    getRedirectRoute(to: RouteLocationNormalized): RouteLocationRaw {
+      // router.resolve 会按当前已注册路由表重新匹配，权限路由挂载在 home 下
+      const resolved = router.resolve(to.fullPath);
+      return resolved.name !== 'notFound' ? to.fullPath : { name: 'home' };
     },
     // 创建有权限访问的路由
     createPermissionRoutes(routePermissionList: (string | number | Record<string, any>)[]) {
