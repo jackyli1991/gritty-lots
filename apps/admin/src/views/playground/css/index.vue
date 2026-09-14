@@ -2,12 +2,14 @@
   <div class="cards w-full h-full overflow-auto">
     <GradientBorder />
     <GlassMatte />
+    <LiquidGlass />
   </div>
 </template>
 
 <script setup lang="ts">
   import GlassMatte from './GlassMatte.vue';
   import GradientBorder from './GradientBorder.vue';
+  import LiquidGlass from './LiquidGlass.vue';
 </script>
 
 <style scoped lang="scss">
