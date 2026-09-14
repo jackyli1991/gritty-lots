@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'LXGWWenKai-Medium';
+  src: url('./LXGWWenKai-Medium.ttf') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* 重点：避免文字闪烁 FOIT */
+}

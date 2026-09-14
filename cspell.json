@@ -37,7 +37,9 @@
     "grittyui",
     "autoroutes",
     "axios",
-    "darkmode"
+    "darkmode",
+    "LXGWW",
+    "FOIT"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

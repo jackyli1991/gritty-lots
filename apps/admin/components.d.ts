@@ -11,6 +11,7 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Card: typeof import('./src/components/Card/Card.vue')['default']
     CodeBlock: typeof import('./src/components/CodeBlock/CodeBlock.vue')['default']
     DocSection: typeof import('./src/components/DocSection/DocSection.vue')['default']
     Iconify: typeof import('./src/components/Iconify/Iconify.vue')['default']
