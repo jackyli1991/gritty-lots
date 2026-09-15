@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <h1>JavaScript</h1>
-  </div>
+  <PostMessage />
 </template>
 
 <script setup lang="ts">
-  defineOptions({
-    name: 'PlaygroundJavascript',
-  });
+  import PostMessage from './PostMessage.vue';
 </script>

@@ -22,5 +22,13 @@
     "title": "JavaScript",
     "icon": "code",
     "requiresAuth": true
+  },
+  {
+    "id": 304,
+    "type": "page",
+    "name": "html",
+    "title": "Html",
+    "icon": "code",
+    "requiresAuth": true
   }
 ]
