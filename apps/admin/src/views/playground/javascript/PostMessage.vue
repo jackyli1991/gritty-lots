@@ -24,7 +24,7 @@
     // 第三个参数：窗口特征字符串
     // 只要写了任意一个 feature，浏览器就倾向于弹出独立窗口而不是 tab；完全不传第三个参数默认新 tab 打开。
     childWindow.value = window.open(
-      '/#/autoroutes/router/group/hidden',
+      import.meta.env.VITE_BASE_PATH + '#/autoroutes/router/group/hidden',
       '_blank',
       'width=1080,height=500,left=200,top=500,scrollbars=yes,resizable=yes,popup=yes'
     );
