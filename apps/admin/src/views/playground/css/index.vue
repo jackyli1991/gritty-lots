@@ -3,6 +3,7 @@
     <GradientBorder />
     <GlassMatte />
     <LiquidGlass />
+    <Typewriter />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
   import GlassMatte from './GlassMatte.vue';
   import GradientBorder from './GradientBorder.vue';
   import LiquidGlass from './LiquidGlass.vue';
+  import Typewriter from './Typewriter.vue';
 </script>
 
 <style scoped lang="scss">

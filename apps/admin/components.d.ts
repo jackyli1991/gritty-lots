@@ -14,6 +14,7 @@ declare module 'vue' {
     Card: typeof import('./src/components/Card/Card.vue')['default']
     CodeBlock: typeof import('./src/components/CodeBlock/CodeBlock.vue')['default']
     DocSection: typeof import('./src/components/DocSection/DocSection.vue')['default']
+    Draggable: typeof import('./src/components/Draggable/Draggable.vue')['default']
     Iconify: typeof import('./src/components/Iconify/Iconify.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -1,28 +1,14 @@
 <template>
-  <div ref="boxRef" class="liquid-glass" :style="style">
-    <div class="content">
-      <div class="title">液体玻璃</div>
+  <Draggable :initial-value="{ x: 100, y: 100 }">
+    <div class="liquid-glass">
+      <div class="content">
+        <div class="title">液体玻璃</div>
+      </div>
     </div>
-  </div>
+  </Draggable>
 </template>
 
-<script setup lang="ts">
-  import { useDraggable } from '@vueuse/core';
-  import { onMounted, ref, useTemplateRef } from 'vue';
-
-  const boxRef = useTemplateRef<HTMLElement | null>('boxRef');
-  // 拖拽边界容器：setup 阶段 DOM 未挂载，无法直接 querySelector，故用 ref 在 onMounted 中取父元素
-  const containerRef = ref<HTMLElement | null>(null);
-
-  const { style } = useDraggable(boxRef, {
-    initialValue: { x: 100, y: 100 },
-    containerElement: containerRef,
-  });
-
-  onMounted(() => {
-    containerRef.value = boxRef.value?.parentElement ?? null;
-  });
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
   .liquid-glass {
@@ -34,9 +20,6 @@
     width: 100px;
     height: 40px;
     border-radius: 2rem;
-    position: absolute;
-    cursor: grab;
-    user-select: none;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -55,10 +38,6 @@
       0 0 20px rgba(0, 0, 0, 0.1);
     // 弹性过渡，体现液体回弹感
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
-
-    &:active {
-      cursor: grabbing;
-    }
 
     &:hover {
       transform: scale(1.05);

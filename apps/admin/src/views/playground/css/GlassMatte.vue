@@ -1,26 +1,12 @@
 <template>
-  <div ref="boxRef" class="glass-matte" :style="style">
-    <div class="label">毛玻璃材质</div>
-  </div>
+  <Draggable :initial-value="{ x: 500, y: 650 }">
+    <div class="glass-matte">
+      <div class="label">毛玻璃材质</div>
+    </div>
+  </Draggable>
 </template>
 
-<script setup lang="ts">
-  import { useDraggable } from '@vueuse/core';
-  import { onMounted, ref, useTemplateRef } from 'vue';
-
-  const boxRef = useTemplateRef<HTMLElement | null>('boxRef');
-  // 拖拽边界容器：setup 阶段 DOM 未挂载，无法直接 querySelector，故用 ref 在 onMounted 中取父元素
-  const containerRef = ref<HTMLElement | null>(null);
-
-  const { style } = useDraggable(boxRef, {
-    initialValue: { x: 500, y: 650 },
-    containerElement: containerRef,
-  });
-
-  onMounted(() => {
-    containerRef.value = boxRef.value?.parentElement ?? null;
-  });
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
   .glass-matte {
@@ -33,16 +19,9 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 0.25em 1.875em rgba(0, 0, 0, 0.1);
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: grab;
-    user-select: none;
-
-    &:active {
-      cursor: grabbing;
-    }
   }
 
   .label {

@@ -1,26 +1,12 @@
 <template>
-  <div ref="boxRef" class="gradient-border" :style="style">
-    <div>渐变边框</div>
-  </div>
+  <Draggable :initial-value="{ x: 50, y: 500 }">
+    <div class="gradient-border">
+      <div>渐变边框</div>
+    </div>
+  </Draggable>
 </template>
 
-<script setup lang="ts">
-  import { useDraggable } from '@vueuse/core';
-  import { onMounted, ref, useTemplateRef } from 'vue';
-
-  const boxRef = useTemplateRef<HTMLElement | null>('boxRef');
-  // 拖拽边界容器：setup 阶段 DOM 未挂载，无法直接 querySelector，故用 ref 在 onMounted 中取父元素
-  const containerRef = ref<HTMLElement | null>(null);
-
-  const { style } = useDraggable(boxRef, {
-    initialValue: { x: 50, y: 500 },
-    containerElement: containerRef,
-  });
-
-  onMounted(() => {
-    containerRef.value = boxRef.value?.parentElement ?? null;
-  });
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
   .gradient-border {
@@ -33,13 +19,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    cursor: grab;
-    user-select: none;
-
-    &:active {
-      cursor: grabbing;
-    }
 
     &:before,
     &:after {
