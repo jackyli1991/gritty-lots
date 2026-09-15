@@ -1,5 +1,6 @@
 import './style.css';
 import autoRoute from '@gritty-lots/auto-route';
+import JsonSchema from '@gritty-lots/data-schema';
 import NeuralGraph from '@gritty-lots/page-neural';
 import { GrittyUI } from '@gritty-lots/ui';
 import { createPinia } from 'pinia';
@@ -19,6 +20,7 @@ app.use(autoRoute, { router });
 app.use(components);
 app.use(i18n);
 app.use(NeuralGraph, { i18n });
+app.use(JsonSchema, { i18n });
 app.use(GrittyUI);
 
 app.mount('#app');

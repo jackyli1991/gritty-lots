@@ -2,7 +2,7 @@
   import { computed, useTemplateRef, ref } from 'vue';
 
   // import { combinationOptions } from './datas';
-  import { useNeuralI18n } from '../../i18n';
+  import { useNeuralI18n } from '../i18n';
   import SchemaItem from './schemaItem.vue';
   import SchemaItemTool from './schemaItemTool.vue';
   import { type JSONSchemaObject } from './types';

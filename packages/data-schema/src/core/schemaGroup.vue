@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, computed, onMounted, useTemplateRef } from 'vue';
 
-  import { useNeuralI18n } from '../../i18n';
+  import { useNeuralI18n } from '../i18n';
   import SchemaItem from './schemaItem.vue';
   import SchemaItemTool from './schemaItemTool.vue';
   import { type JSONSchemaObject } from './types';

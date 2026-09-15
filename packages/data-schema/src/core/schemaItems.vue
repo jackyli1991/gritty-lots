@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { useTemplateRef } from 'vue';
 
-  import { NeuralIcon, NeuralTooltip } from '../../components';
-  import { useNeuralI18n } from '../../i18n';
+  import { NeuralIcon, NeuralTooltip } from '../components';
+  import { useNeuralI18n } from '../i18n';
   import SchemaItem from './schemaItem.vue';
   import { type JSONSchema } from './types';
 

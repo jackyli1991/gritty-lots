@@ -9,5 +9,5 @@
 </script>
 
 <template>
-  <NeuralJsonSchema :colorPrimary="themeColor" />
+  <GrittyJsonSchema :colorPrimary="themeColor" />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { NeuralConfigProvider } from '../../components';
+  import { NeuralConfigProvider } from '../components';
   import DataSchema from './dataSchema.vue';
   import type { DataSchemaProps } from './types';
 

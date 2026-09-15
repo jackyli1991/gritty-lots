@@ -11,8 +11,8 @@
     NeuralCheckbox,
     NeuralPopover,
     NeuralIcon,
-  } from '../../components';
-  import { useNeuralI18n } from '../../i18n';
+  } from '../components';
+  import { useNeuralI18n } from '../i18n';
   import { formatOptions } from './datas';
   import propertyControl from './propertyControl.vue';
   import SchemaItemViewer from './schemaItemViewer.vue';

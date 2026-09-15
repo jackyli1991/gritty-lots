@@ -2,8 +2,8 @@
   import { useClipboard } from '@vueuse/core';
   import { ref, nextTick, useTemplateRef, watch, onMounted } from 'vue';
 
-  import { NeuralIcon, NeuralTooltip, NeuralMessage, NeuralTheme } from '../../components';
-  import { useNeuralI18n } from '../../i18n';
+  import { NeuralIcon, NeuralTooltip, NeuralMessage, NeuralTheme } from '../components';
+  import { useNeuralI18n } from '../i18n/index.ts';
   import SchemaGroup from './schemaGroup.vue';
   import SchemaViewer from './schemaViewer.vue';
   import { type JSONSchemaObject, type DataSchemaProps } from './types';

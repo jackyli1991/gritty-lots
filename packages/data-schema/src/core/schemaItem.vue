@@ -9,8 +9,8 @@
     NeuralSelectOptGroup,
     NeuralCheckableTag,
     NeuralTooltip,
-  } from '../../components';
-  import { useNeuralI18n } from '../../i18n';
+  } from '../components';
+  import { useNeuralI18n } from '../i18n';
   import { baseTypes, combinationOptions, SchemaTypes } from './datas';
   import SchemaCombination from './schemaCombination.vue';
   import SchemaGroup from './schemaGroup.vue';

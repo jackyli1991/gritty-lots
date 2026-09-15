@@ -1,4 +1,4 @@
-import { useNeuralI18n } from '../../i18n';
+import { useNeuralI18n } from '../i18n';
 import { type JSONSchemaObject, type JSONSchemaType } from './types';
 
 const { t } = useNeuralI18n();

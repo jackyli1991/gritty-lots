@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../../components';
-  import { useNeuralI18n } from '../../i18n';
+  import { NeuralIcon, NeuralTooltip, NeuralBadge } from '../components';
+  import { useNeuralI18n } from '../i18n';
 
   interface Props {
     addBtnTooltip: string; // 添加字段按钮提示
