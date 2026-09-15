@@ -19,7 +19,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
-      vue(),
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: (tag) => tag.startsWith('gritty-'), // 自定义Web Component 前缀
+          },
+        },
+      }),
       Components(),
       tailwindcss(),
       vueDevTools(),

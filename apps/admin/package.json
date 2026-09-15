@@ -16,6 +16,7 @@
     "@iconify/vue": "^5.0.1",
     "@vueuse/core": "^14.4.0",
     "ant-design-vue": "^4.2.6",
+    "lit": "^3.3.3",
     "overlayscrollbars": "^2.16.0",
     "pinia": "^4.0.3",
     "unplugin-vue-components": "^32.1.0",

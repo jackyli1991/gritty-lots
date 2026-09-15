@@ -9,7 +9,9 @@
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true, // default for TypeScript 5.0 and up
+    "useDefineForClassFields": false // default when "target" is "ES2022" or higher
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
