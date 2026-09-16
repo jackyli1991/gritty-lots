@@ -1,13 +1,17 @@
 <template>
-  <Card title="Web Component" size="small">
-    <div class="flex items-start gap-4">
+  <Card title="Web Component" size="small" class="inline-block">
+    <div class="flex items-start gap-4 mb-4">
       <gritty-shadow-web-component title="原生 Web Component 示例">
         <p>{{ name }}</p>
       </gritty-shadow-web-component>
       <Input v-model:value="name" placeholder="请输入" style="width: 200px" />
     </div>
     <div>
-      <gritty-hello-lit :name="name"></gritty-hello-lit>
+      <gritty-hello-lit :name="name">
+        <div slot="footer">
+          <p>Lit footer: 命名插槽</p>
+        </div>
+      </gritty-hello-lit>
     </div>
   </Card>
 </template>

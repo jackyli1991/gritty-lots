@@ -1,5 +1,5 @@
-import { markRaw } from 'vue';
-import type { Component } from 'vue';
+// import { markRaw } from 'vue';
+// import type { Component } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 import type { RouteJsonConfig, AutoRouteOptions } from './types';
@@ -17,7 +17,7 @@ export function createRoutes(
   options: AutoRouteOptions
 ) {
   const { separator = '_', pages, routesJson, pagesDir = '', btnPermission } = options;
-  routes.forEach((route) => {
+  routes.forEach(async (route) => {
     const { name, routeName, title, icon, type, nestedRoute, params, props, ...rest } = route;
     const isDir = ['dir', 'group'].includes(type || ''); // 是否有子路由
     const isPage = ['page'].includes(type || ''); // 是否是页面
@@ -28,8 +28,9 @@ export function createRoutes(
       one: `${basePath}${isDir ? '' : '.vue'}`,
       two: `${basePath}${isDir ? '' : '/index.vue'}`,
     };
-    const { default: component } = pages?.[importPathMap.one] || pages?.[importPathMap.two] || {};
-    if (!isDir && !component) {
+    const loader = pages?.[importPathMap.one] || pages?.[importPathMap.two];
+
+    if (!isDir && !loader) {
       console.error(`未找到组件：${importPathMap.one} 或 ${importPathMap.two}`);
       return;
     }
@@ -64,7 +65,7 @@ export function createRoutes(
       path, // 路径
       name: _name, // 名称
       props: props ?? false, // 是否开启路由参数
-      component: isDir ? null : markRaw(component as Component), // 组件，目录没有，菜单才有
+      component: isDir ? null : loader, // 组件，目录没有，菜单才有
       meta: {
         ...rest,
         type, // 路由类型

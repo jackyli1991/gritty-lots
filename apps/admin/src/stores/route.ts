@@ -14,7 +14,7 @@ import type { BreadcrumbRoute } from '@/types/routeJson';
 import { sleep } from '@/utils';
 
 // 导入所有 vue 组件
-const pages: VuePages = import.meta.glob('@/views/**/*.vue', { eager: true });
+const pages: VuePages = import.meta.glob('@/views/**/*.vue', { eager: false });
 // 导入所有 routes.json 文件
 const routesJson: JsonPages = import.meta.glob('@/views/**/routes.json', { eager: true });
 

@@ -1,4 +1,4 @@
-import type { Component } from 'vue';
+// import type { Component } from 'vue';
 import type { Router } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 
@@ -43,14 +43,12 @@ export interface BreadcrumbRoute {
 }
 
 interface VueModule {
-  default: Component;
+  // default: Component;
 }
 interface JsonModule {
   default: RouteJsonConfig[];
 }
-export interface VuePages {
-  [key: string]: VueModule;
-}
+export type VuePages = Record<string, () => Promise<VueModule>>;
 
 export interface JsonPages {
   [key: string]: JsonModule;
