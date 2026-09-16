@@ -18,7 +18,7 @@
   .cards {
     display: flex;
     flex-wrap: wrap;
-    background: url('@/assets/css-bg.jpg') no-repeat;
+    background: url('@/assets/css-bg.png') no-repeat;
     background-size: cover;
     position: relative;
   }
