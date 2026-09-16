@@ -1,0 +1,225 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [
+    "apps/admin/src/views/autoroutes/router/introduce.vue",
+    "apps/admin/src/views/autoroutes/router/meta.vue",
+    "apps/admin/src/views/layout/LayoutAside.vue",
+    "apps/admin/src/views/layout/LayoutHeader.vue",
+    "apps/admin/src/views/layout/LayoutIndex.vue",
+    "apps/admin/src/views/layout/components/LanguageIcon.vue",
+    "apps/admin/src/views/layout/components/ThemeIcon.vue",
+    "apps/admin/src/views/layout/layoutContent.vue",
+    "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+    "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+    "apps/admin/src/views/packages/grittyui/index.vue",
+    "apps/admin/src/views/packages/jsonschema/index.vue",
+    "apps/admin/src/views/packages/neural/index.vue",
+    "apps/admin/src/views/playground/css/GlassMatte.vue",
+    "apps/admin/src/views/playground/css/GradientBorder.vue",
+    "apps/admin/src/views/playground/css/LiquidGlass.vue",
+    "apps/admin/src/views/playground/css/Typewriter.vue",
+    "apps/admin/src/views/playground/css/index.vue",
+    "apps/admin/src/views/playground/html/index.vue",
+    "apps/admin/src/views/playground/javascript/PostMessage.vue",
+    "apps/admin/src/views/playground/javascript/index.vue"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 2,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": "apps/admin/src/views/autoroutes/routes.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 45,
+      "nonEmptyLines": 45,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/views/packages/routes.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 26,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "GrittyShadowWebComponent",
+          "startLine": 1,
+          "endLine": 55,
+          "methods": [
+            "observedAttributes",
+            "constructor",
+            "connectedCallback",
+            "attributeChangedCallback",
+            "render"
+          ],
+          "properties": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 8
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.attachShadow",
+          "lineNumber": 12
+        },
+        {
+          "caller": "connectedCallback",
+          "callee": "this.render",
+          "lineNumber": 17
+        },
+        {
+          "caller": "attributeChangedCallback",
+          "callee": "this.render",
+          "lineNumber": 22
+        },
+        {
+          "caller": "render",
+          "callee": "this.getAttribute",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/lit.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 101,
+      "classes": [
+        {
+          "name": "HelloLitElement",
+          "startLine": 8,
+          "endLine": 111,
+          "methods": [
+            "isEven",
+            "isOdd",
+            "headerTemplate",
+            "onClick",
+            "firstUpdated",
+            "willUpdate",
+            "shouldUpdate",
+            "updated",
+            "render"
+          ],
+          "properties": ["styles", "count", "items", "name", "ol"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HelloLitElement",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "headerTemplate",
+          "callee": "html",
+          "lineNumber": 67
+        },
+        {
+          "caller": "onClick",
+          "callee": "console.log",
+          "lineNumber": 75
+        },
+        {
+          "caller": "firstUpdated",
+          "callee": "console.log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "willUpdate",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "shouldUpdate",
+          "callee": "console.log",
+          "lineNumber": 85
+        },
+        {
+          "caller": "updated",
+          "callee": "console.log",
+          "lineNumber": 89
+        },
+        {
+          "caller": "render",
+          "callee": "html",
+          "lineNumber": 94
+        },
+        {
+          "caller": "render",
+          "callee": "this.headerTemplate",
+          "lineNumber": 95
+        },
+        {
+          "caller": "render",
+          "callee": "classMap",
+          "lineNumber": 96
+        },
+        {
+          "caller": "render",
+          "callee": "styleMap",
+          "lineNumber": 100
+        },
+        {
+          "caller": "render",
+          "callee": "repeat",
+          "lineNumber": 101
+        },
+        {
+          "caller": "render",
+          "callee": "html",
+          "lineNumber": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

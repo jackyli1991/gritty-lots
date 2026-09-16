@@ -1,0 +1,182 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "apps/admin/src/views/autoroutes/router/introduce.vue",
+      "language": "vue",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/meta.vue",
+      "language": "vue",
+      "sizeLines": 148,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/routes.json",
+      "language": "json",
+      "sizeLines": 45,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutAside.vue",
+      "language": "vue",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutHeader.vue",
+      "language": "vue",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutIndex.vue",
+      "language": "vue",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "language": "vue",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "language": "vue",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/layoutContent.vue",
+      "language": "vue",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "language": "vue",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "language": "vue",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/index.vue",
+      "language": "vue",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/jsonschema/index.vue",
+      "language": "vue",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/neural/index.vue",
+      "language": "vue",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/routes.json",
+      "language": "json",
+      "sizeLines": 26,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/GlassMatte.vue",
+      "language": "vue",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/GradientBorder.vue",
+      "language": "vue",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "language": "vue",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/Typewriter.vue",
+      "language": "vue",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/index.vue",
+      "language": "vue",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "language": "javascript",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/index.vue",
+      "language": "vue",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/lit.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "language": "vue",
+      "sizeLines": 71,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/javascript/index.vue",
+      "language": "vue",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "apps/admin/src/views/autoroutes/router/introduce.vue": [],
+    "apps/admin/src/views/autoroutes/router/meta.vue": [],
+    "apps/admin/src/views/autoroutes/routes.json": [],
+    "apps/admin/src/views/layout/LayoutAside.vue": [],
+    "apps/admin/src/views/layout/LayoutHeader.vue": [],
+    "apps/admin/src/views/layout/LayoutIndex.vue": [],
+    "apps/admin/src/views/layout/components/LanguageIcon.vue": [],
+    "apps/admin/src/views/layout/components/ThemeIcon.vue": [],
+    "apps/admin/src/views/layout/layoutContent.vue": [],
+    "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue": [],
+    "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue": [],
+    "apps/admin/src/views/packages/grittyui/index.vue": [],
+    "apps/admin/src/views/packages/jsonschema/index.vue": [],
+    "apps/admin/src/views/packages/neural/index.vue": [],
+    "apps/admin/src/views/packages/routes.json": [],
+    "apps/admin/src/views/playground/css/GlassMatte.vue": [],
+    "apps/admin/src/views/playground/css/GradientBorder.vue": [],
+    "apps/admin/src/views/playground/css/LiquidGlass.vue": [],
+    "apps/admin/src/views/playground/css/Typewriter.vue": [],
+    "apps/admin/src/views/playground/css/index.vue": [],
+    "apps/admin/src/views/playground/html/ShadowWebComponent.js": [],
+    "apps/admin/src/views/playground/html/index.vue": [],
+    "apps/admin/src/views/playground/html/lit.ts": [],
+    "apps/admin/src/views/playground/javascript/PostMessage.vue": [],
+    "apps/admin/src/views/playground/javascript/index.vue": []
+  }
+}

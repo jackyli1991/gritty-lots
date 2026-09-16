@@ -1,0 +1,49 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "packages/page-neural/README.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "packages/page-neural/index.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "packages/page-neural/package.json",
+      "language": "json",
+      "sizeLines": 45,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/tsconfig.app.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/tsconfig.json",
+      "language": "json",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/tsconfig.node.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "packages/page-neural/README.md": [],
+    "packages/page-neural/index.html": [],
+    "packages/page-neural/package.json": [],
+    "packages/page-neural/tsconfig.app.json": [],
+    "packages/page-neural/tsconfig.json": [],
+    "packages/page-neural/tsconfig.node.json": []
+  }
+}

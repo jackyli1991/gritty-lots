@@ -1,0 +1,372 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": ["packages/ui/src/components/ui/select/doc.vue", "packages/ui/src/style.css"],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/ui/src/composables/useColorMode.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 68,
+      "functions": [
+        {
+          "name": "systemPrefersDark",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "readInitialMode",
+          "startLine": 26,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "applyDarkClass",
+          "startLine": 34,
+          "endLine": 37,
+          "params": ["isDark"]
+        },
+        {
+          "name": "useColorMode",
+          "startLine": 72,
+          "endLine": 85,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DEFAULT_COLOR_MODE",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "COLOR_MODES",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "useColorMode",
+          "line": 72,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "systemPrefersDark",
+          "callee": "window.matchMedia",
+          "lineNumber": 23
+        },
+        {
+          "caller": "readInitialMode",
+          "callee": "localStorage.getItem",
+          "lineNumber": 28
+        },
+        {
+          "caller": "applyDarkClass",
+          "callee": "document.documentElement.classList.toggle",
+          "lineNumber": 36
+        },
+        {
+          "caller": "useColorMode",
+          "callee": "computed",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/composables/useRipple.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "useRipple",
+          "startLine": 20,
+          "endLine": 86,
+          "params": ["options"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "useRipple",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "trigger",
+          "callee": "el.hasAttribute",
+          "lineNumber": 30
+        },
+        {
+          "caller": "trigger",
+          "callee": "el.getBoundingClientRect",
+          "lineNumber": 34
+        },
+        {
+          "caller": "trigger",
+          "callee": "Math.hypot",
+          "lineNumber": 37
+        },
+        {
+          "caller": "trigger",
+          "callee": "document.createElement",
+          "lineNumber": 45
+        },
+        {
+          "caller": "trigger",
+          "callee": "ripple.setAttribute",
+          "lineNumber": 46
+        },
+        {
+          "caller": "trigger",
+          "callee": "[\n      'position:absolute',\n      'border-radius:9999px',\n      'pointer-events:none',\n      `left:${cx - radius}px`,\n      `top:${cy - radius}px`,\n      `width:${diameter}px`,\n      `height:${diameter}px`,\n      'background:currentColor',\n      'transform:scale(0)',\n      'transform-origin:center',\n      'z-index:0',\n    ].join",
+          "lineNumber": 47
+        },
+        {
+          "caller": "trigger",
+          "callee": "el.appendChild",
+          "lineNumber": 61
+        },
+        {
+          "caller": "trigger",
+          "callee": "ripple.animate",
+          "lineNumber": 63
+        },
+        {
+          "caller": "trigger",
+          "callee": "active.add",
+          "lineNumber": 71
+        },
+        {
+          "caller": "cleanup",
+          "callee": "ripple.remove",
+          "lineNumber": 73
+        },
+        {
+          "caller": "cleanup",
+          "callee": "active.delete",
+          "lineNumber": 74
+        },
+        {
+          "caller": "trigger",
+          "callee": "animation.addEventListener",
+          "lineNumber": 76
+        },
+        {
+          "caller": "trigger",
+          "callee": "animation.addEventListener",
+          "lineNumber": 77
+        },
+        {
+          "caller": "useRipple",
+          "callee": "onUnmounted",
+          "lineNumber": 80
+        },
+        {
+          "caller": "useRipple",
+          "callee": "active.forEach",
+          "lineNumber": 81
+        },
+        {
+          "caller": "useRipple",
+          "callee": "a.cancel",
+          "lineNumber": 81
+        },
+        {
+          "caller": "useRipple",
+          "callee": "active.clear",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/composables/useThemeColor.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "readInitialThemeColor",
+          "startLine": 32,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "applyThemeColor",
+          "startLine": 45,
+          "endLine": 52,
+          "params": ["value"]
+        },
+        {
+          "name": "useThemeColor",
+          "startLine": 65,
+          "endLine": 73,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "THEME_COLORS",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "DEFAULT_THEME_COLOR",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "useThemeColor",
+          "line": 65,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readInitialThemeColor",
+          "callee": "localStorage.getItem",
+          "lineNumber": 35
+        },
+        {
+          "caller": "applyThemeColor",
+          "callee": "localStorage.setItem",
+          "lineNumber": 50
+        },
+        {
+          "caller": "useThemeColor",
+          "callee": "computed",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/doc.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "exports": [
+        {
+          "name": "OverviewDoc",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "ButtonDoc",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "IconDoc",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "InputDoc",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "SelectDoc",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/lib/utils.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "functions": [
+        {
+          "name": "cn",
+          "startLine": 5,
+          "endLine": 7,
+          "params": ["...inputs"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cn",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cn",
+          "callee": "twMerge",
+          "lineNumber": 6
+        },
+        {
+          "caller": "cn",
+          "callee": "clsx",
+          "lineNumber": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

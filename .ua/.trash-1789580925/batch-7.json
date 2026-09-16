@@ -1,0 +1,160 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/page-neural/src/core/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/page-neural/src/core/index.ts",
+      "summary": "Re-exports the NeuralGraph Vue Flow canvas and registers vue3-json-viewer on a throwaway Vue app as a module side effect.",
+      "tags": ["barrel", "component", "exports", "entry-point"],
+      "complexity": "simple",
+      "languageNotes": "Side-effect createApp({}).use(Vue3JsonViewer) runs at import time; the dummy app is never mounted."
+    },
+    {
+      "id": "file:packages/page-neural/src/core/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "packages/page-neural/src/core/index.vue",
+      "summary": "Vue Flow canvas for the page-neural graph with Background, MiniMap, and Controls; nodes and edges start as empty refs.",
+      "tags": ["component", "vue-sfc", "graph", "vue-flow"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 <script setup> SFC wrapping @vue-flow/core; NeuralIcon overlay is commented out."
+    },
+    {
+      "id": "file:packages/page-neural/src/i18n/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/page-neural/src/i18n/index.ts",
+      "summary": "Vue I18n integration for page-neural: merges built-in zh-CN/en-US messages and supplies a fallback translator when no host i18n exists.",
+      "tags": ["i18n", "hook", "localization", "utility"],
+      "complexity": "moderate",
+      "languageNotes": "Stores a module-level i18n instance; mergeI18nMessages uses lodash-es merge so host keys win over library defaults."
+    },
+    {
+      "id": "function:packages/page-neural/src/i18n/index.ts:fallbackT",
+      "type": "function",
+      "name": "fallbackT",
+      "filePath": "packages/page-neural/src/i18n/index.ts",
+      "lineRange": [19, 29],
+      "summary": "Walks dotted keys against the built-in zh-CN catalog and returns the original key when no translation is found.",
+      "tags": ["i18n", "utility", "fallback"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/page-neural/src/i18n/index.ts:useNeuralI18n",
+      "type": "function",
+      "name": "useNeuralI18n",
+      "filePath": "packages/page-neural/src/i18n/index.ts",
+      "lineRange": [35, 49],
+      "summary": "Returns the host Vue I18n t/locale pair when mergeI18nMessages has run, otherwise a fallback translator and zh-CN locale.",
+      "tags": ["hook", "i18n", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/page-neural/src/i18n/index.ts:mergeI18nMessages",
+      "type": "function",
+      "name": "mergeI18nMessages",
+      "filePath": "packages/page-neural/src/i18n/index.ts",
+      "lineRange": [55, 65],
+      "summary": "Registers the host i18n instance and deep-merges library locale messages so existing app keys take precedence.",
+      "tags": ["i18n", "plugin", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/page-neural/src/index.ts",
+      "summary": "Vue plugin entry that registers GrittyNeuralGraph and merges the package i18n messages into the host app.",
+      "tags": ["entry-point", "plugin", "vue"],
+      "complexity": "simple",
+      "languageNotes": "Default-export Vue plugin with an install(app, options) hook."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/page-neural/src/core/index.ts",
+      "target": "file:packages/page-neural/src/core/index.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "file:packages/page-neural/src/i18n/locales/en-US.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "file:packages/page-neural/src/i18n/locales/zh-CN.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/index.ts",
+      "target": "file:packages/page-neural/src/core/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/index.ts",
+      "target": "file:packages/page-neural/src/i18n/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/index.ts",
+      "target": "file:packages/page-neural/src/style.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:fallbackT",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:useNeuralI18n",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:mergeI18nMessages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:useNeuralI18n",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/page-neural/src/i18n/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:mergeI18nMessages",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/page-neural/src/index.ts",
+      "target": "function:packages/page-neural/src/i18n/index.ts:mergeI18nMessages",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

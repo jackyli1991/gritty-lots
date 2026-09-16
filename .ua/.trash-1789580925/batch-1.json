@@ -1,0 +1,339 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/data-schema/src/components/badge/badge.vue",
+      "type": "file",
+      "name": "badge.vue",
+      "filePath": "packages/data-schema/src/components/badge/badge.vue",
+      "summary": "Thin Vue wrapper around ant-design-vue Badge that forwards attrs and all named/default slots under the gritty-neural-badge class.",
+      "tags": ["component", "wrapper", "ui", "passthrough"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 script-setup SFC that dynamically re-emits every slot via v-for on useSlots()."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/button/button.vue",
+      "type": "file",
+      "name": "button.vue",
+      "filePath": "packages/data-schema/src/components/button/button.vue",
+      "summary": "Neural button wrapper over ant-design-vue Button that optionally renders a NeuralIcon in the icon slot and applies flex centering styles.",
+      "tags": ["component", "wrapper", "ui", "button"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/checkbox/checkbox.vue",
+      "type": "file",
+      "name": "checkbox.vue",
+      "filePath": "packages/data-schema/src/components/checkbox/checkbox.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Checkbox that binds attrs and forwards all slots with the gritty-neural-checkbox class.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/configProvider/configProvider.vue",
+      "type": "file",
+      "name": "configProvider.vue",
+      "filePath": "packages/data-schema/src/components/configProvider/configProvider.vue",
+      "summary": "Passthrough wrapper around ant-design-vue ConfigProvider used to theme and configure descendant Neural UI components.",
+      "tags": ["component", "wrapper", "config", "theming"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/icon/icon.vue",
+      "type": "file",
+      "name": "icon.vue",
+      "filePath": "packages/data-schema/src/components/icon/icon.vue",
+      "summary": "Named NeuralIcon that looks up Lucide icons from a local register, applies default size/stroke, and emits click from an accessible button.",
+      "tags": ["component", "icon", "ui", "event-handler"],
+      "complexity": "simple",
+      "languageNotes": "Resolves icons dynamically via computed lookup into the register map and renders with Vue's <component :is>."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/data-schema/src/components/index.ts",
+      "summary": "Barrel that re-exports data-schema Neural UI wrappers and aliases ant-design-vue message and theme as NeuralMessage and NeuralTheme.",
+      "tags": ["barrel", "entry-point", "component", "exports"],
+      "complexity": "simple",
+      "languageNotes": "TypeScript barrel using named re-exports; ant-design-vue message/theme are aliased rather than wrapped as SFCs."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/input/input.vue",
+      "type": "file",
+      "name": "input.vue",
+      "filePath": "packages/data-schema/src/components/input/input.vue",
+      "summary": "ant-design-vue Input wrapper that adds an optional bottom-border-only style via the bottomBorder prop.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "type": "file",
+      "name": "inputNumber.vue",
+      "filePath": "packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "summary": "ant-design-vue InputNumber wrapper that can stretch to full width when block is true and forwards all slots.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "type": "file",
+      "name": "popConfirm.vue",
+      "filePath": "packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Popconfirm that forwards attrs and slots under gritty-neural-popconfirm.",
+      "tags": ["component", "wrapper", "ui", "overlay"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/popover/popover.vue",
+      "type": "file",
+      "name": "popover.vue",
+      "filePath": "packages/data-schema/src/components/popover/popover.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Popover that forwards attrs and all named/default slots.",
+      "tags": ["component", "wrapper", "ui", "overlay"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/radio/radio.vue",
+      "type": "file",
+      "name": "radio.vue",
+      "filePath": "packages/data-schema/src/components/radio/radio.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Radio that forwards attrs and slots with the gritty-neural-radio class.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/radio/radioButton.vue",
+      "type": "file",
+      "name": "radioButton.vue",
+      "filePath": "packages/data-schema/src/components/radio/radioButton.vue",
+      "summary": "Wraps ant-design-vue Radio.Button as a Neural radio-button, forwarding attrs and slots without adding extra props.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/radio/radioGroup.vue",
+      "type": "file",
+      "name": "radioGroup.vue",
+      "filePath": "packages/data-schema/src/components/radio/radioGroup.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue RadioGroup that forwards attrs and slots to grouped radio children.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/select/optGroup.ts",
+      "type": "file",
+      "name": "optGroup.ts",
+      "filePath": "packages/data-schema/src/components/select/optGroup.ts",
+      "summary": "Re-exports ant-design-vue Select.OptGroup as NeuralSelectOptGroup so Select can still recognize grouping markers.",
+      "tags": ["component", "barrel", "select", "re-export"],
+      "complexity": "simple",
+      "languageNotes": "OptGroup is a data component (renders null) with isSelectOptGroup; wrapping it in an SFC would break dropdown groups."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/select/select.vue",
+      "type": "file",
+      "name": "select.vue",
+      "filePath": "packages/data-schema/src/components/select/select.vue",
+      "summary": "ant-design-vue Select wrapper that supports a block full-width layout, exposes focus/blur/getSelectRef, and styles option content alignment.",
+      "tags": ["component", "wrapper", "ui", "form", "select"],
+      "complexity": "moderate",
+      "languageNotes": "Uses defineExpose to forward the inner Select instance methods; unscoped dropdown styles target .ant-select-dropdown."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/select/selectOption.ts",
+      "type": "file",
+      "name": "selectOption.ts",
+      "filePath": "packages/data-schema/src/components/select/selectOption.ts",
+      "summary": "Re-exports ant-design-vue Select.Option as NeuralSelectOption so Select can identify option children from VNodes.",
+      "tags": ["component", "barrel", "select", "re-export"],
+      "complexity": "simple",
+      "languageNotes": "Option is a data component (renders null) with isSelectOption; an SFC wrapper would hide options from Select."
+    },
+    {
+      "id": "file:packages/data-schema/src/components/switch/switch.vue",
+      "type": "file",
+      "name": "switch.vue",
+      "filePath": "packages/data-schema/src/components/switch/switch.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Switch that forwards attrs and slots under gritty-neural-switch.",
+      "tags": ["component", "wrapper", "ui", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/tag/checkableTag.vue",
+      "type": "file",
+      "name": "checkableTag.vue",
+      "filePath": "packages/data-schema/src/components/tag/checkableTag.vue",
+      "summary": "Wraps ant-design-vue Tag.CheckableTag as a Neural checkable tag, forwarding attrs and all slots.",
+      "tags": ["component", "wrapper", "ui", "tag"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/tag/tag.vue",
+      "type": "file",
+      "name": "tag.vue",
+      "filePath": "packages/data-schema/src/components/tag/tag.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Tag that forwards attrs and slots with the gritty-neural-tag class.",
+      "tags": ["component", "wrapper", "ui", "tag"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/tooltip/tooltip.vue",
+      "type": "file",
+      "name": "tooltip.vue",
+      "filePath": "packages/data-schema/src/components/tooltip/tooltip.vue",
+      "summary": "Passthrough Vue wrapper around ant-design-vue Tooltip that forwards attrs and all named/default slots.",
+      "tags": ["component", "wrapper", "ui", "overlay"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/badge/badge.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/button/button.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/checkbox/checkbox.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/configProvider/configProvider.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/icon/icon.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/input/input.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/popover/popover.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/radio/radio.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/radio/radioButton.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/radio/radioGroup.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/select/optGroup.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/select/select.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/select/selectOption.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/switch/switch.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/tag/checkableTag.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/tag/tag.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/index.ts",
+      "target": "file:packages/data-schema/src/components/tooltip/tooltip.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/components/button/button.vue",
+      "target": "file:packages/data-schema/src/components/icon/icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/components/icon/icon.vue",
+      "target": "file:packages/data-schema/src/components/icon/register.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

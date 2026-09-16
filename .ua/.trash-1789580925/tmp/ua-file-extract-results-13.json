@@ -1,0 +1,629 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [
+    ".gitattributes",
+    "apps/admin/src/fonts/font.css",
+    "apps/admin/src/style.css",
+    "apps/admin/src/views/404.vue",
+    "apps/admin/src/views/autoroutes/router/config/index.vue",
+    "apps/admin/src/views/autoroutes/router/group/async.vue",
+    "apps/admin/src/views/autoroutes/router/group/hidden.vue",
+    "apps/admin/src/views/autoroutes/router/group/permission.vue",
+    "apps/admin/src/views/autoroutes/router/index.vue"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 16,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 9,
+      "failed": 0,
+      "skipped": 7
+    }
+  },
+  "results": [
+    {
+      "path": ".commitlintrc.cjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".trae/agents/code-comment-standard.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 82,
+      "nonEmptyLines": 60,
+      "sections": [
+        {
+          "heading": "角色定位",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "详细注释执行规范",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "函数/方法 JSDoc 注释规范（强制）",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "变量、计算属性注释规范",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "复杂代码逻辑注释规范",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "废弃代码/函数注释规范",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "Vue Template / HTML 注释规范",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "CSS / SCSS 样式注释规范",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "全局核心原则（最高优先级）",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "禁止行为清单",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "标准执行工作流",
+          "level": 2,
+          "line": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": ".trae/commands/create_page.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": ".trae/documents/extract-autoRoute-npm-package.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 139,
+      "nonEmptyLines": 96,
+      "sections": [
+        {
+          "heading": "提取 autoRoute 为独立 npm 包",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Current State Analysis",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "autoRoute 模块结构（4 文件）",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "依赖关系",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "apps/admin 中引用 autoRoute 的文件（实际 import，非代码示例字符串）",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "现有包结构参考（`packages/ui/package.json`）",
+          "level": 3,
+          "line": 27
+        },
+        {
+          "heading": "根 tsconfig 路径别名",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "Proposed Changes",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "1. 创建 `packages/auto-route/package.json`",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "2. 迁移源文件",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "3. 创建 `packages/auto-route/tsconfig.json`",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "4. 在 `apps/admin/package.json` 中添加依赖",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "5. 替换 apps/admin 中的 import",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "6. 删除 `apps/admin/src/autoRoute/` 目录",
+          "level": 3,
+          "line": 111
+        },
+        {
+          "heading": "7. 添加根 tsconfig reference（可选）",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "Assumptions & Decisions",
+          "level": 2,
+          "line": 127
+        },
+        {
+          "heading": "Verification Steps",
+          "level": 2,
+          "line": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": ".trae/rules/css-generate.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 72,
+      "nonEmptyLines": 50,
+      "sections": [
+        {
+          "heading": "CSS & Tailwind 样式生成规范",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "基础约束",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "命名与类名规范",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "颜色规范",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "布局规范",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "动画与过渡",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "❌ 禁止行为",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "输出要求",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "指令参考（聊天框可直接用）",
+          "level": 2,
+          "line": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "apps/admin/components.d.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/i18n/locales/en-US.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/icons/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "ICONIFY_ICONS",
+          "line": 2,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/router/permissionRoutes.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 182,
+      "nonEmptyLines": 180,
+      "exports": [
+        {
+          "name": "permissionRouteNames",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "permissionRoutes",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/stores/layout.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 38,
+      "exports": [
+        {
+          "name": "useLayoutStore",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/stores/progress.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 62,
+      "exports": [
+        {
+          "name": "useProgressStore",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "start",
+          "callee": "clearInterval",
+          "lineNumber": 15
+        },
+        {
+          "caller": "start",
+          "callee": "clearTimeout",
+          "lineNumber": 16
+        },
+        {
+          "caller": "start",
+          "callee": "setInterval",
+          "lineNumber": 19
+        },
+        {
+          "caller": "start",
+          "callee": "Math.random",
+          "lineNumber": 22
+        },
+        {
+          "caller": "start",
+          "callee": "Math.random",
+          "lineNumber": 28
+        },
+        {
+          "caller": "finish",
+          "callee": "clearInterval",
+          "lineNumber": 38
+        },
+        {
+          "caller": "finish",
+          "callee": "setTimeout",
+          "lineNumber": 45
+        },
+        {
+          "caller": "error",
+          "callee": "clearInterval",
+          "lineNumber": 53
+        },
+        {
+          "caller": "error",
+          "callee": "setTimeout",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/stores/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 152,
+      "nonEmptyLines": 146,
+      "functions": [
+        {
+          "name": "convertPermissionRoutesToMenuItems",
+          "startLine": 44,
+          "endLine": 68,
+          "params": ["routes", "target", "hideHidden"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "useRouteStore",
+          "line": 70,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "convertPermissionRoutesToMenuItems",
+          "callee": "routes.forEach",
+          "lineNumber": 49
+        },
+        {
+          "caller": "convertPermissionRoutesToMenuItems",
+          "callee": "h",
+          "lineNumber": 58
+        },
+        {
+          "caller": "convertPermissionRoutesToMenuItems",
+          "callee": "convertPermissionRoutesToMenuItems",
+          "lineNumber": 64
+        },
+        {
+          "caller": "convertPermissionRoutesToMenuItems",
+          "callee": "target.push",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "message.loading",
+          "lineNumber": 106
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "sleep",
+          "lineNumber": 111
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "import",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "message.destroy",
+          "lineNumber": 113
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "message.success",
+          "lineNumber": 114
+        },
+        {
+          "caller": "getPermissionRoutes",
+          "callee": "this.createPermissionRoutes",
+          "lineNumber": 115
+        },
+        {
+          "caller": "getRedirectRoute",
+          "callee": "router.resolve",
+          "lineNumber": 127
+        },
+        {
+          "caller": "createPermissionRoutes",
+          "callee": "router\n        .getRoutes()\n        .find",
+          "lineNumber": 133
+        },
+        {
+          "caller": "createPermissionRoutes",
+          "callee": "router\n        .getRoutes",
+          "lineNumber": 133
+        },
+        {
+          "caller": "createPermissionRoutes",
+          "callee": "createAutoRoutes",
+          "lineNumber": 136
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/types/routeJson.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/utils/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "sleep",
+          "startLine": 2,
+          "endLine": 4,
+          "params": ["ms"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sleep",
+          "line": 2,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sleep",
+          "callee": "setTimeout",
+          "lineNumber": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/group/routes.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 30,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    }
+  ]
+}

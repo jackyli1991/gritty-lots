@@ -1,0 +1,60 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "Start with the README and workspace manifests to see that gritty-lots is a Vue 3 + TypeScript + Vite pnpm monorepo.",
+    "nodeIds": ["document:README.md", "config:package.json", "config:pnpm-workspace.yaml"]
+  },
+  {
+    "order": 2,
+    "title": "Admin App Entry Point",
+    "description": "The product boots in @gritty-lots/admin: main.ts creates the Vue app, App.vue mounts the shell, and the router wires file-based views.",
+    "nodeIds": [
+      "file:apps/admin/src/main.ts",
+      "file:apps/admin/src/App.vue",
+      "file:apps/admin/src/router/index.ts"
+    ]
+  },
+  {
+    "order": 3,
+    "title": "Auto-Route Engine",
+    "description": "The auto-route package scans views, reads routes.json metadata, and generates Vue Router records used by the admin app.",
+    "nodeIds": ["file:packages/auto-route/src/index.ts", "file:packages/auto-route/src/core.ts"]
+  },
+  {
+    "order": 4,
+    "title": "Shared UI Kit",
+    "description": "Reusable presentational components, Tailwind styles, and composables live in @gritty-lots/ui and are consumed by the admin app.",
+    "nodeIds": ["file:packages/ui/src/index.ts"]
+  },
+  {
+    "order": 5,
+    "title": "Data Schema Kit",
+    "description": "@gritty-lots/data-schema builds JSON-schema-driven forms and controls with AJV validation; the core Vue surface is the editor entry.",
+    "nodeIds": [
+      "file:packages/data-schema/src/index.ts",
+      "file:packages/data-schema/src/core/index.vue"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Page Neural Editor",
+    "description": "page-neural is a Vue Flow visual editor that composes schema components into an editable page/flow graph.",
+    "nodeIds": [
+      "file:packages/page-neural/src/index.ts",
+      "file:packages/page-neural/src/core/index.vue"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "File-Based Views",
+    "description": "Admin pages under src/views are discovered by auto-route. The playground Vue page is a good example of a generated route target.",
+    "nodeIds": ["file:apps/admin/src/views/playground/vue/index.vue"]
+  },
+  {
+    "order": 8,
+    "title": "CI Deploy Pipeline",
+    "description": "GitHub Actions builds and deploys the admin app when changes land on the default branch.",
+    "nodeIds": ["pipeline:.github/workflows/deploy.yml", "config:apps/admin/package.json"]
+  }
+]

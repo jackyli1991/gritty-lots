@@ -1,0 +1,51 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "packages/data-schema/src/core/index.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/types.ts",
+      "language": "typescript",
+      "sizeLines": 163,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/utils.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/i18n/index.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/index.ts",
+      "language": "typescript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "packages/data-schema/src/core/index.vue": [],
+    "packages/data-schema/src/core/types.ts": [],
+    "packages/data-schema/src/core/utils.ts": [
+      "packages/data-schema/src/core/types.ts",
+      "packages/data-schema/src/i18n/index.ts"
+    ],
+    "packages/data-schema/src/i18n/index.ts": [
+      "packages/data-schema/src/i18n/locales/en-US.json",
+      "packages/data-schema/src/i18n/locales/zh-CN.json"
+    ],
+    "packages/data-schema/src/index.ts": [
+      "packages/data-schema/src/core/index.vue",
+      "packages/data-schema/src/i18n/index.ts"
+    ]
+  }
+}

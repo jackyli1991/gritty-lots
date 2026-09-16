@@ -1,0 +1,12 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 0,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "notes": [
+    "Merge dropped 6 imports to locale JSON because analyzers used file: prefix while nodes are config:. Rewired those targets.",
+    "Vue SFCs had no tree-sitter parser so most Vue nodes are file-level without function/class children.",
+    "Import map was sparse (18 files with imports) due to missing Vue/tree-sitter wasm builds."
+  ]
+}

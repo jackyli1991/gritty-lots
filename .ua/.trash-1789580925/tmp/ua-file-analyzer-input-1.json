@@ -1,0 +1,167 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "packages/data-schema/src/components/badge/badge.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/button/button.vue",
+      "language": "vue",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/checkbox/checkbox.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/configProvider/configProvider.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/icon/icon.vue",
+      "language": "vue",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/index.ts",
+      "language": "typescript",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/input/input.vue",
+      "language": "vue",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "language": "vue",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/popover/popover.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radio.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radioButton.vue",
+      "language": "vue",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radioGroup.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/optGroup.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/select.vue",
+      "language": "vue",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/selectOption.ts",
+      "language": "typescript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/switch/switch.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tag/checkableTag.vue",
+      "language": "vue",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tag/tag.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tooltip/tooltip.vue",
+      "language": "vue",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "packages/data-schema/src/components/badge/badge.vue": [],
+    "packages/data-schema/src/components/button/button.vue": [],
+    "packages/data-schema/src/components/checkbox/checkbox.vue": [],
+    "packages/data-schema/src/components/configProvider/configProvider.vue": [],
+    "packages/data-schema/src/components/icon/icon.vue": [],
+    "packages/data-schema/src/components/index.ts": [
+      "packages/data-schema/src/components/badge/badge.vue",
+      "packages/data-schema/src/components/button/button.vue",
+      "packages/data-schema/src/components/checkbox/checkbox.vue",
+      "packages/data-schema/src/components/configProvider/configProvider.vue",
+      "packages/data-schema/src/components/icon/icon.vue",
+      "packages/data-schema/src/components/input/input.vue",
+      "packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "packages/data-schema/src/components/popover/popover.vue",
+      "packages/data-schema/src/components/radio/radio.vue",
+      "packages/data-schema/src/components/radio/radioButton.vue",
+      "packages/data-schema/src/components/radio/radioGroup.vue",
+      "packages/data-schema/src/components/select/optGroup.ts",
+      "packages/data-schema/src/components/select/select.vue",
+      "packages/data-schema/src/components/select/selectOption.ts",
+      "packages/data-schema/src/components/switch/switch.vue",
+      "packages/data-schema/src/components/tag/checkableTag.vue",
+      "packages/data-schema/src/components/tag/tag.vue",
+      "packages/data-schema/src/components/tooltip/tooltip.vue"
+    ],
+    "packages/data-schema/src/components/input/input.vue": [],
+    "packages/data-schema/src/components/inputNumber/inputNumber.vue": [],
+    "packages/data-schema/src/components/popConfirm/popConfirm.vue": [],
+    "packages/data-schema/src/components/popover/popover.vue": [],
+    "packages/data-schema/src/components/radio/radio.vue": [],
+    "packages/data-schema/src/components/radio/radioButton.vue": [],
+    "packages/data-schema/src/components/radio/radioGroup.vue": [],
+    "packages/data-schema/src/components/select/optGroup.ts": [],
+    "packages/data-schema/src/components/select/select.vue": [],
+    "packages/data-schema/src/components/select/selectOption.ts": [],
+    "packages/data-schema/src/components/switch/switch.vue": [],
+    "packages/data-schema/src/components/tag/checkableTag.vue": [],
+    "packages/data-schema/src/components/tag/tag.vue": [],
+    "packages/data-schema/src/components/tooltip/tooltip.vue": []
+  }
+}

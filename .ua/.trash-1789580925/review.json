@@ -1,0 +1,45 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'config:skills-lock.json' has no edges (orphan)",
+    "Node 'file:apps/admin/index.html' has no edges (orphan)",
+    "Node 'file:.commitlintrc.cjs' has no edges (orphan)",
+    "Node 'file:.gitattributes' has no edges (orphan)",
+    "Node 'file:apps/admin/src/stores/layout.ts' has no edges (orphan)",
+    "Node 'file:apps/admin/src/stores/progress.ts' has no edges (orphan)",
+    "Node 'file:apps/admin/src/views/404.vue' has no edges (orphan)",
+    "Node 'file:packages/data-schema/src/core/ajv-instance.ts' has no edges (orphan)",
+    "Node 'file:packages/page-neural/vite.config.ts' has no edges (orphan)",
+    "Node 'file:packages/ui/src/components/ui/select/SelectGroup.vue' has no edges (orphan)",
+    "Node 'file:packages/ui/src/components/ui/select/SelectItemText.vue' has no edges (orphan)",
+    "Node 'file:packages/ui/src/components/ui/select/SelectValue.vue' has no edges (orphan)",
+    "Node 'file:packages/ui/src/components/ui/select/doc.vue' has no edges (orphan)",
+    "Node 'file:packages/ui/src/doc.ts' has no edges (orphan)",
+    "Node 'file:packages/ui/vite.config.ts' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 263,
+    "totalEdges": 338,
+    "totalLayers": 9,
+    "tourSteps": 8,
+    "nodeTypes": {
+      "file": 163,
+      "function": 53,
+      "pipeline": 1,
+      "config": 37,
+      "document": 7,
+      "class": 2
+    },
+    "edgeTypes": {
+      "imports": 77,
+      "depends_on": 86,
+      "contains": 55,
+      "exports": 31,
+      "calls": 25,
+      "triggers": 3,
+      "documents": 9,
+      "configures": 31,
+      "related": 21
+    }
+  }
+}

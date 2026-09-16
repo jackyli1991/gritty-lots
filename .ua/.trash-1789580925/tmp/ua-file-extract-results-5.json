@@ -1,0 +1,302 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": ["packages/data-schema/src/core/index.vue"],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/data-schema/src/core/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 163,
+      "nonEmptyLines": 148,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/data-schema/src/core/utils.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "createField",
+          "startLine": 6,
+          "endLine": 18,
+          "params": ["fieldName"]
+        },
+        {
+          "name": "is",
+          "startLine": 21,
+          "endLine": 23,
+          "params": ["str", "type"]
+        },
+        {
+          "name": "exportJSON",
+          "startLine": 26,
+          "endLine": 46,
+          "params": ["data", "filename"]
+        },
+        {
+          "name": "importJSON",
+          "startLine": 49,
+          "endLine": 65,
+          "params": ["file"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createField",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "is",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "exportJSON",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "importJSON",
+          "line": 49,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createField",
+          "callee": "Date.now().toString().slice",
+          "lineNumber": 11
+        },
+        {
+          "caller": "createField",
+          "callee": "Date.now().toString",
+          "lineNumber": 11
+        },
+        {
+          "caller": "createField",
+          "callee": "Date.now",
+          "lineNumber": 11
+        },
+        {
+          "caller": "is",
+          "callee": "Array.isArray",
+          "lineNumber": 22
+        },
+        {
+          "caller": "is",
+          "callee": "str.includes",
+          "lineNumber": 22
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "JSON.stringify",
+          "lineNumber": 28
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "URL.createObjectURL",
+          "lineNumber": 34
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "document.createElement",
+          "lineNumber": 37
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "document.body.appendChild",
+          "lineNumber": 40
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "link.click",
+          "lineNumber": 41
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "document.body.removeChild",
+          "lineNumber": 44
+        },
+        {
+          "caller": "exportJSON",
+          "callee": "URL.revokeObjectURL",
+          "lineNumber": 45
+        },
+        {
+          "caller": "importJSON",
+          "callee": "Promise.reject",
+          "lineNumber": 51
+        },
+        {
+          "caller": "importJSON",
+          "callee": "t",
+          "lineNumber": 51
+        },
+        {
+          "caller": "importJSON",
+          "callee": "resolve",
+          "lineNumber": 57
+        },
+        {
+          "caller": "importJSON",
+          "callee": "JSON.parse",
+          "lineNumber": 57
+        },
+        {
+          "caller": "importJSON",
+          "callee": "reject",
+          "lineNumber": 59
+        },
+        {
+          "caller": "importJSON",
+          "callee": "t",
+          "lineNumber": 59
+        },
+        {
+          "caller": "importJSON",
+          "callee": "reader.readAsText",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/data-schema/src/i18n/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "fallbackT",
+          "startLine": 19,
+          "endLine": 29,
+          "params": ["key"]
+        },
+        {
+          "name": "useNeuralI18n",
+          "startLine": 35,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "mergeI18nMessages",
+          "startLine": 55,
+          "endLine": 65,
+          "params": ["i18nInstance"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "libMessages",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "useNeuralI18n",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "mergeI18nMessages",
+          "line": 55,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fallbackT",
+          "callee": "key.split",
+          "lineNumber": 20
+        },
+        {
+          "caller": "useNeuralI18n",
+          "callee": "i18n.global.t",
+          "lineNumber": 40
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "Object.keys(libMessages).forEach",
+          "lineNumber": 60
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "Object.keys",
+          "lineNumber": 60
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "i18nInstance.global.getLocaleMessage",
+          "lineNumber": 61
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "i18nInstance.global.setLocaleMessage",
+          "lineNumber": 63
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "merge",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/data-schema/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "callGraph": [
+        {
+          "caller": "install",
+          "callee": "app.component",
+          "lineNumber": 6
+        },
+        {
+          "caller": "install",
+          "callee": "mergeI18nMessages",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

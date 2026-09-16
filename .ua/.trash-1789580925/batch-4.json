@@ -1,0 +1,121 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/ui/src/App.vue",
+      "type": "file",
+      "name": "App.vue",
+      "filePath": "packages/ui/src/App.vue",
+      "summary": "Playground root for the UI package that mounts ButtonDoc inside a full-height themed layout.",
+      "tags": ["component", "entry-point", "playground", "demo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/button/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/ui/src/components/ui/button/index.ts",
+      "summary": "Re-exports the Button Vue component and defines CVA buttonVariants covering variant, size, shape, danger, and ghost compound styles.",
+      "tags": ["component", "barrel", "styling", "type-definition"],
+      "complexity": "moderate",
+      "languageNotes": "Uses class-variance-authority with a large compoundVariants matrix so danger and ghost override base variant colors."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/icon/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/ui/src/components/ui/icon/index.ts",
+      "summary": "Barrel that re-exports the Icon Vue component as the named Icon export.",
+      "tags": ["component", "barrel", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/input/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/ui/src/components/ui/input/index.ts",
+      "summary": "Re-exports the Input Vue component, CVA inputVariants for size and prefix/suffix padding, and the InputStatus type.",
+      "tags": ["component", "barrel", "styling", "type-definition"],
+      "complexity": "simple",
+      "languageNotes": "CVA variants style only the inner input; border and focus states are left to the wrapping container."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/ui/src/components/ui/select/index.ts",
+      "summary": "Re-exports the Select component family plus selectTriggerVariants and types for status, mode, options, and field-name mapping.",
+      "tags": ["component", "barrel", "styling", "type-definition"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/ui/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/ui/src/index.ts",
+      "summary": "Public entry of the UI package: re-exports utilities, theme/ripple composables, and G-prefixed components, plus a GrittyUI Vue plugin that globally registers them.",
+      "tags": ["entry-point", "barrel", "plugin", "component"],
+      "complexity": "simple",
+      "languageNotes": "Vue plugin install() registers GButton, GIcon, GInput, and GSelect so templates can use g-* tags after app.use(GrittyUI)."
+    },
+    {
+      "id": "file:packages/ui/src/main.ts",
+      "type": "file",
+      "name": "main.ts",
+      "filePath": "packages/ui/src/main.ts",
+      "summary": "Vite playground bootstrap that creates the Vue app, installs GrittyUI, loads global styles, and mounts App.vue.",
+      "tags": ["entry-point", "bootstrap", "playground"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/ui/src/index.ts",
+      "target": "file:packages/ui/src/components/ui/button/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/index.ts",
+      "target": "file:packages/ui/src/components/ui/icon/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/index.ts",
+      "target": "file:packages/ui/src/components/ui/input/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/index.ts",
+      "target": "file:packages/ui/src/components/ui/select/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/main.ts",
+      "target": "file:packages/ui/src/App.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/main.ts",
+      "target": "file:packages/ui/src/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/main.ts",
+      "target": "file:packages/ui/src/style.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

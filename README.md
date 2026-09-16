@@ -22,3 +22,16 @@ pnpm spellcheck
 pnpm spellcheck:show
 
 ```
+
+# 添加skills
+
+```bash
+# 添加understand-anything skills
+npx skills add egonex-ai/understand-anything -y
+```
+
+# 启动understand-anything服务查看项目分析
+
+```bash
+npx --yes "https://github.com/Egonex-AI/Understand-Anything/releases/download/v2.9.0/understand-anything-viewer.tgz"
+```

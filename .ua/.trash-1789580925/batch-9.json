@@ -1,0 +1,188 @@
+{
+  "nodes": [
+    {
+      "id": "config:.oxfmtrc.json",
+      "type": "config",
+      "name": ".oxfmtrc.json",
+      "filePath": ".oxfmtrc.json",
+      "summary": "Root oxfmt configuration for print width, quotes, Vue script/style indent, LF endings, and experimental import/package.json sorting, ignoring paths from .gitignore.",
+      "tags": ["configuration", "formatting", "oxfmt", "code-style"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.oxlintrc.json",
+      "type": "config",
+      "name": ".oxlintrc.json",
+      "filePath": ".oxlintrc.json",
+      "summary": "Root oxlint rules for browser/node ES2024, Vue compiler macros as globals, correctness/suspicious categories, and plugins including vue, typescript, and import.",
+      "tags": ["configuration", "linting", "oxlint", "vue"],
+      "complexity": "simple",
+      "languageNotes": "JSON-with-comments listing Vue macros such as defineProps as readonly globals so no-undef does not fire."
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Short project overview for the Vue 3 + TypeScript + Vite monorepo, documenting init, commitlint, lint, format, and spellcheck scripts.",
+      "tags": ["documentation", "entry-point", "overview", "scripts"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:cspell.json",
+      "type": "config",
+      "name": "cspell.json",
+      "filePath": "cspell.json",
+      "summary": "CSpell dictionary for English and zh-CN covering apps/packages and repo docs, with Vue/TypeScript dictionaries and project-specific words such as oxfmt and grittyui.",
+      "tags": ["configuration", "spellcheck", "dictionary", "quality"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:lefthook.yml",
+      "type": "config",
+      "name": "lefthook.yml",
+      "filePath": "lefthook.yml",
+      "summary": "Lefthook git hooks that run oxfmt, oxlint, and cspell on staged files at pre-commit, and commitlint on commit-msg for Conventional Commits.",
+      "tags": ["configuration", "git-hooks", "pre-commit", "quality"],
+      "complexity": "simple",
+      "languageNotes": "YAML glob-filtered staged-file commands plus a commit-msg hook invoking commitlint."
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Root pnpm workspace manifest for gritty-lots: lint/format/spellcheck scripts plus admin-app dev, build, and preview via --filter @gritty-lots/admin.",
+      "tags": ["configuration", "monorepo", "scripts", "build-system", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:pnpm-workspace.yaml",
+      "type": "config",
+      "name": "pnpm-workspace.yaml",
+      "filePath": "pnpm-workspace.yaml",
+      "summary": "pnpm workspace membership for apps/* and packages/*, with allowBuilds disabling native postinstall for lefthook, core-js, vue-demi, and @parcel/watcher.",
+      "tags": ["configuration", "monorepo", "pnpm", "workspace"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:skills-lock.json",
+      "type": "config",
+      "name": "skills-lock.json",
+      "filePath": "skills-lock.json",
+      "summary": "Lockfile pinning Understand-Anything plugin skills (understand, chat, dashboard, domain, figma, and related) to GitHub sources and content hashes.",
+      "tags": ["configuration", "skills", "lockfile", "agents"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Solution-style TypeScript root with @gritty-lots/* path aliases into packages/*/src and project references to the admin app and node tsconfigs.",
+      "tags": ["configuration", "typescript", "path-aliases", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Empty files array with references to apps/admin/tsconfig.app.json and tsconfig.node.json."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:README.md",
+      "target": "config:package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.oxfmtrc.json",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.oxfmtrc.json",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.oxlintrc.json",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.oxlintrc.json",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:cspell.json",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:cspell.json",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lefthook.yml",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lefthook.yml",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:pnpm-workspace.yaml",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:pnpm-workspace.yaml",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

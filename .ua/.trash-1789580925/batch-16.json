@@ -1,0 +1,568 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/page-neural/src/components/icon/register.ts",
+      "type": "file",
+      "name": "register.ts",
+      "filePath": "packages/page-neural/src/components/icon/register.ts",
+      "summary": "Default-export icon map of Lucide Vue icons plus the local NullIcon used by NeuralIcon in page-neural.",
+      "tags": ["factory", "icon", "registry", "vue"],
+      "complexity": "moderate",
+      "languageNotes": "Re-exports Lucide Vue components as a name-to-component object and appends the local Null SFC."
+    },
+    {
+      "id": "config:packages/page-neural/src/i18n/locales/en-US.json",
+      "type": "config",
+      "name": "en-US.json",
+      "filePath": "packages/page-neural/src/i18n/locales/en-US.json",
+      "summary": "Empty English locale catalog placeholder merged into page-neural i18n; no translation keys are defined yet.",
+      "tags": ["configuration", "i18n", "localization", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/page-neural/src/i18n/locales/zh-CN.json",
+      "type": "config",
+      "name": "zh-CN.json",
+      "filePath": "packages/page-neural/src/i18n/locales/zh-CN.json",
+      "summary": "Empty Chinese locale catalog placeholder merged into page-neural i18n; no translation keys are defined yet.",
+      "tags": ["configuration", "i18n", "localization", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/main.ts",
+      "type": "file",
+      "name": "main.ts",
+      "filePath": "packages/page-neural/src/main.ts",
+      "summary": "Vite playground bootstrap that loads Vue Flow styles and mounts App.vue onto #app.",
+      "tags": ["entry-point", "bootstrap", "vue", "playground"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/style.css",
+      "type": "file",
+      "name": "style.css",
+      "filePath": "packages/page-neural/src/style.css",
+      "summary": "Side-effect CSS imports for Vue Flow core, default theme, minimap, and controls styles used by the page-neural graph canvas.",
+      "tags": ["styles", "vue-flow", "theming", "graph"],
+      "complexity": "simple",
+      "languageNotes": "Only @import statements; no custom rules."
+    },
+    {
+      "id": "file:packages/page-neural/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "packages/page-neural/vite.config.ts",
+      "summary": "Minimal Vite config that enables the Vue SFC plugin for the page-neural playground.",
+      "tags": ["config", "vite", "build-system", "vue"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/button/Button.vue",
+      "type": "file",
+      "name": "Button.vue",
+      "filePath": "packages/ui/src/components/ui/button/Button.vue",
+      "summary": "Gritty UI button built on reka-ui Primitive with CVA variants, danger/ghost/loading states, and a pointerdown ripple.",
+      "tags": ["component", "button", "vue-sfc", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Merges disabled with loading; shows a spinning Icon when loading and forwards as/asChild via Primitive."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/button/doc.vue",
+      "type": "file",
+      "name": "doc.vue",
+      "filePath": "packages/ui/src/components/ui/button/doc.vue",
+      "summary": "Button documentation gallery covering variant, size, shape, loading/disabled/danger, and ghost combinations via DocSection.",
+      "tags": ["component", "documentation", "button", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "type": "file",
+      "name": "Icon.vue",
+      "filePath": "packages/ui/src/components/ui/icon/Icon.vue",
+      "summary": "GIcon resolves Remix Icon components from kebab, Pascal, or full Ri* names with line/fill/original variants and size presets.",
+      "tags": ["component", "icon", "vue-sfc", "ui"],
+      "complexity": "moderate",
+      "languageNotes": "Looks up @remixicon/vue exports dynamically and falls back to an empty span when the name is unknown."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/icon/doc.vue",
+      "type": "file",
+      "name": "doc.vue",
+      "filePath": "packages/ui/src/components/ui/icon/doc.vue",
+      "summary": "Icon documentation gallery showing name resolution, sizes, variants, colors, brand originals, a common-icon grid, and button pairings.",
+      "tags": ["component", "documentation", "icon", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/input/Input.vue",
+      "type": "file",
+      "name": "Input.vue",
+      "filePath": "packages/ui/src/components/ui/input/Input.vue",
+      "summary": "GInput text control with prefix/suffix, addons, clear, character count, validation status, and dual addon vs simple layouts.",
+      "tags": ["component", "input", "form", "vue-sfc"],
+      "complexity": "complex",
+      "languageNotes": "Uses useVModel for v-model, focus-within container styles for status rings, and defineExpose of focus, blur, and inputRef."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/input/doc.vue",
+      "type": "file",
+      "name": "doc.vue",
+      "filePath": "packages/ui/src/components/ui/input/doc.vue",
+      "summary": "Input documentation gallery exercising v-model, sizes, status, prefix/suffix, clear, count, addons, types, pressEnter, and property combos.",
+      "tags": ["component", "documentation", "input", "vue-sfc"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "type": "file",
+      "name": "DocSection.vue",
+      "filePath": "packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "summary": "Reusable documentation card with title, prop tags, optional two-column span, and description/demo slots used by UI kit galleries.",
+      "tags": ["component", "documentation", "layout", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/overview/doc.vue",
+      "type": "file",
+      "name": "doc.vue",
+      "filePath": "packages/ui/src/components/ui/overview/doc.vue",
+      "summary": "UI kit overview page documenting install, color mode, theme color, ripple, tokens, control sizes, and package layout with live theme controls.",
+      "tags": ["component", "documentation", "theming", "vue-sfc"],
+      "complexity": "complex",
+      "languageNotes": "Holds install and token snippets as template strings and drives live demos through useColorMode, useThemeColor, and useRipple."
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/Select.vue",
+      "type": "file",
+      "name": "Select.vue",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "summary": "GSelect built on reka-ui SelectRoot with single, multiple, and tags modes, search, clear, grouped options, and custom field names.",
+      "tags": ["component", "select", "form", "vue-sfc"],
+      "complexity": "complex",
+      "languageNotes": "Generic script setup (T) wrapping reka-ui primitives directly rather than the sibling Select* wrapper SFCs."
+    },
+    {
+      "id": "function:packages/ui/src/components/ui/select/Select.vue:createTag",
+      "type": "function",
+      "name": "createTag",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "lineRange": [245, 262],
+      "summary": "Creates a tags-mode option from the current search text, appends it to createdTags, and applies the new value in multiple mode.",
+      "tags": ["select", "tags", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/ui/src/components/ui/select/Select.vue:onOpenChange",
+      "type": "function",
+      "name": "onOpenChange",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "lineRange": [280, 289],
+      "summary": "Syncs open state, emits dropdownVisibleChange, clears search on close, and focuses the search input when opening with search enabled.",
+      "tags": ["select", "event-handler", "focus"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/ui/src/components/ui/select/Select.vue:applyValueChange",
+      "type": "function",
+      "name": "applyValueChange",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "lineRange": [292, 331],
+      "summary": "Writes the new select value and emits change plus select/deselect by diffing previous and next arrays in multiple mode.",
+      "tags": ["select", "event-handler", "state"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:packages/ui/src/components/ui/select/Select.vue:clearValue",
+      "type": "function",
+      "name": "clearValue",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "lineRange": [377, 394],
+      "summary": "Clears the current selection, emits change with the previous options, then closes the dropdown and blurs the trigger.",
+      "tags": ["select", "event-handler", "clear"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/ui/src/components/ui/select/Select.vue:removeTag",
+      "type": "function",
+      "name": "removeTag",
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "lineRange": [396, 417],
+      "summary": "Removes one value from a multiple selection, emits change and deselect, then closes and blurs the trigger.",
+      "tags": ["select", "event-handler", "multiple"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectContent.vue",
+      "type": "file",
+      "name": "SelectContent.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectContent.vue",
+      "summary": "Portaled select dropdown wrapping reka-ui SelectContent with popper positioning, viewport, and scroll up/down buttons.",
+      "tags": ["component", "select", "dropdown", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectGroup.vue",
+      "type": "file",
+      "name": "SelectGroup.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectGroup.vue",
+      "summary": "Thin reka-ui SelectGroup wrapper that stamps data-slot and forwards props and default slot.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectItem.vue",
+      "type": "file",
+      "name": "SelectItem.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectItem.vue",
+      "summary": "Styled select option with a Remix check indicator slot and forwarded reka-ui SelectItem props.",
+      "tags": ["component", "select", "vue-sfc", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectItemText.vue",
+      "type": "file",
+      "name": "SelectItemText.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectItemText.vue",
+      "summary": "Thin reka-ui SelectItemText wrapper that stamps data-slot and forwards props and default slot.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectLabel.vue",
+      "type": "file",
+      "name": "SelectLabel.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectLabel.vue",
+      "summary": "Muted group label for select option lists, forwarding reka-ui SelectLabel with compact typography classes.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "type": "file",
+      "name": "SelectScrollDownButton.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "summary": "Select list scroll-down control wrapping reka-ui SelectScrollDownButton with a Remix chevron default slot.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "type": "file",
+      "name": "SelectScrollUpButton.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "summary": "Select list scroll-up control wrapping reka-ui SelectScrollUpButton with a Remix chevron default slot.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "type": "file",
+      "name": "SelectSeparator.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "summary": "Horizontal divider for select option lists wrapping reka-ui SelectSeparator with border-token styling.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "type": "file",
+      "name": "SelectTrigger.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "summary": "Select trigger with design-system size heights, focus rings, and a Remix chevron icon via reka-ui SelectTrigger.",
+      "tags": ["component", "select", "vue-sfc", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/components/ui/select/SelectValue.vue",
+      "type": "file",
+      "name": "SelectValue.vue",
+      "filePath": "packages/ui/src/components/ui/select/SelectValue.vue",
+      "summary": "Thin reka-ui SelectValue wrapper that stamps data-slot and forwards props and default slot.",
+      "tags": ["component", "select", "wrapper", "vue-sfc"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/page-neural/src/components/icon/register.ts",
+      "target": "file:packages/page-neural/src/components/icon/null.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/main.ts",
+      "target": "file:packages/page-neural/src/App.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/main.ts",
+      "target": "file:packages/page-neural/src/style.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:createTag",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:onOpenChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:applyValueChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:clearValue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:removeTag",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:packages/ui/src/components/ui/select/Select.vue:createTag",
+      "target": "function:packages/ui/src/components/ui/select/Select.vue:applyValueChange",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:packages/page-neural/src/i18n/locales/en-US.json",
+      "target": "file:packages/page-neural/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/page-neural/src/i18n/locales/zh-CN.json",
+      "target": "file:packages/page-neural/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/page-neural/src/i18n/locales/en-US.json",
+      "target": "config:packages/page-neural/src/i18n/locales/zh-CN.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:packages/page-neural/src/style.css",
+      "target": "file:packages/page-neural/src/index.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/button/Button.vue",
+      "target": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/button/Button.vue",
+      "target": "file:packages/ui/src/composables/useRipple.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/button/Button.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/button/doc.vue",
+      "target": "file:packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/button/doc.vue",
+      "target": "file:packages/ui/src/components/ui/button/Button.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/icon/doc.vue",
+      "target": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/icon/doc.vue",
+      "target": "file:packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/icon/doc.vue",
+      "target": "file:packages/ui/src/components/ui/button/Button.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/input/Input.vue",
+      "target": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/input/Input.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/input/doc.vue",
+      "target": "file:packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/input/doc.vue",
+      "target": "file:packages/ui/src/components/ui/input/Input.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/overview/doc.vue",
+      "target": "file:packages/ui/src/composables/useColorMode.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/overview/doc.vue",
+      "target": "file:packages/ui/src/composables/useRipple.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/overview/doc.vue",
+      "target": "file:packages/ui/src/composables/useThemeColor.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "file:packages/ui/src/components/ui/icon/Icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/Select.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectContent.vue",
+      "target": "file:packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectContent.vue",
+      "target": "file:packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectContent.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectItem.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectLabel.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "target": "file:packages/ui/src/lib/utils.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

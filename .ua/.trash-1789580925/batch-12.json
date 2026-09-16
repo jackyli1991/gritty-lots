@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "document:packages/ui/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "packages/ui/README.md",
+      "summary": "Usage guide for the @gritty-lots/ui Vue 3 component library covering plugin vs named imports, color-mode and theme composables, cn/buttonVariants helpers, and playground development.",
+      "tags": ["documentation", "component-library", "usage-guide", "theming"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:packages/ui/components.json",
+      "type": "config",
+      "name": "components.json",
+      "filePath": "packages/ui/components.json",
+      "summary": "shadcn-vue CLI config for the UI package: New York style, Inter font, Tailwind CSS at src/style.css with CSS variables, Remix Icon, and @/ path aliases.",
+      "tags": ["configuration", "shadcn-vue", "tailwind", "aliases"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "packages/ui/index.html",
+      "summary": "Vite playground HTML shell that mounts #app and loads src/main.ts as an ES module for local UI component development.",
+      "tags": ["entry-point", "markup", "vite", "playground"],
+      "complexity": "simple",
+      "languageNotes": "Minimal Vite index.html; script type=module points at /src/main.ts."
+    },
+    {
+      "id": "config:packages/ui/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/ui/package.json",
+      "summary": "Private ESM workspace package for @gritty-lots/ui, exporting the library, doc barrel, cn utils, and style.css, with Vite playground scripts and Vue 3 as a peer dependency.",
+      "tags": ["configuration", "package-manifest", "build-system", "workspace"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/ui/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "packages/ui/tsconfig.app.json",
+      "summary": "TypeScript config for UI package sources with @/* aliases into src, Vite client types, and Vue DOM tsconfig inheritance.",
+      "tags": ["configuration", "typescript", "path-alias", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Extends @vue/tsconfig/tsconfig.dom.json; maps @/* to ./src/* and includes Vue SFCs."
+    },
+    {
+      "id": "config:packages/ui/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/ui/tsconfig.json",
+      "summary": "Solution-style TypeScript project that references the app and Node/Vite configs and shares @/* path aliases without compiling files itself.",
+      "tags": ["configuration", "typescript", "project-references", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Empty files array with references to tsconfig.app.json and tsconfig.node.json."
+    },
+    {
+      "id": "config:packages/ui/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "packages/ui/tsconfig.node.json",
+      "summary": "TypeScript config for the UI package Vite config using NodeNext modules, noEmit, and unused-locals linting.",
+      "tags": ["configuration", "typescript", "vite", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "module nodenext with allowImportingTsExtensions and verbatimModuleSyntax for vite.config.ts."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:packages/ui/README.md",
+      "target": "config:packages/ui/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:packages/ui/README.md",
+      "target": "file:packages/ui/index.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:packages/ui/tsconfig.json",
+      "target": "config:packages/ui/tsconfig.app.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/ui/tsconfig.json",
+      "target": "config:packages/ui/tsconfig.node.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/ui/package.json",
+      "target": "config:packages/ui/tsconfig.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/ui/package.json",
+      "target": "file:packages/ui/index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/ui/components.json",
+      "target": "config:packages/ui/package.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

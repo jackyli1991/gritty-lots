@@ -1,0 +1,56 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "packages/ui/README.md",
+      "language": "markdown",
+      "sizeLines": 139,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "packages/ui/components.json",
+      "language": "json",
+      "sizeLines": 24,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/ui/index.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "packages/ui/package.json",
+      "language": "json",
+      "sizeLines": 44,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/ui/tsconfig.app.json",
+      "language": "json",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "language": "json",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/ui/tsconfig.node.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "packages/ui/README.md": [],
+    "packages/ui/components.json": [],
+    "packages/ui/index.html": [],
+    "packages/ui/package.json": [],
+    "packages/ui/tsconfig.app.json": [],
+    "packages/ui/tsconfig.json": [],
+    "packages/ui/tsconfig.node.json": []
+  }
+}

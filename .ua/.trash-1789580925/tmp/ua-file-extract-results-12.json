@@ -1,0 +1,340 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": ["packages/ui/index.html"],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 6
+    }
+  },
+  "results": [
+    {
+      "path": "packages/ui/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 139,
+      "nonEmptyLines": 93,
+      "sections": [
+        {
+          "heading": "@gritty-lots/ui",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "安装",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "使用",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "1. 引入样式",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "2. 注册插件（推荐）",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "3. 具名导入（按需）",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "Composables",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "useColorMode",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "useThemeColor",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "useRipple",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "工具",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "主题定制",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "开发",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 122
+        },
+        {
+          "heading": "License",
+          "level": 2,
+          "line": 137
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "packages/ui/components.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "style",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "font",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "typescript",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tailwind",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "iconLibrary",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "rtl",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "pointer",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "aliases",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "registries",
+          "level": 1,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "packages/ui/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 44,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "module",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "types",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "exports",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 29
+        },
+        {
+          "heading": "peerDependencies",
+          "level": 1,
+          "line": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "packages/ui/tsconfig.app.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "extends",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "references",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "packages/ui/tsconfig.node.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

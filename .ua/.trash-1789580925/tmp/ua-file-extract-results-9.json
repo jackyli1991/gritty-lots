@@ -1,0 +1,413 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 9,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 9
+    }
+  },
+  "results": [
+    {
+      "path": ".oxfmtrc.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "printWidth",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "tabWidth",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "useTabs",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "semi",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "singleQuote",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "trailingComma",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "bracketSpacing",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "arrowParens",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "proseWrap",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "htmlWhitespaceSensitivity",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "vueIndentScriptAndStyle",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "endOfLine",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "embeddedLanguageFormatting",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "experimentalSortImports",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "experimentalSortPackageJson",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "ignorePath",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    },
+    {
+      "path": ".oxlintrc.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "env",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "globals",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "categories",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "rules",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "ignorePatterns",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "plugins",
+          "level": 1,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "Vue 3 + TypeScript + Vite",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "cspell.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 49,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "language",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "words",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "ignoreWords",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "dictionaries",
+          "level": 1,
+          "line": 45
+        },
+        {
+          "heading": "import",
+          "level": 1,
+          "line": 46
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 47
+        },
+        {
+          "heading": "ignorePaths",
+          "level": 1,
+          "line": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "lefthook.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "pre-commit",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "commit-msg",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 32,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "packageManager",
+          "level": 1,
+          "line": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "packages",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "allowBuilds",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "skills-lock.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 59,
+      "nonEmptyLines": 59,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "skills",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "references",
+          "level": 1,
+          "line": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

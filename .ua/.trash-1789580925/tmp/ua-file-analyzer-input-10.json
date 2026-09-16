@@ -1,0 +1,56 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "apps/admin/.env.development",
+      "language": "config",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/.env.production",
+      "language": "config",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/index.html",
+      "language": "html",
+      "sizeLines": 29,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "apps/admin/package.json",
+      "language": "json",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/tsconfig.app.json",
+      "language": "json",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/tsconfig.json",
+      "language": "json",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/tsconfig.node.json",
+      "language": "json",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "apps/admin/.env.development": [],
+    "apps/admin/.env.production": [],
+    "apps/admin/index.html": [],
+    "apps/admin/package.json": [],
+    "apps/admin/tsconfig.app.json": [],
+    "apps/admin/tsconfig.json": [],
+    "apps/admin/tsconfig.node.json": []
+  }
+}

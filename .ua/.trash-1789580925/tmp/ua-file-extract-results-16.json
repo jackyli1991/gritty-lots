@@ -1,0 +1,107 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [
+    "packages/page-neural/src/style.css",
+    "packages/ui/src/components/ui/button/Button.vue",
+    "packages/ui/src/components/ui/button/doc.vue",
+    "packages/ui/src/components/ui/icon/Icon.vue",
+    "packages/ui/src/components/ui/icon/doc.vue",
+    "packages/ui/src/components/ui/input/Input.vue",
+    "packages/ui/src/components/ui/input/doc.vue",
+    "packages/ui/src/components/ui/overview/components/DocSection.vue",
+    "packages/ui/src/components/ui/overview/doc.vue",
+    "packages/ui/src/components/ui/select/Select.vue",
+    "packages/ui/src/components/ui/select/SelectContent.vue",
+    "packages/ui/src/components/ui/select/SelectGroup.vue",
+    "packages/ui/src/components/ui/select/SelectItem.vue",
+    "packages/ui/src/components/ui/select/SelectItemText.vue",
+    "packages/ui/src/components/ui/select/SelectLabel.vue",
+    "packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+    "packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+    "packages/ui/src/components/ui/select/SelectSeparator.vue",
+    "packages/ui/src/components/ui/select/SelectTrigger.vue",
+    "packages/ui/src/components/ui/select/SelectValue.vue"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": "packages/page-neural/src/components/icon/register.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 60,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/en-US.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/main.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

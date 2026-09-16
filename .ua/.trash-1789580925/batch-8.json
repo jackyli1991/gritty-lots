@@ -1,0 +1,37 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/deploy.yml",
+      "type": "pipeline",
+      "name": "deploy.yml",
+      "filePath": ".github/workflows/deploy.yml",
+      "summary": "GitHub Actions workflow that, on push to master, installs pnpm dependencies, runs spellcheck and lint, builds the admin app, and deploys apps/admin/dist to GitHub Pages.",
+      "tags": ["ci-cd", "deployment", "github-pages", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Two-job pipeline: build uploads ./apps/admin/dist via actions/upload-pages-artifact, then deploy uses actions/deploy-pages with the github-pages environment."
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:.github/workflows/deploy.yml",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/deploy.yml",
+      "target": "config:apps/admin/package.json",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/deploy.yml",
+      "target": "file:apps/admin/vite.config.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

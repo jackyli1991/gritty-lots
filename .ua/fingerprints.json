@@ -1,0 +1,3219 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "e5b113f73753aa7bfb641e239ea4161aa6308da1",
+  "generatedAt": "2026-09-16T09:48:34.884Z",
+  "files": {
+    ".commitlintrc.cjs": {
+      "filePath": ".commitlintrc.cjs",
+      "contentHash": "f0c9b5d30fd800296a84295a164f2562cd79aa89c6c3c081210d5ace79c6af6a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    ".gitattributes": {
+      "filePath": ".gitattributes",
+      "contentHash": "4767b2b5b7447397b4858877e56886e2449a19da64e242df2e68225fd45f8db0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    ".github/workflows/deploy.yml": {
+      "filePath": ".github/workflows/deploy.yml",
+      "contentHash": "d8bd74b60f8cb05e9aa184a1e68d8feb4fbb8b1ec8f8f3dfa14ba885afc8ed77",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    ".oxfmtrc.json": {
+      "filePath": ".oxfmtrc.json",
+      "contentHash": "9bfc26c2b2d098d62cccc58fe29e73d99564ed047908a7d11a57f4ce12774c00",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    ".oxlintrc.json": {
+      "filePath": ".oxlintrc.json",
+      "contentHash": "ea615368a4e3d0f9606b2c9e0b3c96b57bfbe8178f80111546374b19dd78260b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    ".trae/agents/code-comment-standard.md": {
+      "filePath": ".trae/agents/code-comment-standard.md",
+      "contentHash": "d9221e7fc145264c5ef8ee9f9ae2a3745a4045509d4469f0a1c55cbd8556aa2e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    ".trae/commands/create_page.md": {
+      "filePath": ".trae/commands/create_page.md",
+      "contentHash": "ce291848878d95b337ce8d40ca4c45c267482ebe48e1c035b7873bb1deb3aea2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    ".trae/documents/extract-autoRoute-npm-package.md": {
+      "filePath": ".trae/documents/extract-autoRoute-npm-package.md",
+      "contentHash": "a5478fa476f77d05ea5cc9dc73deb204121b21c7fdafeb0bc8a992dcdb33ddbb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 140,
+      "hasStructuralAnalysis": true
+    },
+    ".trae/rules/css-generate.md": {
+      "filePath": ".trae/rules/css-generate.md",
+      "contentHash": "faf5a6dfa8b8c5a440f3d0a20a7a8a4494365bacef99b90baf6a87630dd67543",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "b90780124ed1efc593fc336b0b2557849f199e31a84cf2a9e4e50f9476c3c329",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/.env.development": {
+      "filePath": "apps/admin/.env.development",
+      "contentHash": "e56d5f4646badf8cdc9b452e560081babb8ad4a7202e5985a02ecfd535dadf56",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/.env.production": {
+      "filePath": "apps/admin/.env.production",
+      "contentHash": "67a243242167e8d4120edfb2fed45902845bfcb3e2176fd78c52d7b8b78f04ef",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/components.d.ts": {
+      "filePath": "apps/admin/components.d.ts",
+      "contentHash": "945332ffdfccbb1cb597a00540d72456eb713e47581bac035992e175b800bcc7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/index.html": {
+      "filePath": "apps/admin/index.html",
+      "contentHash": "aee95b8bef6c32013623875e1c5fd06e9371c5198db3ccc2f1058e8e0d5bcd39",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/package.json": {
+      "filePath": "apps/admin/package.json",
+      "contentHash": "a01b753ba0ca2111451604101219c6a721ba264df52541cc74ae10d67bdf1604",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/App.vue": {
+      "filePath": "apps/admin/src/App.vue",
+      "contentHash": "70b078a17b2bf936cb3e95760028f91bffd6b6be39e1b20afd080bd1796ce0cb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/components/CodeBlock/CodeBlock.vue": {
+      "filePath": "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "contentHash": "6820cb9b1811b6ca8fbe5be1fdc9f7e65f9cb7b973c14f232d09c65a396e0e72",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/components/DocSection/DocSection.vue": {
+      "filePath": "apps/admin/src/components/DocSection/DocSection.vue",
+      "contentHash": "54fe39c4184a7e1dd3cf48b38d653607c349533fa8ff6bb0529e44d018a31513",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/components/Draggable/Draggable.vue": {
+      "filePath": "apps/admin/src/components/Draggable/Draggable.vue",
+      "contentHash": "699cbb697c6faf5edb67e580634f28cf24596f3bdeae25ebe0b50e663fcdd4e4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/components/Iconify/Iconify.vue": {
+      "filePath": "apps/admin/src/components/Iconify/Iconify.vue",
+      "contentHash": "f3f4b4fdf403adaebee89b7aa817c4151ef7cc3f8c3ac405a28330aa1a67243b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/components/Iconify/create-icon.ts": {
+      "filePath": "apps/admin/src/components/Iconify/create-icon.ts",
+      "contentHash": "632355cadd70de52a0f2fac1f5d91afe84b746e3a90f91b1875280c2512a35b3",
+      "functions": [
+        {
+          "name": "createIcon",
+          "params": ["icon"],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@iconify/vue",
+          "specifiers": ["Icon"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["defineComponent", "h"]
+        }
+      ],
+      "exports": ["createIcon"],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/components/index.ts": {
+      "filePath": "apps/admin/src/components/index.ts",
+      "contentHash": "b5d7cff2f6ec57efdd126100e9e445d157a615cb02b1bdb57a524c8924d6e79d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["App", "Component"]
+        },
+        {
+          "source": "./CodeBlock/CodeBlock.vue",
+          "specifiers": ["CodeBlock"]
+        },
+        {
+          "source": "./DocSection/DocSection.vue",
+          "specifiers": ["DocSection"]
+        },
+        {
+          "source": "./Draggable/Draggable.vue",
+          "specifiers": ["Draggable"]
+        },
+        {
+          "source": "./Iconify/create-icon",
+          "specifiers": ["createIcon"]
+        },
+        {
+          "source": "./Iconify/Iconify.vue",
+          "specifiers": ["Iconify"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/fonts/font.css": {
+      "filePath": "apps/admin/src/fonts/font.css",
+      "contentHash": "2599aaa31a25ffd2b22ab43f37d3b335313f1e4eeffb91de6946d20fe90e2983",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/i18n/index.ts": {
+      "filePath": "apps/admin/src/i18n/index.ts",
+      "contentHash": "8ccbc31e2e02ef7f408fbaad8c7f1bfccdc4c75f8026150a5dfceb169d89cbe3",
+      "functions": [
+        {
+          "name": "getLocale",
+          "params": [],
+          "returnType": "LocaleType",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "setLocale",
+          "params": ["locale"],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "useLocale",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue-i18n",
+          "specifiers": ["createI18n", "useI18n"]
+        },
+        {
+          "source": "vue-i18n",
+          "specifiers": ["Composer"]
+        },
+        {
+          "source": "./locales/en-US.json",
+          "specifiers": ["enUS"]
+        },
+        {
+          "source": "./locales/zh-CN.json",
+          "specifiers": ["zhCN"]
+        }
+      ],
+      "exports": ["localeList", "getLocale", "setLocale", "useLocale"],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/i18n/locales/en-US.json": {
+      "filePath": "apps/admin/src/i18n/locales/en-US.json",
+      "contentHash": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/i18n/locales/zh-CN.json": {
+      "filePath": "apps/admin/src/i18n/locales/zh-CN.json",
+      "contentHash": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/icons/index.ts": {
+      "filePath": "apps/admin/src/icons/index.ts",
+      "contentHash": "fe9c994c6d2a67f1d382a2dfb61d01e5ab1db9745e47c62f630a2780052f01d4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": ["ICONIFY_ICONS"],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/main.ts": {
+      "filePath": "apps/admin/src/main.ts",
+      "contentHash": "4b70b84953457206a353fe4dc40c5fe755bd74fc139955098facfd98bb01758f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./style.css",
+          "specifiers": []
+        },
+        {
+          "source": "@gritty-lots/auto-route",
+          "specifiers": ["autoRoute"]
+        },
+        {
+          "source": "@gritty-lots/data-schema",
+          "specifiers": ["JsonSchema"]
+        },
+        {
+          "source": "@gritty-lots/page-neural",
+          "specifiers": ["NeuralGraph"]
+        },
+        {
+          "source": "@gritty-lots/ui",
+          "specifiers": ["GrittyUI"]
+        },
+        {
+          "source": "pinia",
+          "specifiers": ["createPinia"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["createApp"]
+        },
+        {
+          "source": "./App.vue",
+          "specifiers": ["App"]
+        },
+        {
+          "source": "./components",
+          "specifiers": ["components"]
+        },
+        {
+          "source": "./i18n",
+          "specifiers": ["i18n"]
+        },
+        {
+          "source": "./router",
+          "specifiers": ["router"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/router/index.ts": {
+      "filePath": "apps/admin/src/router/index.ts",
+      "contentHash": "edddff4d21a5afc505b4e3614e1ac44576057676c7c600e6389ca3018e79c5f9",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue-router",
+          "specifiers": ["createRouter", "createWebHashHistory"]
+        },
+        {
+          "source": "@/stores/progress",
+          "specifiers": ["useProgressStore"]
+        },
+        {
+          "source": "@/stores/route",
+          "specifiers": ["useRouteStore"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/router/permissionRoutes.ts": {
+      "filePath": "apps/admin/src/router/permissionRoutes.ts",
+      "contentHash": "6916e8a628702e691b569b1d8a32adb1b1e0a7ba8070368a5693e548fe8d7eb9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": ["permissionRouteNames", "permissionRoutes"],
+      "totalLines": 183,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/stores/layout.ts": {
+      "filePath": "apps/admin/src/stores/layout.ts",
+      "contentHash": "1cbe48489372d2d36b15a2fa69bcf2ea6249008a2725e66603c37ab097733b26",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@vueuse/core",
+          "specifiers": ["useDebounceFn"]
+        },
+        {
+          "source": "pinia",
+          "specifiers": ["defineStore"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["ref", "computed"]
+        }
+      ],
+      "exports": ["useLayoutStore"],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/stores/progress.ts": {
+      "filePath": "apps/admin/src/stores/progress.ts",
+      "contentHash": "3e39511bfbde00cacf3edf65f0af4c30625bcdf91bf63030d21e8137566783a8",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pinia",
+          "specifiers": ["defineStore"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["ref"]
+        }
+      ],
+      "exports": ["useProgressStore"],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/stores/route.ts": {
+      "filePath": "apps/admin/src/stores/route.ts",
+      "contentHash": "001d3a0c75bc4407edc5fe1242c033c6546cc2165cff13014ca5903600d6417c",
+      "functions": [
+        {
+          "name": "convertPermissionRoutesToMenuItems",
+          "params": ["routes", "target", "hideHidden"],
+          "exported": false,
+          "lineCount": 25
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@gritty-lots/auto-route",
+          "specifiers": ["VuePages", "JsonPages"]
+        },
+        {
+          "source": "@gritty-lots/auto-route",
+          "specifiers": ["createAutoRoutes"]
+        },
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["ItemType"]
+        },
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["message"]
+        },
+        {
+          "source": "pinia",
+          "specifiers": ["defineStore"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["VNode"]
+        },
+        {
+          "source": "vue",
+          "specifiers": ["h"]
+        },
+        {
+          "source": "vue-router",
+          "specifiers": ["RouteLocationNormalized", "RouteLocationRaw", "RouteRecordRaw"]
+        },
+        {
+          "source": "@/components/Iconify/Iconify.vue",
+          "specifiers": ["Iconify"]
+        },
+        {
+          "source": "@/icons",
+          "specifiers": ["ICONIFY_ICONS"]
+        },
+        {
+          "source": "@/router",
+          "specifiers": ["router"]
+        },
+        {
+          "source": "@/types/routeJson",
+          "specifiers": ["BreadcrumbRoute"]
+        },
+        {
+          "source": "@/utils",
+          "specifiers": ["sleep"]
+        }
+      ],
+      "exports": ["useRouteStore"],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/style.css": {
+      "filePath": "apps/admin/src/style.css",
+      "contentHash": "256df12c5a52c5ba10591e92c8f7e3f7a8ffbdeb524cfa87e63b0524b70ad4f6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/types/routeJson.ts": {
+      "filePath": "apps/admin/src/types/routeJson.ts",
+      "contentHash": "247309d8a863a6bea41a6bfb5a46dfccba25d07722d013c67d1c3c751e81fce9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/utils/index.ts": {
+      "filePath": "apps/admin/src/utils/index.ts",
+      "contentHash": "7256edf43edb3d8eb7dca943debbaca3657018e5158f751f63be3dd73b9688ea",
+      "functions": [
+        {
+          "name": "sleep",
+          "params": ["ms"],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": ["sleep"],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/404.vue": {
+      "filePath": "apps/admin/src/views/404.vue",
+      "contentHash": "d875752944dfed292f815187d785b0c65b5132892b96147f2443bb774cb785cc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/config/index.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/config/index.vue",
+      "contentHash": "2b869c46ff9a424e854f48deddf97cdc55a107f903f0c8f11e5e2a4c93ffcfd9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 188,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/group/async.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/group/async.vue",
+      "contentHash": "f226b562ae38c1218868edf93b316fe23e5e8b696e13f931b75f6547c4994081",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/group/hidden.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "contentHash": "4288a9b9a64e05264e200529b6108c8c59665b4a0046a71b6e0371421332cef5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/group/permission.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "contentHash": "cdfd146b1d4d30eba92ad8ba5d980fa902bf65612c3c533658176db1cf22da55",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 160,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/group/routes.json": {
+      "filePath": "apps/admin/src/views/autoroutes/router/group/routes.json",
+      "contentHash": "f618d4cf3f2f4adcb7d7c4f1c2b7881a6671147b2a334637d0e99871ae656e42",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/autoroutes/router/index.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/index.vue",
+      "contentHash": "1bcd3f6bb27cb66d659827fbbf35fd329b824d772a1e2dbbbbd163322d8245ca",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 79,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/introduce.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/introduce.vue",
+      "contentHash": "6f059fa4cfea13aa7ea6653fc8c66ba6cb2dddc294dabdcb39f05ea6a4b4aaf4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 155,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/router/meta.vue": {
+      "filePath": "apps/admin/src/views/autoroutes/router/meta.vue",
+      "contentHash": "236257a5c14edbf5120497dce73a57dee9fc793efbca03e6ff4393a8fc7654e0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 149,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/autoroutes/routes.json": {
+      "filePath": "apps/admin/src/views/autoroutes/routes.json",
+      "contentHash": "61d1c928bc76cfc4ecf9b87237561034fb38c1f4a2fe668406024abe9f6563a1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/layout/LayoutAside.vue": {
+      "filePath": "apps/admin/src/views/layout/LayoutAside.vue",
+      "contentHash": "73806d8d4e0e391f88fdc4ee5bd84e84b6ebf7b309c6f9b55b672f916ec936b8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/layout/LayoutHeader.vue": {
+      "filePath": "apps/admin/src/views/layout/LayoutHeader.vue",
+      "contentHash": "dd85db8bee1e0eb5210833c8a10eeadebb168b5fdf3c97295e86a1aa29452ec5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/layout/LayoutIndex.vue": {
+      "filePath": "apps/admin/src/views/layout/LayoutIndex.vue",
+      "contentHash": "1517b7d65d017cf2e48a20c3a4015ef14afe0fc17a647cda67ec79617ea625f1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 67,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/layout/components/LanguageIcon.vue": {
+      "filePath": "apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "contentHash": "53967268e790da7fdc150ee9b97be8569df7e90278acf55415b64c9e44cf0a05",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/layout/components/ThemeIcon.vue": {
+      "filePath": "apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "contentHash": "67de596117037ecfea04e1df33f1062814ebf4bff3ddb07cbba57e0879b0b22a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/layout/layoutContent.vue": {
+      "filePath": "apps/admin/src/views/layout/layoutContent.vue",
+      "contentHash": "e504e207d123360de8d6faba7ec6f1367103f78d561ae2406cf8727405567603",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue": {
+      "filePath": "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "contentHash": "2f808e6457df531d3baf6f79b5584ff2d61aaa7cfb526641c50216afaed5d9ed",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue": {
+      "filePath": "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "contentHash": "1ab82388830836d644aafd1b7a9243ac3183ebe200a17a3514af66588558af4b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/grittyui/index.vue": {
+      "filePath": "apps/admin/src/views/packages/grittyui/index.vue",
+      "contentHash": "3321ffad23d14998c75d52cd90ff9f07339ddab0a55d06f512e4a3052d2dc59d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 68,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/jsonschema/index.vue": {
+      "filePath": "apps/admin/src/views/packages/jsonschema/index.vue",
+      "contentHash": "b5e16e6bb74f2ee0c471e8c6f65138895a4228f299c3752a73c1ea6fc517d6b2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/neural/index.vue": {
+      "filePath": "apps/admin/src/views/packages/neural/index.vue",
+      "contentHash": "3766dcaf5e03a18761cbf3f460ba21a1d98228353c9f8fd0c12b21d07ed18dd2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/packages/routes.json": {
+      "filePath": "apps/admin/src/views/packages/routes.json",
+      "contentHash": "67df4a92f9caf3689d7ce0af5c7a105326de9b5efcff918c48a4154c0bf70559",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/playground/css/GlassMatte.vue": {
+      "filePath": "apps/admin/src/views/playground/css/GlassMatte.vue",
+      "contentHash": "64efb708250494c221e316ec06cbc89a7192896125708e4008771783381fbfec",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/css/GradientBorder.vue": {
+      "filePath": "apps/admin/src/views/playground/css/GradientBorder.vue",
+      "contentHash": "db993279d10d4e227cf73c036d170565aed151497296d6d521cf875b71a669c2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 42,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/css/LiquidGlass.vue": {
+      "filePath": "apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "contentHash": "9f691398c30bc5f097eb64db7da506eebb09688256fdfb63a57badcdb5eb1a74",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 62,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/css/Typewriter.vue": {
+      "filePath": "apps/admin/src/views/playground/css/Typewriter.vue",
+      "contentHash": "c6fc40959588289382a38c4c8ef38b3983e00baf4f914500b383eb83ea3f10cf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/css/index.vue": {
+      "filePath": "apps/admin/src/views/playground/css/index.vue",
+      "contentHash": "331190c905a4aa33426282b2e607bef5bb791df2f53cb622f27ebf3ea8bcf5a7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/html/ShadowWebComponent.js": {
+      "filePath": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "contentHash": "88a5850b860a73edcebe46fe147094db3c4f956ca6b865c531878cb5c4b40682",
+      "functions": [],
+      "classes": [
+        {
+          "name": "GrittyShadowWebComponent",
+          "methods": [
+            "observedAttributes",
+            "constructor",
+            "connectedCallback",
+            "attributeChangedCallback",
+            "render"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 55
+        }
+      ],
+      "imports": [],
+      "exports": [],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/playground/html/index.vue": {
+      "filePath": "apps/admin/src/views/playground/html/index.vue",
+      "contentHash": "6f6e91d36e50b223a45ac1fef743c39f767263ebd0deecbe8aad0a007f3df230",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/html/lit.ts": {
+      "filePath": "apps/admin/src/views/playground/html/lit.ts",
+      "contentHash": "0c184d6a5a825da36c58d8849f80b22094634b95a20465ceb8fdb8a4fd8f82df",
+      "functions": [],
+      "classes": [
+        {
+          "name": "HelloLitElement",
+          "methods": [
+            "isEven",
+            "isOdd",
+            "headerTemplate",
+            "onClick",
+            "firstUpdated",
+            "willUpdate",
+            "shouldUpdate",
+            "updated",
+            "render"
+          ],
+          "properties": ["styles", "count", "items", "name", "ol"],
+          "exported": true,
+          "lineCount": 104
+        }
+      ],
+      "imports": [
+        {
+          "source": "lit",
+          "specifiers": ["LitElement", "css", "html", "nothing"]
+        },
+        {
+          "source": "lit/decorators.js",
+          "specifiers": ["customElement", "property", "state", "query"]
+        },
+        {
+          "source": "lit/directives/class-map.js",
+          "specifiers": ["classMap"]
+        },
+        {
+          "source": "lit/directives/repeat.js",
+          "specifiers": ["repeat"]
+        },
+        {
+          "source": "lit/directives/style-map.js",
+          "specifiers": ["styleMap"]
+        }
+      ],
+      "exports": ["HelloLitElement"],
+      "totalLines": 112,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/playground/javascript/PostMessage.vue": {
+      "filePath": "apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "contentHash": "db21950740bbd591986c2ce7100812a945d64c636f5186c0943980f4e4ff7f01",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/javascript/index.vue": {
+      "filePath": "apps/admin/src/views/playground/javascript/index.vue",
+      "contentHash": "656a9f04f0453031658dad37adc2a8d49f5b553deed94b2691d3a83b6bf52dbe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/playground/routes.json": {
+      "filePath": "apps/admin/src/views/playground/routes.json",
+      "contentHash": "88c9987a13e19176fc94c40fa706b727c0bf94282d8b16439bc6f6241dddc457",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/src/views/playground/vue/index.vue": {
+      "filePath": "apps/admin/src/views/playground/vue/index.vue",
+      "contentHash": "f156791856d41355b2f81ee84f23b33b2c3e5e757578cfc069fd9a4d060070ec",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "apps/admin/src/views/routes.json": {
+      "filePath": "apps/admin/src/views/routes.json",
+      "contentHash": "0742c4fca3da11df61cf24774895570058f8522ae3d20335aae5f274581c775a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/tsconfig.app.json": {
+      "filePath": "apps/admin/tsconfig.app.json",
+      "contentHash": "0c185d1fc3b7fb6ff945091f58479c8cdf9e027d21a3db43b3377abb8a3e61af",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/tsconfig.json": {
+      "filePath": "apps/admin/tsconfig.json",
+      "contentHash": "3a11d1d758b82ceae1687b3b3b673d98febb16b81305239be576b6aa30148fed",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/tsconfig.node.json": {
+      "filePath": "apps/admin/tsconfig.node.json",
+      "contentHash": "110fae27ffac407376cdb8e5791bfbb82f422d43575d4d8530363632d17a6aa1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "apps/admin/vite.config.ts": {
+      "filePath": "apps/admin/vite.config.ts",
+      "contentHash": "9d63b1c0a77ec77f48a4bffd4b12707a41af8f07af4d720e4a38e3b90d697810",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:url",
+          "specifiers": ["fileURLToPath", "URL"]
+        },
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": ["tailwindcss"]
+        },
+        {
+          "source": "@vitejs/plugin-vue",
+          "specifiers": ["vue"]
+        },
+        {
+          "source": "unplugin-vue-components/resolvers",
+          "specifiers": ["AntDesignVueResolver"]
+        },
+        {
+          "source": "unplugin-vue-components/vite",
+          "specifiers": ["Components"]
+        },
+        {
+          "source": "vite",
+          "specifiers": ["defineConfig", "loadEnv"]
+        },
+        {
+          "source": "vite-plugin-pwa",
+          "specifiers": ["VitePWA"]
+        },
+        {
+          "source": "vite-plugin-vue-devtools",
+          "specifiers": ["vueDevTools"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 82,
+      "hasStructuralAnalysis": true
+    },
+    "cspell.json": {
+      "filePath": "cspell.json",
+      "contentHash": "c94ff067ca64be19322b69c2ab6466569f5e0b40bcc99aba3555b95a866c3cc7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "lefthook.yml": {
+      "filePath": "lefthook.yml",
+      "contentHash": "eea6d7d1438939ad1774f95de61326a378110f5c8f7a6bb253a2ebdc7d89bb4c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "d5ac5176d654827dd2ff2e3c1ffd04fe27091691c79051c689d88c6651c49ef9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/package.json": {
+      "filePath": "packages/auto-route/package.json",
+      "contentHash": "d0d67f60ceb20dde831153720d4f5bc4eef4b408cd92e88e3aa6fcbcdbb14413",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/src/core.ts": {
+      "filePath": "packages/auto-route/src/core.ts",
+      "contentHash": "f9e66bd0b9becbb66c0a3267c89d83000996a71035a71fe2733b7d33175afa74",
+      "functions": [
+        {
+          "name": "createRoutes",
+          "params": ["routes", "target", "parentPath", "options"],
+          "exported": true,
+          "lineCount": 84
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue-router",
+          "specifiers": ["RouteRecordRaw"]
+        },
+        {
+          "source": "./types",
+          "specifiers": ["RouteJsonConfig", "AutoRouteOptions"]
+        }
+      ],
+      "exports": ["createRoutes"],
+      "totalLines": 97,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/src/index.ts": {
+      "filePath": "packages/auto-route/src/index.ts",
+      "contentHash": "3b6b323b1c93fc27074f28eb72e891ec435b090c133cebff8bde49b7501d871c",
+      "functions": [
+        {
+          "name": "createPermissionRoutes",
+          "params": ["autoRoutes", "permissions", "key"],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "dealMountRoute",
+          "params": ["routes", "mountRoute"],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "createAutoRoutes",
+          "params": ["options"],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["App"]
+        },
+        {
+          "source": "vue-router",
+          "specifiers": ["RouteRecordRaw"]
+        },
+        {
+          "source": "./core",
+          "specifiers": ["createRoutes"]
+        },
+        {
+          "source": "./types",
+          "specifiers": ["AutoRouteOptions", "InstallOptions"]
+        },
+        {
+          "source": "./utils",
+          "specifiers": ["dealPermissionRoutes", "dealRoutesRedirect", "getKey", "flattenTree"]
+        }
+      ],
+      "exports": ["createAutoRoutes"],
+      "totalLines": 197,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/src/types.ts": {
+      "filePath": "packages/auto-route/src/types.ts",
+      "contentHash": "e6407e46acb8e2456750bbde2d46450f10e7917725c04f5391c8138312288224",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue-router",
+          "specifiers": ["Router"]
+        },
+        {
+          "source": "vue-router",
+          "specifiers": ["RouteRecordRaw"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/src/utils.ts": {
+      "filePath": "packages/auto-route/src/utils.ts",
+      "contentHash": "93fcfed06d97e55780ad4b924c4e2025f74a35769797302c8999b20fc351b469",
+      "functions": [
+        {
+          "name": "getKey",
+          "params": ["route", "key"],
+          "returnType": "string | number",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "isObject",
+          "params": ["obj"],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "isString",
+          "params": ["str"],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "dealPermissionBtns",
+          "params": ["route", "permissions", "key"],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "hasPermission",
+          "params": ["route", "permissions", "key"],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "createNewRoute",
+          "params": ["route", "matchRoute"],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "dealPermissionRoutes",
+          "params": ["permissions", "originalRoutes", "target", "key"],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "dealRoutesRedirect",
+          "params": ["routes"],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "flattenTree",
+          "params": ["tree", "key"],
+          "returnType": "Record<string, any>[]",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue-router",
+          "specifiers": ["RouteRecordRaw"]
+        }
+      ],
+      "exports": [
+        "getKey",
+        "isObject",
+        "isString",
+        "dealPermissionRoutes",
+        "dealRoutesRedirect",
+        "flattenTree"
+      ],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "packages/auto-route/tsconfig.json": {
+      "filePath": "packages/auto-route/tsconfig.json",
+      "contentHash": "2239fed9a23518da182918cbdcb8e689af7c44a15689b26ad4ebe4329ece34be",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/package.json": {
+      "filePath": "packages/data-schema/package.json",
+      "contentHash": "a7bd21b9524cf83035eec49ceeb73cb0b2b14ea9d580f5dfc1caacd9a8206a69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/components/badge/badge.vue": {
+      "filePath": "packages/data-schema/src/components/badge/badge.vue",
+      "contentHash": "0e908c0d3a536494c690b0c87536446405fc8f5501ff8e54185645296718f846",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/button/button.vue": {
+      "filePath": "packages/data-schema/src/components/button/button.vue",
+      "contentHash": "787577afbccdb6043f8c5a455614ada3dfad6be510a6a8a840083adf3d281edf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/checkbox/checkbox.vue": {
+      "filePath": "packages/data-schema/src/components/checkbox/checkbox.vue",
+      "contentHash": "1cadf388f0b8497a526b79eddca61a5ac87504e42bcd4abfbd0503335d710205",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/configProvider/configProvider.vue": {
+      "filePath": "packages/data-schema/src/components/configProvider/configProvider.vue",
+      "contentHash": "103e40a1dbc5fe64f97ed5f0e4e2cd152019076099587565b7b1cdfc803f0c84",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/icon/icon.vue": {
+      "filePath": "packages/data-schema/src/components/icon/icon.vue",
+      "contentHash": "c4d0c9099f44f3dc19dd2a24bf0d348d1d7ed782640d5cb54c88f75b38c04a88",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/icon/null.vue": {
+      "filePath": "packages/data-schema/src/components/icon/null.vue",
+      "contentHash": "23aaa216ba4bac0ac00a190fff61185dc7689ae6a6691eff366ce04748f480c9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/icon/register.ts": {
+      "filePath": "packages/data-schema/src/components/icon/register.ts",
+      "contentHash": "772841932fc4e0fff1dec7ff1a51bf511ba4bc380ee7161c079afa5899efc655",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@lucide/vue",
+          "specifiers": [
+            "ArrowBigDown",
+            "AlarmClock",
+            "Database",
+            "CirclePlus",
+            "CircleX",
+            "CircleAlert",
+            "CircleCheck",
+            "ChevronRight",
+            "Braces",
+            "Brackets",
+            "ToggleRight",
+            "CaseSensitive",
+            "Ban",
+            "Pi",
+            "Trash2",
+            "Settings2",
+            "ArrowLeft",
+            "List",
+            "FileBraces",
+            "Download",
+            "Copy",
+            "Import",
+            "Ampersand",
+            "Tally1",
+            "ChevronUp",
+            "FoldVertical",
+            "ListIndentIncrease"
+          ]
+        },
+        {
+          "source": "./null.vue",
+          "specifiers": ["Null"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/components/index.ts": {
+      "filePath": "packages/data-schema/src/components/index.ts",
+      "contentHash": "70b7c5a7b07b7d2dd8a650d55ff40026d6937f0e76ae065da512dd7aaf65441f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["message"]
+        },
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["theme"]
+        },
+        {
+          "source": "./badge/badge.vue",
+          "specifiers": ["NeuralBadge"]
+        },
+        {
+          "source": "./button/button.vue",
+          "specifiers": ["NeuralButton"]
+        },
+        {
+          "source": "./checkbox/checkbox.vue",
+          "specifiers": ["NeuralCheckbox"]
+        },
+        {
+          "source": "./configProvider/configProvider.vue",
+          "specifiers": ["NeuralConfigProvider"]
+        },
+        {
+          "source": "./icon/icon.vue",
+          "specifiers": ["NeuralIcon"]
+        },
+        {
+          "source": "./input/input.vue",
+          "specifiers": ["NeuralInput"]
+        },
+        {
+          "source": "./inputNumber/inputNumber.vue",
+          "specifiers": ["NeuralInputNumber"]
+        },
+        {
+          "source": "./popConfirm/popConfirm.vue",
+          "specifiers": ["NeuralPopConfirm"]
+        },
+        {
+          "source": "./popover/popover.vue",
+          "specifiers": ["NeuralPopover"]
+        },
+        {
+          "source": "./radio/radio.vue",
+          "specifiers": ["NeuralRadio"]
+        },
+        {
+          "source": "./radio/radioButton.vue",
+          "specifiers": ["NeuralRadioButton"]
+        },
+        {
+          "source": "./radio/radioGroup.vue",
+          "specifiers": ["NeuralRadioGroup"]
+        },
+        {
+          "source": "./select/optGroup",
+          "specifiers": ["NeuralSelectOptGroup"]
+        },
+        {
+          "source": "./select/select.vue",
+          "specifiers": ["NeuralSelect"]
+        },
+        {
+          "source": "./select/selectOption",
+          "specifiers": ["NeuralSelectOption"]
+        },
+        {
+          "source": "./switch/switch.vue",
+          "specifiers": ["NeuralSwitch"]
+        },
+        {
+          "source": "./tag/checkableTag.vue",
+          "specifiers": ["NeuralCheckableTag"]
+        },
+        {
+          "source": "./tag/tag.vue",
+          "specifiers": ["NeuralTag"]
+        },
+        {
+          "source": "./tooltip/tooltip.vue",
+          "specifiers": ["NeuralTooltip"]
+        }
+      ],
+      "exports": [
+        "NeuralMessage",
+        "NeuralTheme",
+        "NeuralIcon",
+        "NeuralButton",
+        "NeuralInput",
+        "NeuralSelect",
+        "NeuralSelectOption",
+        "NeuralSelectOptGroup",
+        "NeuralTag",
+        "NeuralCheckableTag",
+        "NeuralTooltip",
+        "NeuralSwitch",
+        "NeuralInputNumber",
+        "NeuralRadio",
+        "NeuralRadioGroup",
+        "NeuralRadioButton",
+        "NeuralCheckbox",
+        "NeuralPopover",
+        "NeuralBadge",
+        "NeuralPopConfirm",
+        "NeuralConfigProvider"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/components/input/input.vue": {
+      "filePath": "packages/data-schema/src/components/input/input.vue",
+      "contentHash": "d1f483fcdab85e161c8e5ad460b4a0507f7a8bca9ce810b41bcf2fc937bb2891",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/inputNumber/inputNumber.vue": {
+      "filePath": "packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "contentHash": "458f04c4d877828bc8f23a41a48fb3b88b68f3cfb511d0be62483ed12bcf04da",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/popConfirm/popConfirm.vue": {
+      "filePath": "packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "contentHash": "a001d73bac5844a5a8eaf0e103f98959bdd3ccbdaac2ca0935f332fc9b710806",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/popover/popover.vue": {
+      "filePath": "packages/data-schema/src/components/popover/popover.vue",
+      "contentHash": "41ae3bfc438ad86edaaf743888aa7bd3ad6f8d9f6e6c056f1acde9ed030aa269",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/radio/radio.vue": {
+      "filePath": "packages/data-schema/src/components/radio/radio.vue",
+      "contentHash": "10382fd9eff23b1d095dfc25e10123985db7d133d55cb015f9f913f55b361304",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/radio/radioButton.vue": {
+      "filePath": "packages/data-schema/src/components/radio/radioButton.vue",
+      "contentHash": "83d269a4659e2bf1a329011b0fe23655dbd5faccdb86889249d1c28c5c1bb117",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/radio/radioGroup.vue": {
+      "filePath": "packages/data-schema/src/components/radio/radioGroup.vue",
+      "contentHash": "085e7aeb7e5bba16f729e77cc5be28db71fe82df8cac8d13bd5b8109b00b7d06",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/select/optGroup.ts": {
+      "filePath": "packages/data-schema/src/components/select/optGroup.ts",
+      "contentHash": "527ca1562e099b21dd1f4e1ee9cd7954c5baa2179469a64a5735573df13adfa3",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["Select"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/components/select/select.vue": {
+      "filePath": "packages/data-schema/src/components/select/select.vue",
+      "contentHash": "55c4c5b882fd53e21822d1520b66514c1e045bb09d7c4a12b95b8f1a4e590ffb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/select/selectOption.ts": {
+      "filePath": "packages/data-schema/src/components/select/selectOption.ts",
+      "contentHash": "977e88a283cbce266430f70ad53e76afc7cc5cce90b30651a2b251df98b226b0",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["Select"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/components/switch/switch.vue": {
+      "filePath": "packages/data-schema/src/components/switch/switch.vue",
+      "contentHash": "1bbfe81855844daa34c37a359c223987a366731e3df5ee9e399341743545c105",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/tag/checkableTag.vue": {
+      "filePath": "packages/data-schema/src/components/tag/checkableTag.vue",
+      "contentHash": "ae8b917cc601313196278739b09dc7f14cd7adfa06026c62e7ce43c0c3204fa4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/tag/tag.vue": {
+      "filePath": "packages/data-schema/src/components/tag/tag.vue",
+      "contentHash": "9600e5d7864b84445767f572ae87d60fd73dde904663d5b20c8526ef9b87dfc6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/components/tooltip/tooltip.vue": {
+      "filePath": "packages/data-schema/src/components/tooltip/tooltip.vue",
+      "contentHash": "0c990cc808343ce04572e7b11e9f088c0c9e1242c5101e61985abb4b3a74cbe5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/ajv-instance.ts": {
+      "filePath": "packages/data-schema/src/core/ajv-instance.ts",
+      "contentHash": "4676807b3fda4812f64de3ea73eff1f0f724ebe79f6a8512062ed6a28bf7baee",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ajv",
+          "specifiers": ["Ajv"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/core/dataSchema.vue": {
+      "filePath": "packages/data-schema/src/core/dataSchema.vue",
+      "contentHash": "f902ed0c91a6a7d2a0499554a5e9db523161d5e7b43f6b532634089d7ac28906",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 206,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/datas.ts": {
+      "filePath": "packages/data-schema/src/core/datas.ts",
+      "contentHash": "bf0d164f0d9a62e059f8e4077274c711dc11db1cd2204ce3ec72bcc68453042d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": ["baseTypes", "combinationOptions", "SchemaTypes", "formatOptions"],
+      "totalLines": 118,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/core/index.vue": {
+      "filePath": "packages/data-schema/src/core/index.vue",
+      "contentHash": "69282663c2c828a9fbf666b5ce9b4ac19bc03b7504e007f624fead38861e605f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/propertyControl.vue": {
+      "filePath": "packages/data-schema/src/core/propertyControl.vue",
+      "contentHash": "df46c903644d0eb9cce3df2de29fc928ef4b0f05ca3102b70764ce3a4c7496f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaCombination.vue": {
+      "filePath": "packages/data-schema/src/core/schemaCombination.vue",
+      "contentHash": "83b67ca80e5a3b5bc3f91ad3ae683fa0606b5660ab2d0ded0c1cd05a64268de3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 98,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaGroup.vue": {
+      "filePath": "packages/data-schema/src/core/schemaGroup.vue",
+      "contentHash": "350e69f689e3a9936c4ff38e0c4c2f89d4ed3063e39d7a2bbb6442f33462438b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 179,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaItem.vue": {
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "contentHash": "2dcbcc39c50a7a0308e770ae2c526f723d92f0f67291a486a4970bb34a329da5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 508,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaItemTool.vue": {
+      "filePath": "packages/data-schema/src/core/schemaItemTool.vue",
+      "contentHash": "207880ee3c09620419c187c45964c3047e99899c7fd8dd16348330c0f59a7689",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 99,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaItemViewer.vue": {
+      "filePath": "packages/data-schema/src/core/schemaItemViewer.vue",
+      "contentHash": "7345d064756d3b19f655484f25ad1168c57cd28a8e8f458795df58087bf66fe9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 49,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaItems.vue": {
+      "filePath": "packages/data-schema/src/core/schemaItems.vue",
+      "contentHash": "a7ad12c0fc657af1ccabfffbceafc013c369662541449b4ae1f92aebee56b431",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 73,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaProperties.vue": {
+      "filePath": "packages/data-schema/src/core/schemaProperties.vue",
+      "contentHash": "ff74427b232dffafaaadf49cfe78694af8b462dd156d725d14aa72815dbfbfcd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 471,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/schemaViewer.vue": {
+      "filePath": "packages/data-schema/src/core/schemaViewer.vue",
+      "contentHash": "f83e9c572fddc1d74f24b1ee90b97498a7d9a79d8958c0a4372dec508fd4542e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": false
+    },
+    "packages/data-schema/src/core/types.ts": {
+      "filePath": "packages/data-schema/src/core/types.ts",
+      "contentHash": "72338be270437906e362841f78d4102801976ad163d6f3a7cd458ccc41c30597",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 164,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/core/utils.ts": {
+      "filePath": "packages/data-schema/src/core/utils.ts",
+      "contentHash": "b69a078a3d939d141ffaf6d140ecb47dcd027dc091ad33a8daf62e0c3a2c88e0",
+      "functions": [
+        {
+          "name": "createField",
+          "params": ["fieldName"],
+          "returnType": "{\n  fieldName: string;\n  jsonSchema: JSONSchemaObject;\n}",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "is",
+          "params": ["str", "type"],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "exportJSON",
+          "params": ["data", "filename"],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "importJSON",
+          "params": ["file"],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../i18n",
+          "specifiers": ["useNeuralI18n"]
+        },
+        {
+          "source": "./types",
+          "specifiers": ["JSONSchemaObject", "JSONSchemaType"]
+        }
+      ],
+      "exports": ["createField", "is", "exportJSON", "importJSON"],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/i18n/index.ts": {
+      "filePath": "packages/data-schema/src/i18n/index.ts",
+      "contentHash": "4b49ea70998b0f47b0f1a88e67b2517fdbbe00dcbeeede68bb81b020560497e0",
+      "functions": [
+        {
+          "name": "fallbackT",
+          "params": ["key"],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "useNeuralI18n",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "mergeI18nMessages",
+          "params": ["i18nInstance"],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "lodash-es",
+          "specifiers": ["merge"]
+        },
+        {
+          "source": "./locales/en-US.json",
+          "specifiers": ["enUS"]
+        },
+        {
+          "source": "./locales/zh-CN.json",
+          "specifiers": ["zhCN"]
+        }
+      ],
+      "exports": ["libMessages", "useNeuralI18n", "mergeI18nMessages"],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/i18n/locales/en-US.json": {
+      "filePath": "packages/data-schema/src/i18n/locales/en-US.json",
+      "contentHash": "cb71281694902c7aef54d2da6b67d3b2eba2d2b77965ae27f857f5d67467288f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/i18n/locales/zh-CN.json": {
+      "filePath": "packages/data-schema/src/i18n/locales/zh-CN.json",
+      "contentHash": "044581eff08cfc7b6f11397349c3865b21ecf448daf547fa2ffdf5a1ccb30a1f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "packages/data-schema/src/index.ts": {
+      "filePath": "packages/data-schema/src/index.ts",
+      "contentHash": "32d26ecfc671ab613bde1f6c687c6c6bedf26197632749fb7f046770d34b1eaa",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./core/index.vue",
+          "specifiers": ["JsonSchema"]
+        },
+        {
+          "source": "./i18n/index.ts",
+          "specifiers": ["mergeI18nMessages"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/README.md": {
+      "filePath": "packages/page-neural/README.md",
+      "contentHash": "7cdf486b009cc44709f0b33e45f2a2007f37e5f46ac98fe2aab46c8129318929",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/index.html": {
+      "filePath": "packages/page-neural/index.html",
+      "contentHash": "b5cc11147f430acd764960991784ded7d10ac8de37fa411e848bceb31bfe372d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/package.json": {
+      "filePath": "packages/page-neural/package.json",
+      "contentHash": "0a2a1aeb448d50ad171b0916331bef75eb6ac66e50a61429c6716d657528b5d1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/App.vue": {
+      "filePath": "packages/page-neural/src/App.vue",
+      "contentHash": "335fa9695fb6327b67ced60e83116edf0b8be63a1dd089bf63acae8ac5e227d0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/badge/badge.vue": {
+      "filePath": "packages/page-neural/src/components/badge/badge.vue",
+      "contentHash": "0e908c0d3a536494c690b0c87536446405fc8f5501ff8e54185645296718f846",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/button/button.vue": {
+      "filePath": "packages/page-neural/src/components/button/button.vue",
+      "contentHash": "787577afbccdb6043f8c5a455614ada3dfad6be510a6a8a840083adf3d281edf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/checkbox/checkbox.vue": {
+      "filePath": "packages/page-neural/src/components/checkbox/checkbox.vue",
+      "contentHash": "1cadf388f0b8497a526b79eddca61a5ac87504e42bcd4abfbd0503335d710205",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/configProvider/configProvider.vue": {
+      "filePath": "packages/page-neural/src/components/configProvider/configProvider.vue",
+      "contentHash": "103e40a1dbc5fe64f97ed5f0e4e2cd152019076099587565b7b1cdfc803f0c84",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/icon/icon.vue": {
+      "filePath": "packages/page-neural/src/components/icon/icon.vue",
+      "contentHash": "c4d0c9099f44f3dc19dd2a24bf0d348d1d7ed782640d5cb54c88f75b38c04a88",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/icon/null.vue": {
+      "filePath": "packages/page-neural/src/components/icon/null.vue",
+      "contentHash": "23aaa216ba4bac0ac00a190fff61185dc7689ae6a6691eff366ce04748f480c9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/icon/register.ts": {
+      "filePath": "packages/page-neural/src/components/icon/register.ts",
+      "contentHash": "772841932fc4e0fff1dec7ff1a51bf511ba4bc380ee7161c079afa5899efc655",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@lucide/vue",
+          "specifiers": [
+            "ArrowBigDown",
+            "AlarmClock",
+            "Database",
+            "CirclePlus",
+            "CircleX",
+            "CircleAlert",
+            "CircleCheck",
+            "ChevronRight",
+            "Braces",
+            "Brackets",
+            "ToggleRight",
+            "CaseSensitive",
+            "Ban",
+            "Pi",
+            "Trash2",
+            "Settings2",
+            "ArrowLeft",
+            "List",
+            "FileBraces",
+            "Download",
+            "Copy",
+            "Import",
+            "Ampersand",
+            "Tally1",
+            "ChevronUp",
+            "FoldVertical",
+            "ListIndentIncrease"
+          ]
+        },
+        {
+          "source": "./null.vue",
+          "specifiers": ["Null"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/components/index.ts": {
+      "filePath": "packages/page-neural/src/components/index.ts",
+      "contentHash": "70b7c5a7b07b7d2dd8a650d55ff40026d6937f0e76ae065da512dd7aaf65441f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["message"]
+        },
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["theme"]
+        },
+        {
+          "source": "./badge/badge.vue",
+          "specifiers": ["NeuralBadge"]
+        },
+        {
+          "source": "./button/button.vue",
+          "specifiers": ["NeuralButton"]
+        },
+        {
+          "source": "./checkbox/checkbox.vue",
+          "specifiers": ["NeuralCheckbox"]
+        },
+        {
+          "source": "./configProvider/configProvider.vue",
+          "specifiers": ["NeuralConfigProvider"]
+        },
+        {
+          "source": "./icon/icon.vue",
+          "specifiers": ["NeuralIcon"]
+        },
+        {
+          "source": "./input/input.vue",
+          "specifiers": ["NeuralInput"]
+        },
+        {
+          "source": "./inputNumber/inputNumber.vue",
+          "specifiers": ["NeuralInputNumber"]
+        },
+        {
+          "source": "./popConfirm/popConfirm.vue",
+          "specifiers": ["NeuralPopConfirm"]
+        },
+        {
+          "source": "./popover/popover.vue",
+          "specifiers": ["NeuralPopover"]
+        },
+        {
+          "source": "./radio/radio.vue",
+          "specifiers": ["NeuralRadio"]
+        },
+        {
+          "source": "./radio/radioButton.vue",
+          "specifiers": ["NeuralRadioButton"]
+        },
+        {
+          "source": "./radio/radioGroup.vue",
+          "specifiers": ["NeuralRadioGroup"]
+        },
+        {
+          "source": "./select/optGroup",
+          "specifiers": ["NeuralSelectOptGroup"]
+        },
+        {
+          "source": "./select/select.vue",
+          "specifiers": ["NeuralSelect"]
+        },
+        {
+          "source": "./select/selectOption",
+          "specifiers": ["NeuralSelectOption"]
+        },
+        {
+          "source": "./switch/switch.vue",
+          "specifiers": ["NeuralSwitch"]
+        },
+        {
+          "source": "./tag/checkableTag.vue",
+          "specifiers": ["NeuralCheckableTag"]
+        },
+        {
+          "source": "./tag/tag.vue",
+          "specifiers": ["NeuralTag"]
+        },
+        {
+          "source": "./tooltip/tooltip.vue",
+          "specifiers": ["NeuralTooltip"]
+        }
+      ],
+      "exports": [
+        "NeuralMessage",
+        "NeuralTheme",
+        "NeuralIcon",
+        "NeuralButton",
+        "NeuralInput",
+        "NeuralSelect",
+        "NeuralSelectOption",
+        "NeuralSelectOptGroup",
+        "NeuralTag",
+        "NeuralCheckableTag",
+        "NeuralTooltip",
+        "NeuralSwitch",
+        "NeuralInputNumber",
+        "NeuralRadio",
+        "NeuralRadioGroup",
+        "NeuralRadioButton",
+        "NeuralCheckbox",
+        "NeuralPopover",
+        "NeuralBadge",
+        "NeuralPopConfirm",
+        "NeuralConfigProvider"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/components/input/input.vue": {
+      "filePath": "packages/page-neural/src/components/input/input.vue",
+      "contentHash": "d1f483fcdab85e161c8e5ad460b4a0507f7a8bca9ce810b41bcf2fc937bb2891",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/inputNumber/inputNumber.vue": {
+      "filePath": "packages/page-neural/src/components/inputNumber/inputNumber.vue",
+      "contentHash": "458f04c4d877828bc8f23a41a48fb3b88b68f3cfb511d0be62483ed12bcf04da",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/popConfirm/popConfirm.vue": {
+      "filePath": "packages/page-neural/src/components/popConfirm/popConfirm.vue",
+      "contentHash": "a001d73bac5844a5a8eaf0e103f98959bdd3ccbdaac2ca0935f332fc9b710806",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/popover/popover.vue": {
+      "filePath": "packages/page-neural/src/components/popover/popover.vue",
+      "contentHash": "41ae3bfc438ad86edaaf743888aa7bd3ad6f8d9f6e6c056f1acde9ed030aa269",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/radio/radio.vue": {
+      "filePath": "packages/page-neural/src/components/radio/radio.vue",
+      "contentHash": "10382fd9eff23b1d095dfc25e10123985db7d133d55cb015f9f913f55b361304",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/radio/radioButton.vue": {
+      "filePath": "packages/page-neural/src/components/radio/radioButton.vue",
+      "contentHash": "83d269a4659e2bf1a329011b0fe23655dbd5faccdb86889249d1c28c5c1bb117",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/radio/radioGroup.vue": {
+      "filePath": "packages/page-neural/src/components/radio/radioGroup.vue",
+      "contentHash": "085e7aeb7e5bba16f729e77cc5be28db71fe82df8cac8d13bd5b8109b00b7d06",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/select/optGroup.ts": {
+      "filePath": "packages/page-neural/src/components/select/optGroup.ts",
+      "contentHash": "527ca1562e099b21dd1f4e1ee9cd7954c5baa2179469a64a5735573df13adfa3",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["Select"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/components/select/select.vue": {
+      "filePath": "packages/page-neural/src/components/select/select.vue",
+      "contentHash": "55c4c5b882fd53e21822d1520b66514c1e045bb09d7c4a12b95b8f1a4e590ffb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/select/selectOption.ts": {
+      "filePath": "packages/page-neural/src/components/select/selectOption.ts",
+      "contentHash": "977e88a283cbce266430f70ad53e76afc7cc5cce90b30651a2b251df98b226b0",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ant-design-vue",
+          "specifiers": ["Select"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/components/switch/switch.vue": {
+      "filePath": "packages/page-neural/src/components/switch/switch.vue",
+      "contentHash": "1bbfe81855844daa34c37a359c223987a366731e3df5ee9e399341743545c105",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/tag/checkableTag.vue": {
+      "filePath": "packages/page-neural/src/components/tag/checkableTag.vue",
+      "contentHash": "ae8b917cc601313196278739b09dc7f14cd7adfa06026c62e7ce43c0c3204fa4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/tag/tag.vue": {
+      "filePath": "packages/page-neural/src/components/tag/tag.vue",
+      "contentHash": "9600e5d7864b84445767f572ae87d60fd73dde904663d5b20c8526ef9b87dfc6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/components/tooltip/tooltip.vue": {
+      "filePath": "packages/page-neural/src/components/tooltip/tooltip.vue",
+      "contentHash": "0c990cc808343ce04572e7b11e9f088c0c9e1242c5101e61985abb4b3a74cbe5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/core/index.ts": {
+      "filePath": "packages/page-neural/src/core/index.ts",
+      "contentHash": "45b3315e89eb6274a747447e1a7a667d9724843ff5f351498700714796220251",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["createApp"]
+        },
+        {
+          "source": "vue3-json-viewer",
+          "specifiers": ["Vue3JsonViewer"]
+        },
+        {
+          "source": "./index.vue",
+          "specifiers": ["NeuralGraph"]
+        }
+      ],
+      "exports": ["NeuralGraph"],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/core/index.vue": {
+      "filePath": "packages/page-neural/src/core/index.vue",
+      "contentHash": "2d64be417f12166aaed4201c04244afa81b5465ddc1fc9cba4d4166f01e28761",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 43,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/src/i18n/index.ts": {
+      "filePath": "packages/page-neural/src/i18n/index.ts",
+      "contentHash": "4b49ea70998b0f47b0f1a88e67b2517fdbbe00dcbeeede68bb81b020560497e0",
+      "functions": [
+        {
+          "name": "fallbackT",
+          "params": ["key"],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "useNeuralI18n",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "mergeI18nMessages",
+          "params": ["i18nInstance"],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "lodash-es",
+          "specifiers": ["merge"]
+        },
+        {
+          "source": "./locales/en-US.json",
+          "specifiers": ["enUS"]
+        },
+        {
+          "source": "./locales/zh-CN.json",
+          "specifiers": ["zhCN"]
+        }
+      ],
+      "exports": ["libMessages", "useNeuralI18n", "mergeI18nMessages"],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/i18n/locales/en-US.json": {
+      "filePath": "packages/page-neural/src/i18n/locales/en-US.json",
+      "contentHash": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/i18n/locales/zh-CN.json": {
+      "filePath": "packages/page-neural/src/i18n/locales/zh-CN.json",
+      "contentHash": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/index.ts": {
+      "filePath": "packages/page-neural/src/index.ts",
+      "contentHash": "581d66bac5dd3856ecf0557c665c19c94e9c1af07275fa43beb9b2ec7f27e7a9",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./style.css",
+          "specifiers": []
+        },
+        {
+          "source": "./core/index",
+          "specifiers": ["NeuralGraph"]
+        },
+        {
+          "source": "./i18n/index.ts",
+          "specifiers": ["mergeI18nMessages"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/main.ts": {
+      "filePath": "packages/page-neural/src/main.ts",
+      "contentHash": "bbce4f842e884fd7935e8f569d3aa015d8c4e0cf724133eae7f50aa26b4a7426",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["createApp"]
+        },
+        {
+          "source": "./style.css",
+          "specifiers": []
+        },
+        {
+          "source": "./App.vue",
+          "specifiers": ["App"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/src/style.css": {
+      "filePath": "packages/page-neural/src/style.css",
+      "contentHash": "7b00f07809777f089dee7d94b069d5a6cc9fd5a157fbd8d0cfedc70208118976",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "packages/page-neural/tsconfig.app.json": {
+      "filePath": "packages/page-neural/tsconfig.app.json",
+      "contentHash": "ca8e94740608e82b7e0e6e899153badb1faa05f5733d878e2b0370ec62c188c5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/tsconfig.json": {
+      "filePath": "packages/page-neural/tsconfig.json",
+      "contentHash": "e8d6f7b50828db3953e21c7e92584f9206b3cd2551b4012507372afbb7fe9ce3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/tsconfig.node.json": {
+      "filePath": "packages/page-neural/tsconfig.node.json",
+      "contentHash": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "packages/page-neural/vite.config.ts": {
+      "filePath": "packages/page-neural/vite.config.ts",
+      "contentHash": "a926bfbffabec4e5c85f02ea3ac3986e1190a375b4db8a5ad077e1031e0f8307",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@vitejs/plugin-vue",
+          "specifiers": ["vue"]
+        },
+        {
+          "source": "vite",
+          "specifiers": ["defineConfig"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/README.md": {
+      "filePath": "packages/ui/README.md",
+      "contentHash": "57c9abc3c10506c19b25065bb0e4ed5225829cb1a8a75664ad41769dfbbe1309",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 140,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/components.json": {
+      "filePath": "packages/ui/components.json",
+      "contentHash": "bb2984c02805001021e80ece2405d033acac9b8cd0d4f475e1235bb1ceb46a96",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/index.html": {
+      "filePath": "packages/ui/index.html",
+      "contentHash": "9325516facdfc622debf2d450f7b7135059b5692cbcc717208154499c28e9325",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/package.json": {
+      "filePath": "packages/ui/package.json",
+      "contentHash": "2bd30e26509b11ece634b2a1f181a8952557d3c1b05a94fc5ba1d5e6a2ff6800",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/App.vue": {
+      "filePath": "packages/ui/src/App.vue",
+      "contentHash": "051b41abb930fde0a1751509b2fc2d6c2f3cb2110905fee5ff5106e9a77f35bb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/button/Button.vue": {
+      "filePath": "packages/ui/src/components/ui/button/Button.vue",
+      "contentHash": "c2586af14f8eb2e12c92ac9f650707b7c939c336f4f525c0c3b274e079b1b5d4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 59,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/button/doc.vue": {
+      "filePath": "packages/ui/src/components/ui/button/doc.vue",
+      "contentHash": "2dd1d5594fb67264c3381b06d07d432807f8990adadf5a859906ad43c0a8b7dd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 99,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/button/index.ts": {
+      "filePath": "packages/ui/src/components/ui/button/index.ts",
+      "contentHash": "7a992d4595c566c6719d5f6faf149fa7a3844620db12fc505dcf9e0ad6bedc3c",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["VariantProps"]
+        },
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["cva"]
+        }
+      ],
+      "exports": ["Button", "buttonVariants"],
+      "totalLines": 144,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/components/ui/icon/Icon.vue": {
+      "filePath": "packages/ui/src/components/ui/icon/Icon.vue",
+      "contentHash": "f947406bf00a4547769dbef00763a6edae3bb637b946e566f18651d234c5b367",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 89,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/icon/doc.vue": {
+      "filePath": "packages/ui/src/components/ui/icon/doc.vue",
+      "contentHash": "19bb9d4038f7b53b13263c053755331b173c3c2bc5f11ffbe8a184a26c7faf43",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 201,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/icon/index.ts": {
+      "filePath": "packages/ui/src/components/ui/icon/index.ts",
+      "contentHash": "b0de70ff887f808675c4d97a6ace49f788f4ae5105caa5627b1cd664804c5b30",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": ["Icon"],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/components/ui/input/Input.vue": {
+      "filePath": "packages/ui/src/components/ui/input/Input.vue",
+      "contentHash": "d71b0a1fca1f01d5d41a7c2e6cb81a3307bcd98bca06eee69b7a14e8292239f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 309,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/input/doc.vue": {
+      "filePath": "packages/ui/src/components/ui/input/doc.vue",
+      "contentHash": "5f4d01f7eaccc3fd3e0f24eed2b95db518b86f22f2837155615d3e27b2c535a2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 305,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/input/index.ts": {
+      "filePath": "packages/ui/src/components/ui/input/index.ts",
+      "contentHash": "93d1c50e104535aea0dab3bac9e09e68bbaa1e57647fe5981eb8691577159c38",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["VariantProps"]
+        },
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["cva"]
+        }
+      ],
+      "exports": ["Input", "inputVariants"],
+      "totalLines": 43,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/components/ui/overview/components/DocSection.vue": {
+      "filePath": "packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "contentHash": "9823482b33138a91ee9f00d91f192031347c6b4d7779faf5ae43302701c34d3f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 43,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/overview/doc.vue": {
+      "filePath": "packages/ui/src/components/ui/overview/doc.vue",
+      "contentHash": "879f021278fb0fc18b7532d468d191f12c2d151d322a97e9f8f5738b24e36383",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 918,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/Select.vue": {
+      "filePath": "packages/ui/src/components/ui/select/Select.vue",
+      "contentHash": "5604ca72474e4453e688fc9d84d2496ef50608117a9e9f5853fb8fcd33a1cb61",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 725,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectContent.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectContent.vue",
+      "contentHash": "154321f8b835d81077e68f27d156ad0df65e035ed71af1a0dc2fee6de916848b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectGroup.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectGroup.vue",
+      "contentHash": "123ab90ec467d75149a559ce0610de6cc433bc971cdda4c6c5e3e8fc0957d76e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectItem.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectItem.vue",
+      "contentHash": "40fdaa75ffbd666c6a90d6d434fd7643d0a8d9520edf08c0816e590b483cdaaf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 41,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectItemText.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectItemText.vue",
+      "contentHash": "afd9336a2a7cf74d038b0b72bbb1479739375af7f3fab5379e1e2d7c9941d825",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectLabel.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectLabel.vue",
+      "contentHash": "d8b7663e3b05eec4d043b4e4aca2c10afec0d05fdffc45c12c9a37b66ec1b6b1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectScrollDownButton.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "contentHash": "0fc4561e194267163ac8fb4915e96b95f972a1d551e822c0450ac8536f6884af",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectScrollUpButton.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "contentHash": "7195fe36cf15fa057352be9c99521bcbce48f027e593837181a74a760def83a9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectSeparator.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "contentHash": "c81872146716be37c09586cb014b4243707996e5dca854985452ad493eb7ce69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectTrigger.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "contentHash": "5c50531794f62d45a8e7acbb798fb4e6a4ee678fcf533cf699b86c0b10c1f313",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/SelectValue.vue": {
+      "filePath": "packages/ui/src/components/ui/select/SelectValue.vue",
+      "contentHash": "4b3ca222c96a7c59f56f523c89b87a8376d55063d4633f4240d7be1da0e98415",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/doc.vue": {
+      "filePath": "packages/ui/src/components/ui/select/doc.vue",
+      "contentHash": "d96e51f13898ba6ac839713ae10a673ea0011f19ff70174b9919376175d00523",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 360,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/src/components/ui/select/index.ts": {
+      "filePath": "packages/ui/src/components/ui/select/index.ts",
+      "contentHash": "c83ecae01433b5eb2e9fb98268996fab3660eaa74821c831c347a384e4aaee43",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["VariantProps"]
+        },
+        {
+          "source": "class-variance-authority",
+          "specifiers": ["cva"]
+        }
+      ],
+      "exports": [
+        "Select",
+        "SelectContent",
+        "SelectGroup",
+        "SelectItem",
+        "SelectItemText",
+        "SelectLabel",
+        "SelectScrollDownButton",
+        "SelectScrollUpButton",
+        "SelectSeparator",
+        "SelectTrigger",
+        "SelectValue",
+        "selectTriggerVariants"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/composables/useColorMode.ts": {
+      "filePath": "packages/ui/src/composables/useColorMode.ts",
+      "contentHash": "288bea7b615a662f88eab5834ac4e159ec91a8b86b1a0ea0afab0750d64d361f",
+      "functions": [
+        {
+          "name": "systemPrefersDark",
+          "params": [],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "readInitialMode",
+          "params": [],
+          "returnType": "ColorMode",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "applyDarkClass",
+          "params": ["isDark"],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "useColorMode",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["computed", "ref", "watch"]
+        }
+      ],
+      "exports": ["DEFAULT_COLOR_MODE", "COLOR_MODES", "useColorMode"],
+      "totalLines": 86,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/composables/useRipple.ts": {
+      "filePath": "packages/ui/src/composables/useRipple.ts",
+      "contentHash": "c49a7cb44fb2e0832f494a448f8667f80bcc816404c91a15e72d0e5e2da197c4",
+      "functions": [
+        {
+          "name": "useRipple",
+          "params": ["options"],
+          "exported": true,
+          "lineCount": 67
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["onUnmounted"]
+        }
+      ],
+      "exports": ["useRipple"],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/composables/useThemeColor.ts": {
+      "filePath": "packages/ui/src/composables/useThemeColor.ts",
+      "contentHash": "74820a9bf1ee8cd51827fa003e4d30f9dfcd3144b0a318dbbfbd81dfe71edb23",
+      "functions": [
+        {
+          "name": "readInitialThemeColor",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "applyThemeColor",
+          "params": ["value"],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "useThemeColor",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["computed", "ref", "watch"]
+        }
+      ],
+      "exports": ["THEME_COLORS", "DEFAULT_THEME_COLOR", "useThemeColor"],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/doc.ts": {
+      "filePath": "packages/ui/src/doc.ts",
+      "contentHash": "ea5d218094f565a974f89080c39e07a9409ef8fa8a4b0d45e4663aa737df8539",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": ["OverviewDoc", "ButtonDoc", "IconDoc", "InputDoc", "SelectDoc"],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/index.ts": {
+      "filePath": "packages/ui/src/index.ts",
+      "contentHash": "ae938141ccd01ad6c01d44b5c0b42ff39dc63e3f5f2fcd2c585b15892b8952af",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["Plugin"]
+        },
+        {
+          "source": "./components/ui/button",
+          "specifiers": ["Button"]
+        },
+        {
+          "source": "./components/ui/icon",
+          "specifiers": ["Icon"]
+        },
+        {
+          "source": "./components/ui/input",
+          "specifiers": ["Input"]
+        },
+        {
+          "source": "./components/ui/select",
+          "specifiers": ["Select"]
+        }
+      ],
+      "exports": [
+        "cn",
+        "useThemeColor",
+        "THEME_COLORS",
+        "DEFAULT_THEME_COLOR",
+        "ThemeColorOption",
+        "useColorMode",
+        "COLOR_MODES",
+        "DEFAULT_COLOR_MODE",
+        "ColorMode",
+        "ResolvedColorMode",
+        "ColorModeOption",
+        "useRipple",
+        "UseRippleOptions",
+        "GButton",
+        "buttonVariants",
+        "ButtonVariants",
+        "GIcon",
+        "GInput",
+        "inputVariants",
+        "InputVariants",
+        "InputStatus",
+        "GSelect",
+        "selectTriggerVariants",
+        "SelectMode",
+        "SelectOption",
+        "SelectStatus",
+        "SelectFieldNames",
+        "SelectTriggerVariants",
+        "GrittyUI"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/lib/utils.ts": {
+      "filePath": "packages/ui/src/lib/utils.ts",
+      "contentHash": "36464f02698e8274752299a2866a316c3f6ccd8cbc730588d708685f2586386e",
+      "functions": [
+        {
+          "name": "cn",
+          "params": ["...inputs"],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "clsx",
+          "specifiers": ["ClassValue"]
+        },
+        {
+          "source": "clsx",
+          "specifiers": ["clsx"]
+        },
+        {
+          "source": "tailwind-merge",
+          "specifiers": ["twMerge"]
+        }
+      ],
+      "exports": ["cn"],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/main.ts": {
+      "filePath": "packages/ui/src/main.ts",
+      "contentHash": "43fdfd067cea8b79337606879915fb791cdb8f195c68feccc70f8c2a0df97108",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vue",
+          "specifiers": ["createApp"]
+        },
+        {
+          "source": "./App.vue",
+          "specifiers": ["App"]
+        },
+        {
+          "source": "./style.css",
+          "specifiers": []
+        },
+        {
+          "source": "./index",
+          "specifiers": ["GrittyUI"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/src/style.css": {
+      "filePath": "packages/ui/src/style.css",
+      "contentHash": "e23e10be6f7e30156a482f6901367d64c4fe4fcfd7919e43c133a8a9ea5e9792",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 250,
+      "hasStructuralAnalysis": false
+    },
+    "packages/ui/tsconfig.app.json": {
+      "filePath": "packages/ui/tsconfig.app.json",
+      "contentHash": "ee239cf77d96364de8071d58836e48c05cca3dd963e98cb145098012d55eea34",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/tsconfig.json": {
+      "filePath": "packages/ui/tsconfig.json",
+      "contentHash": "3727519fb7bc2436eea9fa91a34e05e77e89036122e1e84b9b72bb0040055c81",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/tsconfig.node.json": {
+      "filePath": "packages/ui/tsconfig.node.json",
+      "contentHash": "d366cc0827139db39c61815f22491bbfda56c654354a42ad7795143d314e45e8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "packages/ui/vite.config.ts": {
+      "filePath": "packages/ui/vite.config.ts",
+      "contentHash": "9db839061a720dc8f882cb59d4456cd1b64ae936439612cb5d86db3b0512c914",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "path",
+          "specifiers": ["path"]
+        },
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": ["tailwindcss"]
+        },
+        {
+          "source": "@vitejs/plugin-vue",
+          "specifiers": ["vue"]
+        },
+        {
+          "source": "vite",
+          "specifiers": ["defineConfig"]
+        }
+      ],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "pnpm-workspace.yaml": {
+      "filePath": "pnpm-workspace.yaml",
+      "contentHash": "11ecab5b7626f410b8ec5221c0bc433decc8ae0f3d33e12bac5dc02513160062",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "skills-lock.json": {
+      "filePath": "skills-lock.json",
+      "contentHash": "291b4f1e532b53c2e95804e4a4d12f97930893e803dfdc52cd6fc7704a0e9adf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "4d1f86d1e5ddf8cba453f3f67645629752b2b96c16a39ac337d6b0ce5aa27b45",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

@@ -1,0 +1,749 @@
+{
+  "nodes": [
+    {
+      "id": "config:apps/admin/src/views/playground/routes.json",
+      "type": "config",
+      "name": "routes.json",
+      "filePath": "apps/admin/src/views/playground/routes.json",
+      "summary": "Auto-route page catalog for the admin playground, listing auth-gated Css, Vue, JavaScript, and Html experiment pages.",
+      "tags": ["configuration", "routing", "playground", "menu"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/vue/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/playground/vue/index.vue",
+      "summary": "Stub PlaygroundVue page that renders a Vue heading as a placeholder for admin playground experiments.",
+      "tags": ["component", "playground", "vue-sfc", "page"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 <script setup> SFC registered via defineOptions({ name: 'PlaygroundVue' })."
+    },
+    {
+      "id": "config:apps/admin/src/views/routes.json",
+      "type": "config",
+      "name": "routes.json",
+      "filePath": "apps/admin/src/views/routes.json",
+      "summary": "Top-level admin views directory catalog for Auto Routes, Packages, and Playground sections, all requiring authentication.",
+      "tags": ["configuration", "routing", "menu", "admin"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "apps/admin/vite.config.ts",
+      "summary": "Vite config for the admin app: Vue SFCs, Tailwind, Ant Design Vue auto-import, Vue DevTools, and a PWA service worker with a raised Workbox cache limit.",
+      "tags": ["config", "vite", "pwa", "build-system"],
+      "complexity": "moderate",
+      "languageNotes": "Treats tags starting with gritty- as custom elements; Workbox maximumFileSizeToCacheInBytes is 4 MiB so the eager-glob router chunk can be precached."
+    },
+    {
+      "id": "config:packages/auto-route/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/auto-route/package.json",
+      "summary": "Private ESM workspace package @gritty-lots/auto-route that exports src/index.ts and peers Vue 3 plus vue-router.",
+      "tags": ["configuration", "package-manifest", "workspace", "routing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/auto-route/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/auto-route/tsconfig.json",
+      "summary": "TypeScript config for auto-route that only extends the monorepo root tsconfig.",
+      "tags": ["configuration", "typescript", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/data-schema/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/data-schema/package.json",
+      "summary": "Private ESM workspace package @gritty-lots/data-schema that exports src/index.ts and depends on Ajv, ant-design-vue, vue-i18n, and vue3-json-viewer.",
+      "tags": ["configuration", "package-manifest", "workspace", "json-schema"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/icon/null.vue",
+      "type": "file",
+      "name": "null.vue",
+      "filePath": "packages/data-schema/src/components/icon/null.vue",
+      "summary": "NullIcon SFC that draws an N inside a Lucide Circle for nullable JSON Schema types.",
+      "tags": ["component", "icon", "vue-sfc", "json-schema"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/components/icon/register.ts",
+      "type": "file",
+      "name": "register.ts",
+      "filePath": "packages/data-schema/src/components/icon/register.ts",
+      "summary": "Default-export icon map of Lucide Vue icons plus the local NullIcon used by NeuralIcon in the schema editor.",
+      "tags": ["factory", "icon", "registry", "vue"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/ajv-instance.ts",
+      "type": "file",
+      "name": "ajv-instance.ts",
+      "filePath": "packages/data-schema/src/core/ajv-instance.ts",
+      "summary": "Shared Ajv singleton reserved for JSON Schema validation; draft-07 meta-schema registration is currently commented out.",
+      "tags": ["singleton", "validation", "json-schema", "utility"],
+      "complexity": "simple",
+      "languageNotes": "Default-export module-level Ajv instance; meta-schema addMetaSchema calls remain commented."
+    },
+    {
+      "id": "file:packages/data-schema/src/core/dataSchema.vue",
+      "type": "file",
+      "name": "dataSchema.vue",
+      "filePath": "packages/data-schema/src/core/dataSchema.vue",
+      "summary": "Split-pane JSON Schema editor that edits object properties via SchemaGroup and previews the document, with import, export, copy, and fold tools.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "moderate",
+      "languageNotes": "Vue 3 <script setup> that syncs NeuralTheme colorPrimary onto --gritty-schema-color-primary CSS variables."
+    },
+    {
+      "id": "function:packages/data-schema/src/core/dataSchema.vue:importJson",
+      "type": "function",
+      "name": "importJson",
+      "filePath": "packages/data-schema/src/core/dataSchema.vue",
+      "lineRange": [42, 52],
+      "summary": "Reads a chosen JSON file into schemaData, re-inits SchemaGroup, and reports success or parse errors through NeuralMessage.",
+      "tags": ["event-handler", "serialization", "json-schema"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/datas.ts",
+      "type": "file",
+      "name": "datas.ts",
+      "filePath": "packages/data-schema/src/core/datas.ts",
+      "summary": "Static catalogs of JSON Schema base types, allOf/anyOf/oneOf combinators, grouped SchemaTypes, and RFC format option labels for the type selector.",
+      "tags": ["data-model", "json-schema", "type-definition", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/propertyControl.vue",
+      "type": "file",
+      "name": "propertyControl.vue",
+      "filePath": "packages/data-schema/src/core/propertyControl.vue",
+      "summary": "Slot gate that shows a schema keyword editor only when the field applies to the current JSON Schema type.",
+      "tags": ["component", "json-schema", "validation", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "type": "file",
+      "name": "schemaCombination.vue",
+      "filePath": "packages/data-schema/src/core/schemaCombination.vue",
+      "summary": "Editor for allOf/anyOf/oneOf option lists that adds, removes, and folds nested SchemaItem rows.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaCombination.vue:foldOptions",
+      "type": "function",
+      "name": "foldOptions",
+      "filePath": "packages/data-schema/src/core/schemaCombination.vue",
+      "lineRange": [26, 30],
+      "summary": "Calls foldOptions on each nested SchemaItem ref so combination option panels collapse together.",
+      "tags": ["event-handler", "editor", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "type": "file",
+      "name": "schemaGroup.vue",
+      "filePath": "packages/data-schema/src/core/schemaGroup.vue",
+      "summary": "Object-properties editor that adds, renames, deletes, and toggles required fields, rendering each property as a SchemaItem.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaGroup.vue:updateField",
+      "type": "function",
+      "name": "updateField",
+      "filePath": "packages/data-schema/src/core/schemaGroup.vue",
+      "lineRange": [61, 79],
+      "summary": "Renames a property key, moves the schema object, and keeps the required list and field-order array in sync.",
+      "tags": ["event-handler", "json-schema", "editor"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaGroup.vue:init",
+      "type": "function",
+      "name": "init",
+      "filePath": "packages/data-schema/src/core/schemaGroup.vue",
+      "lineRange": [108, 111],
+      "summary": "Expands the properties panel and rebuilds propertyFieldList from the current schemaProperties keys.",
+      "tags": ["lifecycle", "editor", "json-schema"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaGroup.vue:foldOptions",
+      "type": "function",
+      "name": "foldOptions",
+      "filePath": "packages/data-schema/src/core/schemaGroup.vue",
+      "lineRange": [114, 118],
+      "summary": "Forwards foldOptions to every nested SchemaItem so object-property option panels collapse.",
+      "tags": ["event-handler", "editor", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaItem.vue",
+      "type": "file",
+      "name": "schemaItem.vue",
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "summary": "Core schema field row: name, title, description, type selector, required/null/delete actions, and recursive object, array, or combinator children.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "complex",
+      "languageNotes": "Recursively mounts SchemaGroup, SchemaItems, or SchemaCombination based on the selected type, including oneOf/anyOf/allOf."
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaItem.vue:updateField",
+      "type": "function",
+      "name": "updateField",
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "lineRange": [100, 111],
+      "summary": "Emits update:field on blur after rejecting empty or unchanged field names and restoring the input when invalid.",
+      "tags": ["event-handler", "validation", "editor"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaItem.vue:createGroupType",
+      "type": "function",
+      "name": "createGroupType",
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "lineRange": [146, 161],
+      "summary": "Replaces any existing oneOf/anyOf/allOf array with the chosen combinator, defaulting to two string subschemas.",
+      "tags": ["factory", "json-schema", "editor"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaItem.vue:onSchemaTypeChange",
+      "type": "function",
+      "name": "onSchemaTypeChange",
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "lineRange": [166, 193],
+      "summary": "Ensures object properties/required, array items, or combinator arrays exist when the field type changes.",
+      "tags": ["event-handler", "json-schema", "editor"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "function",
+      "name": "foldOptions",
+      "filePath": "packages/data-schema/src/core/schemaItem.vue",
+      "lineRange": [208, 219],
+      "summary": "Collapses this item's property panel and forwards foldOptions to nested group, items, and combination editors.",
+      "tags": ["event-handler", "editor", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaItemTool.vue",
+      "type": "file",
+      "name": "schemaItemTool.vue",
+      "filePath": "packages/data-schema/src/core/schemaItemTool.vue",
+      "summary": "Add/expand toolbar with a count badge and empty or folded hints for schema field and option lists.",
+      "tags": ["component", "toolbar", "vue-sfc", "json-schema"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaItemViewer.vue",
+      "type": "file",
+      "name": "schemaItemViewer.vue",
+      "filePath": "packages/data-schema/src/core/schemaItemViewer.vue",
+      "summary": "Compact JsonViewer that clones the schema object and strips properties and items for a keyword-only preview.",
+      "tags": ["component", "preview", "json-schema", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaItems.vue",
+      "type": "file",
+      "name": "schemaItems.vue",
+      "filePath": "packages/data-schema/src/core/schemaItems.vue",
+      "summary": "Array-items wrapper that renders a single SchemaItem with an array-items flag and a list-icon affordance.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaItems.vue:foldOptions",
+      "type": "function",
+      "name": "foldOptions",
+      "filePath": "packages/data-schema/src/core/schemaItems.vue",
+      "lineRange": [27, 31],
+      "summary": "Forwards foldOptions to the nested array-item SchemaItem so item options collapse with the parent.",
+      "tags": ["event-handler", "editor", "vue-sfc"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "type": "file",
+      "name": "schemaProperties.vue",
+      "filePath": "packages/data-schema/src/core/schemaProperties.vue",
+      "summary": "Keyword editor for required, nullability, deprecated, read/write behavior, defaults, enum, length, numeric bounds, format, and pattern.",
+      "tags": ["component", "json-schema", "editor", "vue-sfc"],
+      "complexity": "complex",
+      "languageNotes": "Uses propertyControl to show type-specific keyword rows; behaviorMode maps to JSON Schema readOnly/writeOnly flags."
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaProperties.vue:onChangeNullAllowed",
+      "type": "function",
+      "name": "onChangeNullAllowed",
+      "filePath": "packages/data-schema/src/core/schemaProperties.vue",
+      "lineRange": [73, 83],
+      "summary": "Toggles null in the JSON Schema type by wrapping a scalar type in an array or stripping null from a union.",
+      "tags": ["event-handler", "json-schema", "editor"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/data-schema/src/core/schemaProperties.vue:onChangeBehaviorMode",
+      "type": "function",
+      "name": "onChangeBehaviorMode",
+      "filePath": "packages/data-schema/src/core/schemaProperties.vue",
+      "lineRange": [95, 106],
+      "summary": "Sets or clears readOnly and writeOnly on the schema object from the all / read-only / write-only radio group.",
+      "tags": ["event-handler", "json-schema", "editor"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/data-schema/src/core/schemaViewer.vue",
+      "type": "file",
+      "name": "schemaViewer.vue",
+      "filePath": "packages/data-schema/src/core/schemaViewer.vue",
+      "summary": "Full-document JSON Schema preview using a boxed vue3-json-viewer with a 10-level expand depth.",
+      "tags": ["component", "preview", "json-schema", "vue-sfc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:packages/data-schema/src/i18n/locales/en-US.json",
+      "type": "config",
+      "name": "en-US.json",
+      "filePath": "packages/data-schema/src/i18n/locales/en-US.json",
+      "summary": "English strings for the JSON Schema editor, covering field tools, keyword labels, type descriptions, and import/copy messages.",
+      "tags": ["configuration", "i18n", "localization", "json-schema"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:packages/data-schema/src/i18n/locales/zh-CN.json",
+      "type": "config",
+      "name": "zh-CN.json",
+      "filePath": "packages/data-schema/src/i18n/locales/zh-CN.json",
+      "summary": "Chinese strings for the JSON Schema editor, mirroring the English catalog for tools, keywords, types, and status messages.",
+      "tags": ["configuration", "i18n", "localization", "json-schema"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/page-neural/src/App.vue",
+      "type": "file",
+      "name": "App.vue",
+      "filePath": "packages/page-neural/src/App.vue",
+      "summary": "Placeholder page-neural root view that renders a static Neural heading.",
+      "tags": ["component", "entry-point", "vue-sfc", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/icon/null.vue",
+      "type": "file",
+      "name": "null.vue",
+      "filePath": "packages/page-neural/src/components/icon/null.vue",
+      "summary": "NullIcon SFC identical to the data-schema variant, drawing an N inside a Lucide Circle for the page-neural icon set.",
+      "tags": ["component", "icon", "vue-sfc", "placeholder"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/data-schema/src/components/icon/register.ts",
+      "target": "file:packages/data-schema/src/components/icon/null.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/data-schema/src/core/dataSchema.vue",
+      "target": "function:packages/data-schema/src/core/dataSchema.vue:importJson",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "target": "function:packages/data-schema/src/core/schemaCombination.vue:foldOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:updateField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:foldOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:updateField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:createGroupType",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:onSchemaTypeChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItems.vue",
+      "target": "function:packages/data-schema/src/core/schemaItems.vue:foldOptions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "function:packages/data-schema/src/core/schemaProperties.vue:onChangeNullAllowed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "function:packages/data-schema/src/core/schemaProperties.vue:onChangeBehaviorMode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "target": "function:packages/data-schema/src/core/schemaCombination.vue:foldOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:init",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:foldOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItems.vue",
+      "target": "function:packages/data-schema/src/core/schemaItems.vue:foldOptions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/data-schema/src/core/dataSchema.vue",
+      "target": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/dataSchema.vue",
+      "target": "file:packages/data-schema/src/core/schemaViewer.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "target": "file:packages/data-schema/src/core/schemaItem.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "target": "file:packages/data-schema/src/core/schemaItemTool.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "file:packages/data-schema/src/core/schemaItem.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "file:packages/data-schema/src/core/schemaItemTool.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/core/schemaItems.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/core/datas.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItems.vue",
+      "target": "file:packages/data-schema/src/core/schemaItem.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "file:packages/data-schema/src/core/propertyControl.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "file:packages/data-schema/src/core/schemaItemViewer.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "file:packages/data-schema/src/core/datas.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/dataSchema.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaCombination.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaGroup.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItem.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItemTool.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaItems.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/data-schema/src/core/schemaProperties.vue",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:packages/data-schema/src/core/dataSchema.vue:importJson",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:init",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaGroup.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaItems.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaCombination.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaCombination.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaGroup.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaItems.vue:foldOptions",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:foldOptions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:packages/data-schema/src/core/schemaItem.vue:onSchemaTypeChange",
+      "target": "function:packages/data-schema/src/core/schemaItem.vue:createGroupType",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:apps/admin/src/views/playground/routes.json",
+      "target": "file:apps/admin/src/views/playground/vue/index.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/routes.json",
+      "target": "config:apps/admin/src/views/playground/routes.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/data-schema/package.json",
+      "target": "file:packages/data-schema/src/core/dataSchema.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/data-schema/src/i18n/locales/en-US.json",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/data-schema/src/i18n/locales/zh-CN.json",
+      "target": "file:packages/data-schema/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/auto-route/package.json",
+      "target": "config:packages/auto-route/tsconfig.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/data-schema/src/i18n/locales/en-US.json",
+      "target": "config:packages/data-schema/src/i18n/locales/zh-CN.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:packages/data-schema/src/components/icon/null.vue",
+      "target": "file:packages/page-neural/src/components/icon/null.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

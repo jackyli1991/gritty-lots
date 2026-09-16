@@ -1,0 +1,183 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [
+    "packages/page-neural/src/components/badge/badge.vue",
+    "packages/page-neural/src/components/button/button.vue",
+    "packages/page-neural/src/components/checkbox/checkbox.vue",
+    "packages/page-neural/src/components/configProvider/configProvider.vue",
+    "packages/page-neural/src/components/icon/icon.vue",
+    "packages/page-neural/src/components/input/input.vue",
+    "packages/page-neural/src/components/inputNumber/inputNumber.vue",
+    "packages/page-neural/src/components/popConfirm/popConfirm.vue",
+    "packages/page-neural/src/components/popover/popover.vue",
+    "packages/page-neural/src/components/radio/radio.vue",
+    "packages/page-neural/src/components/radio/radioButton.vue",
+    "packages/page-neural/src/components/radio/radioGroup.vue",
+    "packages/page-neural/src/components/select/select.vue",
+    "packages/page-neural/src/components/switch/switch.vue",
+    "packages/page-neural/src/components/tag/checkableTag.vue",
+    "packages/page-neural/src/components/tag/tag.vue",
+    "packages/page-neural/src/components/tooltip/tooltip.vue"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/page-neural/src/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 44,
+      "exports": [
+        {
+          "name": "NeuralMessage",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralTheme",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralIcon",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralButton",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralInput",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralSelect",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralSelectOption",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralSelectOptGroup",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralTag",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralCheckableTag",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralTooltip",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralSwitch",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralInputNumber",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralRadio",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralRadioGroup",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralRadioButton",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralCheckbox",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralPopover",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralBadge",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralPopConfirm",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "NeuralConfigProvider",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 19,
+        "exportCount": 21,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/components/select/optGroup.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/components/select/selectOption.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

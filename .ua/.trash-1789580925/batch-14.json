@@ -1,0 +1,444 @@
+{
+  "nodes": [
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/introduce.vue",
+      "type": "file",
+      "name": "introduce.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/introduce.vue",
+      "summary": "Auto-route documentation page covering plugin registration, createAutoRoutes usage with globbed views and routes.json, and a parameter table for permission and mount options.",
+      "tags": ["component", "documentation", "routing", "auto-route"],
+      "complexity": "moderate",
+      "languageNotes": "Vue 3 script setup holding sample snippets as template strings and rendering them through DocSection and CodeBlock."
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/meta.vue",
+      "type": "file",
+      "name": "meta.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/meta.vue",
+      "summary": "Documents auto-generated vue-router meta fields from routes.json and runtime (id, title, icon, permissions, parentRoute) and live-prints the current $route.meta.",
+      "tags": ["component", "documentation", "routing", "meta"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:apps/admin/src/views/autoroutes/routes.json",
+      "type": "config",
+      "name": "routes.json",
+      "filePath": "apps/admin/src/views/autoroutes/routes.json",
+      "summary": "Auto-route menu config for the Vue Router docs section, nesting introduce, config (default redirect), meta, and a group placeholder behind requiresAuth.",
+      "tags": ["configuration", "routing", "auto-route", "menu"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/LayoutAside.vue",
+      "type": "file",
+      "name": "LayoutAside.vue",
+      "filePath": "apps/admin/src/views/layout/LayoutAside.vue",
+      "summary": "Admin sidebar that binds Pinia accessibleRoutes to an ant-design-vue inline Menu and navigates by route name on select, with OverlayScrollbars on the menu.",
+      "tags": ["component", "layout", "navigation", "menu"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/LayoutHeader.vue",
+      "type": "file",
+      "name": "LayoutHeader.vue",
+      "filePath": "apps/admin/src/views/layout/LayoutHeader.vue",
+      "summary": "Admin header with clickable breadcrumb routes from the route store plus ThemeIcon and LanguageIcon settings, sized from layoutStore.headerHeight.",
+      "tags": ["component", "layout", "breadcrumb", "theming"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/LayoutIndex.vue",
+      "type": "file",
+      "name": "LayoutIndex.vue",
+      "filePath": "apps/admin/src/views/layout/LayoutIndex.vue",
+      "summary": "Admin shell assembling ant-design-vue Layout sider, header, and content around LayoutAside, LayoutHeader, and a RouterView, wrapped in ConfigProvider theming.",
+      "tags": ["component", "layout", "shell", "theming"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "type": "file",
+      "name": "LanguageIcon.vue",
+      "filePath": "apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "summary": "Header dropdown that lists localeList and calls setLocale, highlighting the active locale with the layout theme color.",
+      "tags": ["component", "i18n", "dropdown", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "type": "file",
+      "name": "ThemeIcon.vue",
+      "filePath": "apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "summary": "Header popover with a ChromePicker that writes the chosen color into the layout store via setThemeColor.",
+      "tags": ["component", "theming", "color-picker", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/layout/layoutContent.vue",
+      "type": "file",
+      "name": "layoutContent.vue",
+      "filePath": "apps/admin/src/views/layout/layoutContent.vue",
+      "summary": "Padded full-height content slot that hosts a nested router-view for the active admin page.",
+      "tags": ["component", "layout", "router-view", "shell"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "type": "file",
+      "name": "ColorModeSwitcher.vue",
+      "filePath": "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "summary": "Segmented control over useColorMode from @gritty-lots/ui for switching light, dark, and system color modes on the UI docs page.",
+      "tags": ["component", "theming", "color-mode", "playground"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "type": "file",
+      "name": "ThemeColorSwitcher.vue",
+      "filePath": "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "summary": "Swatch picker over useThemeColor from @gritty-lots/ui that sets the design-system theme color on the UI docs page.",
+      "tags": ["component", "theming", "color-picker", "playground"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/packages/grittyui/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/packages/grittyui/index.vue",
+      "summary": "Gritty UI package docs shell with color-mode and theme-color switchers plus a sticky nav that swaps Overview, Icon, Button, Input, and Select doc components.",
+      "tags": ["component", "documentation", "playground", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/packages/jsonschema/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/packages/jsonschema/index.vue",
+      "summary": "Demo page that mounts GrittyJsonSchema and forwards the layout store themeColor as colorPrimary.",
+      "tags": ["component", "playground", "schema", "demo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/packages/neural/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/packages/neural/index.vue",
+      "summary": "Full-size demo page that mounts the GrittyNeuralGraph package component.",
+      "tags": ["component", "playground", "graph", "demo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/admin/src/views/packages/routes.json",
+      "type": "config",
+      "name": "routes.json",
+      "filePath": "apps/admin/src/views/packages/routes.json",
+      "summary": "Auto-route menu config for package demos: JSON Schema, Neural, and Gritty UI pages, each requiring auth.",
+      "tags": ["configuration", "routing", "auto-route", "menu"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/css/GlassMatte.vue",
+      "type": "file",
+      "name": "GlassMatte.vue",
+      "filePath": "apps/admin/src/views/playground/css/GlassMatte.vue",
+      "summary": "Draggable frosted-glass card using translucent background, backdrop-filter blur, and a light border.",
+      "tags": ["component", "playground", "css", "visual-effect"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/css/GradientBorder.vue",
+      "type": "file",
+      "name": "GradientBorder.vue",
+      "filePath": "apps/admin/src/views/playground/css/GradientBorder.vue",
+      "summary": "Draggable demo of a dual-mask gradient border using :before/:after overlays for white-to-primary edges.",
+      "tags": ["component", "playground", "css", "visual-effect"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "type": "file",
+      "name": "LiquidGlass.vue",
+      "filePath": "apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "summary": "Draggable liquid-glass pill combining backdrop blur/saturate, inset specular highlights, and a bouncy hover scale.",
+      "tags": ["component", "playground", "css", "visual-effect"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/css/Typewriter.vue",
+      "type": "file",
+      "name": "Typewriter.vue",
+      "filePath": "apps/admin/src/views/playground/css/Typewriter.vue",
+      "summary": "Draggable CSS typewriter that animates text width in ch steps with a blinking caret and enter fade.",
+      "tags": ["component", "playground", "css", "animation"],
+      "complexity": "moderate",
+      "languageNotes": "Typing loop uses width 0ch→24ch with steps(24, end) infinite alternate; caret blinks via opacity keyframes."
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/css/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/playground/css/index.vue",
+      "summary": "CSS playground gallery that layers GradientBorder, GlassMatte, LiquidGlass, and Typewriter on a full-bleed background image.",
+      "tags": ["component", "playground", "css", "gallery"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "type": "file",
+      "name": "ShadowWebComponent.js",
+      "filePath": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "summary": "Native custom element gritty-shadow-web-component that opens a Shadow DOM, observes title, and renders slotted content.",
+      "tags": ["web-component", "shadow-dom", "playground", "custom-element"],
+      "complexity": "moderate",
+      "languageNotes": "Registers via customElements.define; attachShadow({ mode: 'open' }) so the page can reach shadowRoot."
+    },
+    {
+      "id": "class:apps/admin/src/views/playground/html/ShadowWebComponent.js:GrittyShadowWebComponent",
+      "type": "class",
+      "name": "GrittyShadowWebComponent",
+      "filePath": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "lineRange": [1, 55],
+      "summary": "HTMLElement subclass that attaches an open shadow root and re-renders when mounted or when the title attribute changes.",
+      "tags": ["web-component", "shadow-dom", "custom-element", "lifecycle"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/admin/src/views/playground/html/ShadowWebComponent.js:render",
+      "type": "function",
+      "name": "render",
+      "filePath": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "lineRange": [25, 54],
+      "summary": "Writes host styles, the title attribute, and a default slot into shadowRoot.innerHTML.",
+      "tags": ["rendering", "shadow-dom", "custom-element"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/html/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/playground/html/index.vue",
+      "summary": "HTML playground that side-effect-imports native and Lit custom elements, then binds a shared name input to both.",
+      "tags": ["component", "playground", "web-component", "demo"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/html/lit.ts",
+      "type": "file",
+      "name": "lit.ts",
+      "filePath": "apps/admin/src/views/playground/html/lit.ts",
+      "summary": "Lit playground element gritty-hello-lit demonstrating reactive properties, lifecycle hooks, classMap/styleMap/repeat, and a named footer slot.",
+      "tags": ["web-component", "lit", "playground", "custom-element"],
+      "complexity": "moderate",
+      "languageNotes": "LitElement with @customElement, @property, @state, and @query; render uses html plus classMap, styleMap, and repeat."
+    },
+    {
+      "id": "class:apps/admin/src/views/playground/html/lit.ts:HelloLitElement",
+      "type": "class",
+      "name": "HelloLitElement",
+      "filePath": "apps/admin/src/views/playground/html/lit.ts",
+      "lineRange": [8, 111],
+      "summary": "Exported LitElement with count state, name property, even/odd helpers, click handler, lifecycle logs, and a templated list.",
+      "tags": ["web-component", "lit", "custom-element", "lifecycle"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/admin/src/views/playground/html/lit.ts:render",
+      "type": "function",
+      "name": "render",
+      "filePath": "apps/admin/src/views/playground/html/lit.ts",
+      "lineRange": [93, 110],
+      "summary": "Lit render that composes headerTemplate, a class-mapped greeting, named footer slot, nothing, and a style-mapped repeated list.",
+      "tags": ["rendering", "lit", "template"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "type": "file",
+      "name": "PostMessage.vue",
+      "filePath": "apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "summary": "Opens a sized popup to a hidden auto-route, exchanges postMessage with the child, and polls window.closed as a fallback.",
+      "tags": ["component", "playground", "postmessage", "window"],
+      "complexity": "moderate",
+      "languageNotes": "window.open uses a feature string so the browser prefers a popup; a 500ms interval covers unload postMessage loss."
+    },
+    {
+      "id": "file:apps/admin/src/views/playground/javascript/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/playground/javascript/index.vue",
+      "summary": "JavaScript playground page that simply mounts the PostMessage demo.",
+      "tags": ["component", "playground", "wrapper", "demo"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:apps/admin/src/views/autoroutes/routes.json",
+      "target": "file:apps/admin/src/views/autoroutes/router/introduce.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/autoroutes/routes.json",
+      "target": "file:apps/admin/src/views/autoroutes/router/meta.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/layout/LayoutIndex.vue",
+      "target": "file:apps/admin/src/views/layout/LayoutAside.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/layout/LayoutIndex.vue",
+      "target": "file:apps/admin/src/views/layout/LayoutHeader.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/layout/LayoutIndex.vue",
+      "target": "file:apps/admin/src/views/layout/layoutContent.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/layout/LayoutHeader.vue",
+      "target": "file:apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/layout/LayoutHeader.vue",
+      "target": "file:apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/packages/grittyui/index.vue",
+      "target": "file:apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/packages/grittyui/index.vue",
+      "target": "file:apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/packages/routes.json",
+      "target": "file:apps/admin/src/views/packages/jsonschema/index.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/packages/routes.json",
+      "target": "file:apps/admin/src/views/packages/neural/index.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/packages/routes.json",
+      "target": "file:apps/admin/src/views/packages/grittyui/index.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/css/index.vue",
+      "target": "file:apps/admin/src/views/playground/css/GlassMatte.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/css/index.vue",
+      "target": "file:apps/admin/src/views/playground/css/GradientBorder.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/css/index.vue",
+      "target": "file:apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/css/index.vue",
+      "target": "file:apps/admin/src/views/playground/css/Typewriter.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/index.vue",
+      "target": "file:apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/index.vue",
+      "target": "file:apps/admin/src/views/playground/html/lit.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "target": "class:apps/admin/src/views/playground/html/ShadowWebComponent.js:GrittyShadowWebComponent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "target": "function:apps/admin/src/views/playground/html/ShadowWebComponent.js:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/lit.ts",
+      "target": "class:apps/admin/src/views/playground/html/lit.ts:HelloLitElement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/lit.ts",
+      "target": "class:apps/admin/src/views/playground/html/lit.ts:HelloLitElement",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/html/lit.ts",
+      "target": "function:apps/admin/src/views/playground/html/lit.ts:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/views/playground/javascript/index.vue",
+      "target": "file:apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

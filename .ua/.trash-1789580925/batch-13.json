@@ -1,0 +1,511 @@
+{
+  "nodes": [
+    {
+      "id": "file:.commitlintrc.cjs",
+      "type": "file",
+      "name": ".commitlintrc.cjs",
+      "filePath": ".commitlintrc.cjs",
+      "summary": "Commitlint config that extends Conventional Commits and restricts commit types to feat, fix, docs, style, refactor, test, chore, ci, revert, build, and perf.",
+      "tags": ["configuration", "commitlint", "git", "conventions"],
+      "complexity": "simple",
+      "languageNotes": "CommonJS module.exports config consumed by @commitlint/cli rather than application runtime."
+    },
+    {
+      "id": "file:.gitattributes",
+      "type": "file",
+      "name": ".gitattributes",
+      "filePath": ".gitattributes",
+      "summary": "Git attributes rule that treats all files as text and normalizes line endings to LF.",
+      "tags": ["git", "configuration", "line-endings", "repository"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.trae/agents/code-comment-standard.md",
+      "type": "document",
+      "name": "code-comment-standard.md",
+      "filePath": ".trae/agents/code-comment-standard.md",
+      "summary": "Trae agent skill that auto-applies concise JSDoc, Vue template, and CSS comments across Vue/TS/JS files, including a forbidden-behavior list and execution workflow.",
+      "tags": ["documentation", "agent-skill", "comments", "development"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.trae/commands/create_page.md",
+      "type": "document",
+      "name": "create_page.md",
+      "filePath": ".trae/commands/create_page.md",
+      "summary": "Trae command that delegates new page or directory creation to the auto-route-page-creator skill, prompting for name, target directory, and optional id when omitted.",
+      "tags": ["documentation", "agent-skill", "routing", "scaffolding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.trae/documents/extract-autoRoute-npm-package.md",
+      "type": "document",
+      "name": "extract-autoRoute-npm-package.md",
+      "filePath": ".trae/documents/extract-autoRoute-npm-package.md",
+      "summary": "Migration plan to extract apps/admin autoRoute into packages/auto-route (@gritty-lots/auto-route), covering current importers, package.json layout, import rewrites, and verification steps.",
+      "tags": ["documentation", "migration", "monorepo", "routing"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:.trae/rules/css-generate.md",
+      "type": "document",
+      "name": "css-generate.md",
+      "filePath": ".trae/rules/css-generate.md",
+      "summary": "Style-generation rule that prefers TailwindCSS, scoped Vue styles, dark-theme tokens, and responsive breakpoints, and forbids unscoped CSS and !important unless justified.",
+      "tags": ["documentation", "css", "tailwind", "conventions"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/admin/components.d.ts",
+      "type": "file",
+      "name": "components.d.ts",
+      "filePath": "apps/admin/components.d.ts",
+      "summary": "unplugin-vue-components generated Vue GlobalComponents typings for CodeBlock, DocSection, Draggable, Iconify, RouterLink, and RouterView.",
+      "tags": ["type-definition", "auto-generated", "vue", "components"],
+      "complexity": "simple",
+      "languageNotes": "Ambient module augmentation of vue; file is generated and lint-suppressed."
+    },
+    {
+      "id": "file:apps/admin/src/fonts/font.css",
+      "type": "file",
+      "name": "font.css",
+      "filePath": "apps/admin/src/fonts/font.css",
+      "summary": "Defines the LXGWWenKai-Medium @font-face with font-display swap to avoid FOIT while loading the local TTF as woff2.",
+      "tags": ["css", "fonts", "theming", "markup"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/admin/src/i18n/locales/en-US.json",
+      "type": "config",
+      "name": "en-US.json",
+      "filePath": "apps/admin/src/i18n/locales/en-US.json",
+      "summary": "Placeholder English locale dictionary currently exported as an empty JSON object for the admin i18n loader.",
+      "tags": ["configuration", "i18n", "locale", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/admin/src/i18n/locales/zh-CN.json",
+      "type": "config",
+      "name": "zh-CN.json",
+      "filePath": "apps/admin/src/i18n/locales/zh-CN.json",
+      "summary": "Placeholder Simplified Chinese locale dictionary currently exported as an empty JSON object for the admin i18n loader.",
+      "tags": ["configuration", "i18n", "locale", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/icons/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/admin/src/icons/index.ts",
+      "summary": "Maps semantic icon keys (theme, language, route, playground, and others) to Iconify collection identifiers used in menus and chrome.",
+      "tags": ["barrel", "icon", "lookup", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/router/permissionRoutes.ts",
+      "type": "file",
+      "name": "permissionRoutes.ts",
+      "filePath": "apps/admin/src/router/permissionRoutes.ts",
+      "summary": "Mock permission payloads for auto-route: default id list, name-based permissionRouteNames, and a nested permissionRoutes tree covering autoroutes, packages, and playground.",
+      "tags": ["routing", "permissions", "mock-data", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/admin/src/stores/layout.ts",
+      "type": "file",
+      "name": "layout.ts",
+      "filePath": "apps/admin/src/stores/layout.ts",
+      "summary": "Pinia layout store holding sidebar collapsed state, Ant Design primary token, header height, and a debounced setThemeColor helper.",
+      "tags": ["store", "layout", "theming", "pinia"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/stores/progress.ts",
+      "type": "file",
+      "name": "progress.ts",
+      "filePath": "apps/admin/src/stores/progress.ts",
+      "summary": "Pinia progress store that simulates a top loading bar with interval-based start, finish-to-100%, and error hide timers.",
+      "tags": ["store", "progress", "pinia", "ui"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/admin/src/stores/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "apps/admin/src/stores/route.ts",
+      "summary": "Pinia route store that globs Vue pages and routes.json, loads mock permission data, calls createAutoRoutes, and exposes menu, breadcrumb, and redirect helpers.",
+      "tags": ["store", "routing", "permissions", "pinia"],
+      "complexity": "moderate",
+      "languageNotes": "Uses import.meta.glob for views and routes.json, plus a dynamic import of permissionRoutes to simulate an async permission API."
+    },
+    {
+      "id": "function:apps/admin/src/stores/route.ts:convertPermissionRoutesToMenuItems",
+      "type": "function",
+      "name": "convertPermissionRoutesToMenuItems",
+      "filePath": "apps/admin/src/stores/route.ts",
+      "lineRange": [44, 68],
+      "summary": "Recursively converts RouteRecordRaw trees into Ant Design menu items, skipping hidden routes and rendering Iconify icons from ICONIFY_ICONS.",
+      "tags": ["routing", "menu", "utility", "recursion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/style.css",
+      "type": "file",
+      "name": "style.css",
+      "filePath": "apps/admin/src/style.css",
+      "summary": "Admin global stylesheet that pulls in @gritty-lots/ui, OverlayScrollbars, Tailwind v4, the local WenKai font, and full-viewport html/body/#app resets.",
+      "tags": ["css", "global-styles", "tailwind", "theming"],
+      "complexity": "simple",
+      "languageNotes": "Tailwind v4 entry via @import 'tailwindcss' rather than a @tailwind directive."
+    },
+    {
+      "id": "file:apps/admin/src/types/routeJson.ts",
+      "type": "file",
+      "name": "routeJson.ts",
+      "filePath": "apps/admin/src/types/routeJson.ts",
+      "summary": "Exports the BreadcrumbRoute interface with title, name, and path used by the route store breadcrumb getter.",
+      "tags": ["type-definition", "routing", "breadcrumb", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/utils/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/admin/src/utils/index.ts",
+      "summary": "Tiny util module exporting sleep, a Promise wrapper around setTimeout used to delay mock permission loading.",
+      "tags": ["utility", "async", "barrel", "helper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/admin/src/utils/index.ts:sleep",
+      "type": "function",
+      "name": "sleep",
+      "filePath": "apps/admin/src/utils/index.ts",
+      "lineRange": [2, 4],
+      "summary": "Returns a Promise that resolves after the given number of milliseconds via setTimeout.",
+      "tags": ["utility", "async", "delay", "helper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/404.vue",
+      "type": "file",
+      "name": "404.vue",
+      "filePath": "apps/admin/src/views/404.vue",
+      "summary": "Centered not-found page that shows the 404 illustration and a Chinese missing-page message inside GPage.",
+      "tags": ["component", "error-page", "vue", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/config/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/config/index.vue",
+      "summary": "Documentation page that tabulates every routes.json field (id, name, type, auth, params, redirectToMe, and others) and shows a JSON config example.",
+      "tags": ["component", "documentation", "routing", "vue"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/group/async.vue",
+      "type": "file",
+      "name": "async.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/group/async.vue",
+      "summary": "Demo page named AsyncIdName that prints dynamic route params id and name for the myAsyncPage path.",
+      "tags": ["component", "routing", "demo", "vue"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "type": "file",
+      "name": "hidden.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "summary": "Hidden-route demo with a back button plus postMessage send/receive and unload handling for child-window communication.",
+      "tags": ["component", "routing", "demo", "event-handler"],
+      "complexity": "simple",
+      "languageNotes": "Uses window.opener.postMessage and unload to notify the parent when the popup closes."
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "type": "file",
+      "name": "permission.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "summary": "Permission playground that navigates to async/hidden routes, documents createAutoRoutes permission formats, and live-tests the v-permission directive.",
+      "tags": ["component", "permissions", "demo", "routing"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:apps/admin/src/views/autoroutes/router/group/routes.json",
+      "type": "config",
+      "name": "routes.json",
+      "filePath": "apps/admin/src/views/autoroutes/router/group/routes.json",
+      "summary": "auto-route group config registering permission, async (myAsyncPage with id*/name+ params), and hidden pages under the router group.",
+      "tags": ["configuration", "routing", "auto-route", "schema-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "type": "file",
+      "name": "index.vue",
+      "filePath": "apps/admin/src/views/autoroutes/router/index.vue",
+      "summary": "Router demo layout with a nested Ant Design menu built from child routes and a scrollable router-view content pane.",
+      "tags": ["component", "layout", "routing", "menu"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/admin/src/views/autoroutes/router/index.vue:initSubMenus",
+      "type": "function",
+      "name": "initSubMenus",
+      "filePath": "apps/admin/src/views/autoroutes/router/index.vue",
+      "lineRange": [56, 67],
+      "summary": "Finds the active parent route and fills nestedRouteMenus via convertPermissionRoutesToMenuItems on its children.",
+      "tags": ["menu", "routing", "initialization", "store"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "function:apps/admin/src/stores/route.ts:convertPermissionRoutesToMenuItems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/utils/index.ts",
+      "target": "function:apps/admin/src/utils/index.ts:sleep",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "function:apps/admin/src/views/autoroutes/router/index.vue:initSubMenus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/utils/index.ts",
+      "target": "function:apps/admin/src/utils/index.ts:sleep",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "function:apps/admin/src/utils/index.ts:sleep",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:apps/admin/src/views/autoroutes/router/index.vue:initSubMenus",
+      "target": "function:apps/admin/src/stores/route.ts:convertPermissionRoutesToMenuItems",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "file:apps/admin/src/icons/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "file:apps/admin/src/types/routeJson.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "file:apps/admin/src/utils/index.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/stores/route.ts",
+      "target": "file:apps/admin/src/router/permissionRoutes.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "file:apps/admin/src/stores/route.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/style.css",
+      "target": "file:apps/admin/src/fonts/font.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/i18n/locales/en-US.json",
+      "target": "file:apps/admin/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/i18n/locales/zh-CN.json",
+      "target": "file:apps/admin/src/i18n/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/autoroutes/router/group/routes.json",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/autoroutes/router/group/routes.json",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/async.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/src/views/autoroutes/router/group/routes.json",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:.trae/documents/extract-autoRoute-npm-package.md",
+      "target": "file:apps/admin/src/stores/route.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.trae/documents/extract-autoRoute-npm-package.md",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.trae/rules/css-generate.md",
+      "target": "file:apps/admin/src/style.css",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.trae/rules/css-generate.md",
+      "target": "file:apps/admin/src/fonts/font.css",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/style.css",
+      "target": "file:apps/admin/src/main.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:apps/admin/src/i18n/locales/en-US.json",
+      "target": "config:apps/admin/src/i18n/locales/zh-CN.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/async.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "target": "file:apps/admin/src/router/permissionRoutes.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/config/index.vue",
+      "target": "config:apps/admin/src/views/autoroutes/router/group/routes.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.trae/agents/code-comment-standard.md",
+      "target": "document:.trae/rules/css-generate.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:.trae/commands/create_page.md",
+      "target": "document:.trae/documents/extract-autoRoute-npm-package.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/components.d.ts",
+      "target": "file:apps/admin/src/views/autoroutes/router/config/index.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/components.d.ts",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/async.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/admin/src/views/autoroutes/router/index.vue",
+      "target": "file:apps/admin/src/views/autoroutes/router/config/index.vue",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

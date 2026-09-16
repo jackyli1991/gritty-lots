@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "document:packages/page-neural/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "packages/page-neural/README.md",
+      "summary": "Starter README for the page-neural Vue 3 + TypeScript + Vite package, pointing to Vue script-setup and TypeScript project-setup docs.",
+      "tags": ["documentation", "overview", "vue", "typescript"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "packages/page-neural/index.html",
+      "summary": "Vite HTML shell for the page-neural package that mounts #app and loads src/main.ts as the module entry.",
+      "tags": ["entry-point", "markup", "spa", "vite"],
+      "complexity": "simple",
+      "languageNotes": "Standard Vite index.html with a module script pointing at /src/main.ts."
+    },
+    {
+      "id": "config:packages/page-neural/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/page-neural/package.json",
+      "summary": "Private ESM workspace package @gritty-lots/page-neural that exports src/index.ts and runs Vue 3 with Vue Flow, ant-design-vue, and Vite build scripts.",
+      "tags": ["configuration", "package-manifest", "build-system", "workspace"],
+      "complexity": "simple",
+      "languageNotes": "Package is type module; main/module/types/exports all point at ./src/index.ts. vue and vue-i18n are both dependencies and peerDependencies."
+    },
+    {
+      "id": "config:packages/page-neural/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "packages/page-neural/tsconfig.app.json",
+      "summary": "TypeScript config for page-neural Vue/TS sources, extending the Vue DOM tsconfig with Vite client types and unused-symbol linting.",
+      "tags": ["configuration", "typescript", "vue", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Extends @vue/tsconfig/tsconfig.dom.json; includes src/**/*.ts, src/**/*.tsx, and src/**/*.vue with allowArbitraryExtensions."
+    },
+    {
+      "id": "config:packages/page-neural/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/page-neural/tsconfig.json",
+      "summary": "Solution-style TypeScript project that references the app and Node/Vite configs without compiling any files itself.",
+      "tags": ["configuration", "typescript", "project-references", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/page-neural/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "packages/page-neural/tsconfig.node.json",
+      "summary": "TypeScript config for the page-neural Vite config file using NodeNext modules, noEmit, and unused-symbol linting.",
+      "tags": ["configuration", "typescript", "vite", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "module nodenext with allowImportingTsExtensions and verbatimModuleSyntax; include is vite.config.ts only."
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:packages/page-neural/tsconfig.json",
+      "target": "config:packages/page-neural/tsconfig.app.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/page-neural/tsconfig.json",
+      "target": "config:packages/page-neural/tsconfig.node.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/page-neural/package.json",
+      "target": "config:packages/page-neural/tsconfig.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/page-neural/package.json",
+      "target": "file:packages/page-neural/index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:packages/page-neural/README.md",
+      "target": "file:packages/page-neural/index.html",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

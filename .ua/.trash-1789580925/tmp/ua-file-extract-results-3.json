@@ -1,0 +1,193 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [
+    "apps/admin/src/App.vue",
+    "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+    "apps/admin/src/components/DocSection/DocSection.vue",
+    "apps/admin/src/components/Draggable/Draggable.vue",
+    "apps/admin/src/components/Iconify/Iconify.vue"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 5,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "apps/admin/src/components/Iconify/create-icon.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "createIcon",
+          "startLine": 9,
+          "endLine": 16,
+          "params": ["icon"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createIcon",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createIcon",
+          "callee": "defineComponent",
+          "lineNumber": 10
+        },
+        {
+          "caller": "setup",
+          "callee": "h",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "callGraph": [
+        {
+          "caller": "install",
+          "callee": "Object.keys(components).forEach",
+          "lineNumber": 27
+        },
+        {
+          "caller": "install",
+          "callee": "Object.keys",
+          "lineNumber": 27
+        },
+        {
+          "caller": "install",
+          "callee": "app.component",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/i18n/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "getLocale",
+          "startLine": 18,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "setLocale",
+          "startLine": 34,
+          "endLine": 38,
+          "params": ["locale"]
+        },
+        {
+          "name": "useLocale",
+          "startLine": 45,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "localeList",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "getLocale",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "setLocale",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "useLocale",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getLocale",
+          "callee": "localStorage.getItem",
+          "lineNumber": 19
+        },
+        {
+          "caller": "setLocale",
+          "callee": "localStorage.setItem",
+          "lineNumber": 36
+        },
+        {
+          "caller": "useLocale",
+          "callee": "useI18n",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/main.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "apps/admin/src/router/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 56,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

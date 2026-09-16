@@ -1,0 +1,341 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/page-neural/src/components/badge/badge.vue",
+      "type": "file",
+      "name": "badge.vue",
+      "filePath": "packages/page-neural/src/components/badge/badge.vue",
+      "summary": "Thin Neural wrapper around ant-design-vue Badge that forwards attrs and all named slots under the gritty-neural-badge class.",
+      "tags": ["component", "wrapper", "badge", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/button/button.vue",
+      "type": "file",
+      "name": "button.vue",
+      "filePath": "packages/page-neural/src/components/button/button.vue",
+      "summary": "Neural Button wrapping ant-design-vue Button with an optional string icon rendered through NeuralIcon and flex-centered layout styles.",
+      "tags": ["component", "wrapper", "button", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/checkbox/checkbox.vue",
+      "type": "file",
+      "name": "checkbox.vue",
+      "filePath": "packages/page-neural/src/components/checkbox/checkbox.vue",
+      "summary": "Pass-through Neural Checkbox that binds attrs onto ant-design-vue Checkbox and re-emits every named and default slot.",
+      "tags": ["component", "wrapper", "checkbox", "form"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/configProvider/configProvider.vue",
+      "type": "file",
+      "name": "configProvider.vue",
+      "filePath": "packages/page-neural/src/components/configProvider/configProvider.vue",
+      "summary": "Pass-through Neural ConfigProvider that forwards attrs and slots to ant-design-vue ConfigProvider for theme and locale context.",
+      "tags": ["component", "wrapper", "config", "theme"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/icon/icon.vue",
+      "type": "file",
+      "name": "icon.vue",
+      "filePath": "packages/page-neural/src/components/icon/icon.vue",
+      "summary": "Named Lucide icon renderer that looks up components from the local register, applies default size and stroke, and emits click from an accessible button.",
+      "tags": ["component", "icon", "lucide", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Resolves icons via a computed lookup and renders them with Vue's dynamic <component :is>."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/page-neural/src/components/index.ts",
+      "summary": "Public barrel for page-neural UI primitives, re-exporting Neural-prefixed Vue wrappers plus ant-design-vue message and theme aliases.",
+      "tags": ["entry-point", "barrel", "exports", "component"],
+      "complexity": "simple",
+      "languageNotes": "TypeScript barrel that aliases ant-design-vue message/theme and re-exports local SFC defaults under Neural* names."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/input/input.vue",
+      "type": "file",
+      "name": "input.vue",
+      "filePath": "packages/page-neural/src/components/input/input.vue",
+      "summary": "Neural Input wrapping ant-design-vue Input with an optional bottom-border-only style that removes side/top borders and the focus shadow.",
+      "tags": ["component", "wrapper", "input", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/inputNumber/inputNumber.vue",
+      "type": "file",
+      "name": "inputNumber.vue",
+      "filePath": "packages/page-neural/src/components/inputNumber/inputNumber.vue",
+      "summary": "Neural InputNumber wrapper that can stretch to full width via a block prop and forwards attrs plus all slots.",
+      "tags": ["component", "wrapper", "input", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/popConfirm/popConfirm.vue",
+      "type": "file",
+      "name": "popConfirm.vue",
+      "filePath": "packages/page-neural/src/components/popConfirm/popConfirm.vue",
+      "summary": "Pass-through Neural Popconfirm that binds attrs onto ant-design-vue Popconfirm and re-emits all slots.",
+      "tags": ["component", "wrapper", "overlay", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/popover/popover.vue",
+      "type": "file",
+      "name": "popover.vue",
+      "filePath": "packages/page-neural/src/components/popover/popover.vue",
+      "summary": "Pass-through Neural Popover that forwards attrs and named slots to ant-design-vue Popover.",
+      "tags": ["component", "wrapper", "overlay", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/radio/radio.vue",
+      "type": "file",
+      "name": "radio.vue",
+      "filePath": "packages/page-neural/src/components/radio/radio.vue",
+      "summary": "Pass-through Neural Radio that binds attrs onto ant-design-vue Radio and re-emits every slot.",
+      "tags": ["component", "wrapper", "radio", "form"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/radio/radioButton.vue",
+      "type": "file",
+      "name": "radioButton.vue",
+      "filePath": "packages/page-neural/src/components/radio/radioButton.vue",
+      "summary": "Neural RadioButton wrapping ant-design-vue Radio.Button with attr and slot forwarding.",
+      "tags": ["component", "wrapper", "radio", "form"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/radio/radioGroup.vue",
+      "type": "file",
+      "name": "radioGroup.vue",
+      "filePath": "packages/page-neural/src/components/radio/radioGroup.vue",
+      "summary": "Pass-through Neural RadioGroup that forwards attrs and slots to ant-design-vue RadioGroup.",
+      "tags": ["component", "wrapper", "radio", "form"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/select/optGroup.ts",
+      "type": "file",
+      "name": "optGroup.ts",
+      "filePath": "packages/page-neural/src/components/select/optGroup.ts",
+      "summary": "Re-exports ant-design-vue Select.OptGroup unchanged so grouping markers stay intact for NeuralSelect.",
+      "tags": ["component", "wrapper", "select", "barrel"],
+      "complexity": "simple",
+      "languageNotes": "Cannot be wrapped in an SFC: OptGroup is a null-rendering data component identified by an internal isSelectOptGroup flag."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/select/select.vue",
+      "type": "file",
+      "name": "select.vue",
+      "filePath": "packages/page-neural/src/components/select/select.vue",
+      "summary": "Neural Select wrapping ant-design-vue Select with optional full-width block layout, exposed focus/blur accessors, and option-content alignment styles.",
+      "tags": ["component", "wrapper", "select", "form"],
+      "complexity": "moderate",
+      "languageNotes": "Uses defineExpose to surface the inner Select ref methods (focus, blur, getSelectRef)."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/select/selectOption.ts",
+      "type": "file",
+      "name": "selectOption.ts",
+      "filePath": "packages/page-neural/src/components/select/selectOption.ts",
+      "summary": "Re-exports ant-design-vue Select.Option unchanged so option markers stay intact for NeuralSelect children.",
+      "tags": ["component", "wrapper", "select", "barrel"],
+      "complexity": "simple",
+      "languageNotes": "Cannot be wrapped in an SFC: Option is a null-rendering data component identified by an internal isSelectOption flag."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/switch/switch.vue",
+      "type": "file",
+      "name": "switch.vue",
+      "filePath": "packages/page-neural/src/components/switch/switch.vue",
+      "summary": "Pass-through Neural Switch that binds attrs onto ant-design-vue Switch and re-emits all slots.",
+      "tags": ["component", "wrapper", "switch", "form"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/tag/checkableTag.vue",
+      "type": "file",
+      "name": "checkableTag.vue",
+      "filePath": "packages/page-neural/src/components/tag/checkableTag.vue",
+      "summary": "Neural CheckableTag wrapping ant-design-vue Tag.CheckableTag with attr and slot forwarding.",
+      "tags": ["component", "wrapper", "tag", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/page-neural/src/components/tag/tag.vue",
+      "type": "file",
+      "name": "tag.vue",
+      "filePath": "packages/page-neural/src/components/tag/tag.vue",
+      "summary": "Pass-through Neural Tag that forwards attrs and named slots to ant-design-vue Tag.",
+      "tags": ["component", "wrapper", "tag", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    },
+    {
+      "id": "file:packages/page-neural/src/components/tooltip/tooltip.vue",
+      "type": "file",
+      "name": "tooltip.vue",
+      "filePath": "packages/page-neural/src/components/tooltip/tooltip.vue",
+      "summary": "Pass-through Neural Tooltip that binds attrs onto ant-design-vue Tooltip and re-emits all slots.",
+      "tags": ["component", "wrapper", "overlay", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Vue 3 SFC using script setup with useAttrs/useSlots and a v-for slot passthrough."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/badge/badge.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/button/button.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/checkbox/checkbox.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/configProvider/configProvider.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/icon/icon.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/input/input.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/inputNumber/inputNumber.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/popConfirm/popConfirm.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/popover/popover.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/radio/radio.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/radio/radioButton.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/radio/radioGroup.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/select/optGroup.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/select/select.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/select/selectOption.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/switch/switch.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/tag/checkableTag.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/tag/tag.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/index.ts",
+      "target": "file:packages/page-neural/src/components/tooltip/tooltip.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:packages/page-neural/src/components/button/button.vue",
+      "target": "file:packages/page-neural/src/components/icon/icon.vue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

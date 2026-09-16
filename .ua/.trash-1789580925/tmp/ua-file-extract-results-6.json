@@ -1,0 +1,542 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/auto-route/src/core.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "createRoutes",
+          "startLine": 13,
+          "endLine": 96,
+          "params": ["routes", "target", "parentPath", "options"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createRoutes",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createRoutes",
+          "callee": "routes.forEach",
+          "lineNumber": 20
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "['dir', 'group'].includes",
+          "lineNumber": 22
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "['page'].includes",
+          "lineNumber": 23
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "console.error",
+          "lineNumber": 34
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "name.replace",
+          "lineNumber": 40
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "Array.isArray",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "params.forEach",
+          "lineNumber": 42
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "parentPath\n      .slice(0, -1)\n      .split('/')\n      .filter",
+          "lineNumber": 47
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "parentPath\n      .slice(0, -1)\n      .split",
+          "lineNumber": 47
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "parentPath\n      .slice",
+          "lineNumber": 47
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "parentRoute.map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "pre.slice",
+          "lineNumber": 55
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "parentRoute.join",
+          "lineNumber": 61
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "name.replace",
+          "lineNumber": 61
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "createRoutes",
+          "lineNumber": 86
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "createRoutes",
+          "lineNumber": 91
+        },
+        {
+          "caller": "createRoutes",
+          "callee": "target.push",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/auto-route/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 196,
+      "nonEmptyLines": 176,
+      "functions": [
+        {
+          "name": "createPermissionRoutes",
+          "startLine": 32,
+          "endLine": 43,
+          "params": ["autoRoutes", "permissions", "key"]
+        },
+        {
+          "name": "dealMountRoute",
+          "startLine": 51,
+          "endLine": 68,
+          "params": ["routes", "mountRoute"]
+        },
+        {
+          "name": "createAutoRoutes",
+          "startLine": 75,
+          "endLine": 127,
+          "params": ["options"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createAutoRoutes",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createPermissionRoutes",
+          "callee": "flattenTree",
+          "lineNumber": 39
+        },
+        {
+          "caller": "createPermissionRoutes",
+          "callee": "dealPermissionRoutes",
+          "lineNumber": 41
+        },
+        {
+          "caller": "dealMountRoute",
+          "callee": "console.error",
+          "lineNumber": 53
+        },
+        {
+          "caller": "dealMountRoute",
+          "callee": "routes.find",
+          "lineNumber": 57
+        },
+        {
+          "caller": "dealMountRoute",
+          "callee": "routes.forEach",
+          "lineNumber": 65
+        },
+        {
+          "caller": "dealMountRoute",
+          "callee": "_router.addRoute",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "Object.assign",
+          "lineNumber": 77
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "console.log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "console.error",
+          "lineNumber": 92
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "console.error",
+          "lineNumber": 99
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "createRoutes",
+          "lineNumber": 104
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "console.error",
+          "lineNumber": 111
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "createPermissionRoutes",
+          "lineNumber": 114
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "dealRoutesRedirect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "dealMountRoute",
+          "lineNumber": 123
+        },
+        {
+          "caller": "createAutoRoutes",
+          "callee": "console.log",
+          "lineNumber": 125
+        },
+        {
+          "caller": "install",
+          "callee": "console.error",
+          "lineNumber": 143
+        },
+        {
+          "caller": "install",
+          "callee": "app.directive",
+          "lineNumber": 148
+        },
+        {
+          "caller": "install",
+          "callee": "getKey",
+          "lineNumber": 150
+        },
+        {
+          "caller": "install",
+          "callee": "Object.keys",
+          "lineNumber": 154
+        },
+        {
+          "caller": "install",
+          "callee": "console.error",
+          "lineNumber": 156
+        },
+        {
+          "caller": "install",
+          "callee": "_router.getRoutes",
+          "lineNumber": 172
+        },
+        {
+          "caller": "install",
+          "callee": "allRoutes.find",
+          "lineNumber": 173
+        },
+        {
+          "caller": "install",
+          "callee": "[item.name, item.path, String(item.meta?.id)].includes",
+          "lineNumber": 174
+        },
+        {
+          "caller": "install",
+          "callee": "String",
+          "lineNumber": 174
+        },
+        {
+          "caller": "install",
+          "callee": "String",
+          "lineNumber": 174
+        },
+        {
+          "caller": "install",
+          "callee": "actions.every",
+          "lineNumber": 183
+        },
+        {
+          "caller": "install",
+          "callee": "permissionList.includes",
+          "lineNumber": 184
+        },
+        {
+          "caller": "install",
+          "callee": "el.parentElement?.removeChild",
+          "lineNumber": 191
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/auto-route/src/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 50,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/auto-route/src/utils.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 142,
+      "functions": [
+        {
+          "name": "getKey",
+          "startLine": 9,
+          "endLine": 11,
+          "params": ["route", "key"]
+        },
+        {
+          "name": "isObject",
+          "startLine": 18,
+          "endLine": 20,
+          "params": ["obj"]
+        },
+        {
+          "name": "isString",
+          "startLine": 27,
+          "endLine": 29,
+          "params": ["str"]
+        },
+        {
+          "name": "dealPermissionBtns",
+          "startLine": 37,
+          "endLine": 52,
+          "params": ["route", "permissions", "key"]
+        },
+        {
+          "name": "hasPermission",
+          "startLine": 61,
+          "endLine": 64,
+          "params": ["route", "permissions", "key"]
+        },
+        {
+          "name": "createNewRoute",
+          "startLine": 72,
+          "endLine": 84,
+          "params": ["route", "matchRoute"]
+        },
+        {
+          "name": "dealPermissionRoutes",
+          "startLine": 93,
+          "endLine": 115,
+          "params": ["permissions", "originalRoutes", "target", "key"]
+        },
+        {
+          "name": "dealRoutesRedirect",
+          "startLine": 121,
+          "endLine": 134,
+          "params": ["routes"]
+        },
+        {
+          "name": "flattenTree",
+          "startLine": 142,
+          "endLine": 153,
+          "params": ["tree", "key"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getKey",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "isObject",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "isString",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "dealPermissionRoutes",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "dealRoutesRedirect",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "flattenTree",
+          "line": 142,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isObject",
+          "callee": "Object.prototype.toString.call",
+          "lineNumber": 19
+        },
+        {
+          "caller": "isString",
+          "callee": "Object.prototype.toString.call",
+          "lineNumber": 28
+        },
+        {
+          "caller": "dealPermissionBtns",
+          "callee": "getKey",
+          "lineNumber": 44
+        },
+        {
+          "caller": "dealPermissionBtns",
+          "callee": "permissions.map",
+          "lineNumber": 45
+        },
+        {
+          "caller": "dealPermissionBtns",
+          "callee": "permissionValues.filter",
+          "lineNumber": 46
+        },
+        {
+          "caller": "dealPermissionBtns",
+          "callee": "isString",
+          "lineNumber": 47
+        },
+        {
+          "caller": "dealPermissionBtns",
+          "callee": "(item as string).includes",
+          "lineNumber": 47
+        },
+        {
+          "caller": "hasPermission",
+          "callee": "getKey",
+          "lineNumber": 62
+        },
+        {
+          "caller": "hasPermission",
+          "callee": "permissions.find",
+          "lineNumber": 63
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "originalRoutes.forEach",
+          "lineNumber": 99
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "hasPermission",
+          "lineNumber": 100
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "createNewRoute",
+          "lineNumber": 102
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "dealPermissionBtns",
+          "lineNumber": 106
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "dealPermissionRoutes",
+          "lineNumber": 110
+        },
+        {
+          "caller": "dealPermissionRoutes",
+          "callee": "target.push",
+          "lineNumber": 112
+        },
+        {
+          "caller": "dealRoutesRedirect",
+          "callee": "routes.forEach",
+          "lineNumber": 122
+        },
+        {
+          "caller": "dealRoutesRedirect",
+          "callee": "route.children.find",
+          "lineNumber": 125
+        },
+        {
+          "caller": "dealRoutesRedirect",
+          "callee": "dealRoutesRedirect",
+          "lineNumber": 131
+        },
+        {
+          "caller": "flattenTree",
+          "callee": "tree.flatMap",
+          "lineNumber": 146
+        },
+        {
+          "caller": "flattenTree",
+          "callee": "isObject",
+          "lineNumber": 147
+        },
+        {
+          "caller": "flattenTree",
+          "callee": "flattenTree",
+          "lineNumber": 149
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    }
+  ]
+}

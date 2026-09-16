@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "config:apps/admin/.env.development",
+      "type": "config",
+      "name": ".env.development",
+      "filePath": "apps/admin/.env.development",
+      "summary": "Vite development-environment variables for the admin app, enabling route permission checks and serving at the root public base path.",
+      "tags": ["configuration", "environment", "vite", "development"],
+      "complexity": "simple",
+      "languageNotes": "Vite loads MODE plus VITE_-prefixed public env vars; VITE_ENABLE_ROUTE_PERMISSION and VITE_BASE_PATH are injected at build/dev time."
+    },
+    {
+      "id": "config:apps/admin/.env.production",
+      "type": "config",
+      "name": ".env.production",
+      "filePath": "apps/admin/.env.production",
+      "summary": "Vite production-environment variables for the admin app, enabling route permission checks and setting the public base path to /gritty-lots/.",
+      "tags": ["configuration", "environment", "vite", "production"],
+      "complexity": "simple",
+      "languageNotes": "Same VITE_ keys as the development env file, with VITE_BASE_PATH=/gritty-lots/ for deployed asset URLs."
+    },
+    {
+      "id": "file:apps/admin/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "apps/admin/index.html",
+      "summary": "Admin SPA HTML shell that mounts #app, loads src/main.ts as a module, and applies a stored color-mode class before first paint to avoid FOUC.",
+      "tags": ["entry-point", "markup", "theming", "spa"],
+      "complexity": "simple",
+      "languageNotes": "Inline IIFE reads localStorage key gritty-color-mode (light/dark/system) and prefers-color-scheme, then toggles the html.dark class."
+    },
+    {
+      "id": "config:apps/admin/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "apps/admin/package.json",
+      "summary": "Private ESM workspace package for the Vue 3 admin app, defining Vite scripts and depending on workspace packages auto-route, data-schema, page-neural, and ui.",
+      "tags": ["configuration", "package-manifest", "build-system", "workspace"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/admin/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "apps/admin/tsconfig.app.json",
+      "summary": "TypeScript config for admin app sources with @/* path aliases, Vite and PWA client types, and Vue DOM tsconfig inheritance.",
+      "tags": ["configuration", "typescript", "path-alias", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Maps @/* to ./src/*; enables experimentalDecorators while keeping useDefineForClassFields false."
+    },
+    {
+      "id": "config:apps/admin/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "apps/admin/tsconfig.json",
+      "summary": "Solution-style TypeScript project that references the app and Node/Vite configs without compiling any files itself.",
+      "tags": ["configuration", "typescript", "project-references", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/admin/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "apps/admin/tsconfig.node.json",
+      "summary": "TypeScript config for the admin Vite config file using NodeNext modules, noEmit, and the repo root tsconfig.",
+      "tags": ["configuration", "typescript", "vite", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "module nodenext with allowImportingTsExtensions and verbatimModuleSyntax for vite.config.ts."
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:apps/admin/tsconfig.json",
+      "target": "config:apps/admin/tsconfig.app.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/tsconfig.json",
+      "target": "config:apps/admin/tsconfig.node.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/admin/.env.development",
+      "target": "config:apps/admin/.env.production",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:apps/admin/package.json",
+      "target": "config:apps/admin/tsconfig.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

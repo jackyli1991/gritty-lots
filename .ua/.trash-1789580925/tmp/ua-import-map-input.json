@@ -1,0 +1,809 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "files": [
+    { "path": ".commitlintrc.cjs", "language": "javascript", "fileCategory": "code" },
+    { "path": ".gitattributes", "language": "unknown", "fileCategory": "code" },
+    { "path": ".github/workflows/deploy.yml", "language": "yaml", "fileCategory": "infra" },
+    { "path": ".oxfmtrc.json", "language": "json", "fileCategory": "config" },
+    { "path": ".oxlintrc.json", "language": "json", "fileCategory": "config" },
+    {
+      "path": ".trae/agents/code-comment-standard.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    { "path": ".trae/commands/create_page.md", "language": "markdown", "fileCategory": "docs" },
+    {
+      "path": ".trae/documents/extract-autoRoute-npm-package.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    { "path": ".trae/rules/css-generate.md", "language": "markdown", "fileCategory": "docs" },
+    { "path": "README.md", "language": "markdown", "fileCategory": "docs" },
+    { "path": "apps/admin/.env.development", "language": "config", "fileCategory": "config" },
+    { "path": "apps/admin/.env.production", "language": "config", "fileCategory": "config" },
+    { "path": "apps/admin/components.d.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "apps/admin/index.html", "language": "html", "fileCategory": "markup" },
+    { "path": "apps/admin/package.json", "language": "json", "fileCategory": "config" },
+    { "path": "apps/admin/src/App.vue", "language": "vue", "fileCategory": "code" },
+    {
+      "path": "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/DocSection/DocSection.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Draggable/Draggable.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Iconify/Iconify.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Iconify/create-icon.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "apps/admin/src/fonts/font.css", "language": "css", "fileCategory": "markup" },
+    { "path": "apps/admin/src/i18n/index.ts", "language": "typescript", "fileCategory": "code" },
+    {
+      "path": "apps/admin/src/i18n/locales/en-US.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    { "path": "apps/admin/src/icons/index.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "apps/admin/src/main.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "apps/admin/src/router/index.ts", "language": "typescript", "fileCategory": "code" },
+    {
+      "path": "apps/admin/src/router/permissionRoutes.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "apps/admin/src/stores/layout.ts", "language": "typescript", "fileCategory": "code" },
+    {
+      "path": "apps/admin/src/stores/progress.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "apps/admin/src/stores/route.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "apps/admin/src/style.css", "language": "css", "fileCategory": "markup" },
+    {
+      "path": "apps/admin/src/types/routeJson.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "apps/admin/src/utils/index.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "apps/admin/src/views/404.vue", "language": "vue", "fileCategory": "code" },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/config/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/group/async.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/group/hidden.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/group/permission.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/group/routes.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/introduce.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/router/meta.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/autoroutes/routes.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutAside.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutHeader.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/LayoutIndex.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/components/LanguageIcon.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/components/ThemeIcon.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/layout/layoutContent.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/ColorModeSwitcher.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/ThemeColorSwitcher.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/grittyui/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/jsonschema/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/neural/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/packages/routes.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/GlassMatte.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/GradientBorder.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/LiquidGlass.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/Typewriter.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/css/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/ShadowWebComponent.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/html/lit.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/javascript/PostMessage.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/javascript/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/views/playground/routes.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "apps/admin/src/views/playground/vue/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    { "path": "apps/admin/src/views/routes.json", "language": "json", "fileCategory": "config" },
+    { "path": "apps/admin/tsconfig.app.json", "language": "json", "fileCategory": "config" },
+    { "path": "apps/admin/tsconfig.json", "language": "json", "fileCategory": "config" },
+    { "path": "apps/admin/tsconfig.node.json", "language": "json", "fileCategory": "config" },
+    { "path": "apps/admin/vite.config.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "cspell.json", "language": "json", "fileCategory": "config" },
+    { "path": "lefthook.yml", "language": "yaml", "fileCategory": "config" },
+    { "path": "package.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/auto-route/package.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/auto-route/src/core.ts", "language": "typescript", "fileCategory": "code" },
+    {
+      "path": "packages/auto-route/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/auto-route/src/types.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/auto-route/src/utils.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "packages/auto-route/tsconfig.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/data-schema/package.json", "language": "json", "fileCategory": "config" },
+    {
+      "path": "packages/data-schema/src/components/badge/badge.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/button/button.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/checkbox/checkbox.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/configProvider/configProvider.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/icon/icon.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/icon/null.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/icon/register.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/input/input.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/inputNumber/inputNumber.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/popConfirm/popConfirm.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/popover/popover.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radio.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radioButton.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/radio/radioGroup.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/optGroup.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/select.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/select/selectOption.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/switch/switch.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tag/checkableTag.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tag/tag.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/components/tooltip/tooltip.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/ajv-instance.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/dataSchema.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/datas.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/propertyControl.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaCombination.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaGroup.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaItem.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaItemTool.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaItemViewer.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaItems.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaProperties.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/schemaViewer.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/types.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/core/utils.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/i18n/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/data-schema/src/i18n/locales/en-US.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/data-schema/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/data-schema/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "packages/page-neural/README.md", "language": "markdown", "fileCategory": "docs" },
+    { "path": "packages/page-neural/index.html", "language": "html", "fileCategory": "markup" },
+    { "path": "packages/page-neural/package.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/page-neural/src/App.vue", "language": "vue", "fileCategory": "code" },
+    {
+      "path": "packages/page-neural/src/components/badge/badge.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/button/button.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/checkbox/checkbox.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/configProvider/configProvider.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/icon/icon.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/icon/null.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/icon/register.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/input/input.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/inputNumber/inputNumber.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/popConfirm/popConfirm.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/popover/popover.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/radio/radio.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/radio/radioButton.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/radio/radioGroup.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/select/optGroup.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/select/select.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/select/selectOption.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/switch/switch.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/tag/checkableTag.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/tag/tag.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/components/tooltip/tooltip.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/core/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/core/index.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/i18n/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/en-US.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/main.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "packages/page-neural/src/style.css", "language": "css", "fileCategory": "markup" },
+    {
+      "path": "packages/page-neural/tsconfig.app.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    { "path": "packages/page-neural/tsconfig.json", "language": "json", "fileCategory": "config" },
+    {
+      "path": "packages/page-neural/tsconfig.node.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "packages/ui/README.md", "language": "markdown", "fileCategory": "docs" },
+    { "path": "packages/ui/components.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/ui/index.html", "language": "html", "fileCategory": "markup" },
+    { "path": "packages/ui/package.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/ui/src/App.vue", "language": "vue", "fileCategory": "code" },
+    {
+      "path": "packages/ui/src/components/ui/button/Button.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/button/doc.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/button/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/Icon.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/doc.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/Input.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/doc.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/overview/doc.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/Select.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectContent.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectGroup.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectItem.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectItemText.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectLabel.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectValue.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/doc.vue",
+      "language": "vue",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/index.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/composables/useColorMode.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/composables/useRipple.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/composables/useThemeColor.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    { "path": "packages/ui/src/doc.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "packages/ui/src/index.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "packages/ui/src/lib/utils.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "packages/ui/src/main.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "packages/ui/src/style.css", "language": "css", "fileCategory": "markup" },
+    { "path": "packages/ui/tsconfig.app.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/ui/tsconfig.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/ui/tsconfig.node.json", "language": "json", "fileCategory": "config" },
+    { "path": "packages/ui/vite.config.ts", "language": "typescript", "fileCategory": "code" },
+    { "path": "pnpm-workspace.yaml", "language": "yaml", "fileCategory": "config" },
+    { "path": "skills-lock.json", "language": "json", "fileCategory": "config" },
+    { "path": "tsconfig.json", "language": "json", "fileCategory": "config" }
+  ]
+}

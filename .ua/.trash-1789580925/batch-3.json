@@ -1,0 +1,296 @@
+{
+  "nodes": [
+    {
+      "id": "file:apps/admin/src/App.vue",
+      "type": "file",
+      "name": "App.vue",
+      "filePath": "apps/admin/src/App.vue",
+      "summary": "Admin app root that renders only a RouterView so layout and pages come from the Vue Router tree.",
+      "tags": ["component", "entry-point", "routing", "ui"],
+      "complexity": "simple",
+      "languageNotes": "Empty <script setup> shell; all UI is delegated to nested routes."
+    },
+    {
+      "id": "file:apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "type": "file",
+      "name": "CodeBlock.vue",
+      "filePath": "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "summary": "Documentation code snippet component that prefers a code prop over slot content so template whitespace is not stripped, with sm/md size styles.",
+      "tags": ["component", "ui", "documentation", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/components/DocSection/DocSection.vue",
+      "type": "file",
+      "name": "DocSection.vue",
+      "filePath": "apps/admin/src/components/DocSection/DocSection.vue",
+      "summary": "Lightweight documentation section wrapper that renders a titled heading and a default slot for demo content.",
+      "tags": ["component", "ui", "documentation", "layout"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/components/Draggable/Draggable.vue",
+      "type": "file",
+      "name": "Draggable.vue",
+      "filePath": "apps/admin/src/components/Draggable/Draggable.vue",
+      "summary": "Absolutely positioned drag wrapper built on VueUse useDraggable, with optional initial position, parent-or-custom container bounds, and a disabled state.",
+      "tags": ["component", "ui", "drag-and-drop", "vueuse"],
+      "complexity": "moderate",
+      "languageNotes": "Sets inheritAttrs: false and resolves containerElement in onMounted because the parent DOM is not available during setup."
+    },
+    {
+      "id": "file:apps/admin/src/components/Iconify/Iconify.vue",
+      "type": "file",
+      "name": "Iconify.vue",
+      "filePath": "apps/admin/src/components/Iconify/Iconify.vue",
+      "summary": "Clickable Iconify icon wrapper that builds a sized icon component from a name prop via the createIcon factory.",
+      "tags": ["component", "ui", "icon", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/components/Iconify/create-icon.ts",
+      "type": "file",
+      "name": "create-icon.ts",
+      "filePath": "apps/admin/src/components/Iconify/create-icon.ts",
+      "summary": "Factory that returns a Vue component wrapping @iconify/vue Icon for a given icon name.",
+      "tags": ["factory", "icon", "component", "utility"],
+      "complexity": "simple",
+      "languageNotes": "Uses defineComponent plus h() so each icon name becomes a distinct named component."
+    },
+    {
+      "id": "function:apps/admin/src/components/Iconify/create-icon.ts:createIcon",
+      "type": "function",
+      "name": "createIcon",
+      "filePath": "apps/admin/src/components/Iconify/create-icon.ts",
+      "lineRange": [9, 16],
+      "summary": "Builds a Vue component that renders an Iconify Icon for the supplied icon name, forwarding attrs into the render function.",
+      "tags": ["factory", "icon", "component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/components/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/admin/src/components/index.ts",
+      "summary": "Admin components Vue plugin that globally registers Iconify, DocSection, CodeBlock, and Draggable, and attaches $createIcon on app.config.globalProperties.",
+      "tags": ["plugin", "barrel", "entry-point", "component"],
+      "complexity": "simple",
+      "languageNotes": "install() loops a components map with app.component and exposes createIcon as a global property."
+    },
+    {
+      "id": "file:apps/admin/src/i18n/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/admin/src/i18n/index.ts",
+      "summary": "vue-i18n setup for zh-CN/en-US with localStorage persistence, HTML lang updates, and a useLocale composable wrapping t, locale, and setLocale.",
+      "tags": ["i18n", "localization", "hook", "entry-point"],
+      "complexity": "simple",
+      "languageNotes": "Composition API mode (legacy: false); locale is read from localStorage and written back on setLocale."
+    },
+    {
+      "id": "function:apps/admin/src/i18n/index.ts:getLocale",
+      "type": "function",
+      "name": "getLocale",
+      "filePath": "apps/admin/src/i18n/index.ts",
+      "lineRange": [18, 21],
+      "summary": "Reads the persisted locale from localStorage and falls back to zh-CN.",
+      "tags": ["i18n", "localization", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/admin/src/i18n/index.ts:setLocale",
+      "type": "function",
+      "name": "setLocale",
+      "filePath": "apps/admin/src/i18n/index.ts",
+      "lineRange": [34, 38],
+      "summary": "Switches the active vue-i18n locale, persists it to localStorage, and updates document.documentElement.lang.",
+      "tags": ["i18n", "localization", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/admin/src/i18n/index.ts:useLocale",
+      "type": "function",
+      "name": "useLocale",
+      "filePath": "apps/admin/src/i18n/index.ts",
+      "lineRange": [45, 52],
+      "summary": "Composable that returns vue-i18n t and locale plus setLocale for components that need language switching.",
+      "tags": ["hook", "i18n", "localization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/main.ts",
+      "type": "file",
+      "name": "main.ts",
+      "filePath": "apps/admin/src/main.ts",
+      "summary": "Admin bootstrap that creates the Vue app, installs Pinia, router, auto-route, local components, i18n, NeuralGraph, JsonSchema, and GrittyUI, then mounts #app.",
+      "tags": ["entry-point", "bootstrap", "plugin", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/admin/src/router/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/admin/src/router/index.ts",
+      "summary": "Hash-history Vue Router with a layout home route, catch-all 404, and navigation guards that load permission routes from the route store while driving the progress store.",
+      "tags": ["routing", "config", "middleware", "navigation-guard"],
+      "complexity": "moderate",
+      "languageNotes": "beforeEach fetches dynamic routes once via the Pinia route store, then redirects; afterEach/onError finish or error the progress bar."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "file:apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "file:apps/admin/src/components/DocSection/DocSection.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "file:apps/admin/src/components/Draggable/Draggable.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "file:apps/admin/src/components/Iconify/Iconify.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "file:apps/admin/src/components/Iconify/create-icon.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "file:apps/admin/src/i18n/locales/en-US.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "file:apps/admin/src/i18n/locales/zh-CN.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/main.ts",
+      "target": "file:apps/admin/src/App.vue",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/main.ts",
+      "target": "file:apps/admin/src/components/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/main.ts",
+      "target": "file:apps/admin/src/i18n/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/main.ts",
+      "target": "file:apps/admin/src/router/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/main.ts",
+      "target": "file:apps/admin/src/style.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/admin/src/components/Iconify/create-icon.ts",
+      "target": "function:apps/admin/src/components/Iconify/create-icon.ts:createIcon",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/components/Iconify/create-icon.ts",
+      "target": "function:apps/admin/src/components/Iconify/create-icon.ts:createIcon",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:getLocale",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:getLocale",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:setLocale",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:setLocale",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:useLocale",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/admin/src/i18n/index.ts",
+      "target": "function:apps/admin/src/i18n/index.ts:useLocale",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/admin/src/components/Iconify/Iconify.vue",
+      "target": "function:apps/admin/src/components/Iconify/create-icon.ts:createIcon",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/admin/src/components/index.ts",
+      "target": "function:apps/admin/src/components/Iconify/create-icon.ts:createIcon",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

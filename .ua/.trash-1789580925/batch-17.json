@@ -1,0 +1,218 @@
+{
+  "nodes": [
+    {
+      "id": "file:packages/ui/src/components/ui/select/doc.vue",
+      "type": "file",
+      "name": "doc.vue",
+      "filePath": "packages/ui/src/components/ui/select/doc.vue",
+      "summary": "SelectDoc playground that demos g-select variants: size, status, search, grouping, custom fieldNames, multiple/tags mode, maxTagCount, events, and combined props.",
+      "tags": ["component", "documentation", "demo", "vue-sfc", "select"],
+      "complexity": "complex",
+      "languageNotes": "Vue 3 <script setup> SFC registered as SelectDoc; live demos bind many refs to g-select and DocSection."
+    },
+    {
+      "id": "file:packages/ui/src/composables/useColorMode.ts",
+      "type": "file",
+      "name": "useColorMode.ts",
+      "filePath": "packages/ui/src/composables/useColorMode.ts",
+      "summary": "Shared Vue composable that persists light/dark/system color mode, toggles the html.dark class, and follows prefers-color-scheme when mode is system.",
+      "tags": ["hook", "theme", "color-mode", "composable"],
+      "complexity": "moderate",
+      "languageNotes": "Module-level refs keep every caller in sync; pair with the index.html inline script to avoid FOUC."
+    },
+    {
+      "id": "function:packages/ui/src/composables/useColorMode.ts:useColorMode",
+      "type": "function",
+      "name": "useColorMode",
+      "filePath": "packages/ui/src/composables/useColorMode.ts",
+      "lineRange": [72, 85],
+      "summary": "Returns shared mode, resolved scheme, isDark, setMode, toggle, and COLOR_MODES for UI color-mode controls.",
+      "tags": ["hook", "theme", "color-mode"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/composables/useRipple.ts",
+      "type": "file",
+      "name": "useRipple.ts",
+      "filePath": "packages/ui/src/composables/useRipple.ts",
+      "summary": "Material-style ripple composable that injects a currentColor span on pointerdown and animates it with the Web Animations API.",
+      "tags": ["hook", "animation", "ripple", "composable"],
+      "complexity": "moderate",
+      "languageNotes": "Ripple uses currentColor so it follows theme and variant without extra wiring; host must be position:relative and overflow:hidden."
+    },
+    {
+      "id": "function:packages/ui/src/composables/useRipple.ts:useRipple",
+      "type": "function",
+      "name": "useRipple",
+      "filePath": "packages/ui/src/composables/useRipple.ts",
+      "lineRange": [20, 86],
+      "summary": "Creates a trigger handler that draws a clipped ripple from the pointer, skips disabled hosts, and cancels leftover animations on unmount.",
+      "tags": ["hook", "animation", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:packages/ui/src/composables/useThemeColor.ts",
+      "type": "file",
+      "name": "useThemeColor.ts",
+      "filePath": "packages/ui/src/composables/useThemeColor.ts",
+      "summary": "Shared Vue composable that persists the primary theme color, writes html data-theme-color, and exposes THEME_COLORS for the picker.",
+      "tags": ["hook", "theme", "composable", "design-tokens"],
+      "complexity": "moderate",
+      "languageNotes": "data-theme-color values map to Radix step-10 rules in style.css; module-level ref keeps callers in sync."
+    },
+    {
+      "id": "function:packages/ui/src/composables/useThemeColor.ts:readInitialThemeColor",
+      "type": "function",
+      "name": "readInitialThemeColor",
+      "filePath": "packages/ui/src/composables/useThemeColor.ts",
+      "lineRange": [32, 43],
+      "summary": "Resolves the initial theme color from localStorage, then the html data-theme-color attribute, then DEFAULT_THEME_COLOR.",
+      "tags": ["utility", "theme", "persistence"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/ui/src/composables/useThemeColor.ts:useThemeColor",
+      "type": "function",
+      "name": "useThemeColor",
+      "filePath": "packages/ui/src/composables/useThemeColor.ts",
+      "lineRange": [65, 73],
+      "summary": "Returns the shared themeColor computed, setThemeColor, and THEME_COLORS list for theme-color pickers.",
+      "tags": ["hook", "theme", "composable"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/doc.ts",
+      "type": "file",
+      "name": "doc.ts",
+      "filePath": "packages/ui/src/doc.ts",
+      "summary": "Barrel that re-exports UI documentation SFCs: OverviewDoc, ButtonDoc, IconDoc, InputDoc, and SelectDoc.",
+      "tags": ["barrel", "entry-point", "documentation", "exports"],
+      "complexity": "simple",
+      "languageNotes": "TypeScript barrel re-exporting Vue SFC default exports as named doc components."
+    },
+    {
+      "id": "file:packages/ui/src/lib/utils.ts",
+      "type": "file",
+      "name": "utils.ts",
+      "filePath": "packages/ui/src/lib/utils.ts",
+      "summary": "Exports cn, which merges clsx class values through tailwind-merge so Tailwind utilities can be composed without conflicts.",
+      "tags": ["utility", "classname", "tailwind"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/ui/src/lib/utils.ts:cn",
+      "type": "function",
+      "name": "cn",
+      "filePath": "packages/ui/src/lib/utils.ts",
+      "lineRange": [5, 7],
+      "summary": "Merges class name inputs with clsx then tailwind-merge for conflict-safe Tailwind class composition.",
+      "tags": ["utility", "classname", "tailwind"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/ui/src/style.css",
+      "type": "file",
+      "name": "style.css",
+      "filePath": "packages/ui/src/style.css",
+      "summary": "UI package design-token stylesheet: Tailwind v4 theme mapping, light/dark oklch tokens, Radix color scales, and data-theme-color primary presets.",
+      "tags": ["design-tokens", "theme", "tailwind", "stylesheet"],
+      "complexity": "complex",
+      "languageNotes": "Tailwind v4 @theme inline maps --gritty-design-* tokens; [data-theme-color] rules override primary after .dark so attribute specificity wins."
+    },
+    {
+      "id": "file:packages/ui/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "packages/ui/vite.config.ts",
+      "summary": "Vite config for the UI package enabling Vue SFCs, Tailwind, and an @ alias to ./src.",
+      "tags": ["config", "vite", "build-system"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:packages/ui/src/composables/useColorMode.ts",
+      "target": "function:packages/ui/src/composables/useColorMode.ts:useColorMode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/composables/useColorMode.ts",
+      "target": "function:packages/ui/src/composables/useColorMode.ts:useColorMode",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/ui/src/composables/useColorMode.ts",
+      "target": "file:packages/ui/src/style.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/composables/useRipple.ts",
+      "target": "function:packages/ui/src/composables/useRipple.ts:useRipple",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/composables/useRipple.ts",
+      "target": "function:packages/ui/src/composables/useRipple.ts:useRipple",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/ui/src/composables/useThemeColor.ts",
+      "target": "function:packages/ui/src/composables/useThemeColor.ts:readInitialThemeColor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/composables/useThemeColor.ts",
+      "target": "function:packages/ui/src/composables/useThemeColor.ts:useThemeColor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/composables/useThemeColor.ts",
+      "target": "function:packages/ui/src/composables/useThemeColor.ts:useThemeColor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/ui/src/composables/useThemeColor.ts",
+      "target": "file:packages/ui/src/style.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/ui/src/lib/utils.ts",
+      "target": "function:packages/ui/src/lib/utils.ts:cn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/ui/src/lib/utils.ts",
+      "target": "function:packages/ui/src/lib/utils.ts:cn",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/ui/src/style.css",
+      "target": "file:packages/ui/src/main.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

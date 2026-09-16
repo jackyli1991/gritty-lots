@@ -1,0 +1,354 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": ["packages/ui/src/App.vue"],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/ui/src/components/ui/button/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 143,
+      "nonEmptyLines": 140,
+      "exports": [
+        {
+          "name": "Button",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "buttonVariants",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "exports": [
+        {
+          "name": "Icon",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 38,
+      "exports": [
+        {
+          "name": "Input",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "inputVariants",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 56,
+      "exports": [
+        {
+          "name": "Select",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "SelectContent",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "SelectGroup",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "SelectItem",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "SelectItemText",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "SelectLabel",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "SelectScrollDownButton",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "SelectScrollUpButton",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "SelectSeparator",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "SelectTrigger",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "SelectValue",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "selectTriggerVariants",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 43,
+      "exports": [
+        {
+          "name": "cn",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "useThemeColor",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "THEME_COLORS",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "DEFAULT_THEME_COLOR",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "ThemeColorOption",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "useColorMode",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "COLOR_MODES",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "DEFAULT_COLOR_MODE",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ColorMode",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "ResolvedColorMode",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "ColorModeOption",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "useRipple",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "UseRippleOptions",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "GButton",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "buttonVariants",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "ButtonVariants",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "GIcon",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "GInput",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "inputVariants",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "InputVariants",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "InputStatus",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "GSelect",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "selectTriggerVariants",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "SelectMode",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "SelectOption",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "SelectStatus",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "SelectFieldNames",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "SelectTriggerVariants",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "GrittyUI",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "install",
+          "callee": "Object.entries(components).forEach",
+          "lineNumber": 45
+        },
+        {
+          "caller": "install",
+          "callee": "Object.entries",
+          "lineNumber": 45
+        },
+        {
+          "caller": "install",
+          "callee": "app.component",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 29,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/ui/src/main.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

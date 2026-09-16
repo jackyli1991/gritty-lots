@@ -1,0 +1,92 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "apps/admin/src/App.vue",
+      "language": "vue",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "language": "vue",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/DocSection/DocSection.vue",
+      "language": "vue",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Draggable/Draggable.vue",
+      "language": "vue",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Iconify/Iconify.vue",
+      "language": "vue",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/Iconify/create-icon.ts",
+      "language": "typescript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/components/index.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/i18n/index.ts",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/main.ts",
+      "language": "typescript",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "apps/admin/src/router/index.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "apps/admin/src/App.vue": [],
+    "apps/admin/src/components/CodeBlock/CodeBlock.vue": [],
+    "apps/admin/src/components/DocSection/DocSection.vue": [],
+    "apps/admin/src/components/Draggable/Draggable.vue": [],
+    "apps/admin/src/components/Iconify/Iconify.vue": [],
+    "apps/admin/src/components/Iconify/create-icon.ts": [],
+    "apps/admin/src/components/index.ts": [
+      "apps/admin/src/components/CodeBlock/CodeBlock.vue",
+      "apps/admin/src/components/DocSection/DocSection.vue",
+      "apps/admin/src/components/Draggable/Draggable.vue",
+      "apps/admin/src/components/Iconify/Iconify.vue",
+      "apps/admin/src/components/Iconify/create-icon.ts"
+    ],
+    "apps/admin/src/i18n/index.ts": [
+      "apps/admin/src/i18n/locales/en-US.json",
+      "apps/admin/src/i18n/locales/zh-CN.json"
+    ],
+    "apps/admin/src/main.ts": [
+      "apps/admin/src/App.vue",
+      "apps/admin/src/components/index.ts",
+      "apps/admin/src/i18n/index.ts",
+      "apps/admin/src/router/index.ts",
+      "apps/admin/src/style.css"
+    ],
+    "apps/admin/src/router/index.ts": []
+  }
+}

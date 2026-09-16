@@ -1,0 +1,187 @@
+{
+  "projectRoot": "d:/workspace/gritty-lots",
+  "batchFiles": [
+    {
+      "path": "packages/page-neural/src/components/icon/register.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/en-US.json",
+      "language": "json",
+      "sizeLines": 1,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/src/i18n/locales/zh-CN.json",
+      "language": "json",
+      "sizeLines": 1,
+      "fileCategory": "config"
+    },
+    {
+      "path": "packages/page-neural/src/main.ts",
+      "language": "typescript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/page-neural/src/style.css",
+      "language": "css",
+      "sizeLines": 11,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "packages/page-neural/vite.config.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/button/Button.vue",
+      "language": "vue",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/button/doc.vue",
+      "language": "vue",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/Icon.vue",
+      "language": "vue",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/icon/doc.vue",
+      "language": "vue",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/Input.vue",
+      "language": "vue",
+      "sizeLines": 308,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/input/doc.vue",
+      "language": "vue",
+      "sizeLines": 304,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/overview/components/DocSection.vue",
+      "language": "vue",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/overview/doc.vue",
+      "language": "vue",
+      "sizeLines": 917,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/Select.vue",
+      "language": "vue",
+      "sizeLines": 724,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectContent.vue",
+      "language": "vue",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectGroup.vue",
+      "language": "vue",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectItem.vue",
+      "language": "vue",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectItemText.vue",
+      "language": "vue",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectLabel.vue",
+      "language": "vue",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectScrollDownButton.vue",
+      "language": "vue",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectScrollUpButton.vue",
+      "language": "vue",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectSeparator.vue",
+      "language": "vue",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectTrigger.vue",
+      "language": "vue",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packages/ui/src/components/ui/select/SelectValue.vue",
+      "language": "vue",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "packages/page-neural/src/components/icon/register.ts": [
+      "packages/page-neural/src/components/icon/null.vue"
+    ],
+    "packages/page-neural/src/i18n/locales/en-US.json": [],
+    "packages/page-neural/src/i18n/locales/zh-CN.json": [],
+    "packages/page-neural/src/main.ts": [
+      "packages/page-neural/src/App.vue",
+      "packages/page-neural/src/style.css"
+    ],
+    "packages/page-neural/src/style.css": [],
+    "packages/page-neural/vite.config.ts": [],
+    "packages/ui/src/components/ui/button/Button.vue": [],
+    "packages/ui/src/components/ui/button/doc.vue": [],
+    "packages/ui/src/components/ui/icon/Icon.vue": [],
+    "packages/ui/src/components/ui/icon/doc.vue": [],
+    "packages/ui/src/components/ui/input/Input.vue": [],
+    "packages/ui/src/components/ui/input/doc.vue": [],
+    "packages/ui/src/components/ui/overview/components/DocSection.vue": [],
+    "packages/ui/src/components/ui/overview/doc.vue": [],
+    "packages/ui/src/components/ui/select/Select.vue": [],
+    "packages/ui/src/components/ui/select/SelectContent.vue": [],
+    "packages/ui/src/components/ui/select/SelectGroup.vue": [],
+    "packages/ui/src/components/ui/select/SelectItem.vue": [],
+    "packages/ui/src/components/ui/select/SelectItemText.vue": [],
+    "packages/ui/src/components/ui/select/SelectLabel.vue": [],
+    "packages/ui/src/components/ui/select/SelectScrollDownButton.vue": [],
+    "packages/ui/src/components/ui/select/SelectScrollUpButton.vue": [],
+    "packages/ui/src/components/ui/select/SelectSeparator.vue": [],
+    "packages/ui/src/components/ui/select/SelectTrigger.vue": [],
+    "packages/ui/src/components/ui/select/SelectValue.vue": []
+  }
+}

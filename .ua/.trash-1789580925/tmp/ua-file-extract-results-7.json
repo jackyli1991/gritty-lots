@@ -1,0 +1,151 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": ["packages/page-neural/src/core/index.vue"],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "packages/page-neural/src/core/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "exports": [
+        {
+          "name": "NeuralGraph",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/i18n/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "fallbackT",
+          "startLine": 19,
+          "endLine": 29,
+          "params": ["key"]
+        },
+        {
+          "name": "useNeuralI18n",
+          "startLine": 35,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "mergeI18nMessages",
+          "startLine": 55,
+          "endLine": 65,
+          "params": ["i18nInstance"]
+        }
+      ],
+      "exports": [
+        {
+          "name": "libMessages",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "useNeuralI18n",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "mergeI18nMessages",
+          "line": 55,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fallbackT",
+          "callee": "key.split",
+          "lineNumber": 20
+        },
+        {
+          "caller": "useNeuralI18n",
+          "callee": "i18n.global.t",
+          "lineNumber": 40
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "Object.keys(libMessages).forEach",
+          "lineNumber": 60
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "Object.keys",
+          "lineNumber": 60
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "i18nInstance.global.getLocaleMessage",
+          "lineNumber": 61
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "i18nInstance.global.setLocaleMessage",
+          "lineNumber": 63
+        },
+        {
+          "caller": "mergeI18nMessages",
+          "callee": "merge",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packages/page-neural/src/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "callGraph": [
+        {
+          "caller": "install",
+          "callee": "app.component",
+          "lineNumber": 7
+        },
+        {
+          "caller": "install",
+          "callee": "mergeI18nMessages",
+          "lineNumber": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}
