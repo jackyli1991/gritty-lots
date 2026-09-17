@@ -8,7 +8,7 @@ import { dealPermissionRoutes, dealRoutesRedirect, getKey, flattenTree } from '.
 export * from './types';
 
 /** 路由实例缓存，供动态 addRoute 与按钮权限指令内部命令式访问 */
-let _router: any;
+let appRouter: any;
 /** 合并后的运行时选项，供按钮权限指令按需读取权限键与按钮开关 */
 let mergeOptions: Partial<AutoRouteOptions> = {};
 
@@ -63,7 +63,7 @@ function dealMountRoute(routes: RouteRecordRaw[], mountRoute: RouteRecordRaw) {
 
   // 以父路由 name 为挂载点逐条动态注册子路由
   routes.forEach((route) => {
-    _router.addRoute(mountRoute.name, route);
+    appRouter.addRoute(mountRoute.name, route);
   });
 }
 
@@ -74,7 +74,7 @@ function dealMountRoute(routes: RouteRecordRaw[], mountRoute: RouteRecordRaw) {
  */
 export function createAutoRoutes(options?: AutoRouteOptions) {
   // 合并默认选项与用户自定义选项，赋值给模块级 mergeOptions 供指令使用
-  const _mergeOptions = Object.assign({}, defaultOptions, options) as AutoRouteOptions;
+  const assignOptions = Object.assign({}, defaultOptions, options) as AutoRouteOptions;
   const {
     pagesDir = '',
     routeConfFile = '',
@@ -83,12 +83,12 @@ export function createAutoRoutes(options?: AutoRouteOptions) {
     routePermissionKey,
     routePermission,
     mountRoute,
-  } = _mergeOptions;
-  console.log(_mergeOptions);
-  mergeOptions = _mergeOptions;
+  } = assignOptions;
+  console.log(assignOptions);
+  mergeOptions = assignOptions;
 
   // 启用挂载功能但未传入路由实例时无法 addRoute，直接中止
-  if (mountRoute && !_router) {
+  if (mountRoute && !appRouter) {
     console.error('路由实例不存在，请传入');
     return [];
   }
@@ -101,7 +101,7 @@ export function createAutoRoutes(options?: AutoRouteOptions) {
   }
   const autoRoutes: RouteRecordRaw[] = [];
   // 由配置入口递归生成全量路由树
-  createRoutes(levelOneJson?.default || [], autoRoutes, '', _mergeOptions);
+  createRoutes(levelOneJson?.default || [], autoRoutes, '', assignOptions);
 
   let routes: RouteRecordRaw[] = [];
 
@@ -137,16 +137,16 @@ export default {
     app.config.globalProperties.$createAutoRoutes = createAutoRoutes;
 
     const { router } = options || {};
-    _router = router;
+    appRouter = router;
 
-    if (!_router) {
+    if (!appRouter) {
       console.error('路由实例不存在，请传入');
       return;
     }
 
     // 按钮权限指令：按修饰符匹配当前/指定路由的按钮权限，未通过则隐藏或移除元素
     app.directive('permission', (el, binding) => {
-      const curRoute = _router?.currentRoute.value as unknown as RouteRecordRaw;
+      const curRoute = appRouter?.currentRoute.value as unknown as RouteRecordRaw;
       const valueOfKey = getKey(curRoute, mergeOptions.routePermissionKey as string);
       // 当前路由未声明按钮权限列表或显式关闭按钮权限时跳过
       if (!curRoute.meta?.permissionBtnList || curRoute.meta.btnPermission === false) return;
@@ -169,7 +169,7 @@ export default {
         permissionFlag = valueOfKey;
       } else {
         // 指定 arg：跨路由按 name/path/id 定位目标路由后取其按钮权限
-        const allRoutes = _router.getRoutes();
+        const allRoutes = appRouter.getRoutes();
         const targetRoute = allRoutes.find((item: RouteRecordRaw) =>
           [item.name, item.path, String(item.meta?.id)].includes(String(arg))
         );

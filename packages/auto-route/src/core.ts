@@ -50,20 +50,20 @@ export function createRoutes(
       .filter((item) => !!item);
     // parentRoute的后一项都拼接上前一项作为完整的路由name
     let pre: string = '';
-    const _parentRoute = parentRoute.map((item) => {
+    const routeParentRoute = parentRoute.map((item) => {
       pre += item + separator;
       return pre.slice(0, -separator.length);
     });
     // 3、如果直接使用name，会由于不用目录下的同名文件，导致路由名称冲突
     // 如果没有routeName，才拼接父路由作为路由名称，保证全局唯一
-    const _name =
+    const rName =
       routeName ||
       `${parentRoute.length ? parentRoute.join(separator) + separator : ''}${name.replace(/\[([^\]]+)\]/g, '')}`;
     // 按钮权限
-    const _btnPermission = rest.btnPermission ?? btnPermission;
+    const routeBtnPermission = rest.btnPermission ?? btnPermission;
     const routeItem: RouteRecordRaw = {
       path, // 路径
-      name: _name, // 名称
+      name: rName, // 名称
       props: props ?? false, // 是否开启路由参数
       component: isDir ? null : loader, // 组件，目录没有，菜单才有
       meta: {
@@ -71,8 +71,8 @@ export function createRoutes(
         type, // 路由类型
         icon: icon || '', // 图标
         title: title || '', // 标题
-        btnPermission: _btnPermission, // 按钮权限
-        parentRoute: _parentRoute, // 父路由路径
+        btnPermission: routeBtnPermission, // 按钮权限
+        parentRoute: routeParentRoute, // 父路由路径
         hasNestedRoute: !!(route.nestedRoute && route.nestedRoute?.length > 0), // 是否有嵌套路由
       },
       children: [], // 子路由

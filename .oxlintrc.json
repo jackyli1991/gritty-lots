@@ -35,7 +35,9 @@
     "test/snapshots/**",
     "packages/*/dist/**",
     "apps/*/dist/**",
-    "**/*.md"
+    "**/*.md",
+    ".agents/**",
+    ".ua/**"
   ],
   "plugins": ["eslint", "typescript", "unicorn", "oxc", "vue", "import"]
 }

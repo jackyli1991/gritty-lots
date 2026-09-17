@@ -52,14 +52,18 @@ export function importJSON(file: File | undefined) {
   }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        resolve(JSON.parse(e.target?.result as string));
-      } catch {
-        reject(new Error(t('neural.jsonSchema.jsonParseError')));
-      }
-    };
-    reader.onerror = reject;
+    reader.addEventListener(
+      'load',
+      (e) => {
+        try {
+          resolve(JSON.parse(e.target?.result as string));
+        } catch {
+          reject(new Error(t('neural.jsonSchema.jsonParseError')));
+        }
+      },
+      { once: true }
+    );
+    reader.addEventListener('error', reject, { once: true });
     reader.readAsText(file, 'utf-8');
   });
 }
