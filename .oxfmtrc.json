@@ -15,5 +15,6 @@
   "embeddedLanguageFormatting": "auto",
   "experimentalSortImports": true,
   "experimentalSortPackageJson": true,
-  "ignorePath": ".gitignore"
+  "ignorePath": ".gitignore",
+  "ignorePatterns": ["node_modules", ".ua/**", "dist/**"]
 }

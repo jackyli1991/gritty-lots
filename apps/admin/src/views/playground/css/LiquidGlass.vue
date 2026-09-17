@@ -1,5 +1,5 @@
 <template>
-  <Draggable :initial-value="{ x: 100, y: 100 }">
+  <Draggable :initial-value="{ x: 50, y: 50 }">
     <div class="liquid-glass">
       <div class="content">
         <div class="title">液体玻璃</div>

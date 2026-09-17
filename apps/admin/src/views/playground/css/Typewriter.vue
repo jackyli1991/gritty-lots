@@ -1,5 +1,5 @@
 <template>
-  <Draggable :initial-value="{ x: 50, y: 200 }">
+  <Draggable :initial-value="{ x: 200, y: 200 }">
     <div class="typewriter">
       <span class="text">{{ text }}</span>
       <span class="caret">&nbsp;</span>

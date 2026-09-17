@@ -1,5 +1,5 @@
 <template>
-  <Draggable :initial-value="{ x: 50, y: 500 }">
+  <Draggable :initial-value="{ x: 50, y: 150 }">
     <div class="gradient-border">
       <div>渐变边框</div>
     </div>
