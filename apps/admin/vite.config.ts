@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
       }),
       VitePWA({
         // autoUpdate：新 SW 接管后自动刷新；prompt：弹提示让用户手动刷新
-        registerType: 'autoUpdate',
+        registerType: 'prompt',
         // 仅声明 public 下实际存在的额外资产；manifest 图标会自动纳入预缓存，无需在此重复
         includeAssets: ['favicon.svg'],
         manifest: {
@@ -61,6 +61,9 @@ export default defineConfig(({ mode }) => {
           ],
         },
         workbox: {
+          cleanupOutdatedCaches: true, // 清理旧缓存，必开
+          // skipWaiting: true,
+          clientsClaim: true,
           globPatterns: ['**/*.{html,js,css,png,jpg,svg,ico,woff2}'],
           // 默认 2 MiB 上限会因 router chunk（聚合 eager glob 的全部视图）超限而中断构建
           maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
@@ -73,7 +76,8 @@ export default defineConfig(({ mode }) => {
           ],
         },
         devOptions: {
-          enabled: false, // dev 不启用 SW，避免 HMR 干扰；需要调试时改 true
+          enabled: true, // dev 不启用 SW，避免 HMR 干扰；需要调试时改 true
+          suppressWarnings: true, // 屏蔽workbox开发环境警告
         },
       }),
     ],
