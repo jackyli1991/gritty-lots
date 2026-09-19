@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en,zh-CN",
+  "words": [
+    "oxfmt",
+    "oxlint",
+    "oxfmtrc",
+    "oxlintrc",
+    "commitlint",
+    "commitlintrc",
+    "vite",
+    "Vite",
+    "vue",
+    "primevue",
+    "primeuix"
+  ],
+  "ignoreWords": [],
+  "dictionaries": ["vue", "typescript"],
+  "import": ["@cspell/dict-vue/cspell-ext.json", "@cspell/dict-typescript/cspell-ext.json"],
+  "files": ["*.md", "*.json", "*.yml", "*.ts", "*.js", "*.vue"],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "dev-dist",
+    ".git",
+    "pnpm-lock.yaml",
+    ".agents/**/*",
+    ".ua/**/*"
+  ]
+}

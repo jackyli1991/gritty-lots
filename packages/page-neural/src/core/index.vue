@@ -5,6 +5,7 @@
   // import { MiniMap } from '@vue-flow/minimap';
   // import { ref } from 'vue';
   import NeuralIcon from '@neural/components/icon/icon.vue';
+  import Button from 'primevue/button';
 
   // // these are our nodes
   // const nodes = ref([]);
@@ -22,6 +23,7 @@
     </VueFlow>
     <div></div> -->
     <NeuralIcon name="Component" />
+    <Button label="按钮" />
   </div>
 </template>
 
