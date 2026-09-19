@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import NeuralMaterials from './materials/index.vue';
   // import { Background } from '@vue-flow/background';
   // import { Controls } from '@vue-flow/controls';
   // import { VueFlow } from '@vue-flow/core';
   // import { MiniMap } from '@vue-flow/minimap';
   // import { ref } from 'vue';
+  import NeuralIcon from '@neural/components/icon/icon.vue';
 
   // // these are our nodes
   // const nodes = ref([]);
@@ -21,7 +21,7 @@
       <Controls />
     </VueFlow>
     <div></div> -->
-    <NeuralMaterials />
+    <NeuralIcon name="Component" />
   </div>
 </template>
 

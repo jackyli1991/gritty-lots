@@ -5,7 +5,8 @@
     "types": ["vite/client", "vite-plugin-pwa/client"],
     "allowArbitraryExtensions": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@neural/*": ["../../packages/page-neural/src/*"]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,

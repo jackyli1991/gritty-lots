@@ -1,5 +1,3 @@
-import { fileURLToPath, URL } from 'node:url';
-
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
@@ -15,9 +13,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: env.VITE_BASE_PATH,
     resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+      tsconfigPaths: true, // 启用 tsconfig 路径解析功能
     },
     plugins: [
       vue({
