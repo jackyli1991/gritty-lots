@@ -4,8 +4,36 @@
   // import { VueFlow } from '@vue-flow/core';
   // import { MiniMap } from '@vue-flow/minimap';
   // import { ref } from 'vue';
-  import NeuralIcon from '@neural/components/icon/icon.vue';
-  import Button from 'primevue/button';
+  import { NeuralToolbar } from '@neural/components';
+  import type { ToolbarItem } from '@neural/components/toolbar';
+
+  const toolbarData: ToolbarItem[][] = [
+    [{ label: '组件库', icon: 'Component', key: 'component' }],
+    [
+      { label: '设置', icon: 'Settings2', key: 'settings' },
+      { label: '撤销', icon: 'Undo', key: 'undo' },
+      { label: '重做', icon: 'Redo', key: 'redo', disabled: true },
+    ],
+    [
+      { label: '设置', icon: 'Settings2', key: 'settings' },
+      { label: '撤销', icon: 'Undo', key: 'undo' },
+      {
+        label: '删除',
+        icon: 'Trash2',
+        key: 'trash',
+        dropdownList: [
+          { label: '删除选中项', icon: 'Trash2', key: 'delete-selected' },
+          { label: '清空', key: 'clear-all' },
+        ],
+      },
+      { label: '设置', icon: 'Settings2', key: 'settings' },
+      { label: '撤销', icon: 'Undo', key: 'undo' },
+    ],
+  ];
+
+  function handleClick(key: string) {
+    console.log('toolbar click:', key);
+  }
 
   // // these are our nodes
   // const nodes = ref([]);
@@ -22,8 +50,7 @@
       <Controls />
     </VueFlow>
     <div></div> -->
-    <NeuralIcon name="Component" />
-    <Button label="按钮" />
+    <NeuralToolbar :data="toolbarData" @click="handleClick" />
   </div>
 </template>
 

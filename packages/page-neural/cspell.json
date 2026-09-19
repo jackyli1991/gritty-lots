@@ -12,7 +12,8 @@
     "Vite",
     "vue",
     "primevue",
-    "primeuix"
+    "primeuix",
+    "menuitemicon"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

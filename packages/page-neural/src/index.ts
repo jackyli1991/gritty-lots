@@ -1,4 +1,5 @@
 import './style.css';
+import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
 
@@ -12,15 +13,32 @@ export default {
     // 合并 i18n
     mergeI18nMessages(options.i18n);
 
+    const MyPreset = definePreset(Aura, {
+      semantic: {
+        primary: {
+          // 50: '{slate.50}',
+          // 100: '{slate.100}',
+          // 200: '{slate.200}',
+          // 300: '{slate.300}',
+          // 400: '{slate.400}',
+          // 500: '{slate.900}',
+          // 600: '{slate.600}',
+          // 700: '{slate.700}',
+          // 800: '{slate.800}',
+          // 900: '{slate.900}',
+          // 950: '{slate.950}'
+        },
+      },
+    });
+
     // 注册 PrimeVue
     const license =
       'eyJpZCI6Ijg5MzQxODRhLTE5MzAtNGUyYi1iYzA3LTA4NzgwZGIwOWNhYyIsInByb2R1Y3QiOiJwcmltZXVpIiwidGllciI6ImNvbW11bml0eSIsInR5cGUiOiJkZXYiLCJpYXQiOjE3ODk4MDI1MTcsImV4cCI6MTgyMTMzODUxN30.NX7kZlR6y9e2tnsCW_Y_Ggx2-umeQ51aH57-rSdnyuJlSariGn-9jGVlIffRLfzRrz5gCkWTsxRFHHegL0HoBw';
     app.use(PrimeVue, {
       theme: {
-        preset: Aura,
+        preset: MyPreset,
         options: {
           ripple: true,
-          prefix: 'pi',
         },
       },
       license,
