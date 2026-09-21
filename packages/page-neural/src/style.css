@@ -1,3 +1,8 @@
+@import 'tailwindcss';
+
+@source "./components";
+@source "./core";
+
 /* these are necessary styles for vue flow */
 @import '@vue-flow/core/dist/style.css';
 

@@ -11,8 +11,9 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Button: typeof import('primevue/button')['default']
+    Form: typeof import('./src/components/form/Form.vue')['default']
+    FormItem: typeof import('./src/components/form/FormItem.vue')['default']
     Icon: typeof import('./src/components/icon/icon.vue')['default']
-    Null: typeof import('./src/components/icon/null.vue')['default']
+    Toolbar: typeof import('./src/components/toolbar/Toolbar.vue')['default']
   }
 }

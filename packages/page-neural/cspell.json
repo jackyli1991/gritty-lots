@@ -13,7 +13,11 @@
     "vue",
     "primevue",
     "primeuix",
-    "menuitemicon"
+    "menuitemicon",
+    "inputtext",
+    "selectbutton",
+    "toggleswitch",
+    "novalidate"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

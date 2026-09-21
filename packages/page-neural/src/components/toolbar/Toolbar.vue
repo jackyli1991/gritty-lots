@@ -65,6 +65,7 @@
             :label="showLabel ? item.label : ''"
             text
             size="small"
+            severity="secondary"
             @click="handleClick(item.key)"
           >
             <template #icon>
@@ -82,6 +83,7 @@
             text
             size="small"
             variant="text"
+            severity="secondary"
             :iconOnly="!showLabel"
             @click="handleClick(item.key)"
           >
