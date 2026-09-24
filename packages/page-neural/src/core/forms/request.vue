@@ -8,11 +8,13 @@
     {
       label: '请求地址',
       fieldName: 'url',
-      component: 'InputText',
+      component: 'Input',
+      class: 'col-span-2',
       componentProps: {
-        placeholder: '请求地址',
+        placeholder: '/开头，示例：/request/api',
+        prefix: '/api',
+        // suffix: 'xxx',
       },
-      defaultValue: '/r/url',
       help: [],
       required: true,
     },
@@ -20,9 +22,9 @@
       label: '请求方法',
       fieldName: 'method',
       component: 'Select',
+      class: 'col-span-1',
       componentProps: {
-        placeholder: '请输入请求方法',
-        showClear: true,
+        placeholder: '请选择',
         optionLabel: 'label',
         optionValue: 'value',
         options: [
@@ -32,18 +34,29 @@
           { label: 'DELETE', value: 'DELETE' },
         ],
       },
-      defaultValue: 'GET',
       help: [],
       required: true,
+    },
+    {
+      label: '响应字段',
+      fieldName: 'responseField',
+      component: 'InputText',
+      class: 'col-span-1',
+      componentProps: {
+        placeholder: '取response中的数据，示例：data.list',
+        showClear: true,
+      },
+      help: [],
+      // required: true,
     },
     {
       label: '请求头',
       fieldName: 'headers',
       component: 'ObjectEditor',
+      class: 'col-span-2',
       componentProps: {
         placeholder: '请求头',
       },
-      defaultValue: {},
       help: [],
       required: false,
     },
@@ -51,10 +64,10 @@
       label: '请求参数',
       fieldName: 'params',
       component: 'ObjectEditor',
+      class: 'col-span-2',
       componentProps: {
         placeholder: '请求参数',
       },
-      defaultValue: {},
       help: [],
       required: false,
     },
@@ -64,8 +77,12 @@
     url: z.string().min(1, '请输入请求地址'),
     method: z.string().min(1, '请输入请求方法'),
   });
+
+  const props = defineProps<{
+    data?: Record<string, any>;
+  }>();
 </script>
 
 <template>
-  <NeuralForm :columns="1" :schema="formSchema" :rules="rules" />
+  <NeuralForm :data="props.data" :columns="2" :schema="formSchema" :rules="rules" />
 </template>

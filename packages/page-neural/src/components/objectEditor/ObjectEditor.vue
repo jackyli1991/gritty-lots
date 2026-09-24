@@ -369,13 +369,13 @@
               class="flex-1 min-w-0"
               @keydown.enter.prevent="onValueEnter(idx)"
             />
-            <ToggleSwitch
-              v-else-if="item.type === 'boolean'"
-              v-model="item.value"
-              :disabled="disabled"
-              :formControl="nestedFormControl"
-              class="flex-1"
-            />
+            <div v-else-if="item.type === 'boolean'" class="flex-1 flex items-center">
+              <ToggleSwitch
+                v-model="item.value"
+                :disabled="disabled"
+                :formControl="nestedFormControl"
+              />
+            </div>
             <InputText
               v-else-if="item.type === 'null'"
               modelValue="null"

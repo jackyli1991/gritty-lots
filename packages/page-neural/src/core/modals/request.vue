@@ -1,16 +1,11 @@
 <template>
-  <Drawer
-    v-model:visible="visible"
-    :showCloseIcon="false"
-    position="right"
-    class="!w-[32rem] max-w-[100vw]"
-  >
+  <Drawer v-model:visible="visible" :showCloseIcon="false" position="right" class="!w-[32rem]">
     <template #header>
       <div class="flex justify-between items-center">
-        <span class="text-sm">请求</span>
+        <span class="text-sm">请求配置</span>
       </div>
     </template>
-    <Form />
+    <Form v-bind="$attrs" />
   </Drawer>
 </template>
 

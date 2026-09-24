@@ -1,6 +1,6 @@
 <template>
   <!-- $form 是表单实例，包含 states、handleSubmit、reset、validate -->
-  <Form v-slot="$form" :resolver="resolver" @submit="onSubmit">
+  <Form v-slot="$form" :resolver="resolver" :initialValues="props.data" @submit="onSubmit">
     <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
       <FormItem
         v-for="item in props.schema"
@@ -9,7 +9,6 @@
         :label="item.label"
         :name="item.fieldName"
         :required="item.required"
-        :initial-value="item.defaultValue"
       >
         <template #default="{ field }">
           <component
@@ -19,12 +18,13 @@
             :modelValue="field.value"
             class="w-full"
             v-bind="item.componentProps"
-            @update:modelValue="field.onChange?.({ value: $event })"
+            size="small"
+            @update:modelValue="(value: unknown) => handleChange(field, value)"
           />
         </template>
       </FormItem>
     </div>
-    <div class="flex w-full">
+    <div v-if="!props.autoComplete" class="flex w-full justify-end gap-2 mt-4">
       <Button type="submit" label="提交" :loading="loading" />
       <Button type="button" label="重置" severity="secondary" @click="$form.reset" />
     </div>
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
   import { Form } from '@primevue/forms';
+  // import { useForm } from '@primevue/forms/useform';
   import { zodResolver } from '@primevue/forms/resolvers/zod'; // 重点！resolver单独路径
   import Button from 'primevue/button';
   import { ref, computed } from 'vue';
@@ -45,23 +46,43 @@
   type ResolverSchema = Parameters<typeof zodResolver>[0];
 
   interface Props {
+    data?: Record<string, any>;
     columns: number; // 表单列数，默认 1
     schema: FormItemProps[];
     rules: ResolverSchema;
+    autoComplete?: boolean; // 是否自动更新数据，默认 true
   }
 
   const loading = ref(false);
 
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    autoComplete: true,
+  });
 
   // 验证规则
   const resolver = computed(() => zodResolver(props.rules));
+
+  // 处理字段值变化。事件参数才是新值，field.value 此时仍是更新前的值。
+  const handleChange = (
+    field: { name?: string; onChange?: (event: { value: unknown }) => void },
+    value: unknown
+  ) => {
+    field.onChange?.({ value });
+    if (props.autoComplete && props.data && field.name) {
+      props.data[field.name] = value;
+    }
+  };
 
   // 表单提交
   const onSubmit = async (values: any) => {
     try {
       loading.value = true;
-      console.log('表单数据', values);
+      // console.log('表单数据', values, props.data);
+      const formData: Record<string, any> = {};
+      Object.keys(values.states).forEach((key) => {
+        formData[key] = values.states[key].value;
+      });
+      console.log('提交数据', formData);
     } finally {
       loading.value = false;
     }

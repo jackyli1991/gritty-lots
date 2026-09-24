@@ -35,6 +35,15 @@
     ],
   ];
 
+  const requestConfig = ref({
+    url: '/test/api',
+    method: 'GET',
+    headers: {
+      keyword: 'params',
+    },
+    params: {},
+  });
+
   function handleClick(key: string) {
     console.log('toolbar click:', key);
     if (key === 'request') {
@@ -46,7 +55,8 @@
 <template>
   <div class="gritty-page-neural-graph">
     <NeuralToolbar :data="toolbarData" @click="handleClick" />
-    <RequestModal v-model:visible="requestModalVisible" />
+    <RequestModal v-model:visible="requestModalVisible" :data="requestConfig" />
+    {{ requestConfig }}
   </div>
 </template>
 
