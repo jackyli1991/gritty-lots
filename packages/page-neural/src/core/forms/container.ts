@@ -3,10 +3,19 @@ import { z } from 'zod';
 
 const schema: FormItemProps[] = [
   {
+    label: '',
+    fieldName: '',
+    component: 'Divider',
+    class: 'col-span-4',
+    componentProps: {
+      text: '边框',
+    },
+  },
+  {
     label: '宽度',
     fieldName: 'borderWidth',
     component: 'InputNumber',
-    class: 'col-span-1',
+    class: 'col-span-2',
     componentProps: {
       placeholder: '请输入宽度',
       showButtons: true,
@@ -17,10 +26,10 @@ const schema: FormItemProps[] = [
     required: true,
   },
   {
-    label: '边框样式',
+    label: '样式',
     fieldName: 'borderStyle',
     component: 'Select',
-    class: 'col-span-1',
+    class: 'col-span-2',
     componentProps: {
       placeholder: '请选择',
       optionLabel: 'label',
@@ -36,22 +45,45 @@ const schema: FormItemProps[] = [
     required: true,
   },
   {
-    label: '边框颜色',
+    label: '颜色',
     fieldName: 'borderColor',
-    component: 'InputText',
-    class: 'col-span-1',
+    component: 'ColorPicker',
+    class: 'col-span-2',
+    componentProps: {},
+    help: [],
+    required: true,
+  },
+  {
+    label: '圆角',
+    fieldName: 'borderRadius',
+    component: 'InputNumber',
+    class: 'col-span-2',
     componentProps: {
-      placeholder: '请输入边框颜色',
-      showClear: true,
+      placeholder: '请输入边框圆角',
+      showButtons: true,
+      suffix: 'px',
+      fluid: true,
     },
     help: [],
     required: true,
   },
   {
     label: '',
-    fieldName: 'divider',
+    fieldName: '',
     component: 'Divider',
-    class: 'col-span-3',
+    class: 'col-span-4',
+    componentProps: {
+      text: '背景',
+    },
+  },
+  {
+    label: '背景色',
+    fieldName: 'backgroundColor',
+    component: 'ColorPicker',
+    class: 'col-span-1',
+    componentProps: {},
+    help: [],
+    required: true,
   },
 ];
 
@@ -64,7 +96,7 @@ export default {
   formConfig: {
     schema,
     rules,
-    columns: 3,
+    columns: 4,
     // autoComplete: false,
   },
   // 弹窗配置
