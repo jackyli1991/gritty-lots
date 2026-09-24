@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+  import type { FormFieldState } from '@primevue/forms';
   import { Form } from '@primevue/forms';
   // import { useForm } from '@primevue/forms/useform';
   import { zodResolver } from '@primevue/forms/resolvers/zod'; // 重点！resolver单独路径
@@ -64,7 +65,7 @@
 
   // 处理字段值变化。事件参数才是新值，field.value 此时仍是更新前的值。
   const handleChange = (
-    field: { name?: string; onChange?: (event: { value: unknown }) => void },
+    field: FormFieldState & { name?: string; onChange?: (event: { value: unknown }) => void },
     value: unknown
   ) => {
     field.onChange?.({ value });
