@@ -1,4 +1,4 @@
-import { Component, Settings2, Undo, Redo, Trash2, Plus, X } from '@lucide/vue';
+import { Component, Settings2, Undo, Redo, Trash2, Plus, X, CircleQuestionMark } from '@lucide/vue';
 
 export default {
   Component,
@@ -8,4 +8,5 @@ export default {
   Trash2,
   Plus,
   X,
+  CircleQuestionMark,
 };

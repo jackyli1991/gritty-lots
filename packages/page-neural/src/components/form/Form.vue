@@ -9,6 +9,8 @@
         :label="item.label"
         :name="item.fieldName"
         :required="item.required"
+        :help="item.help"
+        :tips="item.tips"
       >
         <template #default="{ field }">
           <component
@@ -25,8 +27,11 @@
       </FormItem>
     </div>
     <div v-if="!props.autoComplete" class="flex w-full justify-end gap-2 mt-4">
-      <Button type="submit" label="提交" :loading="loading" />
-      <Button type="button" label="重置" severity="secondary" @click="$form.reset" />
+      <Button type="button" :label="props.resetText" variant="text" @click="$form.reset" />
+      <div class="flex-1 flex justify-end gap-2">
+        <Button type="submit" :label="props.submitText" :loading="loading" />
+        <Button type="button" :label="props.closeText" severity="secondary" @click="onClose" />
+      </div>
     </div>
   </Form>
 </template>
@@ -52,13 +57,21 @@
     schema: FormItemProps[];
     rules: ResolverSchema;
     autoComplete?: boolean; // 是否自动更新数据，默认 true
+    submitText?: string; // 提交按钮文本，默认 '提交'
+    resetText?: string; // 重置按钮文本，默认 '重置'
+    closeText?: string; // 关闭按钮文本，默认 '关闭'
   }
 
   const loading = ref(false);
 
   const props = withDefaults(defineProps<Props>(), {
     autoComplete: true,
+    submitText: '提交',
+    resetText: '重置',
+    closeText: '关闭',
   });
+
+  const emit = defineEmits(['submit', 'close']);
 
   // 验证规则
   const resolver = computed(() => zodResolver(props.rules));
@@ -83,9 +96,14 @@
       Object.keys(values.states).forEach((key) => {
         formData[key] = values.states[key].value;
       });
-      console.log('提交数据', formData);
+      emit('submit', formData);
     } finally {
       loading.value = false;
     }
+  };
+
+  // 关闭表单
+  const onClose = () => {
+    emit('close');
   };
 </script>

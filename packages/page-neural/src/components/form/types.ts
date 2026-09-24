@@ -6,7 +6,8 @@ export interface FormItemProps {
   fieldName: string; // 表单项的字段名
   component: FormComponentName; // 表单项的组件类型
   class?: string; // 表单项的类名（可选）
-  componentProps: Record<string, any>; // 表单项的组件属性
+  componentProps?: Record<string, any>; // 表单项的组件属性
   help?: string[]; // 表单项的帮助信息（可选）
   required?: boolean; // 是否必填项
+  tips?: string; // 表单项的提示信息（可选）
 }

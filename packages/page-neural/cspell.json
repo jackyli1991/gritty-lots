@@ -20,7 +20,9 @@
     "novalidate",
     "useform",
     "inputgroup",
-    "inputgroupaddon"
+    "inputgroupaddon",
+    "inputnumber",
+    "dismissable"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

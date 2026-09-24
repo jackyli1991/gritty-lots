@@ -5,11 +5,13 @@
   // import { VueFlow } from '@vue-flow/core';
   // import { MiniMap } from '@vue-flow/minimap';
   import type { ToolbarItem } from '@neural/components/toolbar';
+  import { useModal } from '@neural/composables/userModal';
+  import { formMaps } from '@neural/core/forms';
   import { ref } from 'vue';
 
-  import RequestModal from './modals/request.vue';
-
-  const requestModalVisible = ref(false);
+  const { openModal, ModalEl } = useModal({
+    formMaps,
+  });
 
   const toolbarData: ToolbarItem[][] = [
     [{ label: '组件库', icon: 'Component', key: 'component' }],
@@ -30,7 +32,7 @@
           { label: '清空', key: 'clear-all' },
         ],
       },
-      { label: '设置', icon: 'Settings2', key: 'settings' },
+      { label: '设置', icon: 'Settings2', key: 'container' },
       { label: '请求', icon: 'Undo', key: 'request' },
     ],
   ];
@@ -42,12 +44,23 @@
       keyword: 'params',
     },
     params: {},
+    responseField: 'result.list',
+  });
+
+  const containerConfig = ref({
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#000',
   });
 
   function handleClick(key: string) {
     console.log('toolbar click:', key);
     if (key === 'request') {
-      requestModalVisible.value = true;
+      openModal(key, requestConfig.value);
+    }
+
+    if (key === 'container') {
+      openModal(key, containerConfig.value);
     }
   }
 </script>
@@ -55,8 +68,9 @@
 <template>
   <div class="gritty-page-neural-graph">
     <NeuralToolbar :data="toolbarData" @click="handleClick" />
-    <RequestModal v-model:visible="requestModalVisible" :data="requestConfig" />
     {{ requestConfig }}
+    {{ containerConfig }}
+    <component :is="ModalEl" />
   </div>
 </template>
 

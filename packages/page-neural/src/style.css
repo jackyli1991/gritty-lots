@@ -2,6 +2,7 @@
 
 @source "./components";
 @source "./core";
+@source "./composables";
 
 /* these are necessary styles for vue flow */
 @import '@vue-flow/core/dist/style.css';
