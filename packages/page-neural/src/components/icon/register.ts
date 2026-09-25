@@ -8,6 +8,7 @@ import {
   X,
   CircleQuestionMark,
   Pipette,
+  Container,
 } from '@lucide/vue';
 
 export default {
@@ -20,4 +21,5 @@ export default {
   X,
   CircleQuestionMark,
   Pipette,
+  Container,
 };
