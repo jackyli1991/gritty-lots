@@ -2,14 +2,14 @@
 import InputNumber from 'primevue/inputnumber';
 import InputText from 'primevue/inputtext'; // 输入框
 import Select from 'primevue/select'; // 选择框
-import Slider from 'primevue/slider'; // 滑块
 import SelectButton from 'primevue/selectbutton'; // 选择框按钮
+import Slider from 'primevue/slider'; // 滑块
 
+import { Checkbox } from '../checkbox'; // 复选框
 import ColorPicker from '../colorPicker'; // 颜色选择器
 import Divider from '../divider'; // 分隔线
 import Input from '../input'; // 输入框
 import ObjectEditor from '../objectEditor'; // 对象编辑器
-import { Checkbox } from '../checkbox'; // 复选框
 
 export {
   InputText,
@@ -21,5 +21,5 @@ export {
   Divider,
   ColorPicker,
   Checkbox,
-  SelectButton
+  SelectButton,
 };

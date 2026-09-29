@@ -8,6 +8,6 @@
 </template>
 
 <script setup>
-import Checkbox from 'primevue/checkbox';
-import Label from 'primevue/label';
+  import Checkbox from 'primevue/checkbox';
+  import Label from 'primevue/label';
 </script>
