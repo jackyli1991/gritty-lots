@@ -24,7 +24,7 @@ const schema: FormItemProps[] = [
     componentProps: {
       options: [
         { label: '启用', value: true },
-        { label: '禁用', value: false },
+        { label: '停用', value: false },
       ],
       optionLabel: 'label',
       optionValue: 'value',
