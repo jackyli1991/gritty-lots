@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <label v-if="label" class="block mb-0.5 text-sm flex items-center">
+    <label class="block mb-0.5 text-sm flex items-center h-6">
       <span v-if="required" class="text-red-500 mr-1">*</span>
       <span>{{ label }}</span>
       <NeuralIcon

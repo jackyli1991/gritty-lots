@@ -6,7 +6,7 @@ const schema: FormItemProps[] = [
     label: '请求地址',
     fieldName: 'url',
     component: 'Input',
-    class: 'col-span-2',
+    class: 'col-span-3',
     componentProps: {
       placeholder: '请输入请求地址',
       prefix: '/api',
@@ -14,13 +14,28 @@ const schema: FormItemProps[] = [
     },
     help: [],
     required: true,
-    tips: '须以/开头，示例：/request/api',
+    tips: '必须以/开头，示例：/request/api',
+  },
+  {
+    label: '',
+    fieldName: 'enable',
+    component: 'SelectButton',
+    class: 'col-span-1',
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '禁用', value: false },
+      ],
+      optionLabel: 'label',
+      optionValue: 'value',
+      size: 'small',
+    },
   },
   {
     label: '请求方法',
     fieldName: 'method',
     component: 'Select',
-    class: 'col-span-1',
+    class: 'col-span-2',
     componentProps: {
       placeholder: '请选择',
       optionLabel: 'label',
@@ -39,7 +54,7 @@ const schema: FormItemProps[] = [
     label: '响应字段',
     fieldName: 'responseField',
     component: 'InputText',
-    class: 'col-span-1',
+    class: 'col-span-2',
     componentProps: {
       placeholder: '取response中的数据，示例：data.list',
       showClear: true,
@@ -51,7 +66,7 @@ const schema: FormItemProps[] = [
     label: '请求头',
     fieldName: 'headers',
     component: 'ObjectEditor',
-    class: 'col-span-2',
+    class: 'col-span-4',
     componentProps: {
       placeholder: '请求头',
     },
@@ -62,7 +77,7 @@ const schema: FormItemProps[] = [
     label: '请求参数',
     fieldName: 'params',
     component: 'ObjectEditor',
-    class: 'col-span-2',
+    class: 'col-span-4',
     componentProps: {
       placeholder: '请求参数',
     },
@@ -81,7 +96,7 @@ export default {
   formConfig: {
     schema,
     rules,
-    columns: 2,
+    columns: 4,
   },
   // 弹窗配置
   modalConfig: {

@@ -64,6 +64,7 @@
       keyword: 'params',
     },
     params: {},
+    enable: true,
     responseField: 'result.list',
   });
 
@@ -83,6 +84,7 @@
   <div class="gritty-page-neural-graph">
     <NeuralToolbar :data="toolbarData" @click="handleClick" />
     <component :is="ModalEl" />
+    {{ requestConfig }}
   </div>
 </template>
 

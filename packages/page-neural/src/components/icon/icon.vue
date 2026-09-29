@@ -34,7 +34,7 @@
 </script>
 
 <template>
-  <button :aria-label="label" @click="handleClick">
+  <button type="button" :aria-label="label" @click="handleClick">
     <component v-if="icon" :is="icon" v-bind="$attrs">
       <slot></slot>
     </component>
