@@ -3,7 +3,7 @@
   import { setLucideProps } from '@lucide/vue';
   import { computed } from 'vue';
 
-  import icons from './register';
+  import icons from '../../icons';
 
   defineOptions({
     name: 'NeuralIcon',

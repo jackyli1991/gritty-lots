@@ -16,5 +16,7 @@ declare module 'vue' {
     Icon: typeof import('./src/components/icon/icon.vue')['default']
     Toolbar: typeof import('./src/components/toolbar/Toolbar.vue')['default']
     Checkbox: typeof import('./src/components/checkbox/Checkbox.vue')['default']
+    DraggableItem: typeof import('./src/dnd/components/draggableItem.vue')['default']
+    DroppableItem: typeof import('./src/dnd/components/droppableItem.vue')['default']
   }
 }

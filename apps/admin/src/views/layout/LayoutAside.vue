@@ -16,7 +16,7 @@
 <script setup lang="ts">
   import type { MenuProps } from 'ant-design-vue';
   import { Menu as aMenu } from 'ant-design-vue';
-  import { OverlayScrollbars } from 'overlayscrollbars';
+  // import { OverlayScrollbars } from 'overlayscrollbars';
   import { storeToRefs } from 'pinia';
   import { onMounted } from 'vue';
   import type { RouteRecordNameGeneric } from 'vue-router';
@@ -43,11 +43,11 @@
   };
 
   onMounted(() => {
-    OverlayScrollbars(document.querySelector('.g-menus') as HTMLElement, {
-      scrollbars: {
-        autoHide: 'leave',
-      },
-    });
+    // OverlayScrollbars(document.querySelector('.g-menus') as HTMLElement, {
+    //   scrollbars: {
+    //     autoHide: 'leave',
+    //   },
+    // });
   });
 </script>
 

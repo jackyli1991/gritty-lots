@@ -3,6 +3,8 @@
 @source "./components";
 @source "./core";
 @source "./composables";
+@source "./materials";
+@source "./dnd";
 
 /* these are necessary styles for vue flow */
 @import '@vue-flow/core/dist/style.css';
