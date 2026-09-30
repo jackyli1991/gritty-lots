@@ -17,9 +17,34 @@
             <Tab value="tab1">基础</Tab>
             <Tab value="tab2">自定义</Tab>
           </TabList>
-          <TabPanels class="flex-1 overflow-auto p-2">
+          <TabPanels class="flex-1 overflow-auto !p-2">
             <TabPanel value="tab1">
-              <DraggableItem id="container-121212" :data="{ test: '213' }">ss</DraggableItem>
+              <div v-for="group in BaseMaterials" :key="group.type">
+                <div class="px-1 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+                  {{ group.groupName }}
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <DraggableItem
+                    v-for="item in group.children"
+                    :key="item.type"
+                    :id="`${group.type}-${item.type}`"
+                    :data="item"
+                  >
+                    <div
+                      class="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 cursor-grab transition-colors hover:border-purple-400 dark:hover:border-purple-500"
+                    >
+                      <NeuralIcon
+                        :name="item.icon"
+                        :size="20"
+                        class="text-gray-700 dark:text-gray-200"
+                      />
+                      <span class="text-xs text-gray-700 dark:text-gray-200 text-center">
+                        {{ item.name }}
+                      </span>
+                    </div>
+                  </DraggableItem>
+                </div>
+              </div>
             </TabPanel>
             <!-- <TabPanel value="tab2">
               <h2 class="text-lg font-bold">Payment</h2>
@@ -39,6 +64,7 @@
 
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
+  import { BaseMaterials } from '@neural/data';
   import DraggableItem from '@neural/dnd/components/draggableItem.vue';
   import Tab from 'primevue/tab';
   import TabList from 'primevue/tablist';

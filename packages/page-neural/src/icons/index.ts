@@ -9,6 +9,7 @@ import {
   CircleQuestionMark,
   Pipette,
   Container,
+  PanelsTopLeft,
 } from '@lucide/vue';
 
 export default {
@@ -22,4 +23,5 @@ export default {
   CircleQuestionMark,
   Pipette,
   Container,
+  PanelsTopLeft,
 };
