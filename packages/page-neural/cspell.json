@@ -35,7 +35,8 @@
     "InputColorSliderTrack",
     "InputColorSwatch",
     "InputColorSwatchBackground",
-    "InputColorTransparencyGrid"
+    "InputColorTransparencyGrid",
+    "uuidv"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

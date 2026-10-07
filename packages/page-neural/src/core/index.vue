@@ -1,21 +1,26 @@
 <script setup lang="ts">
   import { DragDropProvider } from '@dnd-kit/vue';
   import { NeuralToolbar } from '@neural/components';
-  // import { Background } from '@vue-flow/background';
-  // import { Controls } from '@vue-flow/controls';
-  // import { VueFlow } from '@vue-flow/core';
-  // import { MiniMap } from '@vue-flow/minimap';
   import type { ToolbarItem } from '@neural/components/toolbar';
   import { useModal } from '@neural/composables/userModal';
+  import { crud } from '@neural/core/crud';
   import { formMaps } from '@neural/core/forms';
   import DragMonitorPanel from '@neural/dnd/components/dragMonitorPanel.vue';
   import DragOverlay from '@neural/dnd/components/dragOverlay.vue';
   import Materials from '@neural/materials/index.vue';
   import Container from '@neural/render/container/index.vue';
+  import { usePageNeuralStore } from '@neural/store';
+  // import { Background } from '@vue-flow/background';
+  // import { Controls } from '@vue-flow/controls';
+  // import { VueFlow } from '@vue-flow/core';
+  // import { MiniMap } from '@vue-flow/minimap';
+  import type { DragNodeOptions } from '@neural/types';
   import { invokeAction, type ActionTree, type Paths } from '@neural/utils/action';
   import { ref } from 'vue';
 
   const showMaterials = ref(false);
+  const { createNode } = crud();
+  const pageNeuralStore = usePageNeuralStore();
 
   const { openModal, ModalEl } = useModal({
     formMaps,
@@ -54,7 +59,7 @@
         console.log('add container');
       },
       setting: () => {
-        openModal('container', containerConfig.value);
+        // openModal('container', containerConfig.value);
       },
       delete: {
         confirm: () => {
@@ -78,15 +83,18 @@
     responseField: 'result.list',
   });
 
-  const containerConfig = ref({
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#000',
-  });
-
   function handleClick(key: string) {
     // console.log('toolbar click:', key);
     invokeAction(actions, key as Paths<typeof actions>);
+  }
+
+  // 拖拽到容器
+  function handleDroppedIn(data: Omit<DragNodeOptions, 'type'>) {
+    createNode({
+      type: 'container',
+      source: data.source,
+      target: data.target,
+    });
   }
 </script>
 
@@ -99,11 +107,11 @@
       </div>
       <!-- 内容区域 -->
       <div class="flex-1 overflow-hidden relative">
-        <Container id="page-container"></Container>
+        <Container :data="pageNeuralStore.rootContainer"></Container>
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-end">
-        <DragMonitorPanel @dragStart="showMaterials = false" />
+        <DragMonitorPanel @dragStart="showMaterials = false" @droppedIn="handleDroppedIn" />
       </div>
       <!-- 左侧组件库 -->
       <Materials :visible="showMaterials" @update:visible="showMaterials = $event" />

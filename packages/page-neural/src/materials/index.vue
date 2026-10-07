@@ -23,7 +23,7 @@
                 <div class="px-1 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
                   {{ group.groupName }}
                 </div>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 gap-2">
                   <DraggableItem
                     v-for="item in group.children"
                     :key="item.type"
@@ -31,16 +31,21 @@
                     :data="item"
                   >
                     <div
-                      class="flex flex-col items-center gap-1 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 cursor-grab transition-colors hover:border-purple-400 dark:hover:border-purple-500"
+                      class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 cursor-grab transition-colors hover:border-(--p-primary-color) dark:hover:border-(--p-primary-color)"
                     >
                       <NeuralIcon
                         :name="item.icon"
                         :size="20"
-                        class="text-gray-700 dark:text-gray-200"
+                        class="shrink-0 text-gray-700 dark:text-gray-200"
                       />
-                      <span class="text-xs text-gray-700 dark:text-gray-200 text-center">
-                        {{ item.name }}
-                      </span>
+                      <div class="flex flex-1 flex-col gap-0.5 min-w-0">
+                        <span class="text-xs font-medium text-gray-700 dark:text-gray-200 truncate">
+                          {{ item.name }}
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {{ item.description }}
+                        </span>
+                      </div>
                     </div>
                   </DraggableItem>
                 </div>

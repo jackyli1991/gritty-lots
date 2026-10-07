@@ -14,8 +14,8 @@
     DragEndEvent,
     DragStartEvent,
     DragMoveEvent,
-    BeforeDragStartEvent,
-    CollisionEvent,
+    // BeforeDragStartEvent,
+    // CollisionEvent,
   } from '@dnd-kit/vue';
   import { useDragDropMonitor } from '@dnd-kit/vue';
   import { ref } from 'vue';
@@ -27,6 +27,13 @@
 
   const emit = defineEmits<{
     (e: 'dragStart', id: string): void;
+    (
+      e: 'droppedIn',
+      data: {
+        source: DragEndEvent['operation']['source'];
+        target: DragEndEvent['operation']['target'];
+      }
+    ): void;
   }>();
 
   function clear() {
@@ -37,8 +44,8 @@
   }
 
   useDragDropMonitor({
-    // 拖拽开始前触发
-    onBeforeDragStart(event: BeforeDragStartEvent) {
+    // 拖拽开始前触发 event: BeforeDragStartEvent
+    onBeforeDragStart() {
       clear();
       // 示例：可以阻止id=blocked的元素拖拽
       // if (event.operation.source.id === 'blocked') event.preventDefault()
@@ -63,21 +70,22 @@
         overId.value = null;
       }
     },
-    // 碰撞列表
-    onCollision(event: CollisionEvent) {
+    // 碰撞列表 event: CollisionEvent
+    onCollision() {
       // console.log('碰撞项列表', event?.collisions || [])
     },
     // 拖拽结束触发
     onDragEnd(event: DragEndEvent) {
       // console.log('拖拽结束', event)
       if (event.canceled) {
-        dragStatus.value = '拖拽取消';
+        dragStatus.value = '已取消';
       } else {
-        const { target } = event.operation;
+        const { source, target } = event.operation;
         if (target) {
-          dragStatus.value = '放置到目标：' + target.id;
+          dragStatus.value = '已放置';
+          emit('droppedIn', { source, target });
         } else {
-          dragStatus.value = '没在放置在任何目标上';
+          dragStatus.value = '目标为空';
         }
       }
       clear();

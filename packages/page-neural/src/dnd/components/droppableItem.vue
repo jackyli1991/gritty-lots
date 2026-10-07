@@ -16,7 +16,11 @@
 </script>
 
 <template>
-  <div ref="element" class="w-full h-full" :class="{ 'bg-red-200': isDropTarget }">
+  <div
+    ref="element"
+    class="w-full h-full border border-transparent"
+    :class="{ 'border-(--p-primary-500)!': isDropTarget }"
+  >
     <slot></slot>
   </div>
 </template>
