@@ -10,6 +10,8 @@ import {
   Pipette,
   Container,
   PanelsTopLeft,
+  Info,
+  TriangleAlert,
 } from '@lucide/vue';
 
 export default {
@@ -24,4 +26,6 @@ export default {
   Pipette,
   Container,
   PanelsTopLeft,
+  Info,
+  TriangleAlert,
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center">
-    <InputColor v-model="value">
+    <InputColor v-model="value" format="rgba">
       <InputColorSwatch @click="handleClick" class="cursor-pointer !w-[28px] !h-[28px]">
         <InputColorTransparencyGrid />
         <InputColorSwatchBackground />

@@ -3,6 +3,8 @@
   import { NeuralToolbar } from '@neural/components';
   import type { ToolbarItem } from '@neural/components/toolbar';
   import { useModal } from '@neural/composables/userModal';
+  import { useNeuralToast } from '@neural/composables/useToast';
+  import { CONTAINER_ROOT_ID } from '@neural/const';
   import { crud } from '@neural/core/crud';
   import { formMaps } from '@neural/core/forms';
   import DragMonitorPanel from '@neural/dnd/components/dragMonitorPanel.vue';
@@ -16,11 +18,16 @@
   // import { MiniMap } from '@vue-flow/minimap';
   import type { DragNodeOptions } from '@neural/types';
   import { invokeAction, type ActionTree, type Paths } from '@neural/utils/action';
+  import Toast from 'primevue/toast';
   import { ref } from 'vue';
+
+  import ConfirmDialog, { useNeuralConfirm } from './confirmDialog.vue';
 
   const showMaterials = ref(false);
   const { createNode } = crud();
   const pageNeuralStore = usePageNeuralStore();
+  const { neuralConfirm } = useNeuralConfirm();
+  const { neuralToastWarning } = useNeuralToast();
 
   const { openModal, ModalEl } = useModal({
     formMaps,
@@ -29,24 +36,23 @@
   const toolbarData: ToolbarItem[][] = [
     [{ label: '组件库', icon: 'Component', key: 'showComponents' }],
     [
-      { label: '设置', icon: 'Settings2', key: 'settings' },
-      { label: '撤销', icon: 'Undo', key: 'undo' },
-      { label: '重做', icon: 'Redo', key: 'redo', disabled: true },
+      // { label: '撤销', icon: 'Undo', key: 'undo' },
+      // { label: '重做', icon: 'Redo', key: 'redo', disabled: true },
     ],
     [
-      { label: '容器', icon: 'Container', key: 'container.add' },
-      { label: '撤销', icon: 'Undo', key: 'undo' },
-      {
-        label: '删除',
-        icon: 'Trash2',
-        key: 'trash',
-        dropdownList: [
-          { label: '删除选中项', icon: 'Trash2', key: 'container.delete.confirm' },
-          { label: '清空', key: 'clear-all' },
-        ],
-      },
-      { label: '设置', icon: 'Settings2', key: 'container.setting' },
-      { label: '请求', icon: 'Undo', key: 'request' },
+      // {
+      //   label: '删除',
+      //   icon: 'Trash2',
+      //   key: 'trash',
+      //   dropdownList: [
+      //     { label: '清空', key: 'clear-all' },
+      //   ],
+      // },
+      // { label: '请求', icon: 'Undo', key: 'request' },
+    ],
+    [
+      { label: '容器设置', icon: 'Settings2', key: 'container.setting' },
+      { label: '删除', icon: 'Trash2', key: 'container.delete.confirm' },
     ],
   ];
 
@@ -59,11 +65,28 @@
         console.log('add container');
       },
       setting: () => {
-        // openModal('container', containerConfig.value);
+        const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
+        openModal('container', activeContainer?.props || {});
       },
       delete: {
         confirm: () => {
-          console.log('delete container');
+          const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
+          if (!activeContainer) {
+            return;
+          }
+          if (activeContainer.id === CONTAINER_ROOT_ID) {
+            neuralToastWarning('不能删除根容器', '拒绝');
+            return;
+          }
+          neuralConfirm({
+            message: `确认删除【${activeContainer.name}】吗？`,
+            header: '删除',
+            type: 'delete',
+            confirm: () => {
+              pageNeuralStore.deleteContainer(activeContainer.id);
+            },
+            reject: () => {},
+          });
         },
       },
     },
@@ -107,7 +130,7 @@
       </div>
       <!-- 内容区域 -->
       <div class="flex-1 overflow-hidden relative">
-        <Container :data="pageNeuralStore.rootContainer"></Container>
+        <Container :id="CONTAINER_ROOT_ID"></Container>
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-end">
@@ -117,6 +140,8 @@
       <Materials :visible="showMaterials" @update:visible="showMaterials = $event" />
       <!-- 抽屉、弹窗统一入口 -->
       <component :is="ModalEl" />
+      <ConfirmDialog />
+      <Toast />
     </div>
     <DragOverlay />
   </DragDropProvider>

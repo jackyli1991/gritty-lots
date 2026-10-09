@@ -40,7 +40,13 @@
     "darkmode",
     "LXGWW",
     "FOIT",
-    "egonex"
+    "egonex",
+    "usetoast",
+    "useconfirm",
+    "confirmdialog",
+    "confirmationservice",
+    "toastservice",
+    
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

@@ -1,3 +1,4 @@
+import { CONTAINER_TYPE } from '@neural/const';
 import { usePageNeuralStore } from '@neural/store';
 import type { DragNodeOptions, Container } from '@neural/types';
 
@@ -10,7 +11,7 @@ export function crud() {
   function createNode(options: DragNodeOptions) {
     const { type, ...rest } = options;
     switch (type) {
-      case 'container':
+      case CONTAINER_TYPE:
         createContainer(rest);
         break;
     }

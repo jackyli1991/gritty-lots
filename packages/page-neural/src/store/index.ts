@@ -9,15 +9,27 @@ import { defineStore } from 'pinia';
 // 第一个参数是你的应用中 Store 的唯一 ID。
 export const usePageNeuralStore = defineStore('page-neural', {
   state: () => ({
+    activeNodeId: CONTAINER_ROOT_ID, // 当前激活的节点id
     nodes: [],
     edges: [],
     containers: [
-      generateContainer({ subType: CONTAINER_LAYOUT, id: CONTAINER_ROOT_ID, name: '页面容器' }),
+      // 页面根容器
+      generateContainer({
+        id: CONTAINER_ROOT_ID,
+        name: '页面根容器',
+        subType: CONTAINER_LAYOUT,
+        props: {
+          width: 100,
+          height: 100,
+          widthUnit: '%',
+          heightUnit: '%',
+        },
+      }),
     ] as Container[],
   }),
   getters: {
-    // 根容器
-    rootContainer: (state) => state.containers.find((item) => item.id === CONTAINER_ROOT_ID),
+    // 返回获取容器的函数
+    getContainer: (state) => (id: string) => state.containers.find((item) => item.id === id),
   },
   actions: {
     addContainer(container: Container) {
@@ -29,6 +41,28 @@ export const usePageNeuralStore = defineStore('page-neural', {
           parent.children.push(container.id);
         }
       }
+      // 设置为当前激活的节点
+      this.setActiveNodeId(container.id);
+    },
+    // 删除容器
+    deleteContainer(id: string) {
+      if (id === CONTAINER_ROOT_ID) {
+        return;
+      }
+      // 从父容器的children中删除
+      const deleteContainer = this.containers.find((item) => item.id === id);
+      if (deleteContainer && deleteContainer.parentId) {
+        const parent = this.containers.find((item) => item.id === deleteContainer.parentId);
+        if (parent) {
+          parent.children = parent.children.filter((child) => child !== id);
+        }
+      }
+      this.containers = this.containers.filter((item) => item.id !== id);
+      this.setActiveNodeId('');
+    },
+    // 设置当前激活的节点id
+    setActiveNodeId(id: string) {
+      this.activeNodeId = id;
     },
   },
 });

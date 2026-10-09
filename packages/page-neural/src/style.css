@@ -5,6 +5,7 @@
 @source "./composables";
 @source "./materials";
 @source "./dnd";
+@source "./render";
 
 /* these are necessary styles for vue flow */
 @import '@vue-flow/core/dist/style.css';

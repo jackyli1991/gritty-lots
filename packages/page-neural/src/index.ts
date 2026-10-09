@@ -2,6 +2,8 @@ import './style.css';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
 
 import { NeuralGraph } from './core/index';
 import { mergeI18nMessages } from './i18n/index.ts';
@@ -43,5 +45,7 @@ export default {
       },
       license,
     });
+    app.use(ConfirmationService);
+    app.use(ToastService);
   },
 };
