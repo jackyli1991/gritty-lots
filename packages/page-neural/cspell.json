@@ -36,7 +36,8 @@
     "InputColorSwatch",
     "InputColorSwatchBackground",
     "InputColorTransparencyGrid",
-    "uuidv"
+    "uuidv",
+    "toggleable"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

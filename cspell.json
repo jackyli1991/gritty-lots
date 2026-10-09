@@ -45,8 +45,7 @@
     "useconfirm",
     "confirmdialog",
     "confirmationservice",
-    "toastservice",
-    
+    "toastservice"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

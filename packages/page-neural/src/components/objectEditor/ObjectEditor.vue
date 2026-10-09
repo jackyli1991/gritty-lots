@@ -341,7 +341,7 @@
               data-param-key
               placeholder="Key"
               size="small"
-              class="w-[6.25rem] shrink-0"
+              class="w-25 shrink-0"
               :class="{ 'p-invalid': duplicateKeys.has(item.key.trim()) }"
               :disabled="disabled"
               :invalid="duplicateKeys.has(item.key.trim())"
@@ -353,7 +353,7 @@
               optionLabel="label"
               optionValue="value"
               size="small"
-              class="w-[5.5rem] shrink-0"
+              class="w-22 shrink-0"
               :disabled="disabled"
               :formControl="nestedFormControl"
               @update:modelValue="(type) => onTypeChange(item, type)"

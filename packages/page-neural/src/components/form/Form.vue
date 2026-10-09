@@ -2,29 +2,82 @@
   <!-- $form 是表单实例，包含 states、handleSubmit、reset、validate -->
   <Form v-slot="$form" :resolver="resolver" :initialValues="props.data" @submit="onSubmit">
     <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
-      <FormItem
-        v-for="item in props.schema"
-        :key="item.fieldName"
-        :class="item.class"
-        :label="item.label"
-        :name="item.fieldName"
-        :required="item.required"
-        :help="item.help"
-        :tips="item.tips"
-      >
-        <template #default="{ field }">
+      <template v-for="schemaItem in props.schema" :key="schemaItem.fieldName">
+        <template v-if="schemaItem.formGroup && schemaItem.children?.length">
           <component
-            :is="components[item.component]"
-            :name="item.fieldName"
-            :invalid="field.invalid"
-            :modelValue="field.value"
-            class="w-full"
-            v-bind="item.componentProps"
-            size="small"
-            @update:modelValue="(value: unknown) => handleChange(field, value)"
-          />
+            class="w-full col-span-full"
+            :is="components[schemaItem.component || 'Fieldset']"
+            v-bind="{
+              ...schemaItem.componentProps,
+              legend: schemaItem.label,
+              header: schemaItem.label,
+              toggleable: true,
+              dt: {
+                background: '#fafafa',
+              },
+            }"
+          >
+            <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
+              <FormItem
+                v-for="item in schemaItem.children"
+                :key="item.fieldName"
+                :class="item.class"
+                :label="item.label"
+                :showLabel="item.showLabel"
+                :name="item.fieldName as string"
+                :required="item.required"
+                :help="item.help"
+                :tips="item.tips"
+              >
+                <template #default="{ field }">
+                  <component
+                    :is="components[item.component || 'InputText']"
+                    :name="item.fieldName"
+                    :invalid="field.invalid"
+                    :modelValue="field.value"
+                    v-bind="{
+                      ...item.componentProps,
+                      ...getExtraModelValues(item),
+                    }"
+                    class="w-full"
+                    size="small"
+                    @update:modelValue="(value: unknown) => handleChange(field, value)"
+                  >
+                  </component>
+                </template>
+              </FormItem>
+            </div>
+          </component>
         </template>
-      </FormItem>
+        <template v-else>
+          <FormItem
+            :key="schemaItem.fieldName"
+            :class="schemaItem.class"
+            :label="schemaItem.label"
+            :showLabel="schemaItem.showLabel"
+            :name="schemaItem.fieldName as string"
+            :required="schemaItem.required"
+            :help="schemaItem.help"
+            :tips="schemaItem.tips"
+          >
+            <template #default="{ field }">
+              <component
+                :is="components[schemaItem.component || 'InputText']"
+                :name="schemaItem.fieldName"
+                :invalid="field.invalid"
+                :modelValue="field.value"
+                v-bind="{
+                  ...schemaItem.componentProps,
+                  ...getExtraModelValues(schemaItem),
+                }"
+                class="w-full"
+                size="small"
+                @update:modelValue="(value: unknown) => handleChange(field, value)"
+              />
+            </template>
+          </FormItem>
+        </template>
+      </template>
     </div>
     <div v-if="!props.autoComplete" class="flex w-full justify-end gap-2 mt-4">
       <Button type="button" :label="props.resetText" variant="text" @click="$form.reset" />
@@ -72,6 +125,25 @@
   });
 
   const emit = defineEmits(['submit', 'close']);
+
+  // 提取额外的 modelValues：key 是组件 prop 名（如 selectValue），value 是数据字段名（如 widthUnit）
+  // 生成符合 Vue 3 v-model:xxx 规范的绑定对：prop + onUpdate:prop 事件监听器
+  const getExtraModelValues = (item: FormItemProps) => {
+    const modelValues = item.modelValues;
+    if (!modelValues) {
+      return {};
+    }
+    const obj: Record<string, any> = {};
+    Object.entries(modelValues).forEach(([propName, dataField]) => {
+      obj[propName] = props.data?.[dataField];
+      obj[`onUpdate:${propName}`] = (value: unknown) => {
+        if (props.autoComplete && props.data) {
+          props.data[dataField] = value;
+        }
+      };
+    });
+    return obj;
+  };
 
   // 验证规则
   const resolver = computed(() => zodResolver(props.rules));

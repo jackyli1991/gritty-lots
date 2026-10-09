@@ -1,6 +1,8 @@
+import Fieldset from 'primevue/fieldset'; // 字段集
 // import Divider from 'primevue/divider';
 import InputNumber from 'primevue/inputnumber';
 import InputText from 'primevue/inputtext'; // 输入框
+import Panel from 'primevue/panel'; // 面板
 import Select from 'primevue/select'; // 选择框
 import SelectButton from 'primevue/selectbutton'; // 选择框按钮
 import Slider from 'primevue/slider'; // 滑块
@@ -9,6 +11,7 @@ import { Checkbox } from '../checkbox'; // 复选框
 import ColorPicker from '../colorPicker'; // 颜色选择器
 import Divider from '../divider'; // 分隔线
 import Input from '../input'; // 输入框
+import InputNumberSelectGroup from '../InputNumberSelectGroup'; // 数字输入框 + 选择器组合
 import ObjectEditor from '../objectEditor'; // 对象编辑器
 
 export {
@@ -18,8 +21,11 @@ export {
   Input,
   Slider,
   InputNumber,
+  Fieldset,
+  Panel,
   Divider,
   ColorPicker,
   Checkbox,
   SelectButton,
+  InputNumberSelectGroup,
 };

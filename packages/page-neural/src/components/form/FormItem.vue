@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <label class="block mb-0.5 text-sm flex items-center h-6">
+    <label v-if="showLabel" class="block mb-0.5 text-sm items-center h-6">
       <span v-if="required" class="text-red-500 mr-1">*</span>
       <span>{{ label }}</span>
       <NeuralIcon
@@ -39,12 +39,15 @@
   interface Props {
     name: string; // 名称
     label?: string; // 标签（可选）
+    showLabel?: boolean; // 标签是否显示（可选）
     required?: boolean; // 是否必填项（可选）
     initialValue?: unknown; // 初始值（可选）
     help?: string[]; // 帮助信息（可选）
     tips?: string; // 提示信息（可选）
   }
-  defineProps<Props>();
+  withDefaults(defineProps<Props>(), {
+    showLabel: true,
+  });
 </script>
 
 <style scoped></style>
