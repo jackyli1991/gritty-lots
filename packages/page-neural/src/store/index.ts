@@ -1,5 +1,5 @@
 import { CONTAINER_ROOT_ID, CONTAINER_LAYOUT } from '@neural/const';
-import { generateContainer } from '@neural/core/crud/utils';
+import { generateContainer, generateId } from '@neural/core/crud/utils';
 import type { Container } from '@neural/types';
 import { defineStore } from 'pinia';
 
@@ -32,6 +32,7 @@ export const usePageNeuralStore = defineStore('page-neural', {
     getContainer: (state) => (id: string) => state.containers.find((item) => item.id === id),
   },
   actions: {
+    // 添加容器
     addContainer(container: Container) {
       this.containers.push(container);
       // 如果有父容器，添加到父容器的子容器列表
@@ -43,6 +44,18 @@ export const usePageNeuralStore = defineStore('page-neural', {
       }
       // 设置为当前激活的节点
       this.setActiveNodeId(container.id);
+    },
+    // 复制容器
+    copyContainer(id: string) {
+      const container = this.getContainer(id);
+      if (!container) {
+        return;
+      }
+      const newContainer = generateContainer({
+        ...container,
+        id: generateId(),
+      });
+      this.addContainer(newContainer);
     },
     // 删除容器
     deleteContainer(id: string) {

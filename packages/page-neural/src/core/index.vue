@@ -51,7 +51,8 @@
       // { label: '请求', icon: 'Undo', key: 'request' },
     ],
     [
-      { label: '容器设置', icon: 'Settings2', key: 'container.setting' },
+      { label: '设置', icon: 'Settings2', key: 'container.setting' },
+      { label: '复制', icon: 'Copy', key: 'container.copy' },
       { label: '删除', icon: 'Trash2', key: 'container.delete.confirm' },
     ],
   ];
@@ -61,12 +62,20 @@
       showMaterials.value = true;
     },
     container: {
-      add: () => {
-        console.log('add container');
-      },
       setting: () => {
         const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
         openModal('container', activeContainer?.props || {});
+      },
+      copy: () => {
+        const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
+        if (!activeContainer) {
+          return;
+        }
+        if (activeContainer.id === CONTAINER_ROOT_ID) {
+          neuralToastWarning('不能复制根容器', '拒绝');
+          return;
+        }
+        pageNeuralStore.copyContainer(activeContainer.id);
       },
       delete: {
         confirm: () => {
