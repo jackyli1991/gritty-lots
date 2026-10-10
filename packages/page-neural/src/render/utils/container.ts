@@ -9,24 +9,42 @@ export function generateContainerStyle(props: Record<string, any>): Record<strin
   // 背景颜色
   style.backgroundColor = props.backgroundColor;
 
+  // 盒模型
+  const { margin, border, padding, width, height, borderRadius, units } = props.boxModel;
   // 边框
-  if (props.borderWidth && props.borderStyle && props.borderColor) {
-    style.borderWidth = props.borderWidth + 'px';
-    style.borderStyle = props.borderStyle;
-    style.borderColor = props.borderColor;
-  }
-  // 圆角
-  if (props.borderRadius) {
-    style.borderRadius = props.borderRadius + 'px';
+  if (border) {
+    const unit = units.border;
+    const { style: borderStyle, top, right, bottom, left, color } = border;
+    style.borderWidth = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+    style.borderColor = color;
+    style.borderStyle = borderStyle;
   }
 
+  // padding
+  if (padding) {
+    const unit = units.padding;
+    const { top, right, bottom, left } = padding;
+    style.padding = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+  }
+  // margin
+  if (margin) {
+    const unit = units.margin;
+    const { top, right, bottom, left } = margin;
+    style.margin = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+  }
+  // 圆角
+  if (borderRadius) {
+    const unit = units.border;
+    const { topLeft, topRight, bottomRight, bottomLeft } = borderRadius;
+    style.borderRadius = `${topLeft}${unit} ${topRight}${unit} ${bottomRight}${unit} ${bottomLeft}${unit}`;
+  }
   // 宽度
-  if (props.width && props.widthUnit) {
-    style.width = props.width + props.widthUnit;
+  if (width) {
+    style.width = width + units.width;
   }
   // 高度
-  if (props.height && props.heightUnit) {
-    style.height = props.height + props.heightUnit;
+  if (height) {
+    style.height = height + units.height;
   }
   return style;
 }

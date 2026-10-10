@@ -12,7 +12,8 @@ import {
   PanelsTopLeft,
   Info,
   TriangleAlert,
-  Copy
+  Copy,
+  Link,
 } from '@lucide/vue';
 
 export default {
@@ -29,5 +30,6 @@ export default {
   PanelsTopLeft,
   Info,
   TriangleAlert,
-  Copy
+  Copy,
+  Link,
 };

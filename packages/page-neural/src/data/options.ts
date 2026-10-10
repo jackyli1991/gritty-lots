@@ -4,6 +4,8 @@ export const unitOptions = [
   { label: 'px', value: 'px' },
   { label: 'rem', value: 'rem' },
   { label: 'em', value: 'em' },
+  { label: 'vh', value: 'vh' },
+  { label: 'vw', value: 'vw' },
 ];
 
 // 边框样式

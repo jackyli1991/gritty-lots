@@ -11,12 +11,17 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BoxModel: typeof import('./src/components/boxModel/boxModel.vue')['default']
+    Checkbox: typeof import('./src/components/checkbox/Checkbox.vue')['default']
+    CodeMirror: typeof import('./src/components/codeMirror/CodeMirror.vue')['default']
+    ColorPicker: typeof import('./src/components/colorPicker/ColorPicker.vue')['default']
+    Divider: typeof import('./src/components/divider/Divider.vue')['default']
     Form: typeof import('./src/components/form/Form.vue')['default']
     FormItem: typeof import('./src/components/form/FormItem.vue')['default']
     Icon: typeof import('./src/components/icon/icon.vue')['default']
+    Input: typeof import('./src/components/input/Input.vue')['default']
+    InputNumberSelectGroup: typeof import('./src/components/InputNumberSelectGroup/InputNumberSelectGroup.vue')['default']
+    ObjectEditor: typeof import('./src/components/objectEditor/ObjectEditor.vue')['default']
     Toolbar: typeof import('./src/components/toolbar/Toolbar.vue')['default']
-    Checkbox: typeof import('./src/components/checkbox/Checkbox.vue')['default']
-    DraggableItem: typeof import('./src/dnd/components/draggableItem.vue')['default']
-    DroppableItem: typeof import('./src/dnd/components/droppableItem.vue')['default']
   }
 }

@@ -21,8 +21,6 @@ export const usePageNeuralStore = defineStore('page-neural', {
         props: {
           width: 100,
           height: 100,
-          widthUnit: '%',
-          heightUnit: '%',
         },
       }),
     ] as Container[],
