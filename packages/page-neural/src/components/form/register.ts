@@ -7,6 +7,7 @@ import Select from 'primevue/select'; // 选择框
 import SelectButton from 'primevue/selectbutton'; // 选择框按钮
 import Slider from 'primevue/slider'; // 滑块
 
+import BackgroundModel from '../backgroundModel'; // 背景模型编辑器
 import BoxModel from '../boxModel'; // 盒模型编辑器
 import Checkbox from '../checkbox'; // 复选框
 import ColorPicker from '../colorPicker'; // 颜色选择器
@@ -30,4 +31,5 @@ export {
   SelectButton,
   InputNumberSelectGroup,
   BoxModel,
+  BackgroundModel,
 };

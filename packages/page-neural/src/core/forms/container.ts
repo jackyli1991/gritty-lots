@@ -31,10 +31,11 @@ const schema: FormItemProps[] = [
     component: 'Fieldset',
     children: [
       {
-        label: '背景色',
-        fieldName: 'backgroundColor',
-        component: 'ColorPicker',
-        class: 'col-span-1',
+        label: '',
+        showLabel: false,
+        fieldName: 'backgroundModel',
+        component: 'BackgroundModel',
+        class: 'col-span-full',
         componentProps: {},
         help: [],
         required: true,

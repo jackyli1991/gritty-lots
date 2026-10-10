@@ -14,6 +14,15 @@ import {
   TriangleAlert,
   Copy,
   Link,
+  ArrowUpToLine,
+  ArrowUpRight,
+  ArrowRightToLine,
+  ArrowDownRight,
+  ArrowDownToLine,
+  ArrowDownLeft,
+  ArrowLeftToLine,
+  ArrowUpLeft,
+  Shrink,
 } from '@lucide/vue';
 
 export default {
@@ -32,4 +41,13 @@ export default {
   TriangleAlert,
   Copy,
   Link,
+  ArrowUpToLine,
+  ArrowUpRight,
+  ArrowRightToLine,
+  ArrowDownRight,
+  ArrowDownToLine,
+  ArrowDownLeft,
+  ArrowLeftToLine,
+  ArrowUpLeft,
+  Shrink,
 };

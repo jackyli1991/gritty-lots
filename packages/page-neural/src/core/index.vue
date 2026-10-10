@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { DragDropProvider } from '@dnd-kit/vue';
-  import { NeuralToolbar, BoxModel } from '@neural/components';
+  import { NeuralToolbar } from '@neural/components';
   import type { ToolbarItem } from '@neural/components/toolbar';
   import { useModal } from '@neural/composables/userModal';
   import { useNeuralToast } from '@neural/composables/useToast';

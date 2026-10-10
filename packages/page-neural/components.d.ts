@@ -11,6 +11,7 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BackgroundModel: typeof import('./src/components/backgroundModel/backgroundModel.vue')['default']
     BoxModel: typeof import('./src/components/boxModel/boxModel.vue')['default']
     Checkbox: typeof import('./src/components/checkbox/Checkbox.vue')['default']
     CodeMirror: typeof import('./src/components/codeMirror/CodeMirror.vue')['default']
