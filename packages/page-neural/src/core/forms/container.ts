@@ -32,13 +32,14 @@ const schema: FormItemProps[] = [
     children: [
       {
         label: '',
-        showLabel: false,
+        // showLabel: false,
         fieldName: 'backgroundModel',
         component: 'BackgroundModel',
         class: 'col-span-full',
         componentProps: {},
         help: [],
-        required: true,
+        // required: true,
+        tips: '用于设置背景效果，包括背景颜色、图片、重复、位置、大小、剪裁等。',
       },
     ],
   },
@@ -92,13 +93,14 @@ const schema: FormItemProps[] = [
     children: [
       {
         label: '',
-        showLabel: false,
+        // showLabel: false,
         fieldName: 'boxModel',
         component: 'BoxModel',
         class: 'col-span-full',
         componentProps: {},
         help: [],
-        required: true,
+        // required: true,
+        tips: '用于设置盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
       },
     ],
   },

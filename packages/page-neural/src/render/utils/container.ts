@@ -6,8 +6,22 @@
 export function generateContainerStyle(props: Record<string, any>): Record<string, any> {
   const style: Record<string, any> = {};
 
-  // 背景颜色
-  style.backgroundColor = props.backgroundColor;
+  // 背景
+  const {
+    backgroundColor,
+    backgroundRepeat,
+    backgroundSize,
+    backgroundImage,
+    backgroundPosition,
+    backgroundOrigin,
+  } = props.backgroundModel;
+
+  style.backgroundColor = backgroundColor;
+  style.backgroundRepeat = backgroundRepeat;
+  style.backgroundSize = backgroundSize;
+  style.backgroundImage = backgroundImage ? `url(${backgroundImage})` : 'none';
+  style.backgroundPosition = backgroundPosition;
+  style.backgroundOrigin = backgroundOrigin;
 
   // 盒模型
   const { margin, border, padding, width, height, borderRadius, units } = props.boxModel;

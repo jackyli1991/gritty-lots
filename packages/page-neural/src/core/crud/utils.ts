@@ -45,6 +45,15 @@ export function generateContainer({
         units: { margin: 'px', border: 'px', padding: 'px', width: '%', height: '%' },
         ...props,
       },
+      backgroundModel: {
+        backgroundColor: '',
+        backgroundImage: '',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        backgroundSize: 'cover',
+        backgroundOrigin: 'padding-box',
+        backgroundClip: 'border-box',
+      },
     },
     children: [],
   };
