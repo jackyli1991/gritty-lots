@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-  import { clipOptions, originOptions, repeatOptions, sizeOptions } from '@neural/data';
-  import Badge from 'primevue/badge';
   import Button from 'primevue/button';
   import type { FileUploadUploaderEvent } from 'primevue/fileupload';
   import FileUpload from 'primevue/fileupload';
-  import InputText from 'primevue/inputtext';
-  import Listbox from 'primevue/listbox';
-  import Popover from 'primevue/popover';
+  import vTooltip from 'primevue/tooltip';
   import { computed, onBeforeUnmount, useTemplateRef } from 'vue';
 
   import ColorPicker from '../colorPicker';
@@ -22,29 +18,6 @@
     backgroundClip: string; // background-clip 背景绘制区域
     backgroundSize: string; // background-size 预设关键字或自定义 CSS 值
   }
-
-  /** 九宫格位置项：图标名 / CSS 关键字 / 提示语 */
-  interface PositionItem {
-    icon: string;
-    value: string;
-    label: string;
-  }
-
-  /** 九宫格位置配置，顺序即网格渲染顺序 */
-  const positions: PositionItem[] = [
-    { icon: 'ArrowUpLeft', value: 'left top', label: '左上' },
-    { icon: 'ArrowUpToLine', value: 'center top', label: '顶部居中' },
-    { icon: 'ArrowUpRight', value: 'right top', label: '右上' },
-    { icon: 'ArrowLeftToLine', value: 'left center', label: '左侧居中' },
-    { icon: 'Shrink', value: 'center center', label: '居中' },
-    { icon: 'ArrowRightToLine', value: 'right center', label: '右侧居中' },
-    { icon: 'ArrowDownLeft', value: 'left bottom', label: '左下' },
-    { icon: 'ArrowDownToLine', value: 'center bottom', label: '底部居中' },
-    { icon: 'ArrowDownRight', value: 'right bottom', label: '右下' },
-  ];
-
-  /** background-size 预设关键字 */
-  const presetSizes = ['cover', 'contain', 'auto'];
 
   /** v-model 绑定，带默认值 */
   const model = defineModel<BackgroundModelValue>({
@@ -70,106 +43,31 @@
     backgroundSize: model.value.backgroundSize,
   }));
 
-  /** Listbox 选中值：预设关键字或 custom；选自定义时给出默认尺寸 */
-  const sizeMode = computed<string>({
-    get: () =>
-      presetSizes.includes(model.value.backgroundSize) ? model.value.backgroundSize : 'custom',
-    set: (val) => {
-      model.value = {
-        ...model.value,
-        backgroundSize: val === 'custom' ? '100% auto' : val,
-      };
-    },
-  });
-
-  /** background-size 触发按钮文案：预设显示关键字，自定义显示实际 CSS 值 */
-  const sizeLabel = computed(() =>
-    sizeMode.value === 'custom' ? model.value.backgroundSize || '自定义' : sizeMode.value
-  );
-
-  /** 点击位置图标，写入 background-position */
-  const setPosition = (val: string) => {
-    model.value = { ...model.value, backgroundPosition: val };
-  };
-
   /** 颜色选择器值更新 */
   const onColorChange = (val?: string) => {
     if (val === undefined) return;
     model.value = { ...model.value, backgroundColor: val };
   };
 
-  /** Listbox 选择 background-repeat 后写回 */
-  const onRepeatChange = (val?: string) => {
-    if (!val) return;
-    model.value = { ...model.value, backgroundRepeat: val };
-  };
-
-  /** Listbox 选择 background-origin 后写回 */
-  const onOriginChange = (val?: string) => {
-    if (!val) return;
-    model.value = { ...model.value, backgroundOrigin: val };
-  };
-
-  /** Listbox 选择 background-clip 后写回 */
-  const onClipChange = (val?: string) => {
-    if (!val) return;
-    model.value = { ...model.value, backgroundClip: val };
-  };
-
-  /** Listbox 选择 background-size 预设项后写回 */
-  const onSizeSelect = (val?: string) => {
-    if (!val) return;
-    sizeMode.value = val;
-  };
-
-  /** 自定义 background-size 输入 */
-  const onCustomSizeChange = (val?: string) => {
-    if (val === undefined) return;
-    model.value = { ...model.value, backgroundSize: val };
-  };
-
-  /** background-repeat 选择 Popover 实例引用 */
-  const repeatPopover = useTemplateRef<InstanceType<typeof Popover>>('repeatPopover');
-
-  /** background-origin 选择 Popover 实例引用 */
-  const originPopover = useTemplateRef<InstanceType<typeof Popover>>('originPopover');
-
-  /** background-clip 选择 Popover 实例引用 */
-  const clipPopover = useTemplateRef<InstanceType<typeof Popover>>('clipPopover');
-
-  /** background-size 选择 Popover 实例引用 */
-  const sizePopover = useTemplateRef<InstanceType<typeof Popover>>('sizePopover');
-
-  /** 打开 background-repeat 选择 Popover */
-  const openRepeatPopover = (e: MouseEvent) => {
-    repeatPopover.value?.toggle(e);
-  };
-
-  /** 打开 background-origin 选择 Popover */
-  const openOriginPopover = (e: MouseEvent) => {
-    originPopover.value?.toggle(e);
-  };
-
-  /** 打开 background-clip 选择 Popover */
-  const openClipPopover = (e: MouseEvent) => {
-    clipPopover.value?.toggle(e);
-  };
-
-  /** 打开 background-size 选择 Popover */
-  const openSizePopover = (e: MouseEvent) => {
-    sizePopover.value?.toggle(e);
-  };
-
   /** 当前上传图片生成的 objectURL，替换图片时回收 */
   let currentObjectUrl: string | null = null;
+
+  /** FileUpload 组件实例，用于触发文件选择和清空内部文件列表 */
+  const fileUploadRef = useTemplateRef<InstanceType<typeof FileUpload>>('fileUploadRef');
+
+  /** 点击预览区域触发文件选择 */
+  const onChoose = () => {
+    fileUploadRef.value?.choose();
+  };
 
   /** FileUpload 自定义上传：读取本地图片写入 background-image */
   const onImageUpload = (e: FileUploadUploaderEvent) => {
     const file = Array.isArray(e.files) ? e.files[0] : e.files;
-    if (!file) return;
+    if (!file || !file.type.startsWith('image/')) return;
     if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
     currentObjectUrl = URL.createObjectURL(file);
     model.value = { ...model.value, backgroundImage: currentObjectUrl };
+    fileUploadRef.value?.clear();
   };
 
   /** 清除已上传的背景图片，并回收 objectURL */
@@ -185,211 +83,80 @@
   onBeforeUnmount(() => {
     if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
   });
-
-  /** 位置图标按钮样式，当前选中项高亮 */
-  const getPositionClass = (val: string) => [
-    'p-0.5 rounded transition-colors',
-    model.value.backgroundPosition === val
-      ? 'bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300'
-      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700',
-  ];
 </script>
 
 <template>
-  <div class="flex items-start gap-3 w-full h-40">
-    <!-- 左侧：背景效果实时预览框（铺满剩余宽度） -->
-    <div
-      class="relative flex-1 min-w-0 h-full rounded border border-gray-300 dark:border-gray-600 overflow-hidden bg-gray-50 dark:bg-gray-800"
-      :style="previewStyle"
-    >
-      <!-- 九宫格 background-position 快捷选择 -->
-      <div class="absolute inset-0 grid grid-cols-3 grid-rows-3">
-        <template v-for="(pos, idx) in positions" :key="pos.value">
-          <!-- 中间格：居中定位图标 -->
-          <div v-if="idx === 4" class="flex items-center justify-center">
-            <NeuralIcon
-              name="Shrink"
-              label="居中"
-              :class="getPositionClass(pos.value)"
-              @click="setPosition(pos.value)"
-            />
-          </div>
-          <!-- 其余八格：对应方位图标 -->
-          <div v-else class="flex items-center justify-center">
-            <NeuralIcon
-              :name="pos.icon"
-              :label="pos.label"
-              :class="getPositionClass(pos.value)"
-              @click="setPosition(pos.value)"
-            />
+  <div class="flex flex-col gap-2 w-full h-40">
+    <!-- 预览区：支持拖拽或点击上传背景图片 -->
+    <div class="relative flex-1 min-w-0">
+      <FileUpload
+        ref="fileUploadRef"
+        mode="advanced"
+        accept="image/*"
+        :auto="true"
+        :customUpload="true"
+        :pt="{
+          root: {
+            class:
+              'relative! h-full! w-full! rounded! overflow-hidden! border! border-gray-300! dark:border-gray-600! cursor-pointer!',
+            style: previewStyle,
+          },
+          header: { class: 'hidden!' },
+          content: { class: 'p-2! h-full!' },
+          empty: { class: 'h-full w-full' },
+        }"
+        @uploader="onImageUpload"
+      >
+        <!-- 空文件列表时显示上传提示，整个区域可点击选择文件 -->
+        <template #empty>
+          <div class="flex h-full w-full items-center justify-center" @click="onChoose">
+            <div
+              v-if="!model.backgroundImage"
+              class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500"
+            >
+              <NeuralIcon name="CloudUpload" :size="28" label="上传背景图片" />
+              <span class="text-xs">拖拽图片到此处或点击上传</span>
+            </div>
           </div>
         </template>
-      </div>
+      </FileUpload>
     </div>
 
-    <!-- 右侧：背景属性配置区（固定宽度） -->
-    <div class="flex shrink-0 w-35 h-full flex-col gap-2">
-      <!-- 第一行：background-color 颜色选择器 + 背景图片上传（铺满右侧整行） -->
-      <div class="flex items-center gap-2">
-        <ColorPicker
-          :modelValue="model.backgroundColor"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onColorChange"
-        />
-        <!-- 背景图片上传（铺满右侧整行），已上传时显示清除按钮 -->
-        <FileUpload
-          mode="basic"
-          accept="image/*"
-          :auto="true"
-          :customUpload="true"
-          chooseLabel=" "
-          :pt="{
-            root: { class: 'w-full flex-1' },
-            pcChooseButton: { root: { class: 'w-full' } },
-          }"
-          @uploader="onImageUpload"
-        />
-        <NeuralIcon
-          v-if="model.backgroundImage"
-          name="X"
-          label="清除背景图片"
-          class="p-1 shrink-0 rounded text-gray-500 hover:text-red-600 hover:bg-red-100 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900 transition-colors"
-          @click="onClearImage"
-        />
-      </div>
-
-      <!-- 第二行：background-size 选择 -->
-      <Button
-        type="button"
+    <!-- 底部：background-color 颜色选择器 + 清除背景图片 -->
+    <div class="flex items-center gap-2">
+      <ColorPicker
+        v-tooltip.top="'背景颜色'"
+        :modelValue="model.backgroundColor"
+        :formControl="{ novalidate: true }"
         size="small"
-        severity="secondary"
-        variant="outlined"
-        fluid
-        class="justify-start!"
-        @click="openSizePopover"
-      >
-        <Badge class="w-10" severity="secondary" value="size" />
-        {{ sizeLabel }}
-      </Button>
-
-      <!-- 第三行：background-repeat 选择 -->
-      <Button
-        type="button"
-        size="small"
-        severity="secondary"
-        variant="outlined"
-        fluid
-        class="justify-start!"
-        @click="openRepeatPopover"
-      >
-        <Badge class="w-10" severity="secondary" value="repeat" />
-        {{ model.backgroundRepeat }}
-      </Button>
-
-      <!-- 第四行：background-origin 选择 -->
-      <Button
-        type="button"
-        size="small"
-        severity="secondary"
-        variant="outlined"
-        fluid
-        class="justify-start!"
-        @click="openOriginPopover"
-      >
-        <Badge class="w-10" severity="secondary" value="origin" />
-        {{ model.backgroundOrigin }}
-      </Button>
-
-      <!-- 第五行：background-clip 选择 -->
-      <Button
-        type="button"
-        size="small"
-        severity="secondary"
-        variant="outlined"
-        fluid
-        class="justify-start!"
-        @click="openClipPopover"
-      >
-        <Badge class="w-10" severity="secondary" value="clip" />
-        {{ model.backgroundClip }}
-      </Button>
+        @update:modelValue="onColorChange"
+      />
+      <template v-if="model.backgroundImage">
+        <Button size="small" severity="secondary" class="h-6">
+          <NeuralIcon name="Scissors" :size="16" class="rounded text-gray-500 transition-colors" />
+          裁剪
+        </Button>
+        <Button size="small" severity="secondary" class="h-6">
+          <NeuralIcon
+            name="TrianglesCenterlineDashedHorizontal"
+            :size="16"
+            class="rounded text-gray-500 transition-colors"
+          />
+          垂直居中
+        </Button>
+        <Button size="small" severity="secondary" class="h-6">
+          <NeuralIcon
+            name="TrianglesCenterlineDashedVertical"
+            :size="16"
+            class="rounded text-gray-500 transition-colors"
+          />
+          水平居中
+        </Button>
+        <Button size="small" severity="danger" variant="text" class="h-6" @click="onClearImage">
+          <NeuralIcon name="X" :size="16" class="rounded transition-colors text-red-600" />
+          删除
+        </Button>
+      </template>
     </div>
-
-    <!-- background-repeat 选择 Popover：Listbox 选取重复方式 -->
-    <Popover ref="repeatPopover">
-      <div class="flex flex-col gap-2">
-        <span class="text-xs font-medium text-gray-600 dark:text-gray-300">background-repeat</span>
-        <Listbox
-          :modelValue="model.backgroundRepeat"
-          :options="repeatOptions"
-          optionLabel="label"
-          optionValue="value"
-          size="small"
-          class="w-32"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onRepeatChange"
-        />
-      </div>
-    </Popover>
-
-    <!-- background-origin 选择 Popover：Listbox 选取背景定位区域 -->
-    <Popover ref="originPopover">
-      <div class="flex flex-col gap-2">
-        <span class="text-xs font-medium text-gray-600 dark:text-gray-300">background-origin</span>
-        <Listbox
-          :modelValue="model.backgroundOrigin"
-          :options="originOptions"
-          optionLabel="label"
-          optionValue="value"
-          size="small"
-          class="w-36"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onOriginChange"
-        />
-      </div>
-    </Popover>
-
-    <!-- background-clip 选择 Popover：Listbox 选取背景绘制区域 -->
-    <Popover ref="clipPopover">
-      <div class="flex flex-col gap-2">
-        <span class="text-xs font-medium text-gray-600 dark:text-gray-300">background-clip</span>
-        <Listbox
-          :modelValue="model.backgroundClip"
-          :options="clipOptions"
-          optionLabel="label"
-          optionValue="value"
-          size="small"
-          class="w-36"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onClipChange"
-        />
-      </div>
-    </Popover>
-
-    <!-- background-size 选择 Popover：Listbox 选取预设，选自定义时补充输入框 -->
-    <Popover ref="sizePopover">
-      <div class="flex flex-col gap-2 w-40">
-        <span class="text-xs font-medium text-gray-600 dark:text-gray-300">background-size</span>
-        <Listbox
-          :modelValue="sizeMode"
-          :options="sizeOptions"
-          optionLabel="label"
-          optionValue="value"
-          size="small"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onSizeSelect"
-        />
-        <InputText
-          v-if="sizeMode === 'custom'"
-          :modelValue="model.backgroundSize"
-          size="small"
-          fluid
-          class="font-mono"
-          placeholder="例如 100px 100px"
-          :formControl="{ novalidate: true }"
-          @update:modelValue="onCustomSizeChange"
-        />
-      </div>
-    </Popover>
   </div>
 </template>

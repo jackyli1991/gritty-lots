@@ -14,6 +14,7 @@ import {
   TriangleAlert,
   Copy,
   Link,
+  CloudUpload,
   ArrowUpToLine,
   ArrowUpRight,
   ArrowRightToLine,
@@ -23,6 +24,9 @@ import {
   ArrowLeftToLine,
   ArrowUpLeft,
   Shrink,
+  Scissors,
+  TrianglesCenterlineDashedHorizontal,
+  TrianglesCenterlineDashedVertical,
 } from '@lucide/vue';
 
 export default {
@@ -41,6 +45,7 @@ export default {
   TriangleAlert,
   Copy,
   Link,
+  CloudUpload,
   ArrowUpToLine,
   ArrowUpRight,
   ArrowRightToLine,
@@ -50,4 +55,7 @@ export default {
   ArrowLeftToLine,
   ArrowUpLeft,
   Shrink,
+  Scissors,
+  TrianglesCenterlineDashedHorizontal,
+  TrianglesCenterlineDashedVertical,
 };

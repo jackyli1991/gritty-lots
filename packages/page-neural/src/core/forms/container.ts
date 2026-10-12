@@ -122,5 +122,6 @@ export default {
   modalConfig: {
     header: '容器配置',
     component: 'drawer',
+    class: 'w-[450px]!',
   },
 };
