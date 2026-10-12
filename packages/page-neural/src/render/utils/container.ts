@@ -14,6 +14,7 @@ export function generateContainerStyle(props: Record<string, any>): Record<strin
     backgroundImage,
     backgroundPosition,
     backgroundOrigin,
+    backgroundClip,
   } = props.backgroundModel;
 
   style.backgroundColor = backgroundColor;
@@ -22,6 +23,7 @@ export function generateContainerStyle(props: Record<string, any>): Record<strin
   style.backgroundImage = backgroundImage ? `url(${backgroundImage})` : 'none';
   style.backgroundPosition = backgroundPosition;
   style.backgroundOrigin = backgroundOrigin;
+  style.backgroundClip = backgroundClip;
 
   // 盒模型
   const { margin, border, padding, width, height, borderRadius, units } = props.boxModel;

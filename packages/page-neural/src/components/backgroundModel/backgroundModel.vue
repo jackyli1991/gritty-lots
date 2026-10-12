@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { clipOptions, originOptions, repeatOptions, sizeOptions } from '@neural/data';
+  import Badge from 'primevue/badge';
   import Button from 'primevue/button';
   import type { FileUploadUploaderEvent } from 'primevue/fileupload';
   import FileUpload from 'primevue/fileupload';
@@ -227,7 +228,7 @@
     </div>
 
     <!-- 右侧：背景属性配置区（固定宽度） -->
-    <div class="flex shrink-0 w-30 h-full flex-col gap-2">
+    <div class="flex shrink-0 w-35 h-full flex-col gap-2">
       <!-- 第一行：background-color 颜色选择器 + 背景图片上传（铺满右侧整行） -->
       <div class="flex items-center gap-2">
         <ColorPicker
@@ -264,9 +265,12 @@
         severity="secondary"
         variant="outlined"
         fluid
-        :label="sizeLabel"
+        class="justify-start!"
         @click="openSizePopover"
-      />
+      >
+        <Badge class="w-10" severity="secondary" value="size" />
+        {{ sizeLabel }}
+      </Button>
 
       <!-- 第三行：background-repeat 选择 -->
       <Button
@@ -275,9 +279,12 @@
         severity="secondary"
         variant="outlined"
         fluid
-        :label="model.backgroundRepeat"
+        class="justify-start!"
         @click="openRepeatPopover"
-      />
+      >
+        <Badge class="w-10" severity="secondary" value="repeat" />
+        {{ model.backgroundRepeat }}
+      </Button>
 
       <!-- 第四行：background-origin 选择 -->
       <Button
@@ -286,9 +293,12 @@
         severity="secondary"
         variant="outlined"
         fluid
-        :label="model.backgroundOrigin"
+        class="justify-start!"
         @click="openOriginPopover"
-      />
+      >
+        <Badge class="w-10" severity="secondary" value="origin" />
+        {{ model.backgroundOrigin }}
+      </Button>
 
       <!-- 第五行：background-clip 选择 -->
       <Button
@@ -297,9 +307,12 @@
         severity="secondary"
         variant="outlined"
         fluid
-        :label="model.backgroundClip"
+        class="justify-start!"
         @click="openClipPopover"
-      />
+      >
+        <Badge class="w-10" severity="secondary" value="clip" />
+        {{ model.backgroundClip }}
+      </Button>
     </div>
 
     <!-- background-repeat 选择 Popover：Listbox 选取重复方式 -->

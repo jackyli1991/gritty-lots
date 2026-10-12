@@ -28,8 +28,8 @@ export const repeatOptions = [
 
 // background-origin 背景定位区域
 export const originOptions = [
-  { label: 'padding-box', value: 'padding-box' },
   { label: 'border-box', value: 'border-box' },
+  { label: 'padding-box', value: 'padding-box' },
   { label: 'content-box', value: 'content-box' },
 ];
 
@@ -38,7 +38,7 @@ export const clipOptions = [
   { label: 'border-box', value: 'border-box' },
   { label: 'padding-box', value: 'padding-box' },
   { label: 'content-box', value: 'content-box' },
-  { label: 'text', value: 'text' },
+  // { label: 'text', value: 'text' },
 ];
 
 // background-size 尺寸预设
