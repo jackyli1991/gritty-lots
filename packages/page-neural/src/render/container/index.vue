@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import ContainerLayout from '@neural/core/toolbars/containerLayout.vue';
   import DroppableItem from '@neural/dnd/components/droppableItem.vue';
   import { usePageNeuralStore } from '@neural/store';
   import { computed } from 'vue';
@@ -32,12 +33,13 @@
 
 <template>
   <div
-    class="page-neural-container"
+    class="page-neural-container relative"
     :class="containerClassList"
     :style="containerStyle"
     @click.stop="handleActive"
   >
     <DroppableItem :id="props.id || ''" :active="pageNeuralStore.activeNodeId === props.id">
+      <ContainerLayout :id="props.id || ''" />
       <slot></slot>
       <PageNeuralContainer v-for="child in container?.children || []" :key="child" :id="child" />
     </DroppableItem>

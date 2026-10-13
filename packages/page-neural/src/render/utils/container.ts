@@ -64,6 +64,30 @@ export function generateContainerStyle(props: Record<string, any>): Record<strin
   if (height) {
     style.height = height + units.height;
   }
+
+  // 布局模型
+  const layoutModel = props.layoutModel;
+  if (layoutModel) {
+    const { type } = layoutModel;
+    if (type === 'flex') {
+      style.display = 'flex';
+      style.flexDirection = layoutModel.flexDirection;
+      style.justifyContent = layoutModel.justifyContent;
+      style.alignItems = layoutModel.alignItems;
+      style.flexWrap = layoutModel.flexWrap;
+      if (layoutModel.gap) {
+        style.gap = `${layoutModel.gap}px`;
+      }
+    } else if (type === 'grid') {
+      style.display = 'grid';
+      style.gridTemplateColumns = layoutModel.gridTemplateColumns;
+      style.gridTemplateRows = layoutModel.gridTemplateRows;
+      if (layoutModel.gap) {
+        style.gap = `${layoutModel.gap}px`;
+      }
+    }
+  }
+
   return style;
 }
 

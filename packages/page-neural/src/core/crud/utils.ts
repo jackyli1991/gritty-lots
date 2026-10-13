@@ -65,6 +65,16 @@ export function generateContainer({
         enable: true,
         responseField: 'result.list',
       },
+      layoutModel: {
+        type: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        flexWrap: 'nowrap',
+        gap: 0,
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateRows: 'auto',
+      },
     },
     children: [],
   };

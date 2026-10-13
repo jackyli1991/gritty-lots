@@ -37,7 +37,8 @@
     "InputColorSwatchBackground",
     "InputColorTransparencyGrid",
     "uuidv",
-    "toggleable"
+    "toggleable",
+    "togglebutton"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

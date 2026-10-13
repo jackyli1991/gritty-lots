@@ -77,6 +77,12 @@ export const usePageNeuralStore = defineStore('page-neural', {
     setActiveNodeId(id: string) {
       this.activeNodeId = id;
     },
+    // 局部更新容器 props（浅合并）
+    updateContainerProps(id: string, partial: Record<string, any>) {
+      const container = this.getContainer(id);
+      if (!container) return;
+      container.props = { ...container.props, ...partial };
+    },
   },
 });
 
