@@ -21,26 +21,29 @@ export function useAttrConfig(options: AttrConfigOptions) {
     }
     const { type } = activeNode;
     const { formConfig, modalConfig } = options.formMaps[type];
-    console.log('formConfig', type, activeNode.props);
 
     return h(
       Panel,
       {
-        class: 'h-full ml-2 ' + modalConfig.class,
+        class: 'h-full ml-2 flex! flex-col! overflow-hidden ' + modalConfig.class,
         header: modalConfig.header,
+        pt: {
+          contentContainer: 'flex-1! overflow-auto',
+        },
       },
-      [
-        h(NeuralForm, {
-          key: activeNode.id,
-          data: activeNode.props,
-          ...formConfig,
-          onSubmit: (data: Record<string, any>) => {
-            console.log('提交数据', data);
-            Object.assign(activeNode.props, data);
-          },
-          onClose: () => {},
-        }),
-      ]
+      {
+        default: () =>
+          h(NeuralForm, {
+            key: activeNode.id,
+            data: activeNode.props,
+            ...formConfig,
+            onSubmit: (data: Record<string, any>) => {
+              console.log('提交数据', data);
+              Object.assign(activeNode.props, data);
+            },
+            onClose: () => {},
+          }),
+      }
     );
   });
 

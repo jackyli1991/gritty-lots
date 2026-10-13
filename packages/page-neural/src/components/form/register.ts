@@ -6,6 +6,7 @@ import Panel from 'primevue/panel'; // 面板
 import Select from 'primevue/select'; // 选择框
 import SelectButton from 'primevue/selectbutton'; // 选择框按钮
 import Slider from 'primevue/slider'; // 滑块
+import ToggleSwitch from 'primevue/toggleswitch'; // 开关按钮
 
 import BackgroundModel from '../backgroundModel'; // 背景模型编辑器
 import BoxModel from '../boxModel'; // 盒模型编辑器
@@ -15,6 +16,7 @@ import Divider from '../divider'; // 分隔线
 import Input from '../input'; // 输入框
 import InputNumberSelectGroup from '../InputNumberSelectGroup'; // 数字输入框 + 选择器组合
 import ObjectEditor from '../objectEditor'; // 对象编辑器
+import NeuralForm from './Form.vue'; // 表单(用于嵌套表单)
 
 export {
   InputText,
@@ -22,6 +24,7 @@ export {
   ObjectEditor,
   Input,
   Slider,
+  ToggleSwitch,
   InputNumber,
   Fieldset,
   Panel,
@@ -32,4 +35,5 @@ export {
   InputNumberSelectGroup,
   BoxModel,
   BackgroundModel,
+  NeuralForm,
 };

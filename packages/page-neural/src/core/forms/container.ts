@@ -2,7 +2,27 @@ import type { FormItemProps } from '@neural/components/form';
 // import { unitOptions } from '@neural/data/options';
 import { z } from 'zod';
 
+import requestFormConfig from './request';
+
 const schema: FormItemProps[] = [
+  {
+    label: '请求',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [
+      {
+        label: '',
+        fieldName: 'requestModel',
+        component: 'NeuralForm',
+        class: 'col-span-full',
+        componentProps: {
+          ...requestFormConfig.formConfig,
+        },
+        help: [],
+        tips: '用于设置请求属性，包括方法、URL、参数、头信息等。',
+      },
+    ],
+  },
   {
     label: '背景',
     formGroup: true,

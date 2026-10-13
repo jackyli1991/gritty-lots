@@ -19,17 +19,9 @@ const schema: FormItemProps[] = [
   {
     label: '',
     fieldName: 'enable',
-    component: 'SelectButton',
+    component: 'ToggleSwitch',
     class: 'col-span-1',
-    componentProps: {
-      options: [
-        { label: '启用', value: true },
-        { label: '停用', value: false },
-      ],
-      optionLabel: 'label',
-      optionValue: 'value',
-      size: 'small',
-    },
+    componentProps: {},
   },
   {
     label: '请求方法',

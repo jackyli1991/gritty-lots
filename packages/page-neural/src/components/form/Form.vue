@@ -1,8 +1,8 @@
 <template>
   <!-- $form 是表单实例，包含 states、handleSubmit、reset、validate -->
-  <Form v-slot="$form" :resolver="resolver" :initialValues="props.data" @submit="onSubmit">
+  <Form v-slot="$form" :resolver="resolver" :initialValues="dataSource" @submit="onSubmit">
     <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
-      <template v-for="schemaItem in props.schema" :key="schemaItem.fieldName">
+      <template v-for="(schemaItem, index) in props.schema" :key="schemaItem.fieldName">
         <template v-if="schemaItem.formGroup && schemaItem.children?.length">
           <component
             class="w-full col-span-full"
@@ -16,6 +16,8 @@
                 background: '#fafafa',
               },
             }"
+            :collapsed="activeFieldset !== index"
+            @update:collapsed="(val: number) => (activeFieldset = val ? null : index)"
           >
             <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
               <FormItem
@@ -117,6 +119,9 @@
 
   const loading = ref(false);
 
+  /** 当前展开的 Fieldset 索引（手风琴模式：同时只展开一个） */
+  const activeFieldset = ref<number | null>(0);
+
   const props = withDefaults(defineProps<Props>(), {
     autoComplete: true,
     submitText: '提交',
@@ -125,6 +130,22 @@
   });
 
   const emit = defineEmits(['submit', 'close']);
+
+  /** v-model 绑定值，优先使用；未传时回退到 data prop */
+  const model = defineModel<Record<string, any>>();
+
+  /** 数据源：优先使用 v-model（modelValue），其次使用 data prop */
+  const dataSource = computed<Record<string, any>>(() => model.value ?? props.data ?? {});
+
+  /** 更新数据源字段值。使用 v-model 时整体赋值触发 update:modelValue；否则回退直接修改 data prop */
+  const setField = (field: string, value: unknown) => {
+    if (!props.autoComplete || !field) return;
+    if (model.value !== undefined) {
+      model.value = { ...model.value, [field]: value };
+    } else if (props.data) {
+      props.data[field] = value;
+    }
+  };
 
   // 提取额外的 modelValues：key 是组件 prop 名（如 selectValue），value 是数据字段名（如 widthUnit）
   // 生成符合 Vue 3 v-model:xxx 规范的绑定对：prop + onUpdate:prop 事件监听器
@@ -135,12 +156,8 @@
     }
     const obj: Record<string, any> = {};
     Object.entries(modelValues).forEach(([propName, dataField]) => {
-      obj[propName] = props.data?.[dataField];
-      obj[`onUpdate:${propName}`] = (value: unknown) => {
-        if (props.autoComplete && props.data) {
-          props.data[dataField] = value;
-        }
-      };
+      obj[propName] = dataSource.value[dataField];
+      obj[`onUpdate:${propName}`] = (value: unknown) => setField(dataField, value);
     });
     return obj;
   };
@@ -154,8 +171,8 @@
     value: unknown
   ) => {
     field.onChange?.({ value });
-    if (props.autoComplete && props.data && field.name) {
-      props.data[field.name] = value;
+    if (field.name) {
+      setField(field.name, value);
     }
   };
 

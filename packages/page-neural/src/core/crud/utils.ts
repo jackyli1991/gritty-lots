@@ -55,6 +55,16 @@ export function generateContainer({
         backgroundClip: 'border-box',
         scale: [1, 1],
       },
+      requestModel: {
+        url: '/test/api',
+        method: 'GET',
+        headers: {
+          keyword: 'params',
+        },
+        params: {},
+        enable: true,
+        responseField: 'result.list',
+      },
     },
     children: [],
   };

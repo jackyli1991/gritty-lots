@@ -144,7 +144,7 @@
         <NeuralToolbar :data="toolbarData" @click="handleClick" />
       </div>
       <!-- 内容区域 -->
-      <div class="flex-1 flex">
+      <div class="flex-1 flex overflow-hidden">
         <div class="flex-1">
           <Container :id="CONTAINER_ROOT_ID"></Container>
         </div>
