@@ -15,11 +15,11 @@
   // import { MiniMap } from '@vue-flow/minimap';
   import type { DragNodeOptions } from '@neural/types';
   import Toast from 'primevue/toast';
-  import MaterialToolbar from './toolbars/material.vue';
-  import ContainerToolbar from './toolbars/container.vue';
   import { ref } from 'vue';
 
   import ConfirmDialog from './confirmDialog.vue';
+  import ContainerToolbar from './toolbars/container.vue';
+  import MaterialToolbar from './toolbars/material.vue';
 
   const showMaterials = ref(false);
   const { createNode } = crud();
