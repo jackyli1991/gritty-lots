@@ -46,7 +46,7 @@ export function generateContainer({
         ...props,
       },
       backgroundModel: {
-        backgroundColor: '',
+        backgroundColor: '#fff',
         backgroundImage: '',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',

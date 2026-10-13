@@ -19,7 +19,7 @@ export function crud() {
 
   // 创建容器
   function createContainer(options: Omit<DragNodeOptions, 'type'>) {
-    console.log('createContainer', options);
+    // console.log('createContainer', options);
     const targetId: string = options.target?.id as string;
     const { type, name } = options.source?.data || {};
 

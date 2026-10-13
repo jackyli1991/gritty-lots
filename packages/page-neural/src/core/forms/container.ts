@@ -115,7 +115,7 @@ export default {
   // 弹窗配置
   modalConfig: {
     header: '容器配置',
-    component: 'dialog',
+    component: 'drawer',
     class: 'w-[450px]!',
   },
 };
