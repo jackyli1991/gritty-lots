@@ -2,6 +2,8 @@
   import Button from 'primevue/button';
   import type { FileUploadUploaderEvent } from 'primevue/fileupload';
   import FileUpload from 'primevue/fileupload';
+  import Listbox from 'primevue/listbox';
+  import Popover from 'primevue/popover';
   import vTooltip from 'primevue/tooltip';
   import { computed, onBeforeUnmount, useTemplateRef } from 'vue';
 
@@ -17,6 +19,7 @@
     backgroundOrigin: string; // background-origin 背景定位区域
     backgroundClip: string; // background-clip 背景绘制区域
     backgroundSize: string; // background-size 预设关键字或自定义 CSS 值
+    scale: [number, number]; // transform scale [x, y]，负值表示翻转
   }
 
   /** v-model 绑定，带默认值 */
@@ -26,9 +29,10 @@
       backgroundImage: '',
       backgroundPosition: 'center center',
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
       backgroundOrigin: 'padding-box',
       backgroundClip: 'border-box',
+      scale: [1, 1],
     }),
   });
 
@@ -41,12 +45,53 @@
     backgroundOrigin: model.value.backgroundOrigin,
     backgroundClip: model.value.backgroundClip,
     backgroundSize: model.value.backgroundSize,
+    transform: `scale(${model.value.scale[0]}, ${model.value.scale[1]})`,
   }));
 
   /** 颜色选择器值更新 */
   const onColorChange = (val?: string) => {
     if (val === undefined) return;
     model.value = { ...model.value, backgroundColor: val };
+  };
+
+  /** 翻转选项：水平翻转 / 垂直翻转 */
+  const flipOptions = [
+    { label: '水平翻转', value: 'h' },
+    { label: '垂直翻转', value: 'v' },
+  ];
+
+  /** Listbox 多选值：根据 scale 推导当前选中的翻转项 */
+  const flipSelection = computed<string[]>({
+    get: () => {
+      const result: string[] = [];
+      if (model.value.scale[0] === -1) result.push('h');
+      if (model.value.scale[1] === -1) result.push('v');
+      return result;
+    },
+    set: (vals) => {
+      model.value = {
+        ...model.value,
+        scale: [vals.includes('h') ? -1 : 1, vals.includes('v') ? -1 : 1],
+      };
+    },
+  });
+
+  /** 翻转按钮文案：根据 scale 推导 */
+  const flipLabel = computed(() => {
+    const h = model.value.scale[0] === -1;
+    const v = model.value.scale[1] === -1;
+    if (h && v) return '水平+垂直翻转';
+    if (h) return '水平翻转';
+    if (v) return '垂直翻转';
+    return '翻转';
+  });
+
+  /** 翻转选择 Popover 实例引用 */
+  const flipPopover = useTemplateRef<InstanceType<typeof Popover>>('flipPopover');
+
+  /** 打开翻转选择 Popover */
+  const openFlipPopover = (e: MouseEvent) => {
+    flipPopover.value?.toggle(e);
   };
 
   /** 当前上传图片生成的 objectURL，替换图片时回收 */
@@ -70,13 +115,22 @@
     fileUploadRef.value?.clear();
   };
 
-  /** 清除已上传的背景图片，并回收 objectURL */
+  /** 清除已上传的背景图片，回收 objectURL，并重置图片相关属性到默认值 */
   const onClearImage = () => {
     if (currentObjectUrl) {
       URL.revokeObjectURL(currentObjectUrl);
       currentObjectUrl = null;
     }
-    model.value = { ...model.value, backgroundImage: '' };
+    model.value = {
+      ...model.value,
+      backgroundImage: '',
+      backgroundPosition: 'center center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundOrigin: 'padding-box',
+      backgroundClip: 'border-box',
+      scale: [1, 1],
+    };
   };
 
   /** 组件卸载时回收 objectURL，避免内存泄漏 */
@@ -136,21 +190,14 @@
           <NeuralIcon name="Scissors" :size="16" class="rounded text-gray-500 transition-colors" />
           裁剪
         </Button>
-        <Button size="small" severity="secondary" class="h-6">
-          <NeuralIcon
-            name="TrianglesCenterlineDashedHorizontal"
-            :size="16"
-            class="rounded text-gray-500 transition-colors"
-          />
-          垂直居中
-        </Button>
-        <Button size="small" severity="secondary" class="h-6">
-          <NeuralIcon
-            name="TrianglesCenterlineDashedVertical"
-            :size="16"
-            class="rounded text-gray-500 transition-colors"
-          />
-          水平居中
+        <Button
+          size="small"
+          class="h-6"
+          :severity="flipSelection.length ? 'primary' : 'secondary'"
+          @click="openFlipPopover"
+        >
+          <NeuralIcon name="FlipHorizontal2" :size="16" class="rounded transition-colors" />
+          {{ flipLabel }}
         </Button>
         <Button size="small" severity="danger" variant="text" class="h-6" @click="onClearImage">
           <NeuralIcon name="X" :size="16" class="rounded transition-colors text-red-600" />
@@ -158,5 +205,23 @@
         </Button>
       </template>
     </div>
+
+    <!-- 翻转选择 Popover：多选 Listbox 选取水平/垂直翻转 -->
+    <Popover ref="flipPopover">
+      <div class="flex flex-col gap-2">
+        <span class="text-xs font-medium text-gray-600 dark:text-gray-300">翻转</span>
+        <Listbox
+          :modelValue="flipSelection"
+          :options="flipOptions"
+          optionLabel="label"
+          optionValue="value"
+          :multiple="true"
+          size="small"
+          class="w-32"
+          :formControl="{ novalidate: true }"
+          @update:modelValue="flipSelection = $event"
+        />
+      </div>
+    </Popover>
   </div>
 </template>

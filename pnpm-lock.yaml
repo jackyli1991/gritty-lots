@@ -217,6 +217,9 @@ importers:
       codemirror:
         specifier: ^6.0.2
         version: 6.0.2
+      cropper-next-vue:
+        specifier: ^0.4.0
+        version: 0.4.0(vue@3.5.40(typescript@6.0.3))
       lodash-es:
         specifier: ^4.18.1
         version: 4.18.1
@@ -2636,6 +2639,12 @@ packages:
 
   crelt@1.0.7:
     resolution: {integrity: sha512-aK6BbWfhf4U/wCcLHKPJl/xa6VkVstRaPywWtMKGwuOLc/wZTyQYuoxgvZnNsBvv7Kg3YTBQYYBCggcviQczuA==}
+
+  cropper-next-vue@0.4.0:
+    resolution: {integrity: sha512-JLBYkh1NChODdz4A9cXa/MbGROSubg+k4GCHAayouGA9D/Ds99+UwKVD7emS5E7KzP4W8lOdIfXKczAw3wm5dw==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      vue: ^3.0.0
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -6884,6 +6893,10 @@ snapshots:
       typescript: 6.0.3
 
   crelt@1.0.7: {}
+
+  cropper-next-vue@0.4.0(vue@3.5.40(typescript@6.0.3)):
+    dependencies:
+      vue: 3.5.40(typescript@6.0.3)
 
   cross-spawn@7.0.6:
     dependencies:

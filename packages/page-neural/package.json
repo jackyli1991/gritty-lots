@@ -29,6 +29,7 @@
     "@vue-flow/minimap": "^1.5.4",
     "@vueuse/core": "^14.4.0",
     "codemirror": "^6.0.2",
+    "cropper-next-vue": "^0.4.0",
     "lodash-es": "^4.18.1",
     "pinia": "^4.0.3",
     "primevue": "^5.0.1",

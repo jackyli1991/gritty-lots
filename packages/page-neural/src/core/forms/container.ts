@@ -39,7 +39,7 @@ const schema: FormItemProps[] = [
         componentProps: {},
         help: [],
         // required: true,
-        tips: '用于设置背景效果，包括背景颜色、图片、重复、位置、大小、剪裁等。',
+        tips: '用于设置背景效果，包括颜色、图片、重复、位置、大小、剪裁等。',
       },
     ],
   },

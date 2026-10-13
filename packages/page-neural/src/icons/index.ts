@@ -25,8 +25,8 @@ import {
   ArrowUpLeft,
   Shrink,
   Scissors,
-  TrianglesCenterlineDashedHorizontal,
-  TrianglesCenterlineDashedVertical,
+  FlipHorizontal2,
+  FlipVertical2,
 } from '@lucide/vue';
 
 export default {
@@ -56,6 +56,6 @@ export default {
   ArrowUpLeft,
   Shrink,
   Scissors,
-  TrianglesCenterlineDashedHorizontal,
-  TrianglesCenterlineDashedVertical,
+  FlipHorizontal2,
+  FlipVertical2,
 };
