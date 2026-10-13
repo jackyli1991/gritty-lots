@@ -28,6 +28,8 @@ export const usePageNeuralStore = defineStore('page-neural', {
   getters: {
     // 返回获取容器的函数
     getContainer: (state) => (id: string) => state.containers.find((item) => item.id === id),
+    // 返回当前激活的节点属性
+    activeNode: (state) => state.containers.find((item) => item.id === state.activeNodeId),
   },
   actions: {
     // 添加容器
@@ -77,3 +79,5 @@ export const usePageNeuralStore = defineStore('page-neural', {
     },
   },
 });
+
+export type PageNeuralStore = ReturnType<typeof usePageNeuralStore>;

@@ -2,6 +2,7 @@
   import { DragDropProvider } from '@dnd-kit/vue';
   import { NeuralToolbar } from '@neural/components';
   import type { ToolbarItem } from '@neural/components/toolbar';
+  import { useAttrConfig } from '@neural/composables/useAttrConfig';
   import { useModal } from '@neural/composables/userModal';
   import { useNeuralToast } from '@neural/composables/useToast';
   import { CONTAINER_ROOT_ID } from '@neural/const';
@@ -31,6 +32,11 @@
 
   const { openModal, ModalEl } = useModal({
     formMaps,
+  });
+
+  const { attrConfigEl } = useAttrConfig({
+    formMaps,
+    store: pageNeuralStore,
   });
 
   const toolbarData: ToolbarItem[][] = [
@@ -138,8 +144,12 @@
         <NeuralToolbar :data="toolbarData" @click="handleClick" />
       </div>
       <!-- 内容区域 -->
-      <div class="flex-1 overflow-hidden relative">
-        <Container :id="CONTAINER_ROOT_ID"></Container>
+      <div class="flex-1 flex">
+        <div class="flex-1">
+          <Container :id="CONTAINER_ROOT_ID"></Container>
+        </div>
+        <!-- 右侧属性编辑统一入口 -->
+        <component :is="attrConfigEl" />
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-end">

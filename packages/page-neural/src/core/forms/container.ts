@@ -3,28 +3,6 @@ import type { FormItemProps } from '@neural/components/form';
 import { z } from 'zod';
 
 const schema: FormItemProps[] = [
-  // {
-  //   label: '边框',
-  //   formGroup: true,
-  //   component: 'Fieldset',
-  //   children: [
-  //     {
-  //       label: '宽度',
-  //       fieldName: 'borderWidth',
-  //       component: 'InputNumber',
-  //       class: 'col-span-2',
-  //       componentProps: {
-  //         placeholder: '请输入宽度',
-  //         showButtons: true,
-  //         suffix: 'px',
-  //         min: 0,
-  //         fluid: true,
-  //       },
-  //       help: [],
-  //       required: true,
-  //     },
-  //   ],
-  // },
   {
     label: '背景',
     formGroup: true,
@@ -93,35 +71,31 @@ const schema: FormItemProps[] = [
     children: [
       {
         label: '',
-        // showLabel: false,
         fieldName: 'boxModel',
         component: 'BoxModel',
         class: 'col-span-full',
         componentProps: {},
         help: [],
-        // required: true,
         tips: '用于设置盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
       },
     ],
   },
 ];
 
-const rules = z.object({
-  name: z.string().min(1, '请输入容器名称'),
-});
+const rules = z.object({});
 
 export default {
   // 表单配置
   formConfig: {
     schema,
     rules,
-    columns: 4,
+    columns: 1,
     // autoComplete: false,
   },
   // 弹窗配置
   modalConfig: {
     header: '容器配置',
-    component: 'drawer',
+    component: 'dialog',
     class: 'w-[450px]!',
   },
 };

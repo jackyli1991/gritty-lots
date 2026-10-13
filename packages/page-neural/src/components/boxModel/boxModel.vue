@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 inline-block">
+  <div class="flex flex-col gap-3 w-full">
     <!-- 盒模型可视化区域 -->
     <div class="flex justify-center">
       <!-- Margin 层（最外层） -->

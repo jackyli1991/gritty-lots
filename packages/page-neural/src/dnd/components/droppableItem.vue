@@ -19,7 +19,7 @@
 <template>
   <div
     ref="element"
-    class="w-full h-full border border-transparent [&:hover:not(:has(*:hover))]:border-(--p-primary-500) [&:hover:not(:has(*:hover))]:border-dashed"
+    class="w-full h-full rounded-[inherit] border border-transparent [&:hover:not(:has(*:hover))]:border-(--p-primary-500) [&:hover:not(:has(*:hover))]:border-dashed"
     :class="{
       'border-(--p-primary-500)!': isDropTarget || props.active,
     }"
