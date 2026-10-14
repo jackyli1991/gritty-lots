@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import ContainerLayout from '@neural/core/toolbars/containerLayout.vue';
   import DroppableItem from '@neural/dnd/components/droppableItem.vue';
   import { usePageNeuralStore } from '@neural/store';
   import { computed } from 'vue';

@@ -6,20 +6,34 @@ import requestFormConfig from './request';
 
 const schema: FormItemProps[] = [
   {
-    label: '请求',
+    label: '盒模型',
     formGroup: true,
     component: 'Fieldset',
     children: [
       {
         label: '',
-        fieldName: 'requestModel',
-        component: 'NeuralForm',
+        fieldName: 'boxModel',
+        component: 'BoxModel',
         class: 'col-span-full',
-        componentProps: {
-          ...requestFormConfig.formConfig,
-        },
+        componentProps: {},
         help: [],
-        tips: '用于设置请求属性，包括方法、URL、参数、头信息等。',
+        tips: '用于设置盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
+      },
+    ],
+  },
+  {
+    label: '布局',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [
+      {
+        label: '',
+        fieldName: 'layoutModel',
+        component: 'LayoutModel',
+        class: 'col-span-full',
+        componentProps: {},
+        help: [],
+        tips: '用于设置布局属性。',
       },
     ],
   },
@@ -38,6 +52,24 @@ const schema: FormItemProps[] = [
         help: [],
         // required: true,
         tips: '用于设置背景效果，包括颜色、图片、重复、位置、大小、剪裁等。',
+      },
+    ],
+  },
+  {
+    label: '请求',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [
+      {
+        label: '',
+        fieldName: 'requestModel',
+        component: 'NeuralForm',
+        class: 'col-span-full',
+        componentProps: {
+          ...requestFormConfig.formConfig,
+        },
+        help: [],
+        tips: '用于设置请求属性，包括方法、URL、参数、头信息等。',
       },
     ],
   },
@@ -84,22 +116,6 @@ const schema: FormItemProps[] = [
   //     },
   //   ],
   // },
-  {
-    label: '盒模型',
-    formGroup: true,
-    component: 'Fieldset',
-    children: [
-      {
-        label: '',
-        fieldName: 'boxModel',
-        component: 'BoxModel',
-        class: 'col-span-full',
-        componentProps: {},
-        help: [],
-        tips: '用于设置盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
-      },
-    ],
-  },
 ];
 
 const rules = z.object({});
