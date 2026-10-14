@@ -25,7 +25,7 @@ export function useAttrConfig(options: AttrConfigOptions) {
     return h(
       Panel,
       {
-        class: 'h-full ml-2 flex! flex-col! overflow-hidden ' + modalConfig.class,
+        class: 'h-full ml-2 flex! flex-col! overflow-hidden w-[450px]',
         header: modalConfig.header,
         pt: {
           contentContainer: 'flex-1! overflow-auto',

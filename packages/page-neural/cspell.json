@@ -38,7 +38,8 @@
     "InputColorTransparencyGrid",
     "uuidv",
     "toggleable",
-    "togglebutton"
+    "togglebutton",
+    "splitterpanel"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

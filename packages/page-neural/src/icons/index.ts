@@ -27,6 +27,9 @@ import {
   Scissors,
   FlipHorizontal2,
   FlipVertical2,
+  Layout,
+  Rows2,
+  Columns2,
 } from '@lucide/vue';
 
 export default {
@@ -58,4 +61,7 @@ export default {
   Scissors,
   FlipHorizontal2,
   FlipVertical2,
+  Layout,
+  Rows2,
+  Columns2,
 };

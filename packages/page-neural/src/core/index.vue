@@ -18,10 +18,13 @@
   import { ref } from 'vue';
 
   import ConfirmDialog from './confirmDialog.vue';
+  import Layout from './layout/index.vue';
   import ContainerToolbar from './toolbars/container.vue';
+  import LayoutToolbar from './toolbars/layout.vue';
   import MaterialToolbar from './toolbars/material.vue';
 
   const showMaterials = ref(false);
+  const showLayout = ref(false);
   const { createNode } = crud();
   const pageNeuralStore = usePageNeuralStore();
 
@@ -47,14 +50,18 @@
       <div class="py-2 flex items-center gap-2">
         <MaterialToolbar v-model="showMaterials" />
         <ContainerToolbar />
+        <LayoutToolbar v-model="showLayout" />
       </div>
       <!-- 内容区域 -->
       <div class="flex-1 flex overflow-hidden">
-        <div class="flex-1">
-          <Container :id="CONTAINER_ROOT_ID"></Container>
-        </div>
-        <!-- 右侧属性编辑统一入口 -->
-        <component :is="attrConfigEl" />
+        <template v-if="!showLayout">
+          <div class="flex-1">
+            <Container :id="CONTAINER_ROOT_ID"></Container>
+          </div>
+          <!-- 右侧属性编辑统一入口 -->
+          <component :is="attrConfigEl" />
+        </template>
+        <Layout v-else />
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-end">

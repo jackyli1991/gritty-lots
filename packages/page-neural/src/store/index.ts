@@ -24,6 +24,34 @@ export const usePageNeuralStore = defineStore('page-neural', {
         },
       }),
     ] as Container[],
+    layouts: {
+      id: generateId(),
+      type: 'splitter',
+      layout: 'vertical',
+      sizes: [],
+      children: [
+        {
+          id: generateId(),
+          type: 'splitterPanel',
+          useUnit: 'px',
+          width: 0,
+          children: [],
+        },
+        {
+          id: generateId(),
+          type: 'splitterPanel',
+          useUnit: 'px',
+          width: 0,
+          children: {
+            id: generateId(),
+            type: 'splitter',
+            layout: 'horizontal',
+            sizes: [],
+            children: [],
+          },
+        },
+      ],
+    },
   }),
   getters: {
     // 返回获取容器的函数
