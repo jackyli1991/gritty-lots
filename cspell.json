@@ -45,7 +45,8 @@
     "useconfirm",
     "confirmdialog",
     "confirmationservice",
-    "toastservice"
+    "toastservice",
+    "trae"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
@@ -58,6 +59,7 @@
     ".git",
     "pnpm-lock.yaml",
     ".agents/**/*",
-    ".ua/**/*"
+    ".ua/**/*",
+    ".trae/**/*"
   ]
 }

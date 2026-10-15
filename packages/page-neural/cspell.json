@@ -39,7 +39,9 @@
     "uuidv",
     "toggleable",
     "togglebutton",
-    "splitterpanel"
+    "itemicon",
+    "splitterpanel",
+    "resizeend"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

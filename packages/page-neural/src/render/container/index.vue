@@ -38,7 +38,6 @@
     @click.stop="handleActive"
   >
     <DroppableItem :id="props.id || ''" :active="pageNeuralStore.activeNodeId === props.id">
-      <ContainerLayout :id="props.id || ''" />
       <slot></slot>
       <PageNeuralContainer v-for="child in container?.children || []" :key="child" :id="child" />
     </DroppableItem>

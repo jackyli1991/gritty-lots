@@ -1,5 +1,6 @@
 import { CONTAINER_ROOT_ID, CONTAINER_LAYOUT } from '@neural/const';
 import { generateContainer, generateId } from '@neural/core/crud/utils';
+import { generateSplitterNode } from '@neural/core/layout/utils';
 import type { Container } from '@neural/types';
 import { defineStore } from 'pinia';
 
@@ -24,34 +25,8 @@ export const usePageNeuralStore = defineStore('page-neural', {
         },
       }),
     ] as Container[],
-    layouts: {
-      id: generateId(),
-      type: 'splitter',
-      layout: 'vertical',
-      sizes: [],
-      children: [
-        {
-          id: generateId(),
-          type: 'splitterPanel',
-          useUnit: 'px',
-          width: 0,
-          children: [],
-        },
-        {
-          id: generateId(),
-          type: 'splitterPanel',
-          useUnit: 'px',
-          width: 0,
-          children: {
-            id: generateId(),
-            type: 'splitter',
-            layout: 'horizontal',
-            sizes: [],
-            children: [],
-          },
-        },
-      ],
-    },
+    // 布局树：初始仅一个根分隔器，其下为 2 个空面板
+    layouts: generateSplitterNode({ layout: 'vertical' }),
   }),
   getters: {
     // 返回获取容器的函数
