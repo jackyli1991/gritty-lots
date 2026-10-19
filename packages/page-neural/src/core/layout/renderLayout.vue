@@ -6,7 +6,7 @@
   import type { MenuItem } from 'primevue/menuitem';
   import Splitter from 'primevue/splitter';
   import SplitterPanel from 'primevue/splitterpanel';
-  import { inject, provide, ref, useAttrs, type ComponentPublicInstance } from 'vue';
+  import { computed, inject, provide, ref, useAttrs, type ComponentPublicInstance } from 'vue';
 
   import {
     DEFAULT_PANEL_UNIT,
@@ -32,6 +32,9 @@
   // 根分隔器不可删除
   const isRoot = !props.parent;
 
+  // 指示线方向跟随分隔器轴向：水平分隔器为水平线，垂直分隔器为竖直线
+  const isHorizontal = computed(() => props.node.layout === 'horizontal');
+
   // 删除项统一样式
   const DELETE_CLASS =
     '[&>.p-contextmenu-item-content]:text-red-500! dark:[&>.p-contextmenu-item-content]:text-red-400!';
@@ -42,6 +45,19 @@
   // 嵌套分隔器置为透明背景：PrimeVue 的 .p-splitter 根自带不透明主题背景，
   // 而元素自身 outline 先于后代绘制，会遮住上层分隔器的高亮边框
   const NESTED_CLASS = 'bg-transparent!';
+
+  // 指示线起点/终点的外指箭头（CSS 零尺寸边框三角形）：
+  // horizontal 起点朝左、终点朝右；vertical 起点朝上、终点朝下
+  const START_ARROW_CLASS = computed(() =>
+    isHorizontal.value
+      ? 'h-0 w-0 shrink-0 border-y-[5px] border-l-0 border-r-[7px] border-y-transparent border-r-red-500'
+      : 'h-0 w-0 shrink-0 border-x-[5px] border-b-[7px] border-t-0 border-x-transparent border-b-red-500'
+  );
+  const END_ARROW_CLASS = computed(() =>
+    isHorizontal.value
+      ? 'h-0 w-0 shrink-0 border-y-[5px] border-l-[7px] border-r-0 border-y-transparent border-l-red-500'
+      : 'h-0 w-0 shrink-0 border-x-[5px] border-t-[7px] border-b-0 border-x-transparent border-t-red-500'
+  );
 
   // 当前悬停的面板 id，仅记录直接归属于本分隔器的面板
   const hoveredPanelId = ref<string | null>(null);
@@ -114,10 +130,14 @@
   // 悬停：事件冒泡到每层分隔器，各自只在面板为自己的直接子面板时记录，
   // 从而只高亮直接父分隔器，嵌套分隔器由更深层实例自行处理
   function onSplitterMouseOver(event: MouseEvent) {
+    const target = event.target as HTMLElement | null;
+
+    // 分割线是分隔器的直接子元素、并不属于任何面板，若继续按面板归属计算会误判为
+    // 已离开面板，导致滑过分割线时高亮闪断、或在嵌套分割线处误点亮外层包含面板
+    if (target?.closest?.('.p-splitter-gutter')) return;
+
     const root = splitterRef.value?.$el as HTMLElement | undefined;
-    const panelEl = (event.target as HTMLElement | null)?.closest?.(
-      '[data-pc-name="splitterpanel"]'
-    ) as HTMLElement | null;
+    const panelEl = target?.closest?.('[data-pc-name="splitterpanel"]') as HTMLElement | null;
     const index = root && panelEl?.parentElement === root ? getPanelEls().indexOf(panelEl) : -1;
 
     hoveredPanelId.value = index >= 0 ? (props.node.children[index]?.id ?? null) : null;
@@ -175,13 +195,14 @@
     props.node.sizes = normalizeSizes(props.node.sizes);
   }
 
-  // 删除当前面板（同级保留至少 2 个）
+  // 删除当前面板：不限制剩余数量，sizes 同步移除并归一
   function deletePanel(index: number) {
-    if (props.node.children.length <= 2) return;
-
     props.node.children.splice(index, 1);
     props.node.sizes.splice(index, 1);
     props.node.sizes = normalizeSizes(props.node.sizes);
+
+    // 面板被删空后该嵌套分隔器已成空壳，连同它一起清除
+    if (!props.node.children.length && props.parent) deleteSplitter();
   }
 
   // 删除当前分隔器：嵌套分隔器清空其父面板内容，根分隔器不处理
@@ -209,8 +230,6 @@
 
   /** 构建面板右键菜单，前后添加图标随父分隔器方向变化 */
   function buildPanelMenu(index: number): MenuItem[] {
-    const isHorizontal = props.node.layout === 'horizontal';
-
     return [
       {
         label: '水平拆分',
@@ -225,19 +244,18 @@
       { separator: true },
       {
         label: '在前面添加',
-        icon: isHorizontal ? 'ArrowLeftToLine' : 'ArrowUpToLine',
+        icon: isHorizontal.value ? 'ArrowLeftToLine' : 'ArrowUpToLine',
         command: () => addPanel(index),
       },
       {
         label: '在后面添加',
-        icon: isHorizontal ? 'ArrowRightToLine' : 'ArrowDownToLine',
+        icon: isHorizontal.value ? 'ArrowRightToLine' : 'ArrowDownToLine',
         command: () => addPanel(index + 1),
       },
       { separator: true },
       {
         label: '删除',
         icon: 'Trash2',
-        disabled: props.node.children.length <= 2,
         class: DELETE_CLASS,
         command: () => deletePanel(index),
       },
@@ -277,15 +295,36 @@
       :class="{ 'bg-black/5 dark:bg-white/10': hoveredPanelId === panel.id }"
       @contextmenu="(event: Event) => onPanelContextMenu(event, index)"
     >
+      <!-- 非悬停时：左上角浅色显示尺寸，点击单位可切换 -->
       <span
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center text-xs text-gray-500 dark:text-gray-400"
+        v-if="!hoveredPanelId"
+        class="pointer-events-none absolute top-0 left-0 flex items-center gap-0.5 px-1 text-xs text-gray-300 dark:text-gray-600"
       >
         <span>{{ panel.sizeValue }}</span>
         <span
-          class="cursor-pointer hover:text-(--p-primary-500)"
+          class="pointer-events-auto cursor-pointer hover:text-(--p-primary-500)"
           @click.stop="toggleUnit(panel, index)"
           >{{ panel.useUnit }}</span
         >
+      </span>
+      <!-- 悬停时：红色指示线沿分隔方向贯穿面板 -->
+      <span
+        v-else
+        class="pointer-events-none absolute inset-0 flex overflow-hidden text-xs text-gray-500 dark:text-gray-400"
+        :class="isHorizontal ? 'items-center' : 'flex-col items-center'"
+      >
+        <span :class="START_ARROW_CLASS"></span>
+        <span :class="isHorizontal ? 'h-px flex-1 bg-red-500' : 'w-px flex-1 bg-red-500'"></span>
+        <span class="pointer-events-auto flex items-center gap-0.5 whitespace-nowrap px-1">
+          <span>{{ panel.sizeValue }}</span>
+          <span
+            class="cursor-pointer hover:text-(--p-primary-500)"
+            @click.stop="toggleUnit(panel, index)"
+            >{{ panel.useUnit }}</span
+          >
+        </span>
+        <span :class="isHorizontal ? 'h-px flex-1 bg-red-500' : 'w-px flex-1 bg-red-500'"></span>
+        <span :class="END_ARROW_CLASS"></span>
       </span>
       <RenderLayout v-if="isSplitterNode(panel.children)" :node="panel.children" :parent="panel" />
     </SplitterPanel>
