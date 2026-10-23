@@ -4,9 +4,6 @@ import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
 /** 面板尺寸单位，取自节点类型定义 */
 export type PanelUnit = NonNullable<LayoutPanelNode['useUnit']>;
 
-/** 拆分时新分隔器的默认占比 */
-export const DEFAULT_SPLIT_SIZES: number[] = [50, 50];
-
 /** 新增面板的默认尺寸单位 */
 export const DEFAULT_PANEL_UNIT: PanelUnit = '%';
 
@@ -14,9 +11,26 @@ export const DEFAULT_PANEL_UNIT: PanelUnit = '%';
 export const UNIT_CYCLE: readonly PanelUnit[] = ['px', '%', 'vw', 'vh'];
 
 /**
+ * 计算面板的 inline flex 样式（画布渲染与缩略图共用）：
+ * - useUnit !== '%' → flex: 0 0 {sizeValue}{unit}（固定不伸缩）
+ * - useUnit === '%' → flex: {sizeValue} 1 0px（按 sizeValue 权重伸缩，basis=0px）
+ * @param panel 面板节点
+ */
+export function panelFlexStyle(panel: LayoutPanelNode): Record<string, string> {
+  const unit = panel.useUnit ?? DEFAULT_PANEL_UNIT;
+  const size = panel.sizeValue ?? 50;
+
+  if (unit === '%') {
+    return { flex: `${size} 1 0px` };
+  }
+
+  return { flex: `0 0 ${size}${unit}` };
+}
+
+/**
  * 生成布局面板节点
  * @param overrides 需要覆盖的字段（如 children）
- * @returns 面板节点，默认单位为 %、尺寸值为 0、无子内容
+ * @returns 面板节点，默认单位为 %、尺寸值为 50、无子内容
  */
 export function generatePanelNode(overrides?: Partial<LayoutPanelNode>): LayoutPanelNode {
   return {
@@ -24,6 +38,7 @@ export function generatePanelNode(overrides?: Partial<LayoutPanelNode>): LayoutP
     type: 'splitterPanel',
     useUnit: DEFAULT_PANEL_UNIT,
     sizeValue: 50,
+    containerId: '',
     children: [],
     ...overrides,
   };
@@ -47,35 +62,17 @@ export function generateSplitterNode({
     id: generateId(),
     type: 'splitter',
     layout,
-    sizes: panels.map(() => DEFAULT_SPLIT_SIZES[0]),
     children: panels,
   };
 }
 
 /**
- * 判断面板子内容是否为嵌套分隔器
- * @param children 面板 children 字段
+ * 从面板取出唯一的嵌套分隔器（若存在）
+ * @param panel 面板节点
+ * @returns 嵌套分隔器，或 undefined
  */
-export function isSplitterNode(children: unknown): children is LayoutSplitterNode {
-  return (
-    !!children && !Array.isArray(children) && (children as LayoutSplitterNode).type === 'splitter'
-  );
-}
-
-/**
- * 按原比例把占比归一到合计 100，保留 2 位小数
- * @param sizes 原始占比列表
- */
-export function normalizeSizes(sizes: number[]): number[] {
-  if (sizes.length === 0) return [];
-
-  const total = sizes.reduce((sum, size) => sum + size, 0);
-  if (total <= 0) {
-    const average = round2(100 / sizes.length);
-    return sizes.map(() => average);
-  }
-
-  return sizes.map((size) => round2((size / total) * 100));
+export function getPanelSplitter(panel: LayoutPanelNode): LayoutSplitterNode | undefined {
+  return panel.children[0];
 }
 
 /**

@@ -36,9 +36,10 @@ export interface Container {
 export interface LayoutPanelNode {
   id: string; // 面板节点 id
   type: 'splitterPanel'; // 节点类型
-  sizeValue?: number; // 分隔器尺寸值
+  sizeValue?: number; // 分隔器尺寸值（按 useUnit 解释）
   useUnit?: 'px' | '%' | 'vw' | 'vh'; // 分隔器尺寸单位
-  children: LayoutPanelNode[] | LayoutSplitterNode; // 子内容：面板列表或嵌套分隔器
+  containerId: string; // 管理的容器 id
+  children: LayoutSplitterNode[]; // 子内容：嵌套分隔器（最多一个，数组以便递归统一处理）
 }
 
 // 布局分隔器节点
@@ -46,6 +47,5 @@ export interface LayoutSplitterNode {
   id: string; // 分隔器节点 id
   type: 'splitter'; // 节点类型
   layout: 'horizontal' | 'vertical'; // 布局方向
-  sizes: number[]; // 各面板尺寸占比
   children: LayoutPanelNode[]; // 子面板列表
 }

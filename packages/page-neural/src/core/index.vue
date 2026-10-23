@@ -1,13 +1,14 @@
 <script setup lang="ts">
   import { DragDropProvider } from '@dnd-kit/vue';
   import { useAttrConfig } from '@neural/composables/useAttrConfig';
-  import { CONTAINER_ROOT_ID } from '@neural/const';
+  // import { CONTAINER_ROOT_ID } from '@neural/const';
   import { crud } from '@neural/core/crud';
   import { formMaps } from '@neural/core/forms';
   import DragMonitorPanel from '@neural/dnd/components/dragMonitorPanel.vue';
   import DragOverlay from '@neural/dnd/components/dragOverlay.vue';
   import Materials from '@neural/materials/index.vue';
-  import Container from '@neural/render/container/index.vue';
+  // import Container from '@neural/render/container/index.vue';
+  import LayoutRender from '@neural/render/layout/index.vue';
   import { usePageNeuralStore } from '@neural/store';
   // import { Background } from '@vue-flow/background';
   // import { Controls } from '@vue-flow/controls';
@@ -19,6 +20,7 @@
 
   import ConfirmDialog from './confirmDialog.vue';
   import Layout from './layout/index.vue';
+  import MiniMaps from './mini-maps.vue';
   import ContainerToolbar from './toolbars/container.vue';
   import LayoutToolbar from './toolbars/layout.vue';
   import MaterialToolbar from './toolbars/material.vue';
@@ -53,10 +55,11 @@
         <LayoutToolbar v-model="showLayout" />
       </div>
       <!-- 内容区域 -->
-      <div class="flex-1 flex overflow-hidden">
+      <div class="flex-1 flex overflow-hidden relative">
         <template v-if="!showLayout">
           <div class="flex-1">
-            <Container :id="CONTAINER_ROOT_ID"></Container>
+            <!-- 布局容器：按 store 中的布局树渲染 -->
+            <LayoutRender />
           </div>
           <!-- 右侧属性编辑统一入口 -->
           <component :is="attrConfigEl" />
@@ -64,7 +67,10 @@
         <Layout v-else />
       </div>
       <!-- 底部状态栏 -->
-      <div class="p-1 flex justify-end">
+      <div class="p-1 flex justify-between items-center">
+        <!-- 左下角布局缩略图：展示布局树层级关系 -->
+        <MiniMaps />
+        <!-- 拖拽监控 -->
         <DragMonitorPanel @dragStart="showMaterials = false" @droppedIn="handleDroppedIn" />
       </div>
       <!-- 左侧组件库 -->
