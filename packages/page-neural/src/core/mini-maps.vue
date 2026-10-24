@@ -22,13 +22,13 @@
 
   const pageNeuralStore = usePageNeuralStore();
   const layoutStore = useLayoutStore();
-  const { layouts } = storeToRefs(pageNeuralStore);
+  const { activeLayout } = storeToRefs(pageNeuralStore);
   const { hoveredPanelId } = storeToRefs(layoutStore);
 
   // 外壳展开状态：默认收起仅显示 Layout 图标
   const expanded = ref(false);
 
-  const currentNode = computed(() => props.node ?? layouts.value);
+  const currentNode = computed(() => (props.node ?? activeLayout.value)!);
   const isHorizontal = computed(() => currentNode.value.layout === 'horizontal');
 </script>
 
@@ -44,7 +44,7 @@
     </button>
     <div
       v-show="expanded"
-      class="absolute bottom-7 left-0 z-10 h-30 w-40 overflow-hidden rounded border border-gray-300 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900"
+      class="absolute bottom-9 left-1 z-10 h-30 w-40 overflow-hidden rounded border border-gray-300 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900"
     >
       <MiniMaps bare />
     </div>

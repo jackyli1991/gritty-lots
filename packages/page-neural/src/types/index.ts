@@ -50,3 +50,13 @@ export interface LayoutSplitterNode {
   layout: 'horizontal' | 'vertical'; // 布局方向
   children: LayoutPanelNode[]; // 子面板列表
 }
+
+// 页面
+export interface Page {
+  id: string; // 页面 id
+  name: string; // 页面名称
+  description: string; // 页面描述
+  layoutLock: boolean; // 是否锁定布局
+  deletable: boolean; // 是否可删除
+  layoutId: string; // 关联的根布局 id
+}

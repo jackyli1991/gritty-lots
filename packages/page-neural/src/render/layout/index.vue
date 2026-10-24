@@ -13,9 +13,9 @@
   }>();
 
   const pageNeuralStore = usePageNeuralStore();
-  const { layouts } = storeToRefs(pageNeuralStore);
+  const { activeLayout } = storeToRefs(pageNeuralStore);
 
-  const currentNode = computed(() => props.node ?? layouts.value);
+  const currentNode = computed(() => (props.node ?? activeLayout.value)!);
   const isHorizontal = computed(() => currentNode.value.layout === 'horizontal');
 </script>
 

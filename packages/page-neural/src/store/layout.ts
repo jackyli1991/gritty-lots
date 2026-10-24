@@ -4,6 +4,7 @@ import {
   nextUnit,
   applySizeValue,
 } from '@neural/core/layout/utils';
+import { usePageNeuralStore } from '@neural/store';
 import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
 import { defineStore } from 'pinia';
 
@@ -16,6 +17,12 @@ export const useLayoutStore = defineStore('page-neural-layout', {
     treeHoveredPanelId: null as string | null,
     treeHoveredSplitterId: null as string | null,
   }),
+  getters: {
+    // 布局是否锁定：取当前激活页面的 layoutLock，作为所有编辑入口的统一开关
+    locked(): boolean {
+      return !!usePageNeuralStore().activePage?.layoutLock;
+    },
+  },
   actions: {
     // 设置画布当前悬停的面板 id
     setHoveredPanelId(id: string | null) {
@@ -31,6 +38,7 @@ export const useLayoutStore = defineStore('page-neural-layout', {
     },
     // 在分隔器指定位置新增同级面板
     addPanel(splitter: LayoutSplitterNode, index: number) {
+      if (this.locked) return;
       splitter.children.splice(index, 0, generatePanelNode());
     },
     // 删除指定面板：不限制剩余数量；删空后该嵌套分隔器已成空壳，连同它一起清除
@@ -39,17 +47,19 @@ export const useLayoutStore = defineStore('page-neural-layout', {
       parentPanel: LayoutPanelNode | undefined,
       index: number
     ) {
+      if (this.locked) return;
       splitter.children.splice(index, 1);
 
       if (!splitter.children.length && parentPanel) parentPanel.children = [];
     },
     // 删除分隔器：清空其所在父面板内容（根分隔器不可删除，由调用方保证）
     deleteSplitter(parentPanel: LayoutPanelNode | undefined) {
-      if (!parentPanel) return;
+      if (this.locked || !parentPanel) return;
       parentPanel.children = [];
     },
     // 循环切换面板尺寸单位；切换前先按画布实际渲染像素重算 sizeValue，避免切换瞬间尺寸跳变
     toggleUnit(splitter: LayoutSplitterNode, panel: LayoutPanelNode) {
+      if (this.locked) return;
       const panelEl = document.querySelector<HTMLElement>(`[data-panel-id="${panel.id}"]`);
       const rect = panelEl?.getBoundingClientRect();
       const panelPx = rect ? (splitter.layout === 'horizontal' ? rect.width : rect.height) : 0;

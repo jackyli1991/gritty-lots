@@ -1,5 +1,5 @@
-import { generateId } from '@neural/core/crud/utils';
 import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
+import { generateId } from '@neural/utils/uuid';
 
 /** 面板尺寸单位，取自节点类型定义 */
 export type PanelUnit = NonNullable<LayoutPanelNode['useUnit']>;
@@ -43,7 +43,7 @@ export function percentFlexStyle(panel: LayoutPanelNode): Record<string, string>
  */
 export function generatePanelNode(overrides?: Partial<LayoutPanelNode>): LayoutPanelNode {
   return {
-    id: generateId(),
+    id: generateId('l'),
     type: 'splitterPanel',
     useUnit: DEFAULT_PANEL_UNIT,
     sizeValue: 50,
@@ -69,7 +69,7 @@ export function generateSplitterNode({
 }): LayoutSplitterNode {
   const panels = children ?? [generatePanelNode(), generatePanelNode()];
   return {
-    id: generateId(),
+    id: generateId('l'),
     type: 'splitter',
     layout,
     children: panels,

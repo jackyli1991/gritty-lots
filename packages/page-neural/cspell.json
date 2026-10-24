@@ -41,7 +41,8 @@
     "togglebutton",
     "itemicon",
     "splitterpanel",
-    "resizeend"
+    "resizeend",
+    "steplist"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

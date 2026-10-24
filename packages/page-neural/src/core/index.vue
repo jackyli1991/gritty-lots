@@ -19,16 +19,23 @@
   import { ref } from 'vue';
 
   import ConfirmDialog from './confirmDialog.vue';
+  import { initPageNeural } from './init';
   import Layout from './layout/index.vue';
   import MiniMaps from './mini-maps.vue';
+  import PageSwitch from './pages/switch.vue';
+  import Steps from './steps.vue';
   import ContainerToolbar from './toolbars/container.vue';
   import LayoutToolbar from './toolbars/layout.vue';
   import MaterialToolbar from './toolbars/material.vue';
 
+  const stepValue = ref(1);
+
   const showMaterials = ref(false);
-  const showLayout = ref(false);
   const { createNode } = crud();
   const pageNeuralStore = usePageNeuralStore();
+
+  // 同步初始化默认页面与布局（必须在 Layout 渲染前完成）
+  initPageNeural(pageNeuralStore);
 
   const { attrConfigEl } = useAttrConfig({
     formMaps,
@@ -49,14 +56,24 @@
   <DragDropProvider>
     <div class="page-neural-graph w-full h-full flex flex-col relative overflow-hidden">
       <!-- 顶部工具栏 -->
-      <div class="py-2 flex items-center gap-2">
-        <MaterialToolbar v-model="showMaterials" />
-        <ContainerToolbar />
-        <LayoutToolbar v-model="showLayout" />
+      <div class="py-2 flex justify-between items-center gap-2">
+        <!-- 步骤条 -->
+        <Steps v-model="stepValue">
+          <template #step1>
+            <LayoutToolbar />
+          </template>
+          <template #step2>
+            <MaterialToolbar v-model="showMaterials" />
+            <ContainerToolbar />
+          </template>
+        </Steps>
+        <!-- 切换页面 -->
+        <PageSwitch />
       </div>
       <!-- 内容区域 -->
       <div class="flex-1 flex overflow-hidden relative">
-        <template v-if="!showLayout">
+        <Layout v-if="stepValue === 1" />
+        <template v-if="stepValue === 2">
           <div class="flex-1">
             <!-- 布局容器：按 store 中的布局树渲染 -->
             <LayoutRender />
@@ -64,7 +81,6 @@
           <!-- 右侧属性编辑统一入口 -->
           <component :is="attrConfigEl" />
         </template>
-        <Layout v-else />
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-between items-center">

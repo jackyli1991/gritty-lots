@@ -8,6 +8,7 @@
     isHorizontal: boolean; // 方向：true 为水平线，false 为竖直线
     sizeValue?: number; // 面板尺寸值
     useUnit?: LayoutPanelNode['useUnit']; // 面板尺寸单位
+    disabled?: boolean; // 布局锁定时禁用单位切换
   }>();
 
   const emit = defineEmits<{
@@ -43,10 +44,11 @@
     <span :class="isHorizontal ? 'h-px flex-1 bg-red-500' : 'w-px flex-1 bg-red-500'"></span>
     <!-- 中央尺寸标签：点击循环切换单位（px 绿色 / % 蓝色） -->
     <Tag
-      class="pointer-events-auto cursor-pointer"
+      class="pointer-events-auto"
+      :class="disabled ? 'cursor-default opacity-70' : 'cursor-pointer'"
       :severity="severity"
       :value="label"
-      @click.stop="emit('toggleUnit')"
+      @click.stop="!disabled && emit('toggleUnit')"
     />
     <span :class="isHorizontal ? 'h-px flex-1 bg-red-500' : 'w-px flex-1 bg-red-500'"></span>
     <span :class="END_ARROW_CLASS"></span>

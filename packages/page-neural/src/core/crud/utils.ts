@@ -1,10 +1,6 @@
 import { CONTAINER_TYPE } from '@neural/const';
 import type { Container } from '@neural/types';
-import { v4 as uuidv4 } from 'uuid';
-
-export function generateId() {
-  return uuidv4();
-}
+import { generateId } from '@neural/utils/uuid';
 
 /**
  * 生成容器
@@ -29,7 +25,7 @@ export function generateContainer({
   props?: Container['props'];
 }): Container {
   return {
-    id: id || generateId(),
+    id: id || generateId('c'),
     name: name || '容器',
     type: CONTAINER_TYPE,
     subType,

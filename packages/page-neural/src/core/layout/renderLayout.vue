@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
-  import { generateId } from '@neural/core/crud/utils';
   import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
+  import { generateId } from '@neural/utils/uuid';
   import { storeToRefs } from 'pinia';
   import ContextMenu from 'primevue/contextmenu';
   import type { MenuItem } from 'primevue/menuitem';
@@ -58,7 +58,8 @@
 
   // 悬停高亮状态由布局 store 统一维护，嵌套分隔器共享同一份
   const layoutStore = useLayoutStore();
-  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId } = storeToRefs(layoutStore);
+  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId, locked } =
+    storeToRefs(layoutStore);
 
   // 本分隔器是否为悬停面板的直接父级：仅直接父分隔器绘制高亮边框、仅其面板显示指示线
   const isHoveredSplitter = computed(() =>
@@ -146,6 +147,9 @@
   const gutterDrag = ref<GutterDrag | null>(null);
 
   function onGutterMouseDown(index: number, event: MouseEvent) {
+    // 布局锁定时禁止拖拽
+    if (locked.value) return;
+
     // gutter at visual position i 分隔 children[i-1] 和 children[i]
     if (index <= 0 || index >= props.node.children.length) return;
 
@@ -271,7 +275,7 @@
   function wrapSplitter(target: LayoutSplitterNode, layout: LayoutSplitterNode['layout']) {
     const preserved: LayoutSplitterNode = {
       ...target,
-      id: generateId(),
+      id: generateId('l'),
       children: [...target.children],
     };
 
@@ -371,15 +375,23 @@
     ];
   }
 
-  // 分隔器右键：阻止冒泡避免影响上层
+  // 分隔器右键：阻止冒泡避免影响上层；布局锁定时不弹菜单
   function onSplitterContextMenu(event: Event) {
     event.stopPropagation();
+    if (locked.value) {
+      event.preventDefault();
+      return;
+    }
     open(event, buildSplitterMenu());
   }
 
-  // 面板右键：阻止冒泡，避免嵌套面板右键时上层菜单重复触发
+  // 面板右键：阻止冒泡，避免嵌套面板右键时上层菜单重复触发；布局锁定时不弹菜单
   function onPanelContextMenu(event: Event, index: number) {
     event.stopPropagation();
+    if (locked.value) {
+      event.preventDefault();
+      return;
+    }
     open(event, buildPanelMenu(index));
   }
 </script>
@@ -419,6 +431,7 @@
           :is-horizontal="isHorizontal"
           :size-value="panel.sizeValue"
           :use-unit="panel.useUnit"
+          :disabled="locked"
           @toggle-unit="toggleUnit(panel)"
         />
         <!-- 递归子分隔器 -->
@@ -434,7 +447,10 @@
         v-if="index < node.children.length - 1"
         :data-gutter="index"
         class="shrink-0 bg-gray-200 transition-colors hover:bg-(--p-primary-500) dark:bg-gray-700 dark:hover:bg-(--p-primary-500) relative z-10"
-        :class="isHorizontal ? 'w-px cursor-col-resize' : 'h-px cursor-row-resize'"
+        :class="[
+          isHorizontal ? 'w-px' : 'h-px',
+          locked ? '' : isHorizontal ? 'cursor-col-resize' : 'cursor-row-resize',
+        ]"
         @mousedown="(event: MouseEvent) => onGutterMouseDown(index + 1, event)"
       ></div>
     </template>

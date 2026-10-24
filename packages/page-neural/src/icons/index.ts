@@ -32,6 +32,9 @@ import {
   Columns2,
   ChevronRight,
   ChevronDown,
+  Network,
+  Lock,
+  Unlock,
 } from '@lucide/vue';
 
 export default {
@@ -68,4 +71,7 @@ export default {
   Columns2,
   ChevronRight,
   ChevronDown,
+  Network,
+  Lock,
+  Unlock,
 };

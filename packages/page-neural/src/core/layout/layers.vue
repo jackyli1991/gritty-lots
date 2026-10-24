@@ -18,7 +18,7 @@
   }>();
 
   const layoutStore = useLayoutStore();
-  const { hoveredPanelId } = storeToRefs(layoutStore);
+  const { hoveredPanelId, locked } = storeToRefs(layoutStore);
 
   const isHorizontal = computed(() => props.node.layout === 'horizontal');
 
@@ -54,8 +54,9 @@
     return `${panel.sizeValue ?? ''}${panel.useUnit ?? ''}`;
   }
 
-  // 点击标签循环切换面板尺寸单位，与画布指示线标签行为一致
+  // 点击标签循环切换面板尺寸单位，与画布指示线标签行为一致；布局锁定时禁用
   function toggleUnit(panel: LayoutPanelNode) {
+    if (locked.value) return;
     layoutStore.toggleUnit(props.node, panel);
   }
 
@@ -85,7 +86,7 @@
       <span>{{ isHorizontal ? '水平布局' : '垂直布局' }}</span>
       <span class="text-gray-400 dark:text-gray-500">({{ node.children.length }})</span>
       <button
-        v-if="!isRoot"
+        v-if="!isRoot && !locked"
         class="ml-auto text-gray-400 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
         v-tooltip.left="'删除分隔器'"
         @click.stop="deleteSplitter"
@@ -121,6 +122,7 @@
           <!-- 尺寸标签：点击循环切换单位（px 绿色 / % 蓝色），与画布指示线一致 -->
           <Tag
             class="cursor-pointer"
+            :class="locked ? 'cursor-default opacity-50' : ''"
             :severity="unitSeverity(panel.useUnit)"
             :value="unitLabel(panel)"
             :pt="{
@@ -134,6 +136,7 @@
             @click.stop="toggleUnit(panel)"
           />
           <button
+            v-if="!locked"
             class="ml-auto text-gray-400 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
             v-tooltip.left="'删除面板'"
             @click.stop="deletePanel(index)"

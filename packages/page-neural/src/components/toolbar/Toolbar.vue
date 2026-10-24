@@ -54,7 +54,7 @@
 <template>
   <div class="neural-toolbar flex items-center gap-1">
     <template v-for="(group, gi) in visibleGroups" :key="gi">
-      <div class="flex items-center gap-1.5 gap-px bg-white p-0.5 rounded-md">
+      <div class="flex items-center gap-px bg-white rounded-md">
         <template v-for="(item, ii) in group" :key="item.key ?? `${gi}-${ii}`">
           <!-- 带下拉：PrimeVue SplitButton -->
           <SplitButton
@@ -78,6 +78,7 @@
           <!-- 普通按钮：PrimeVue Button -->
           <Button
             v-else
+            v-if="!item.hidden"
             v-tooltip.top="!showLabel ? item.label : ''"
             :disabled="disabled || item.disabled || item.hidden"
             text
