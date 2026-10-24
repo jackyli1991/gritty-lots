@@ -36,8 +36,9 @@ export interface Container {
 export interface LayoutPanelNode {
   id: string; // 面板节点 id
   type: 'splitterPanel'; // 节点类型
+  percentage: number; // 百分比值，面板在所属分隔器中的占比
   sizeValue?: number; // 分隔器尺寸值（按 useUnit 解释）
-  useUnit?: 'px' | '%' | 'vw' | 'vh'; // 分隔器尺寸单位
+  useUnit?: 'px' | '%'; // 分隔器尺寸单位 'vw' | 'vh'
   containerId: string; // 管理的容器 id
   children: LayoutSplitterNode[]; // 子内容：嵌套分隔器（最多一个，数组以便递归统一处理）
 }

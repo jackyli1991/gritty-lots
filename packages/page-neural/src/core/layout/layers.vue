@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
-  import { usePageNeuralStore } from '@neural/store';
+  import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
   import { storeToRefs } from 'pinia';
+  import Tag from 'primevue/tag';
   import vTooltip from 'primevue/tooltip';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   import { getPanelSplitter } from './utils';
 
@@ -16,35 +17,59 @@
     parentPanel?: LayoutPanelNode; // 当前分隔器所在的父面板，缺省表示根分隔器（不可删除）
   }>();
 
-  const pageNeuralStore = usePageNeuralStore();
-  const { hoveredPanelId } = storeToRefs(pageNeuralStore);
+  const layoutStore = useLayoutStore();
+  const { hoveredPanelId } = storeToRefs(layoutStore);
 
   const isHorizontal = computed(() => props.node.layout === 'horizontal');
 
   // 根分隔器不可删除
   const isRoot = !props.parentPanel;
 
-  // 删除面板：从当前分隔器移除；删空后该嵌套分隔器已成空壳，连同清除（与画布右键删除逻辑一致）
+  // 删除面板：从当前分隔器移除；删空后该嵌套分隔器已成空壳，连同清除（由 store 处理）
   function deletePanel(index: number) {
-    props.node.children.splice(index, 1);
-
-    if (!props.node.children.length && props.parentPanel) props.parentPanel.children = [];
+    layoutStore.deletePanel(props.node, props.parentPanel, index);
   }
 
   // 删除当前分隔器：清空其所在父面板内容
   function deleteSplitter() {
-    if (!props.parentPanel) return;
-
-    props.parentPanel.children = [];
+    layoutStore.deleteSplitter(props.parentPanel);
   }
 
   // 树行悬停 → 画布联动高亮对应面板/分隔器
   function setTreeHoveredPanel(id: string | null) {
-    pageNeuralStore.setTreeHoveredPanelId(id);
+    layoutStore.setTreeHoveredPanelId(id);
   }
 
   function setTreeHoveredSplitter(id: string | null) {
-    pageNeuralStore.setTreeHoveredSplitterId(id);
+    layoutStore.setTreeHoveredSplitterId(id);
+  }
+
+  // 单位对应的标签样式：px 为 success，% 为 info（与画布指示线一致）
+  function unitSeverity(unit: LayoutPanelNode['useUnit']) {
+    return unit === 'px' ? 'success' : 'info';
+  }
+
+  // 标签文本：尺寸值 + 单位
+  function unitLabel(panel: LayoutPanelNode) {
+    return `${panel.sizeValue ?? ''}${panel.useUnit ?? ''}`;
+  }
+
+  // 点击标签循环切换面板尺寸单位，与画布指示线标签行为一致
+  function toggleUnit(panel: LayoutPanelNode) {
+    layoutStore.toggleUnit(props.node, panel);
+  }
+
+  // 已折叠的面板 id（仅针对带子分隔器的面板），控制其子树显隐
+  const collapsedPanelIds = ref<string[]>([]);
+
+  function isCollapsed(id: string): boolean {
+    return collapsedPanelIds.value.includes(id);
+  }
+
+  function toggleCollapsed(id: string) {
+    collapsedPanelIds.value = isCollapsed(id)
+      ? collapsedPanelIds.value.filter((item) => item !== id)
+      : [...collapsedPanelIds.value, id];
   }
 </script>
 
@@ -71,14 +96,8 @@
     <!-- 子级：树线缩进，面板行或递归子树 -->
     <div class="ml-2 flex flex-col gap-0.5 border-l border-gray-200 pl-2 dark:border-gray-700">
       <template v-for="(panel, index) in node.children" :key="panel.id">
-        <Layers
-          v-if="getPanelSplitter(panel)"
-          :node="getPanelSplitter(panel)!"
-          :parent-panel="panel"
-        />
         <!-- 叶子面板行：尺寸 + 单位，悬停面板高亮，悬停行显示删除按钮；悬停时画布对应面板背景高亮 -->
         <div
-          v-else
           class="group flex items-center gap-1 rounded px-0.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
           :class="
             hoveredPanelId === panel.id
@@ -88,9 +107,32 @@
           @mouseenter="setTreeHoveredPanel(panel.id)"
           @mouseleave="setTreeHoveredPanel(null)"
         >
-          <span class="h-1.5 w-1.5 rounded-sm bg-current"></span>
+          <!-- 有子分隔器时显示折叠箭头，否则显示面板色点 -->
+          <button
+            v-if="getPanelSplitter(panel)"
+            class="flex items-center text-gray-400 transition-colors hover:text-(--p-primary-500)"
+            v-tooltip.left="isCollapsed(panel.id) ? '展开' : '折叠'"
+            @click.stop="toggleCollapsed(panel.id)"
+          >
+            <NeuralIcon :name="isCollapsed(panel.id) ? 'ChevronRight' : 'ChevronDown'" :size="12" />
+          </button>
+          <span v-else class="h-1 w-1 mx-1 rounded-sm bg-current"></span>
           <span>面板</span>
-          <span>{{ panel.sizeValue }}{{ panel.useUnit }}</span>
+          <!-- 尺寸标签：点击循环切换单位（px 绿色 / % 蓝色），与画布指示线一致 -->
+          <Tag
+            class="cursor-pointer"
+            :severity="unitSeverity(panel.useUnit)"
+            :value="unitLabel(panel)"
+            :pt="{
+              root: {
+                style: {
+                  backgroundColor: 'transparent',
+                  padding: '0 4px',
+                },
+              },
+            }"
+            @click.stop="toggleUnit(panel)"
+          />
           <button
             class="ml-auto text-gray-400 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
             v-tooltip.left="'删除面板'"
@@ -99,6 +141,11 @@
             <NeuralIcon name="Trash2" :size="12" />
           </button>
         </div>
+        <Layers
+          v-if="getPanelSplitter(panel) && !isCollapsed(panel.id)"
+          :node="getPanelSplitter(panel)!"
+          :parent-panel="panel"
+        />
       </template>
     </div>
   </div>

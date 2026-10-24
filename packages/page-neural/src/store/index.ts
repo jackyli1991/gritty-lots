@@ -27,11 +27,6 @@ export const usePageNeuralStore = defineStore('page-neural', {
     ] as Container[],
     // 布局树：初始仅一个根分隔器，其下为 2 个空面板
     layouts: generateSplitterNode({ layout: 'vertical' }),
-    // 布局编辑器当前悬停的面板 id（全局唯一，嵌套分隔器共享，避免父子分隔器各自维护导致状态残留）
-    hoveredPanelId: null as string | null,
-    // 图层树当前悬停的面板/分隔器 id（反向联动：树中悬停 → 画布高亮对应节点）
-    treeHoveredPanelId: null as string | null,
-    treeHoveredSplitterId: null as string | null,
   }),
   getters: {
     // 返回获取容器的函数
@@ -84,18 +79,6 @@ export const usePageNeuralStore = defineStore('page-neural', {
     // 设置当前激活的节点id
     setActiveNodeId(id: string) {
       this.activeNodeId = id;
-    },
-    // 设置布局编辑器当前悬停的面板 id
-    setHoveredPanelId(id: string | null) {
-      this.hoveredPanelId = id;
-    },
-    // 设置图层树当前悬停的面板 id
-    setTreeHoveredPanelId(id: string | null) {
-      this.treeHoveredPanelId = id;
-    },
-    // 设置图层树当前悬停的分隔器 id
-    setTreeHoveredSplitterId(id: string | null) {
-      this.treeHoveredSplitterId = id;
     },
     // 局部更新容器 props（浅合并）
     updateContainerProps(id: string, partial: Record<string, any>) {

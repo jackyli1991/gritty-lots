@@ -30,6 +30,8 @@ import {
   Layout,
   Rows2,
   Columns2,
+  ChevronRight,
+  ChevronDown,
 } from '@lucide/vue';
 
 export default {
@@ -64,4 +66,6 @@ export default {
   Layout,
   Rows2,
   Columns2,
+  ChevronRight,
+  ChevronDown,
 };

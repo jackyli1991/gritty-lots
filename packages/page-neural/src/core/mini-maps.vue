@@ -1,11 +1,12 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
   import { usePageNeuralStore } from '@neural/store';
+  import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutSplitterNode } from '@neural/types';
   import { storeToRefs } from 'pinia';
   import { computed, ref } from 'vue';
 
-  import { getPanelSplitter, panelFlexStyle } from './layout/utils';
+  import { getPanelSplitter, percentFlexStyle } from './layout/utils';
 
   // 布局缩略图：默认收起为 Layout 图标，点击展开等比缩略布局树，悬停画布面板时对应色块高亮；
   // 递归子实例以 bare 模式直出缩略主体，不重复渲染外壳
@@ -20,7 +21,9 @@
   );
 
   const pageNeuralStore = usePageNeuralStore();
-  const { hoveredPanelId, layouts } = storeToRefs(pageNeuralStore);
+  const layoutStore = useLayoutStore();
+  const { layouts } = storeToRefs(pageNeuralStore);
+  const { hoveredPanelId } = storeToRefs(layoutStore);
 
   // 外壳展开状态：默认收起仅显示 Layout 图标
   const expanded = ref(false);
@@ -56,7 +59,7 @@
       v-for="panel in currentNode.children"
       :key="panel.id"
       class="min-h-0 min-w-0"
-      :style="panelFlexStyle(panel)"
+      :style="percentFlexStyle(panel)"
     >
       <!-- 嵌套分隔器：递归缩略 -->
       <MiniMaps v-if="getPanelSplitter(panel)" :node="getPanelSplitter(panel)!" bare />

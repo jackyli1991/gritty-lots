@@ -1,22 +1,30 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
   import { generateId } from '@neural/core/crud/utils';
-  import { usePageNeuralStore } from '@neural/store';
+  import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
   import { storeToRefs } from 'pinia';
   import ContextMenu from 'primevue/contextmenu';
   import type { MenuItem } from 'primevue/menuitem';
-  import { computed, inject, onBeforeUnmount, provide, ref, useAttrs } from 'vue';
+  import {
+    computed,
+    inject,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
+    useAttrs,
+  } from 'vue';
 
   import IndicatorLine from './indicatorLine.vue';
   import {
-    DEFAULT_PANEL_UNIT,
+    applySizeValue,
     generatePanelNode,
     generateSplitterNode,
     getPanelSplitter,
-    nextUnit,
     panelFlexStyle,
-    toSizeValue,
+    toPercentage,
   } from './utils';
 
   // 模板存在多个根节点，需手动把 class 等属性透传给 flex 容器
@@ -48,11 +56,9 @@
   // 悬停面板所属分隔器的高亮边框：outline 内嵌 2px，不占布局空间也不会被父面板裁剪
   const HIGHLIGHT_CLASS = '[outline:2px_solid_var(--p-primary-500)] [outline-offset:-2px]';
 
-  // 当前悬停的面板 id（全局维护在 store，嵌套分隔器共享同一份状态；
-  // 鼠标从父分隔器移入子分隔器时父级状态不会残留，保证任意时刻只有一处高亮）
-  const pageNeuralStore = usePageNeuralStore();
-  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId } =
-    storeToRefs(pageNeuralStore);
+  // 悬停高亮状态由布局 store 统一维护，嵌套分隔器共享同一份
+  const layoutStore = useLayoutStore();
+  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId } = storeToRefs(layoutStore);
 
   // 本分隔器是否为悬停面板的直接父级：仅直接父分隔器绘制高亮边框、仅其面板显示指示线
   const isHoveredSplitter = computed(() =>
@@ -104,6 +110,26 @@
     const rect = panelEl.getBoundingClientRect();
     return props.node.layout === 'horizontal' ? rect.width : rect.height;
   }
+
+  /** 把每个面板相对容器的当前渲染占比写回 percentage，并据此重算 sizeValue */
+  function syncPanelMetrics() {
+    const containerPx = containerAxisSize();
+    if (!containerPx) return;
+
+    props.node.children.forEach((panel, index) => {
+      const panelPx = panelAxisSize(index);
+      panel.percentage = toPercentage(panelPx, containerPx);
+      applySizeValue(panel, panelPx);
+    });
+  }
+
+  // DOM 更新后再同步占比与尺寸，保证缩略图与实际渲染比例一致
+  function syncMetricsAfterUpdate() {
+    nextTick(syncPanelMetrics);
+  }
+
+  // 初次挂载时按真实渲染尺寸初始化各面板占比与尺寸
+  onMounted(syncPanelMetrics);
 
   // ---------- Gutter 拖拽 ----------
 
@@ -169,29 +195,17 @@
 
     if (!effectiveDeltaPx) return;
 
-    const effPrevDelta = toSizeValue(
-      Math.abs(effectiveDeltaPx),
-      drag.prevPanel.useUnit ?? DEFAULT_PANEL_UNIT,
-      containerPx
-    );
-    const effNextDelta = toSizeValue(
-      Math.abs(effectiveDeltaPx),
-      drag.nextPanel.useUnit ?? DEFAULT_PANEL_UNIT,
-      containerPx
-    );
-    const effSign = Math.sign(effectiveDeltaPx);
+    // 拖拽直接改写 percentage（面板占比），再按占比与实际像素推导 sizeValue
+    const prevPxAfter = prevPx + effectiveDeltaPx;
+    const nextPxAfter = nextPx - effectiveDeltaPx;
 
-    // prev 沿 sign 方向增减，next 反向增减；保留 1 位小数，避免拖拽增量浮点误差累积
-    drag.prevPanel.sizeValue = round1((drag.prevPanel.sizeValue ?? 50) + effSign * effPrevDelta);
-    drag.nextPanel.sizeValue = round1((drag.nextPanel.sizeValue ?? 50) - effSign * effNextDelta);
+    drag.prevPanel.percentage = toPercentage(prevPxAfter, containerPx);
+    drag.nextPanel.percentage = toPercentage(nextPxAfter, containerPx);
+    applySizeValue(drag.prevPanel, prevPxAfter);
+    applySizeValue(drag.nextPanel, nextPxAfter);
 
     // 同步起点位置，让后续增量以当前指针位置为基准
     drag.startPos = currentPos;
-  }
-
-  /** 保留 1 位小数 */
-  function round1(value: number): number {
-    return Math.round(value * 10) / 10;
   }
 
   function onGutterMouseUp() {
@@ -232,7 +246,7 @@
       el = el.parentElement;
     }
 
-    pageNeuralStore.setHoveredPanelId(
+    layoutStore.setHoveredPanelId(
       visualIndex >= 0 ? (props.node.children[visualIndex]?.id ?? null) : null
     );
   }
@@ -243,18 +257,12 @@
     const related = event.relatedTarget as HTMLElement | null;
     if (related?.closest?.('.page-layout-splitter')) return;
 
-    pageNeuralStore.setHoveredPanelId(null);
+    layoutStore.setHoveredPanelId(null);
   }
 
-  // 点击标签单位：循环切换后，flex 样式自动随新 useUnit / sizeValue 重算
+  // 点击标签单位：循环切换后按新单位重算 sizeValue（占比 percentage 不变）
   function toggleUnit(panel: LayoutPanelNode) {
-    panel.useUnit = nextUnit(panel.useUnit ?? DEFAULT_PANEL_UNIT);
-    // 切换单位时把 sizeValue 换算到新单位，避免尺寸含义突变
-    panel.sizeValue = toSizeValue(
-      panelAxisSize(props.node.children.indexOf(panel)),
-      panel.useUnit,
-      containerAxisSize()
-    );
+    layoutStore.toggleUnit(props.node, panel);
   }
 
   // ---------- 数据操作 ----------
@@ -273,16 +281,12 @@
     });
   }
 
-  // Splitter 拆分：包一层选定方向的父分隔器，原内容落在第一个面板内
+  // Splitter 拆分：直接在当前分隔器下追加两个子面板，方向沿用该分隔器自身
   function splitSplitter(layout: LayoutSplitterNode['layout']) {
-    const wrapper = wrapSplitter(props.node, layout);
+    props.node.layout = layout;
+    props.node.children.push(generatePanelNode(), generatePanelNode());
 
-    if (props.parent) {
-      props.parent.children = [wrapper];
-    } else {
-      // 根节点：原地替换，保持 store 中的对象引用不变
-      Object.assign(props.node, wrapper);
-    }
+    syncMetricsAfterUpdate();
   }
 
   // SplitterPanel 拆分：在面板下新建分隔器，已有嵌套分隔器则再包一层
@@ -291,25 +295,30 @@
     panel.children = existing
       ? [wrapSplitter(existing, layout)]
       : [generateSplitterNode({ layout, children: [generatePanelNode(), generatePanelNode()] })];
+
+    syncMetricsAfterUpdate();
   }
 
   // 在指定位置新增同级面板
   function addPanel(index: number) {
-    props.node.children.splice(index, 0, generatePanelNode());
+    layoutStore.addPanel(props.node, index);
+
+    syncMetricsAfterUpdate();
   }
 
-  // 删除当前面板：不限制剩余数量；删空后父分隔器随之清除
+  // 删除当前面板：删空后嵌套分隔器随之清除（由 store 处理）
   function deletePanel(index: number) {
-    props.node.children.splice(index, 1);
+    layoutStore.deletePanel(props.node, props.parent, index);
 
-    if (!props.node.children.length && props.parent) deleteSplitter();
+    // 分隔器已被清除，无需再同步本层尺寸
+    if (!props.node.children.length && props.parent) return;
+
+    syncMetricsAfterUpdate();
   }
 
-  // 删除当前分隔器：嵌套分隔器清空其父面板内容，根分隔器不处理
+  // 删除当前分隔器：清空其所在父面板内容
   function deleteSplitter() {
-    if (!props.parent) return;
-
-    props.parent.children = [];
+    layoutStore.deleteSplitter(props.parent);
   }
 
   /** 构建分隔器右键菜单 */
@@ -395,6 +404,7 @@
       <!-- 面板 flex item -->
       <div
         :data-panel="index"
+        :data-panel-id="panel.id"
         class="page-layout-splitter-panel relative overflow-hidden transition-colors"
         :class="{
           'bg-black/5 dark:bg-white/10':
@@ -405,7 +415,7 @@
       >
         <!-- 悬停时：红色指示线沿分隔方向贯穿面板（仅悬停面板的直接父分隔器内显示） -->
         <IndicatorLine
-          v-if="isHoveredSplitter"
+          v-if="isHoveredSplitter || treeHoveredPanelId === panel.id"
           :is-horizontal="isHorizontal"
           :size-value="panel.sizeValue"
           :use-unit="panel.useUnit"
@@ -423,7 +433,7 @@
       <div
         v-if="index < node.children.length - 1"
         :data-gutter="index"
-        class="shrink-0 bg-gray-200 transition-colors hover:bg-(--p-primary-500) dark:bg-gray-700 dark:hover:bg-(--p-primary-500) relative z-100"
+        class="shrink-0 bg-gray-200 transition-colors hover:bg-(--p-primary-500) dark:bg-gray-700 dark:hover:bg-(--p-primary-500) relative z-10"
         :class="isHorizontal ? 'w-px cursor-col-resize' : 'h-px cursor-row-resize'"
         @mousedown="(event: MouseEvent) => onGutterMouseDown(index + 1, event)"
       ></div>
