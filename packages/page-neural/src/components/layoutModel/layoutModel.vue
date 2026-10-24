@@ -20,7 +20,7 @@
   import InputNumber from 'primevue/inputnumber';
   import SelectButton from 'primevue/selectbutton';
   import vTooltip from 'primevue/tooltip';
-  import { computed, provide } from 'vue';
+  import { provide } from 'vue';
 
   defineOptions({
     name: 'LayoutModel',
