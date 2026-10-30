@@ -1,10 +1,9 @@
 <script setup lang="ts">
   import DroppableItem from '@neural/dnd/components/droppableItem.vue';
-  import { usePageNeuralStore } from '@neural/store';
-  import { computed } from 'vue';
-
   // import type { Container } from '@neural/types';
-  import { generateContainerStyle, generateContainerClass } from '../utils';
+  import { generateContainerStyle, generateContainerClass } from '@neural/render/utils';
+  import { usePageNeuralStore } from '@neural/store';
+  import { computed, inject } from 'vue';
 
   defineOptions({
     name: 'PageNeuralContainer',
@@ -18,6 +17,12 @@
 
   const props = defineProps<ContainerProps>();
 
+  /** 打开弹窗的方法签名 */
+  type OpenModal = (key: string, data: Record<string, any>) => void;
+
+  // 由最外层 core/index.vue 注入，容器内不重复创建弹窗实例
+  const openModal = inject<OpenModal | null>('neural-modal', null);
+
   const container = computed(() => pageNeuralStore.getContainer(props.id || ''));
 
   const containerStyle = computed(() => generateContainerStyle(container.value?.props || {}));
@@ -27,6 +32,7 @@
   // 点击激活当前容器
   const handleActive = () => {
     pageNeuralStore.setActiveNodeId(props.id || '');
+    openModal?.('container', container.value?.props || {});
   };
 </script>
 

@@ -2,21 +2,22 @@
   import { NeuralToolbar } from '@neural/components';
   // import { ref } from 'vue';
   import type { ToolbarItem } from '@neural/components/toolbar';
-  import { useModal } from '@neural/composables/userModal';
   import { useNeuralToast } from '@neural/composables/useToast';
   import { CONTAINER_ROOT_ID } from '@neural/const';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
-  import { formMaps } from '@neural/core/forms';
   import { usePageNeuralStore } from '@neural/store';
   import { invokeAction, type ActionTree, type Paths } from '@neural/utils/action';
+  import { inject } from 'vue';
 
   const { neuralConfirm } = useNeuralConfirm();
   const { neuralToastWarning } = useNeuralToast();
   const pageNeuralStore = usePageNeuralStore();
 
-  const { openModal, ModalEl } = useModal({
-    formMaps,
-  });
+  /** 打开弹窗的方法签名 */
+  type OpenModal = (key: string, data: Record<string, any>) => void;
+
+  // 由最外层 core/index.vue 注入，此处不再创建独立弹窗实例
+  const openModal = inject<OpenModal | null>('neural-modal', null);
 
   const toolbarData: ToolbarItem[][] = [
     [
@@ -30,8 +31,7 @@
     container: {
       setting: () => {
         const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
-        // console.log('activeContainer', activeContainer);
-        openModal('container', activeContainer?.props || {});
+        openModal?.('container', activeContainer?.props || {});
       },
       copy: () => {
         const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
@@ -75,5 +75,4 @@
 
 <template>
   <NeuralToolbar :data="toolbarData" @click="handleClick" />
-  <component :is="ModalEl" />
 </template>

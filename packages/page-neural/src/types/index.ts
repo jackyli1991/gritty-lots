@@ -48,6 +48,7 @@ export interface LayoutSplitterNode {
   id: string; // 分隔器节点 id
   type: 'splitter'; // 节点类型
   layout: 'horizontal' | 'vertical'; // 布局方向
+  gap: number; // 分隔器间距（px）
   children: LayoutPanelNode[]; // 子面板列表
 }
 

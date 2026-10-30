@@ -14,7 +14,7 @@ export function useNeuralToast() {
   // 成功提示
   // @param detail 详细信息
   // @param summary 摘要信息
-  function neuralToastSuccess(detail: string, summary: string) {
+  function neuralToastSuccess(summary: string, detail?: string) {
     neuralToast({
       severity: 'success',
       detail,
@@ -25,7 +25,7 @@ export function useNeuralToast() {
   // 警告提示
   // @param detail 详细信息
   // @param summary 摘要信息
-  function neuralToastWarning(detail: string, summary: string) {
+  function neuralToastWarning(summary: string, detail?: string) {
     neuralToast({
       severity: 'warn',
       detail,
@@ -36,7 +36,7 @@ export function useNeuralToast() {
   // 错误提示
   // @param detail 详细信息
   // @param summary 摘要信息
-  function neuralToastError(detail: string, summary: string) {
+  function neuralToastError(summary: string, detail?: string) {
     neuralToast({
       severity: 'error',
       detail,
@@ -47,7 +47,7 @@ export function useNeuralToast() {
   // 信息提示
   // @param detail 详细信息
   // @param summary 摘要信息
-  function neuralToastInfo(detail: string, summary: string) {
+  function neuralToastInfo(summary: string, detail?: string) {
     neuralToast({
       severity: 'info',
       detail,

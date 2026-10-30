@@ -1,6 +1,7 @@
 import { CONTAINER_TYPE } from '@neural/const';
 import type { Container } from '@neural/types';
 import { generateId } from '@neural/utils/uuid';
+import { merge } from 'lodash-es';
 
 /**
  * 生成容器
@@ -30,48 +31,50 @@ export function generateContainer({
     type: CONTAINER_TYPE,
     subType,
     parentId,
-    props: {
-      boxModel: {
-        margin: { top: 0, right: 0, bottom: 0, left: 0 },
-        border: { top: 0, right: 0, bottom: 0, left: 0, style: 'solid', color: '' },
-        padding: { top: 0, right: 0, bottom: 0, left: 0 },
-        width: 50,
-        height: 50,
-        borderRadius: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
-        units: { margin: 'px', border: 'px', padding: 'px', width: '%', height: '%' },
-        ...props,
-      },
-      backgroundModel: {
-        backgroundColor: '#fff',
-        backgroundImage: '',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        backgroundSize: 'contain',
-        backgroundOrigin: 'padding-box',
-        backgroundClip: 'border-box',
-        scale: [1, 1],
-      },
-      requestModel: {
-        url: '/test/api',
-        method: 'GET',
-        headers: {
-          keyword: 'params',
+    props: merge(
+      {
+        boxModel: {
+          margin: { top: 0, right: 0, bottom: 0, left: 0 },
+          border: { top: 0, right: 0, bottom: 0, left: 0, style: 'solid', color: '' },
+          padding: { top: 0, right: 0, bottom: 0, left: 0 },
+          width: 50,
+          height: 50,
+          borderRadius: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+          units: { margin: 'px', border: 'px', padding: 'px', width: '%', height: '%' },
         },
-        params: {},
-        enable: true,
-        responseField: 'result.list',
+        backgroundModel: {
+          backgroundColor: '#fff',
+          backgroundImage: '',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          backgroundSize: 'contain',
+          backgroundOrigin: 'padding-box',
+          backgroundClip: 'border-box',
+          scale: [1, 1],
+        },
+        requestModel: {
+          url: '/test/api',
+          method: 'GET',
+          headers: {
+            keyword: 'params',
+          },
+          params: {},
+          enable: true,
+          responseField: 'result.list',
+        },
+        layoutModel: {
+          type: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'stretch',
+          flexWrap: 'nowrap',
+          gap: 0,
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: 'auto',
+        },
       },
-      layoutModel: {
-        type: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        flexWrap: 'nowrap',
-        gap: 0,
-        gridTemplateColumns: '1fr 1fr',
-        gridTemplateRows: 'auto',
-      },
-    },
+      props || {}
+    ),
     children: [],
   };
 }

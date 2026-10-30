@@ -15,6 +15,12 @@ export default defineConfig(({ mode }) => {
     resolve: {
       tsconfigPaths: true, // 启用 tsconfig 路径解析功能
     },
+    // Vite 8 Rolldown 优化器对 primevue 子路径生成大小写不一致的 chunk 名（如 primeVue_button2.js），
+    // 与 flattenId 生成的 primevue_button.js 不匹配，导致 depForEntryFileName 查找失败。
+    // 待 Rolldown 上游修复（primevue 相关 chunk 命名）后可移除。
+    optimizeDeps: {
+      exclude: ['primevue', '@primevue/forms', '@primeuix/themes'],
+    },
     plugins: [
       vue({
         template: {

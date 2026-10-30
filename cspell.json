@@ -46,7 +46,9 @@
     "confirmdialog",
     "confirmationservice",
     "toastservice",
-    "trae"
+    "trae",
+    "primevue",
+    "primeuix"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

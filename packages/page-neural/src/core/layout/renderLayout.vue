@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
+  import Container from '@neural/core/container/index.vue';
   import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
   import { generateId } from '@neural/utils/uuid';
@@ -403,11 +404,12 @@
     v-bind="attrs"
     class="page-layout-splitter flex h-full w-full"
     :class="[
-      border ? 'border border-gray-200 dark:border-gray-700' : '',
+      border && !locked ? '[outline:1px_solid_var(--color-gray-200)] -outline-offset-1' : '',
       isHorizontal ? '' : 'flex-col',
-      isHighlighted ? HIGHLIGHT_CLASS : '',
+      isHighlighted && !locked ? HIGHLIGHT_CLASS : '',
       gutterDrag ? 'select-none' : '',
     ]"
+    :style="{ gap: `${node.gap}px` }"
     @contextmenu="onSplitterContextMenu"
     @mouseover.stop="onSplitterMouseOver"
     @mouseleave.stop="onSplitterMouseLeave"
@@ -427,7 +429,7 @@
       >
         <!-- 悬停时：红色指示线沿分隔方向贯穿面板（仅悬停面板的直接父分隔器内显示） -->
         <IndicatorLine
-          v-if="isHoveredSplitter || treeHoveredPanelId === panel.id"
+          v-if="!locked && (isHoveredSplitter || treeHoveredPanelId === panel.id)"
           :is-horizontal="isHorizontal"
           :size-value="panel.sizeValue"
           :use-unit="panel.useUnit"
@@ -441,10 +443,12 @@
           :border="false"
           :parent="panel"
         />
+        <!-- 锁定后：叶子面板渲染对应的根容器（容器内部会递归渲染 children 子树） -->
+        <Container v-else-if="locked" :id="panel.containerId" />
       </div>
       <!-- 面板之间的拖拽 gutter：最后一个面板后不加 -->
       <div
-        v-if="index < node.children.length - 1"
+        v-if="index < node.children.length - 1 && !locked"
         :data-gutter="index"
         class="shrink-0 bg-gray-200 transition-colors hover:bg-(--p-primary-500) dark:bg-gray-700 dark:hover:bg-(--p-primary-500) relative z-10"
         :class="[

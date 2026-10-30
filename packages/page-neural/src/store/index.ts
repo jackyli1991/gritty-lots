@@ -1,7 +1,7 @@
 import { CONTAINER_ROOT_ID } from '@neural/const';
 import { generateContainer } from '@neural/core/crud/utils';
 import { generateSplitterNode } from '@neural/core/layout/utils';
-import type { Container, Page, LayoutSplitterNode } from '@neural/types';
+import type { Container, LayoutPanelNode, Page, LayoutSplitterNode } from '@neural/types';
 import { generateId } from '@neural/utils/uuid';
 import { defineStore } from 'pinia';
 
@@ -15,18 +15,7 @@ export const usePageNeuralStore = defineStore('page-neural', {
     activePageId: '', // 当前激活的页面id
     nodes: [],
     edges: [],
-    containers: [
-      // 页面根容器
-      // generateContainer({
-      //   id: CONTAINER_ROOT_ID,
-      //   name: '页面根容器',
-      //   subType: '',
-      //   props: {
-      //     width: 100,
-      //     height: 100,
-      //   },
-      // }),
-    ] as Container[],
+    containers: [] as Container[],
     // 布局树：初始仅一个根分隔器，其下为 2 个空面板
     layouts: [] as LayoutSplitterNode[],
     // 页面列表
@@ -114,6 +103,47 @@ export const usePageNeuralStore = defineStore('page-neural', {
     setLayoutLock(locked: boolean) {
       if (this.activePage) {
         this.activePage.layoutLock = locked;
+      }
+    },
+    // 锁定布局前，确保每个叶子面板都有对应的根容器（缺失则生成并双向关联）
+    ensureLayoutContainers() {
+      const layout = this.activeLayout;
+      if (!layout) return;
+
+      // 收集所有叶子面板：LayoutPanelNode.children 为空即为叶子
+      const leafPanels: LayoutPanelNode[] = [];
+      const walk = (splitter: LayoutSplitterNode) => {
+        for (const panel of splitter.children) {
+          if (panel.children.length === 0) {
+            leafPanels.push(panel);
+          } else {
+            // 有嵌套分隔器，递归进入
+            walk(panel.children[0]);
+          }
+        }
+      };
+      walk(layout);
+
+      for (const panel of leafPanels) {
+        // 确保 panel.containerId 有值
+        if (!panel.containerId) {
+          panel.containerId = generateId('c');
+        }
+        // 容器不存在才生成
+        if (!this.containers.some((c) => c.id === panel.containerId)) {
+          const container = generateContainer({
+            id: panel.containerId,
+            name: `面板容器-${panel.containerId.slice(-4)}`,
+            subType: '',
+            props: {
+              boxModel: {
+                width: 100,
+                height: 100,
+              },
+            },
+          });
+          this.containers.push(container);
+        }
       }
     },
     // 局部更新容器 props（浅合并）

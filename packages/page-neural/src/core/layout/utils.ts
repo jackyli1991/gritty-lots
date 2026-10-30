@@ -72,6 +72,7 @@ export function generateSplitterNode({
     id: generateId('l'),
     type: 'splitter',
     layout,
+    gap: 0,
     children: panels,
   };
 }

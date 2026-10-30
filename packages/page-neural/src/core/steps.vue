@@ -13,18 +13,15 @@
   const steps = ref([
     {
       icon: 'Layout',
-      label: '布局',
+      label: '页面搭建',
       value: 1,
-    },
-    {
-      icon: 'Component',
-      label: '元素',
-      value: 2,
+      slot: 'layout',
     },
     {
       icon: 'Network',
-      label: '交互',
-      value: 3,
+      label: '行为交互',
+      value: 2,
+      slot: 'interaction',
     },
   ]);
 </script>
@@ -52,7 +49,7 @@
             <NeuralIcon :name="step.icon" />
             <div class="px-2 flex items-center gap-2">
               <span>{{ step.label }}</span>
-              <slot v-if="modelValue === Number(value)" :name="'step' + step.value"></slot>
+              <slot v-if="modelValue === Number(value) && step.slot" :name="step.slot"></slot>
             </div>
             <Divider
               v-if="index < steps.length - 1"

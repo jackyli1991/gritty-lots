@@ -70,6 +70,11 @@ export const useLayoutStore = defineStore('page-neural-layout', {
         applySizeValue(panel, panelPx);
       }
     },
+    // 更新分隔器间距（px），最小 0
+    updateSplitterGap(splitter: LayoutSplitterNode, gap: number) {
+      if (this.locked) return;
+      splitter.gap = Math.max(0, Math.round(gap));
+    },
   },
 });
 

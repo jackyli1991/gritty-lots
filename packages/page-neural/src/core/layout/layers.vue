@@ -85,6 +85,26 @@
       <NeuralIcon :name="isHorizontal ? 'Columns2' : 'Rows2'" :size="12" />
       <span>{{ isHorizontal ? '水平布局' : '垂直布局' }}</span>
       <span class="text-gray-400 dark:text-gray-500">({{ node.children.length }})</span>
+      <!-- gap 间距编辑：显示当前值，锁定时禁用 -->
+      <div class="ml-1 flex items-center gap-0.5 text-[11px] text-gray-400 dark:text-gray-500">
+        <button
+          v-if="!locked"
+          class="flex h-4 w-4 items-center justify-center rounded hover:bg-gray-200 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+          @click.stop="layoutStore.updateSplitterGap(node, node.gap - 2)"
+        >
+          <NeuralIcon name="Minus" :size="10" />
+        </button>
+        <span :class="locked ? '' : 'cursor-default'" v-tooltip.left="'间距 gap'">
+          gap {{ node.gap }}px
+        </span>
+        <button
+          v-if="!locked"
+          class="flex h-4 w-4 items-center justify-center rounded hover:bg-gray-200 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+          @click.stop="layoutStore.updateSplitterGap(node, node.gap + 2)"
+        >
+          <NeuralIcon name="Plus" :size="10" />
+        </button>
+      </div>
       <button
         v-if="!isRoot && !locked"
         class="ml-auto text-gray-400 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
