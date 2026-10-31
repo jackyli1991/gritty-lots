@@ -12,7 +12,7 @@
     inject,
     nextTick,
     onBeforeUnmount,
-    onMounted,
+    // onMounted,
     provide,
     ref,
     useAttrs,
@@ -48,7 +48,7 @@
   const isRoot = !props.parent;
 
   // 指示线方向跟随分隔器轴向：水平分隔器为水平线，垂直分隔器为竖直线
-  const isHorizontal = computed(() => props.node.layout === 'horizontal');
+  const isHorizontal = computed(() => props.node?.layout === 'horizontal');
 
   // 删除项统一样式
   const DELETE_CLASS =
@@ -64,12 +64,12 @@
 
   // 本分隔器是否为悬停面板的直接父级：仅直接父分隔器绘制高亮边框、仅其面板显示指示线
   const isHoveredSplitter = computed(() =>
-    props.node.children.some((panel) => panel.id === hoveredPanelId.value)
+    props.node?.children?.some((panel) => panel.id === hoveredPanelId.value)
   );
 
   // 描边高亮条件：画布悬停其直接子面板，或图层树中悬停本分隔器
   const isHighlighted = computed(
-    () => isHoveredSplitter.value || treeHoveredSplitterId.value === props.node.id
+    () => isHoveredSplitter.value || treeHoveredSplitterId.value === props.node?.id
   );
 
   // flex 容器根元素，用于测量容器轴向像素及面板真实像素（gutter 拖拽边界保护）
@@ -131,7 +131,7 @@
   }
 
   // 初次挂载时按真实渲染尺寸初始化各面板占比与尺寸
-  onMounted(syncPanelMetrics);
+  // onMounted(syncPanelMetrics);
 
   // ---------- Gutter 拖拽 ----------
 
@@ -409,7 +409,7 @@
       isHighlighted && !locked ? HIGHLIGHT_CLASS : '',
       gutterDrag ? 'select-none' : '',
     ]"
-    :style="{ gap: `${node.gap}px` }"
+    :style="{ gap: `${node?.gap || 0}px` }"
     @contextmenu="onSplitterContextMenu"
     @mouseover.stop="onSplitterMouseOver"
     @mouseleave.stop="onSplitterMouseLeave"

@@ -6,6 +6,15 @@ export interface ModalOptions {
   showCloseIcon?: boolean; // 是否显示关闭图标
   class?: string; // 自定义类名
   component: string; // 组件类型 drawer-抽屉 dialog-弹窗组件
+  collapse?: {
+    enable?: boolean; // 是否启用手风琴模式
+    defaultCollapsed?: boolean; // 默认是否折叠
+  };
+  delete?: {
+    enable?: boolean; // 是否启用删除按钮
+    label?: string; // 删除按钮文本
+    message?: string; // 删除确认消息
+  };
   [key: string]: any;
 }
 

@@ -2,7 +2,7 @@
   import { NeuralToolbar } from '@neural/components';
   // import { ref } from 'vue';
   import type { ToolbarItem } from '@neural/components/toolbar';
-  import { invokeAction, type ActionTree, type Paths } from '@neural/utils/action';
+  import { invokeAction, type ActionTree, type Paths } from '@neural/utils';
 
   const toolbarData: ToolbarItem[][] = [
     [{ label: '垂直布局', icon: 'Rows2', key: 'layoutVertical' }],

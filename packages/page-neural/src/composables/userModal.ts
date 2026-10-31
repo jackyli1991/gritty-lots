@@ -1,14 +1,28 @@
-import { NeuralForm } from '@neural/components';
+import { NeuralForm, NeuralIcon } from '@neural/components';
+import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
+import type { PageNeuralStore } from '@neural/store';
 import type { ModalOptions, FormOptions } from '@neural/types';
+import { getObjectValueByPath } from '@neural/utils';
+import { merge } from 'lodash-es';
+import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import Drawer from 'primevue/drawer';
+import ToggleButton from 'primevue/togglebutton';
 import type { Component } from 'vue';
 import { ref, computed, h } from 'vue';
 
 interface UserModalOptions {
   formMaps: Record<string, { formConfig: FormOptions; modalConfig: ModalOptions }>;
+  store: PageNeuralStore;
   onShow?: (key: string) => void;
   onHide?: (key: string) => void;
+}
+
+interface OpenModalOptions {
+  key: string; // 节点类型  格式为 'type[.subType]' 如果只有type 则显示全部formConfig.schema 如果有subType 则显示subType对应的formConfig.schema
+  props: Record<string, any>; // 节点props数据
+  nodeData: Record<string, any>; // 节点完整数据
+  modalConfig?: Record<string, any>; // 自定义弹窗配置
 }
 
 // 默认弹窗配置
@@ -45,6 +59,15 @@ const defaultModalConfig = {
   },
 };
 
+// 从formConfig中根据nodeKeys获取对应的schema
+function getFormConfig(formConfig: FormOptions, nodeKeys: string[]) {
+  if (!nodeKeys[1]) return formConfig;
+  return {
+    ...formConfig,
+    schema: formConfig.schema.filter((item: any) => item.schemaName === nodeKeys[1]),
+  };
+}
+
 /**
  * 自定义弹窗组件
  * @param options 弹窗组件选项
@@ -53,7 +76,15 @@ const defaultModalConfig = {
 export function useModal(options: UserModalOptions) {
   const modalVisible = ref(false);
   const modalKey = ref<string>('');
-  const formData = ref<Record<string, any>>({});
+  const nodeProps = ref<Record<string, any>>({}); // 节点props数据
+  const nodeFullData = ref<Record<string, any>>({}); // 节点完整数据
+  const selfModalConfig = ref<Record<string, any>>({}); // 自定义弹窗配置
+
+  // 表单手风琴模式控制变量
+  const formFieldSetCollapsable = ref(true);
+
+  // 弹窗确认弹窗
+  const { neuralConfirm } = useNeuralConfirm();
 
   function closeModal(visible: boolean) {
     const timer = setTimeout(() => {
@@ -66,7 +97,8 @@ export function useModal(options: UserModalOptions) {
   // 否则 h() 产出的静态 VNode 会把 visible 固化，导致关闭事件无法回写到组件
   const ModalEl = computed<Component | null>(() => {
     if (!modalKey.value) return null;
-    const { formConfig, modalConfig } = options.formMaps[modalKey.value];
+    const nodeKeys = modalKey.value.split('.');
+    const { formConfig, modalConfig } = options.formMaps[nodeKeys[0]];
 
     if (!modalConfig) {
       console.error('缺少弹窗载体配置【modalConfig】');
@@ -78,11 +110,30 @@ export function useModal(options: UserModalOptions) {
       return null;
     }
 
-    const { component, ...rest } = modalConfig;
+    const { component, ...rest } = merge({}, modalConfig, selfModalConfig.value);
+
+    // 删除按钮配置
+    const deleteConfig = {
+      enable: false,
+      message: '确认删除吗？',
+      label: '删除',
+      ...rest.delete,
+    };
+
+    // 手风琴模式配置
+    const collapseConfig = {
+      enable: false,
+      defaultCollapsed: true,
+      ...rest.collapse,
+    };
+
+    // 表单手风琴模式，取配置值
+    formFieldSetCollapsable.value = collapseConfig.defaultCollapsed ?? true;
 
     return h(
       component === 'drawer' ? Drawer : Dialog,
       {
+        key: modalKey.value, // 稳定 key，避免 computed 重算时 Dialog/Drawer 被销毁重建
         ...defaultModalConfig[component as keyof typeof defaultModalConfig],
         ...rest,
         visible: modalVisible.value,
@@ -99,24 +150,98 @@ export function useModal(options: UserModalOptions) {
       {
         default: () =>
           h(NeuralForm, {
-            data: formData.value,
-            ...formConfig,
+            key: `form-${modalKey.value}`, // 表单实例复用避免重建
+            data: nodeProps.value,
+            ...getFormConfig(formConfig, nodeKeys),
+            fieldSetCollapsable: formFieldSetCollapsable.value, // 非手风琴模式，全部可独立展开/折叠
             onSubmit: (data: Record<string, any>) => {
               console.log('提交数据', data);
-              Object.assign(formData.value, data);
+              Object.assign(nodeProps.value, data);
               closeModal(false);
             },
             onClose: () => {
               closeModal(false);
             },
           }),
+        header: () =>
+          h(
+            'div',
+            {
+              class: 'w-full flex justify-between items-center',
+            },
+            [
+              h(
+                'div',
+                {
+                  class: 'flex items-center gap-2',
+                },
+                [
+                  h('span', { class: 'text-sm font-bold' }, modalConfig.header),
+                  collapseConfig.enable &&
+                    h(
+                      ToggleButton,
+                      {
+                        size: 'small',
+                        onLabel: '风琴模式',
+                        offLabel: '风琴模式',
+                        modelValue: formFieldSetCollapsable.value,
+                        'onUpdate:modelValue': (val: boolean) => {
+                          formFieldSetCollapsable.value = val;
+                        },
+                      },
+                      {
+                        icon: () => {
+                          return h(NeuralIcon, {
+                            name: formFieldSetCollapsable.value ? 'ListCollapse' : 'List',
+                          });
+                        },
+                      }
+                    ),
+                ]
+              ),
+              deleteConfig.enable &&
+                h(Button, {
+                  severity: 'danger',
+                  variant: 'outlined',
+                  size: 'small',
+                  label: deleteConfig.label || '删除',
+                  onClick: (event) => {
+                    // 消息中的 {{path}} 占位符替换为节点完整数据中的对应值
+                    // 例如：'确认删除【{{props.boxModel.width}}】吗？' → '确认删除【100】吗？'
+                    const message = deleteConfig.message.replace(
+                      /{{\s*([^}]+?)\s*}}/g,
+                      (_: string, path: string) => {
+                        const value = getObjectValueByPath(nodeFullData.value, path.trim());
+                        return value === undefined ? '' : String(value);
+                      }
+                    );
+                    neuralConfirm({
+                      target: event.currentTarget as HTMLElement,
+                      message,
+                      type: 'delete',
+                      confirm: async () => {
+                        // 执行删除回调
+                        await options.store?.onDelete?.(modalKey.value);
+                        // 关闭弹窗
+                        closeModal(false);
+                      },
+                    });
+                  },
+                }),
+            ]
+          ),
       }
     );
   });
 
-  function openModal(key: string, data: Record<string, any>) {
+  /**
+   * 节点配置弹窗打开方法
+   */
+  function openModal({ key, props, nodeData, modalConfig }: OpenModalOptions) {
     modalKey.value = key;
-    formData.value = data;
+    nodeProps.value = props;
+    nodeFullData.value = nodeData;
+    selfModalConfig.value = modalConfig || {};
     modalVisible.value = true;
   }
 
@@ -125,3 +250,5 @@ export function useModal(options: UserModalOptions) {
     ModalEl,
   };
 }
+
+export type OpenModal = ({ key, props, nodeData, modalConfig }: OpenModalOptions) => void;

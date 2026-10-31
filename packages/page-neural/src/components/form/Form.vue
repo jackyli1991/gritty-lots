@@ -16,8 +16,10 @@
                 background: '#fafafa',
               },
             }"
-            :collapsed="activeFieldset !== index"
-            @update:collapsed="(val: number) => (activeFieldset = val ? null : index)"
+            :collapsed="
+              props.fieldSetCollapsable ? activeFieldset !== index : collapsedFieldsets.has(index)
+            "
+            @update:collapsed="(val: boolean) => onToggleFieldset(index, val)"
           >
             <div :class="`grid grid-cols-${props.columns} gap-x-2 gap-y-1`">
               <FormItem
@@ -115,6 +117,7 @@
     submitText?: string; // 提交按钮文本，默认 '提交'
     resetText?: string; // 重置按钮文本，默认 '重置'
     closeText?: string; // 关闭按钮文本，默认 '关闭'
+    fieldSetCollapsable?: boolean; // 手风琴模式，默认 false
   }
 
   const loading = ref(false);
@@ -122,8 +125,33 @@
   /** 当前展开的 Fieldset 索引（手风琴模式：同时只展开一个） */
   const activeFieldset = ref<number | null>(0);
 
+  /** 非手风琴模式下，记录所有已折叠的 Fieldset 索引（空 = 全部展开） */
+  const collapsedFieldsets = ref<Set<number>>(new Set());
+
+  /**
+   * 切换 Fieldset 展开状态
+   * @param index 当前 Fieldset 索引
+   * @param collapsed collapsed=true 表示折叠，false 表示展开
+   */
+  const onToggleFieldset = (index: number, collapsed: boolean) => {
+    if (props.fieldSetCollapsable) {
+      // 手风琴：折叠当前展开的，或展开新的 index
+      activeFieldset.value = collapsed ? null : index;
+    } else {
+      // 全部可独立展开/折叠；空 Set 表示全部展开
+      if (collapsed) {
+        collapsedFieldsets.value.add(index);
+      } else {
+        collapsedFieldsets.value.delete(index);
+      }
+      // Set mutation 不触发响应式，重新赋值
+      collapsedFieldsets.value = new Set(collapsedFieldsets.value);
+    }
+  };
+
   const props = withDefaults(defineProps<Props>(), {
     autoComplete: true,
+    fieldSetCollapsable: true,
     submitText: '提交',
     resetText: '重置',
     closeText: '关闭',

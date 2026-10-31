@@ -5,7 +5,7 @@
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { usePageNeuralStore } from '@neural/store';
   import { useLayoutStore } from '@neural/store/layout';
-  import { invokeAction, type ActionTree, type Paths } from '@neural/utils/action';
+  import { invokeAction, type ActionTree, type Paths } from '@neural/utils';
   import { computed } from 'vue';
   const { neuralToastSuccess } = useNeuralToast();
 
@@ -24,7 +24,7 @@
       },
       {
         label: '编辑布局',
-        icon: 'Unlock',
+        icon: 'SquarePen',
         key: 'unlockLayout',
         hidden: !layoutStore.locked,
       },
@@ -59,5 +59,5 @@
 </script>
 
 <template>
-  <NeuralToolbar :data="toolbarData" @click="handleClick" />
+  <NeuralToolbar :data="toolbarData" showLabel @click="handleClick" />
 </template>

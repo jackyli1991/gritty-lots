@@ -1,8 +1,8 @@
 import { CONTAINER_ROOT_ID } from '@neural/const';
-import { generateContainer } from '@neural/core/crud/utils';
+import { createContainer } from '@neural/core/forms/container';
 import { generateSplitterNode } from '@neural/core/layout/utils';
 import type { Container, LayoutPanelNode, Page, LayoutSplitterNode } from '@neural/types';
-import { generateId } from '@neural/utils/uuid';
+import { generateId } from '@neural/utils';
 import { defineStore } from 'pinia';
 
 //  `defineStore()` 的返回值的命名是自由的
@@ -34,39 +34,65 @@ export const usePageNeuralStore = defineStore('page-neural', {
     },
   },
   actions: {
+    // 初始化数据
+    initData(payload: { containers: Container[]; layouts: LayoutSplitterNode[]; pages: Page[] }) {
+      this.containers = payload.containers;
+      this.layouts = payload.layouts;
+      this.pages = payload.pages;
+      if (payload.containers.length) this.setActiveNodeId(payload.containers[0].id);
+      if (payload.pages.length) this.setActivePageId(payload.pages[0].id);
+    },
+    // 删除操作
+    async onDelete(nodeType: string) {
+      switch (nodeType) {
+        case 'container':
+          this.deleteContainer(this.activeNodeId);
+          break;
+        case 'page':
+          // this.deletePage(this.activePageId);
+          break;
+        default:
+          break;
+      }
+    },
     // 添加容器
-    addContainer(container: Container) {
-      this.containers.push(container);
-      // 如果有父容器，添加到父容器的子容器列表
-      if (container.parentId) {
-        const parent = this.containers.find((item) => item.id === container.parentId);
-        if (parent) {
-          parent.children.push(container.id);
-        }
-      }
-      // 设置为当前激活的节点
-      this.setActiveNodeId(container.id);
-    },
+    // addContainer(container: Container) {
+    //   this.containers.push(container);
+    //   // 如果有父容器，添加到父容器的子容器列表
+    //   if (container.parentId) {
+    //     const parent = this.containers.find((item) => item.id === container.parentId);
+    //     if (parent) {
+    //       parent.children.push(container.id);
+    //     }
+    //   }
+    //   // 设置为当前激活的节点
+    //   this.setActiveNodeId(container.id);
+    // },
     // 复制容器
-    copyContainer(id: string) {
-      const container = this.getContainer(id);
-      if (!container) {
-        return;
-      }
-      const newContainer = generateContainer({
-        ...container,
-        id: generateId('c'),
-      });
-      this.addContainer(newContainer);
-    },
+    // copyContainer(id: string) {
+    //   const container = this.getContainer(id);
+    //   if (!container) {
+    //     return;
+    //   }
+    //   const newContainer = createContainer({
+    //     ...container,
+    //     id: generateId('c'),
+    //   });
+    //   this.addContainer(newContainer);
+    // },
     // 删除容器
     deleteContainer(id: string) {
-      if (id === CONTAINER_ROOT_ID) {
-        return;
+      const deleteContainer = this.containers.find((item) => item.id === id);
+      console.log('删除容器', deleteContainer);
+      if (!deleteContainer) {
+        return false;
+      }
+      if (deleteContainer.subType === CONTAINER_ROOT_ID) {
+        console.log('不能删除根容器', '拒绝');
+        return false;
       }
       // 从父容器的children中删除
-      const deleteContainer = this.containers.find((item) => item.id === id);
-      if (deleteContainer && deleteContainer.parentId) {
+      if (deleteContainer.parentId) {
         const parent = this.containers.find((item) => item.id === deleteContainer.parentId);
         if (parent) {
           parent.children = parent.children.filter((child) => child !== id);
@@ -131,10 +157,10 @@ export const usePageNeuralStore = defineStore('page-neural', {
         }
         // 容器不存在才生成
         if (!this.containers.some((c) => c.id === panel.containerId)) {
-          const container = generateContainer({
+          const container = createContainer({
             id: panel.containerId,
             name: `面板容器-${panel.containerId.slice(-4)}`,
-            subType: '',
+            subType: CONTAINER_ROOT_ID,
             props: {
               boxModel: {
                 width: 100,
@@ -145,12 +171,6 @@ export const usePageNeuralStore = defineStore('page-neural', {
           this.containers.push(container);
         }
       }
-    },
-    // 局部更新容器 props（浅合并）
-    updateContainerProps(id: string, partial: Record<string, any>) {
-      const container = this.getContainer(id);
-      if (!container) return;
-      container.props = { ...container.props, ...partial };
     },
   },
 });

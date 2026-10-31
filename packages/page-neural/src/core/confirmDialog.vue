@@ -2,9 +2,10 @@
   // import { useToast } from "primevue/usetoast";
   import { NeuralIcon } from '@neural/components';
   import { useConfirm } from 'primevue/useconfirm';
-  import { h } from 'vue';
+  import { h, ref, nextTick } from 'vue';
 
   interface ConfirmOptions {
+    target?: HTMLElement; // 确认目标元素
     message: string; // 确认消息
     header?: string; // 确认标题
     type?: 'info' | 'alert' | 'delete'; // 确认类型
@@ -21,11 +22,17 @@
     delete: 'Trash2',
   };
 
+  // 是否有确认目标元素，如果有则使用确认popup，否则使用确认confirm对话框
+  const hasTarget = ref(false);
+
   export function useNeuralConfirm() {
     const confirm = useConfirm();
 
-    function neuralConfirm(options: ConfirmOptions) {
+    async function neuralConfirm(options: ConfirmOptions) {
+      hasTarget.value = options.target !== undefined;
+      await nextTick();
       confirm.require({
+        target: options.target,
         message: options.message,
         header: options.header || '确认',
         icon: h(NeuralIcon, { name: IconMaps[options.type || 'info'] }),
@@ -55,10 +62,21 @@
 
 <script setup lang="ts">
   import ConfirmDialog from 'primevue/confirmdialog';
+  import ConfirmPopup from 'primevue/confirmpopup';
 </script>
 
 <template>
+  <ConfirmPopup
+    v-if="hasTarget"
+    target="body"
+    :pt="{
+      icon: {
+        class: 'size-3.5!',
+      },
+    }"
+  />
   <ConfirmDialog
+    v-else
     :pt="{
       root: {
         class: 'min-w-sm',

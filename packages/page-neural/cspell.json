@@ -42,7 +42,8 @@
     "itemicon",
     "splitterpanel",
     "resizeend",
-    "steplist"
+    "steplist",
+    "confirmpopup"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

@@ -17,7 +17,7 @@
 **关键约束（来自项目记忆）：**
 
 - Pinia options store；路径别名 `@neural/*` → `packages/page-neural/src/*`。
-- `generateId(prefix)` 在 `@neural/utils/uuid`；`generateSplitterNode` 在 `@neural/core/layout/utils`。
+- `generateId(prefix)` 在 `@neural/utils`；`generateSplitterNode` 在 `@neural/core/layout/utils`。
 - `activeLayout` getter：`state.layouts.find(item => item.id === state.activePage?.layoutId)`。
 
 ## 涉及文件与改动

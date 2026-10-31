@@ -7,83 +7,95 @@ export function generateContainerStyle(props: Record<string, any>): Record<strin
   const style: Record<string, any> = {};
 
   // 背景
-  const {
-    backgroundColor,
-    backgroundRepeat,
-    backgroundSize,
-    backgroundImage,
-    backgroundPosition,
-    backgroundOrigin,
-    backgroundClip,
-    scale,
-  } = props.backgroundModel;
+  if (props.backgroundModel) {
+    const {
+      backgroundColor,
+      backgroundRepeat,
+      backgroundSize,
+      backgroundImage,
+      backgroundPosition,
+      backgroundOrigin,
+      backgroundClip,
+      scale,
+    } = props.backgroundModel;
 
-  style.backgroundColor = backgroundColor;
-  style.backgroundRepeat = backgroundRepeat;
-  style.backgroundSize = backgroundSize;
-  style.backgroundImage = backgroundImage ? `url(${backgroundImage})` : 'none';
-  style.backgroundPosition = backgroundPosition;
-  style.backgroundOrigin = backgroundOrigin;
-  style.backgroundClip = backgroundClip;
-  style.transform = `scale(${scale[0]}, ${scale[1]})`;
+    style.backgroundColor = backgroundColor;
+    style.backgroundRepeat = backgroundRepeat;
+    style.backgroundSize = backgroundSize;
+    style.backgroundImage = backgroundImage ? `url(${backgroundImage})` : 'none';
+    style.backgroundPosition = backgroundPosition;
+    style.backgroundOrigin = backgroundOrigin;
+    style.backgroundClip = backgroundClip;
+    style.transform = `scale(${scale[0]}, ${scale[1]})`;
+  }
 
   // 盒模型
-  const { margin, border, padding, width, height, borderRadius, units } = props.boxModel;
-  // 边框
-  if (border) {
-    const unit = units.border;
-    const { style: borderStyle, top, right, bottom, left, color } = border;
-    style.borderWidth = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
-    style.borderColor = color;
-    style.borderStyle = borderStyle;
-  }
+  if (props.boxModel) {
+    const { margin, border, padding, width, height, borderRadius, units } = props.boxModel;
+    // 边框
+    if (border) {
+      const unit = units.border;
+      const { style: borderStyle, top, right, bottom, left, color } = border;
+      style.borderWidth = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+      style.borderColor = color;
+      style.borderStyle = borderStyle;
+    }
 
-  // padding
-  if (padding) {
-    const unit = units.padding;
-    const { top, right, bottom, left } = padding;
-    style.padding = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
-  }
-  // margin
-  if (margin) {
-    const unit = units.margin;
-    const { top, right, bottom, left } = margin;
-    style.margin = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
-  }
-  // 圆角
-  if (borderRadius) {
-    const unit = units.border;
-    const { topLeft, topRight, bottomRight, bottomLeft } = borderRadius;
-    style.borderRadius = `${topLeft}${unit} ${topRight}${unit} ${bottomRight}${unit} ${bottomLeft}${unit}`;
-  }
-  // 宽度
-  if (width) {
-    style.width = width + units.width;
-  }
-  // 高度
-  if (height) {
-    style.height = height + units.height;
+    // padding
+    if (padding) {
+      const unit = units.padding;
+      const { top, right, bottom, left } = padding;
+      style.padding = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+    }
+    // margin
+    if (margin) {
+      const unit = units.margin;
+      const { top, right, bottom, left } = margin;
+      style.margin = `${top}${unit} ${right}${unit} ${bottom}${unit} ${left}${unit}`;
+    }
+    // 圆角
+    if (borderRadius) {
+      const unit = units.border;
+      const { topLeft, topRight, bottomRight, bottomLeft } = borderRadius;
+      style.borderRadius = `${topLeft}${unit} ${topRight}${unit} ${bottomRight}${unit} ${bottomLeft}${unit}`;
+    }
+    // 宽度
+    if (width) {
+      style.width = width + (units?.width || '%');
+    }
+    // 高度
+    if (height) {
+      style.height = height + (units?.height || '%');
+    }
   }
 
   // 布局模型
-  const layoutModel = props.layoutModel;
-  if (layoutModel) {
-    const { type } = layoutModel;
+  if (props.layoutModel) {
+    const {
+      type,
+      flexDirection,
+      justifyContent,
+      alignItems,
+      flexWrap,
+      gap,
+      gridTemplateColumns,
+      gridTemplateRows,
+    } = props.layoutModel;
     if (type === 'flex') {
       style.display = 'flex';
-      style.flexDirection = layoutModel.flexDirection;
-      style.justifyContent = layoutModel.justifyContent;
-      style.alignItems = layoutModel.alignItems;
-      style.flexWrap = layoutModel.flexWrap;
-      if (layoutModel.gap) {
-        style.gap = `${layoutModel.gap}px`;
+      style.flexDirection = flexDirection;
+      style.justifyContent = justifyContent;
+      style.alignItems = alignItems;
+      style.flexWrap = flexWrap;
+      if (gap) {
+        style.gap = `${gap}px`;
       }
     } else if (type === 'grid') {
       style.display = 'grid';
-      style.gridTemplateColumns = layoutModel.gridTemplateColumns;
-      style.gridTemplateRows = layoutModel.gridTemplateRows;
-      if (layoutModel.gap) {
-        style.gap = `${layoutModel.gap}px`;
+      style.gridTemplateColumns = gridTemplateColumns;
+      style.gridTemplateRows = gridTemplateRows;
+      if (gap) {
+        style.gap = `${gap}px`;
       }
     }
   }

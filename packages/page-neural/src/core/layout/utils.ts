@@ -1,5 +1,5 @@
 import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
-import { generateId } from '@neural/utils/uuid';
+import { generateId } from '@neural/utils';
 
 /** 面板尺寸单位，取自节点类型定义 */
 export type PanelUnit = NonNullable<LayoutPanelNode['useUnit']>;

@@ -24,27 +24,25 @@
   import Layout from './layout/index.vue';
   import MiniMaps from './mini-maps.vue';
   import PageSwitch from './pages/switch.vue';
-  import Steps from './steps.vue';
+  // import Steps from './steps.vue';
   import ContainerToolbar from './toolbars/container.vue';
   import LayoutToolbar from './toolbars/layout.vue';
   import MaterialToolbar from './toolbars/material.vue';
-
-  const stepValue = ref(1);
-
-  const { openModal, ModalEl } = useModal({
-    formMaps,
-  });
-
-  // 向所有后代容器组件注入打开弹窗的方法，避免各层级重复创建弹窗实例
-  provide('neural-modal', openModal);
 
   const showMaterials = ref(false);
   const { createNode } = crud();
   const pageNeuralStore = usePageNeuralStore();
   const layoutStore = useLayoutStore();
 
+  const { openModal, ModalEl } = useModal({
+    formMaps,
+    store: pageNeuralStore,
+  });
+
   // 同步初始化默认页面与布局（必须在 Layout 渲染前完成）
   initPageNeural(pageNeuralStore);
+  // 向所有后代容器组件注入打开弹窗的方法，避免各层级重复创建弹窗实例
+  provide('neural-modal', openModal);
 
   // const { attrConfigEl } = useAttrConfig({
   //   formMaps,
@@ -66,16 +64,11 @@
     <div class="page-neural-graph w-full h-full flex flex-col relative overflow-hidden">
       <!-- 顶部工具栏 -->
       <div class="py-2 flex justify-between items-center gap-2">
-        <!-- 步骤条 -->
-        <Steps v-model="stepValue">
-          <template #layout>
-            <LayoutToolbar />
-            <ContainerToolbar v-if="layoutStore.locked" />
-          </template>
-          <template #interaction>
-            <MaterialToolbar v-model="showMaterials" />
-          </template>
-        </Steps>
+        <div class="flex items-center gap-2">
+          <LayoutToolbar />
+          <ContainerToolbar v-if="layoutStore.locked" />
+          <MaterialToolbar v-model="showMaterials" />
+        </div>
         <!-- 切换页面 -->
         <PageSwitch />
       </div>
