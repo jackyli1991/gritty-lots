@@ -88,7 +88,12 @@
             :iconOnly="!showLabel"
             @click="handleClick(item.key)"
           >
-            <NeuralIcon v-if="item.icon" :name="item.icon as string" :size="14" />
+            <NeuralIcon
+              v-if="item.icon"
+              :name="item.icon as string"
+              :size="14"
+              :color="item.color"
+            />
             {{ showLabel ? item.label : '' }}
           </Button>
         </template>

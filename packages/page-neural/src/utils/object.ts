@@ -48,3 +48,16 @@ export function getObjectValueByPath<T = any>(
 
   return current === undefined ? fallback : (current as T);
 }
+
+/**
+ * 替换字符串中的占位符 {{path}} 为实际值
+ * @param data - 数据对象，包含所有可能的路径
+ * @param str - 包含占位符的字符串
+ * @returns 替换后的字符串
+ */
+export function getPlaceholderValue(data: Record<string, any>, str: string) {
+  return str.replace(/{{\s*([^}]+?)\s*}}/g, (_: string, path: string) => {
+    const value = getObjectValueByPath(data, path.trim());
+    return value === undefined ? '' : String(value);
+  });
+}

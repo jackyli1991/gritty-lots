@@ -22,8 +22,11 @@ export interface ToolbarItem {
   disabled?: boolean;
   /** 是否隐藏 */
   hidden?: boolean;
+  /** 按钮颜色 */
+  color?: string;
   /** 下拉菜单项，配置后该按钮渲染为 PrimeVue SplitButton */
   dropdownList?: ToolbarDropdownItem[];
+  [key: string]: any;
 }
 
 import NeuralToolbar from './Toolbar.vue';

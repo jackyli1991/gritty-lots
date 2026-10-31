@@ -2,7 +2,7 @@ import { NeuralForm, NeuralIcon } from '@neural/components';
 import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
 import type { PageNeuralStore } from '@neural/store';
 import type { ModalOptions, FormOptions } from '@neural/types';
-import { getObjectValueByPath } from '@neural/utils';
+import { getPlaceholderValue } from '@neural/utils';
 import { merge } from 'lodash-es';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -22,7 +22,7 @@ interface OpenModalOptions {
   key: string; // 节点类型  格式为 'type[.subType]' 如果只有type 则显示全部formConfig.schema 如果有subType 则显示subType对应的formConfig.schema
   props: Record<string, any>; // 节点props数据
   nodeData: Record<string, any>; // 节点完整数据
-  modalConfig?: Record<string, any>; // 自定义弹窗配置
+  modalConfig?: Partial<ModalOptions>; // 自定义弹窗配置
 }
 
 // 默认弹窗配置
@@ -60,12 +60,23 @@ const defaultModalConfig = {
 };
 
 // 从formConfig中根据nodeKeys获取对应的schema
-function getFormConfig(formConfig: FormOptions, nodeKeys: string[]) {
-  if (!nodeKeys[1]) return formConfig;
+function getFormConfig(formConfig: FormOptions, schemaName: string) {
+  if (!schemaName) return formConfig;
   return {
     ...formConfig,
-    schema: formConfig.schema.filter((item: any) => item.schemaName === nodeKeys[1]),
+    schema: formConfig.schema.filter((item: any) => item.schemaName === schemaName),
   };
+}
+
+function getModalHeader(
+  modalConfig: Omit<ModalOptions, 'component'>,
+  formConfig: FormOptions,
+  schemaName: string
+) {
+  let title = modalConfig.header || '配置';
+  if (!schemaName) return title;
+  const schema = formConfig.schema.find((item: any) => item.schemaName === schemaName);
+  return schema?.label ? `${title} - ${schema.label}` : title;
 }
 
 /**
@@ -97,8 +108,8 @@ export function useModal(options: UserModalOptions) {
   // 否则 h() 产出的静态 VNode 会把 visible 固化，导致关闭事件无法回写到组件
   const ModalEl = computed<Component | null>(() => {
     if (!modalKey.value) return null;
-    const nodeKeys = modalKey.value.split('.');
-    const { formConfig, modalConfig } = options.formMaps[nodeKeys[0]];
+    const [nodeKey, schemaName] = modalKey.value.split('.');
+    const { formConfig, modalConfig } = options.formMaps[nodeKey];
 
     if (!modalConfig) {
       console.error('缺少弹窗载体配置【modalConfig】');
@@ -152,7 +163,7 @@ export function useModal(options: UserModalOptions) {
           h(NeuralForm, {
             key: `form-${modalKey.value}`, // 表单实例复用避免重建
             data: nodeProps.value,
-            ...getFormConfig(formConfig, nodeKeys),
+            ...getFormConfig(formConfig, schemaName),
             fieldSetCollapsable: formFieldSetCollapsable.value, // 非手风琴模式，全部可独立展开/折叠
             onSubmit: (data: Record<string, any>) => {
               console.log('提交数据', data);
@@ -176,7 +187,11 @@ export function useModal(options: UserModalOptions) {
                   class: 'flex items-center gap-2',
                 },
                 [
-                  h('span', { class: 'text-sm font-bold' }, modalConfig.header),
+                  h(
+                    'span',
+                    { class: 'text-sm font-bold' },
+                    getModalHeader(rest, formConfig, schemaName)
+                  ),
                   collapseConfig.enable &&
                     h(
                       ToggleButton,
@@ -208,13 +223,7 @@ export function useModal(options: UserModalOptions) {
                   onClick: (event) => {
                     // 消息中的 {{path}} 占位符替换为节点完整数据中的对应值
                     // 例如：'确认删除【{{props.boxModel.width}}】吗？' → '确认删除【100】吗？'
-                    const message = deleteConfig.message.replace(
-                      /{{\s*([^}]+?)\s*}}/g,
-                      (_: string, path: string) => {
-                        const value = getObjectValueByPath(nodeFullData.value, path.trim());
-                        return value === undefined ? '' : String(value);
-                      }
-                    );
+                    const message = getPlaceholderValue(nodeFullData.value, deleteConfig.message);
                     neuralConfirm({
                       target: event.currentTarget as HTMLElement,
                       message,

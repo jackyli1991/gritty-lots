@@ -14,6 +14,12 @@ const fieldSetMaps: string[] = [
   'requestModel', // 请求模型
 ];
 
+const deleteConfig = {
+  enable: true, // 是否启用删除按钮
+  label: '删除容器', // 删除按钮文本
+  message: '确认删除容器【{{name}}】吗？', // 删除确认消息
+};
+
 // 表单项
 export const schema: FormItemProps[] = fieldSetMaps.map((item: any) => ({
   ...modelMaps[item].getForm({}),
@@ -21,7 +27,7 @@ export const schema: FormItemProps[] = fieldSetMaps.map((item: any) => ({
 }));
 
 // 工具栏配置
-export const toolbarData: ToolbarItem[][] = [
+const toolbarData: ToolbarItem[][] = [
   schema.map((item: any) => ({
     label: item.label,
     icon: item.icon,
@@ -29,8 +35,21 @@ export const toolbarData: ToolbarItem[][] = [
   })),
 ];
 
+// 工具栏删除按钮
+if (deleteConfig.enable) {
+  toolbarData[0].push({
+    label: deleteConfig.label,
+    icon: 'Trash2',
+    key: 'delete',
+    color: 'red',
+    deleteConfig,
+  });
+}
+
 // 表单验证规则
 const rules = z.object({});
+
+export { toolbarData };
 
 // useModal 配置
 export default {
@@ -51,11 +70,7 @@ export default {
       enable: true, // 是否启用手风琴模式
       defaultCollapsed: true, // 默认是否折叠
     },
-    delete: {
-      enable: true, // 是否启用删除按钮
-      label: '删除容器', // 删除按钮文本
-      message: '确认删除容器【{{name}}】吗？', // 删除确认消息
-    },
+    delete: deleteConfig,
   },
 };
 
