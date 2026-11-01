@@ -15,4 +15,6 @@ for (const key of Object.keys(forms)) {
   formMaps[name] = forms[key].default as unknown as FormMap;
 }
 
+console.log('formMaps', formMaps);
+
 export { formMaps };

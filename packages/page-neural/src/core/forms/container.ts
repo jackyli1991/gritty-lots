@@ -39,7 +39,7 @@ export default {
       defaultCollapsed: true, // 默认是否折叠
     },
     delete: {
-      enable: false, // 是否启用删除按钮
+      enable: true, // 是否启用删除按钮
       label: '删除容器', // 删除按钮文本
       message: '确认删除容器【{{name}}】吗？', // 删除确认消息
     },
