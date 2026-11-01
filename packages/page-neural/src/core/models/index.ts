@@ -16,3 +16,30 @@ for (const key of Object.keys(models)) {
 }
 
 export { modelMaps };
+
+/**
+ * 获取表单 schema
+ * @param fields 表单项名称数组
+ * @returns 表单 schema 数组
+ */
+export function getFormSchema(fields: string[]) {
+  return fields.map((item: any) => ({
+    ...modelMaps[item].getForm({}),
+    schemaName: item,
+  }));
+}
+
+/**
+ * 获取表单数据
+ * @param fields 表单项名称数组
+ * @returns 表单数据对象
+ */
+export function getFormModel(fields: string[]) {
+  return fields.reduce(
+    (acc, cur) => ({
+      ...acc,
+      [cur]: { ...modelMaps[cur].model },
+    }),
+    {}
+  );
+}

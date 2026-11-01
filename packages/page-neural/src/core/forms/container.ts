@@ -1,7 +1,6 @@
 import type { FormItemProps } from '@neural/components/form';
-import type { ToolbarItem } from '@neural/components/toolbar';
 import { CONTAINER_TYPE } from '@neural/const';
-import { modelMaps } from '@neural/core/models';
+import { getFormSchema, getFormModel } from '@neural/core/models';
 import type { Container } from '@neural/types';
 import { generateId } from '@neural/utils';
 import { merge } from 'lodash-es';
@@ -14,42 +13,11 @@ const fieldSetMaps: string[] = [
   'requestModel', // 请求模型
 ];
 
-const deleteConfig = {
-  enable: true, // 是否启用删除按钮
-  label: '删除容器', // 删除按钮文本
-  message: '确认删除容器【{{name}}】吗？', // 删除确认消息
-};
-
 // 表单项
-export const schema: FormItemProps[] = fieldSetMaps.map((item: any) => ({
-  ...modelMaps[item].getForm({}),
-  schemaName: item,
-}));
-
-// 工具栏配置
-const toolbarData: ToolbarItem[][] = [
-  schema.map((item: any) => ({
-    label: item.label,
-    icon: item.icon,
-    key: item.schemaName,
-  })),
-];
-
-// 工具栏删除按钮
-if (deleteConfig.enable) {
-  toolbarData[0].push({
-    label: deleteConfig.label,
-    icon: 'Trash2',
-    key: 'delete',
-    color: 'red',
-    deleteConfig,
-  });
-}
+export const schema: FormItemProps[] = getFormSchema(fieldSetMaps);
 
 // 表单验证规则
 const rules = z.object({});
-
-export { toolbarData };
 
 // useModal 配置
 export default {
@@ -70,7 +38,11 @@ export default {
       enable: true, // 是否启用手风琴模式
       defaultCollapsed: true, // 默认是否折叠
     },
-    delete: deleteConfig,
+    delete: {
+      enable: false, // 是否启用删除按钮
+      label: '删除容器', // 删除按钮文本
+      message: '确认删除容器【{{name}}】吗？', // 删除确认消息
+    },
   },
 };
 
@@ -102,16 +74,7 @@ export function createContainer({
     type: CONTAINER_TYPE,
     subType,
     parentId,
-    props: merge(
-      fieldSetMaps.reduce(
-        (acc, cur) => ({
-          ...acc,
-          [cur]: { ...modelMaps[cur].model },
-        }),
-        {}
-      ),
-      props || {}
-    ),
+    props: merge(getFormModel(fieldSetMaps), props || {}),
     children: [],
   };
 }
