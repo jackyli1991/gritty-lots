@@ -23,6 +23,7 @@ interface OpenModalOptions {
   props: Record<string, any>; // 节点props数据
   nodeData: Record<string, any>; // 节点完整数据
   modalConfig?: Partial<ModalOptions>; // 自定义弹窗配置
+  formConfig?: Partial<FormOptions>; // 自定义表单配置
 }
 
 // 默认弹窗配置
@@ -60,11 +61,16 @@ const defaultModalConfig = {
 };
 
 // 从formConfig中根据nodeKeys获取对应的schema
-function getFormConfig(formConfig: FormOptions, schemaName: string) {
-  if (!schemaName) return formConfig;
+function getFormConfig(
+  formConfig: FormOptions,
+  selfFormConfig: Partial<FormOptions>,
+  schemaName: string
+) {
+  const config = merge({}, formConfig, selfFormConfig);
+  if (!schemaName) return config;
   return {
-    ...formConfig,
-    schema: formConfig.schema.filter((item: any) => item.schemaName === schemaName),
+    ...config,
+    schema: config.schema.filter((item: any) => item.schemaName === schemaName),
   };
 }
 
@@ -90,6 +96,7 @@ export function useModal(options: UserModalOptions) {
   const nodeProps = ref<Record<string, any>>({}); // 节点props数据
   const nodeFullData = ref<Record<string, any>>({}); // 节点完整数据
   const selfModalConfig = ref<Record<string, any>>({}); // 自定义弹窗配置
+  const selfFormConfig = ref<Partial<FormOptions>>({}); // 自定义表单配置
 
   // 表单手风琴模式控制变量
   const formFieldSetCollapsable = ref(true);
@@ -141,6 +148,9 @@ export function useModal(options: UserModalOptions) {
     // 表单手风琴模式，取配置值
     formFieldSetCollapsable.value = collapseConfig.defaultCollapsed ?? true;
 
+    // 合并表单配置
+    const formConfigMerge = getFormConfig(formConfig, selfFormConfig.value, schemaName);
+
     return h(
       component === 'drawer' ? Drawer : Dialog,
       {
@@ -163,11 +173,17 @@ export function useModal(options: UserModalOptions) {
           h(NeuralForm, {
             key: `form-${modalKey.value}`, // 表单实例复用避免重建
             data: nodeProps.value,
-            ...getFormConfig(formConfig, schemaName),
+            ...formConfigMerge,
             fieldSetCollapsable: formFieldSetCollapsable.value, // 非手风琴模式，全部可独立展开/折叠
-            onSubmit: (data: Record<string, any>) => {
-              console.log('提交数据', data);
-              Object.assign(nodeProps.value, data);
+            onSubmit: async (data: Record<string, any>) => {
+              console.log('NeuralForm.onSubmit', data);
+              if (formConfigMerge.autoComplete) {
+                // 自动完成模式下，直接更新节点props数据
+                Object.assign(nodeProps.value, data);
+              } else {
+                // 非自动模式下，调用回调函数处理提交数据
+                await formConfigMerge?.onSubmit?.(modalKey.value, data);
+              }
               closeModal(false);
             },
             onClose: () => {
@@ -246,11 +262,12 @@ export function useModal(options: UserModalOptions) {
   /**
    * 节点配置弹窗打开方法
    */
-  function openModal({ key, props, nodeData, modalConfig }: OpenModalOptions) {
+  function openModal({ key, props, nodeData, modalConfig, formConfig }: OpenModalOptions) {
     modalKey.value = key;
     nodeProps.value = props;
     nodeFullData.value = nodeData;
     selfModalConfig.value = modalConfig || {};
+    selfFormConfig.value = formConfig || {};
     modalVisible.value = true;
   }
 

@@ -8,6 +8,7 @@ export const initialPages: Page[] = [
     layoutLock: true,
     deletable: true,
     layoutId: 'l-1473bc87-276d-4ba3-b39b-1df7020c32bb',
+    props: {},
   },
   {
     id: 'p-30d1f885-767c-485b-8fea-57afad93fff3',
@@ -16,6 +17,7 @@ export const initialPages: Page[] = [
     layoutLock: false,
     deletable: true,
     layoutId: 'l-0e4c6ace-2456-4a9d-b497-6242ed6b7cc5',
+    props: {},
   },
 ];
 

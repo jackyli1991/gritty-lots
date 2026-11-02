@@ -6,6 +6,7 @@ import Panel from 'primevue/panel'; // 面板
 import Select from 'primevue/select'; // 选择框
 import SelectButton from 'primevue/selectbutton'; // 选择框按钮
 import Slider from 'primevue/slider'; // 滑块
+import Textarea from 'primevue/textarea'; // 文本域
 import ToggleButton from 'primevue/togglebutton'; // 开关按钮
 import ToggleSwitch from 'primevue/toggleswitch'; // 开关按钮
 
@@ -25,6 +26,7 @@ export {
   Select,
   ObjectEditor,
   Input,
+  Textarea,
   Slider,
   ToggleSwitch,
   ToggleButton,

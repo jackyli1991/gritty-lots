@@ -110,18 +110,11 @@ export const usePageNeuralStore = defineStore('page-neural', {
       this.activePageId = id;
     },
     // 新增页面：为其生成独立的根布局并自动切换到该页面
-    addPage() {
+    addPage(page: Page) {
       const layout = generateSplitterNode({ layout: 'vertical' });
       this.layouts.push(layout);
-
-      const page: Page = {
-        id: generateId('p'),
-        name: `页面 ${this.pages.length + 1}`,
-        description: '',
-        layoutLock: false,
-        deletable: true,
-        layoutId: layout.id,
-      };
+      // 关联页面布局
+      page.layoutId = layout.id;
       this.pages.push(page);
       this.activePageId = page.id;
     },

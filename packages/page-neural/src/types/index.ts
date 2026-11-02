@@ -23,6 +23,9 @@ export interface FormOptions {
   autoComplete?: boolean; // 是否开启自动完成
   schema: any; // 表单 schema
   rules: any; // 表单校验规则
+  submitText?: string; // 提交按钮文本
+  closeText?: string; // 关闭按钮文本
+  onSubmit?: (key: string, data: Record<string, any>) => void; // 提交回调函数
 }
 
 export interface DragNodeOptions {
@@ -69,4 +72,5 @@ export interface Page {
   layoutLock: boolean; // 是否锁定布局
   deletable: boolean; // 是否可删除
   layoutId: string; // 关联的根布局 id
+  props: Record<string, any>; // 页面属性
 }

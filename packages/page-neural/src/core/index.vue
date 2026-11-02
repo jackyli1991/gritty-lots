@@ -16,6 +16,8 @@
   // import { VueFlow } from '@vue-flow/core';
   // import { MiniMap } from '@vue-flow/minimap';
   import type { DragNodeOptions } from '@neural/types';
+  import Button from 'primevue/button';
+  import Divider from 'primevue/divider';
   import Toast from 'primevue/toast';
   import { provide, ref } from 'vue';
 
@@ -64,13 +66,23 @@
     <div class="page-neural-graph w-full h-full flex flex-col relative overflow-hidden">
       <!-- 顶部工具栏 -->
       <div class="py-2 flex justify-between items-center gap-2">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center">
+          <!-- 切换页面 -->
+          <PageSwitch />
+          <Divider layout="vertical" />
+          <!-- 布局编辑 -->
           <LayoutToolbar />
-          <ContainerToolbar v-if="layoutStore.locked" />
+          <Divider layout="vertical" />
+          <!-- 容器编辑 -->
+          <template v-if="layoutStore.locked">
+            <ContainerToolbar />
+            <Divider layout="vertical" />
+          </template>
           <MaterialToolbar v-model="showMaterials" />
         </div>
-        <!-- 切换页面 -->
-        <PageSwitch />
+        <div>
+          <Button size="small">保存</Button>
+        </div>
       </div>
       <!-- 内容区域 -->
       <div class="flex-1 flex overflow-hidden relative">

@@ -86,8 +86,8 @@
     <div v-if="!props.autoComplete" class="flex w-full justify-end gap-2 mt-4">
       <Button type="button" :label="props.resetText" variant="text" @click="$form.reset" />
       <div class="flex-1 flex justify-end gap-2">
-        <Button type="submit" :label="props.submitText" :loading="loading" />
         <Button type="button" :label="props.closeText" severity="secondary" @click="onClose" />
+        <Button type="submit" :label="props.submitText" :loading="loading" />
       </div>
     </div>
   </Form>
@@ -208,6 +208,10 @@
   const onSubmit = async (values: any) => {
     try {
       loading.value = true;
+      // 验证表单数据
+      if (!values.valid) {
+        return;
+      }
       // console.log('表单数据', values, props.data);
       const formData: Record<string, any> = {};
       Object.keys(values.states).forEach((key) => {

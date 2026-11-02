@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
   import type { OpenModal } from '@neural/composables/userModal';
+  import { createPage } from '@neural/core/forms/page';
   import { usePageNeuralStore } from '@neural/store';
   import { storeToRefs } from 'pinia';
   import Button from 'primeVue/button';
@@ -17,10 +18,22 @@
   const options = computed(() => pages.value.map((page) => ({ label: page.name, value: page.id })));
 
   function handleAddPage() {
+    const newPage = createPage({});
     openModal?.({
       key: 'page',
-      props: {},
-      nodeData: {},
+      props: newPage.props,
+      nodeData: newPage,
+      formConfig: {
+        submitText: '新增页面',
+        onSubmit: async (key, data) => {
+          console.log('提交数据', key, data);
+          newPage.name = data.name;
+          newPage.description = data.description;
+          newPage.props.requestModel = data.requestModel;
+          // 新增页面逻辑
+          pageNeuralStore.addPage(newPage);
+        },
+      },
     });
   }
 </script>
