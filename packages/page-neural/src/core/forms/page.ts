@@ -6,6 +6,7 @@ import { merge } from 'lodash-es';
 import { z } from 'zod';
 
 const fieldSetMaps: string[] = [
+  'backgroundModel', // 背景模型
   'requestModel', // 请求模型
 ];
 
@@ -37,7 +38,7 @@ const schema: FormItemProps[] = [
     required: false,
     tips: '',
   },
-  schema1[0],
+  ...schema1,
 ];
 
 const rules = z.object({

@@ -118,6 +118,13 @@ export const usePageNeuralStore = defineStore('page-neural', {
       this.pages.push(page);
       this.activePageId = page.id;
     },
+    // 更新页面
+    updatePage(page: Page) {
+      const index = this.pages.findIndex((item) => item.id === page.id);
+      if (index !== -1) {
+        this.pages[index] = page;
+      }
+    },
     // 设置当前激活页面的布局锁定状态
     setLayoutLock(locked: boolean) {
       if (this.activePage) {

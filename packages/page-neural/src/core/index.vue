@@ -25,11 +25,9 @@
   import { initPageNeural } from './init';
   import Layout from './layout/index.vue';
   import MiniMaps from './mini-maps.vue';
-  import PageSwitch from './pages/switch.vue';
-  // import Steps from './steps.vue';
   import ContainerToolbar from './toolbars/container.vue';
-  import LayoutToolbar from './toolbars/layout.vue';
   import MaterialToolbar from './toolbars/material.vue';
+  import PageToolbar from './toolbars/page.vue';
 
   const showMaterials = ref(false);
   const { createNode } = crud();
@@ -68,10 +66,7 @@
       <div class="py-2 flex justify-between items-center gap-2">
         <div class="flex items-center">
           <!-- 切换页面 -->
-          <PageSwitch />
-          <Divider layout="vertical" />
-          <!-- 布局编辑 -->
-          <LayoutToolbar />
+          <PageToolbar />
           <Divider layout="vertical" />
           <!-- 容器编辑 -->
           <template v-if="layoutStore.locked">
