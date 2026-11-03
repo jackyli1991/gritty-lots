@@ -11,7 +11,7 @@ import { defineStore } from 'pinia';
 // 第一个参数是你的应用中 Store 的唯一 ID。
 export const usePageNeuralStore = defineStore('page-neural', {
   state: () => ({
-    activeNodeId: '', // 当前激活的节点id
+    activeContainerId: '', // 当前激活的容器id
     activePageId: '', // 当前激活的页面id
     nodes: [],
     edges: [],
@@ -24,10 +24,15 @@ export const usePageNeuralStore = defineStore('page-neural', {
   getters: {
     // 返回获取容器的函数
     getContainer: (state) => (id: string) => state.containers.find((item) => item.id === id),
+    // 返回获取页面的函数
+    getPage: (state) => (id: string) => state.pages.find((item) => item.id === id),
     // 返回当前激活的节点属性
-    activeNode: (state) => state.containers.find((item) => item.id === state.activeNodeId),
+    activeNode: (state) => state.containers.find((item) => item.id === state.activeContainerId),
     // 当前页面
     activePage: (state) => state.pages.find((item) => item.id === state.activePageId),
+    // 当前容器
+    activeContainer: (state) =>
+      state.containers.find((item) => item.id === state.activeContainerId),
     // 当前layout
     activeLayout(state): LayoutSplitterNode | undefined {
       return state.layouts.find((item) => item.id === this.activePage?.layoutId);
@@ -39,14 +44,14 @@ export const usePageNeuralStore = defineStore('page-neural', {
       this.containers = payload.containers;
       this.layouts = payload.layouts;
       this.pages = payload.pages;
-      if (payload.containers.length) this.setActiveNodeId(payload.containers[0].id);
+      if (payload.containers.length) this.setActiveContainerId(payload.containers[0].id);
       if (payload.pages.length) this.setActivePageId(payload.pages[0].id);
     },
     // 删除操作
     async onDelete(nodeType: string) {
       switch (nodeType) {
         case 'container':
-          this.deleteContainer(this.activeNodeId);
+          this.deleteContainer(this.activeContainerId);
           break;
         case 'page':
           // this.deletePage(this.activePageId);
@@ -66,7 +71,7 @@ export const usePageNeuralStore = defineStore('page-neural', {
     //     }
     //   }
     //   // 设置为当前激活的节点
-    //   this.setActiveNodeId(container.id);
+    //   this.setActiveContainerId(container.id);
     // },
     // 复制容器
     // copyContainer(id: string) {
@@ -99,11 +104,11 @@ export const usePageNeuralStore = defineStore('page-neural', {
         }
       }
       this.containers = this.containers.filter((item) => item.id !== id);
-      this.setActiveNodeId('');
+      this.setActiveContainerId('');
     },
     // 设置当前激活的节点id
-    setActiveNodeId(id: string) {
-      this.activeNodeId = id;
+    setActiveContainerId(id: string) {
+      this.activeContainerId = id;
     },
     // 设置当前激活的页面id
     setActivePageId(id: string) {

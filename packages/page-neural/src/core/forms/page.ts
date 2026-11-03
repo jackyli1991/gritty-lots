@@ -75,10 +75,12 @@ export default {
 export function createPage({
   id,
   name,
+  deletable = true,
   props,
 }: {
   id?: string;
   name?: string;
+  deletable?: boolean;
   props?: Page['props'];
 }): Page {
   return {
@@ -86,8 +88,8 @@ export function createPage({
     name: name || '',
     description: '',
     layoutLock: false,
-    deletable: true,
+    deletable,
     layoutId: '',
-    props: merge(getFormModel(fieldSetMaps), props || {}),
+    props: merge({}, getFormModel(fieldSetMaps), props || {}),
   };
 }

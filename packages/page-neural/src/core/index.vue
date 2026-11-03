@@ -17,7 +17,6 @@
   // import { MiniMap } from '@vue-flow/minimap';
   import type { DragNodeOptions } from '@neural/types';
   import Button from 'primevue/button';
-  import Divider from 'primevue/divider';
   import Toast from 'primevue/toast';
   import { provide, ref } from 'vue';
 
@@ -63,17 +62,15 @@
   <DragDropProvider>
     <div class="page-neural-graph w-full h-full flex flex-col relative overflow-hidden">
       <!-- 顶部工具栏 -->
-      <div class="py-2 flex justify-between items-center gap-2">
-        <div class="flex items-center">
+      <div class="pb-2 flex justify-between items-center gap-2">
+        <div class="flex items-center gap-4">
           <!-- 切换页面 -->
           <PageToolbar />
-          <Divider layout="vertical" />
           <!-- 容器编辑 -->
           <template v-if="layoutStore.locked">
             <ContainerToolbar />
-            <Divider layout="vertical" />
+            <MaterialToolbar v-model="showMaterials" />
           </template>
-          <MaterialToolbar v-model="showMaterials" />
         </div>
         <div>
           <Button size="small">保存</Button>

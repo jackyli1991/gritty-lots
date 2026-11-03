@@ -8,7 +8,7 @@
     target?: HTMLElement; // 确认目标元素
     message: string; // 确认消息
     header?: string; // 确认标题
-    type?: 'info' | 'alert' | 'delete'; // 确认类型
+    type?: 'info' | 'alert' | 'danger' | 'delete'; // 确认类型
     confirmText?: string; // 确认按钮文本
     cancelText?: string; // 取消按钮文本
     confirm?: () => void; // 确认回调
@@ -16,10 +16,22 @@
   }
 
   const IconMaps = {
-    info: 'Info',
-    alert: 'TriangleAlert',
-    danger: 'TriangleAlert',
-    delete: 'Trash2',
+    info: {
+      icon: 'Info',
+      color: 'green',
+    },
+    alert: {
+      icon: 'TriangleAlert',
+      color: 'orange',
+    },
+    danger: {
+      icon: 'TriangleAlert',
+      color: 'red',
+    },
+    delete: {
+      icon: 'Trash2',
+      color: 'red',
+    },
   };
 
   // 是否有确认目标元素，如果有则使用确认popup，否则使用确认confirm对话框
@@ -31,11 +43,12 @@
     async function neuralConfirm(options: ConfirmOptions) {
       hasTarget.value = options.target !== undefined;
       await nextTick();
+      const optionType = options.type || 'info';
       confirm.require({
         target: options.target,
         message: options.message,
         header: options.header || '确认',
-        icon: h(NeuralIcon, { name: IconMaps[options.type || 'info'] }),
+        icon: h(NeuralIcon, { name: IconMaps[optionType].icon, color: IconMaps[optionType].color }),
         rejectProps: {
           label: options.cancelText || '取消',
           severity: 'secondary',

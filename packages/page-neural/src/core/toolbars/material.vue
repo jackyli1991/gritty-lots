@@ -22,5 +22,5 @@
 </script>
 
 <template>
-  <NeuralToolbar :data="toolbarData" @click="handleClick" />
+  <NeuralToolbar :data="toolbarData" title="组件库" @click="handleClick" />
 </template>

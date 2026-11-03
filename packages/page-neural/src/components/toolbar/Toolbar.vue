@@ -18,6 +18,10 @@
      */
     data: ToolbarItem[][];
     /**
+     * 标题
+     */
+    title?: string;
+    /**
      * 是否显示按钮标签
      */
     showLabel?: boolean;
@@ -52,52 +56,58 @@
 </script>
 
 <template>
-  <div class="neural-toolbar flex items-center gap-1">
-    <template v-for="(group, gi) in visibleGroups" :key="gi">
-      <div class="flex items-center gap-px bg-white rounded-md">
-        <template v-for="(item, ii) in group" :key="item.key ?? `${gi}-${ii}`">
-          <!-- 带下拉：PrimeVue SplitButton -->
-          <SplitButton
-            v-if="item.dropdownList?.length"
-            v-tooltip.top="!showLabel ? item.label : ''"
-            :model="buildModel(item.dropdownList)"
-            :disabled="disabled || item.disabled || item.hidden"
-            :label="showLabel ? item.label : ''"
-            text
-            size="small"
-            severity="secondary"
-            @click="handleClick(item.key)"
-          >
-            <template #icon>
-              <NeuralIcon v-if="item.icon" :name="item.icon" :size="14" />
-            </template>
-            <template #menuitemicon="scope">
-              <NeuralIcon v-if="scope.item.icon" :name="scope.item.icon as string" :size="14" />
-            </template>
-          </SplitButton>
-          <!-- 普通按钮：PrimeVue Button -->
-          <Button
-            v-else
-            v-if="!item.hidden"
-            v-tooltip.top="!showLabel ? item.label : ''"
-            :disabled="disabled || item.disabled || item.hidden"
-            text
-            size="small"
-            variant="text"
-            severity="secondary"
-            :iconOnly="!showLabel"
-            @click="handleClick(item.key)"
-          >
-            <NeuralIcon
-              v-if="item.icon"
-              :name="item.icon as string"
-              :size="14"
-              :color="item.color"
-            />
-            {{ showLabel ? item.label : '' }}
-          </Button>
-        </template>
-      </div>
-    </template>
+  <div class="flex flex-col gap-1 text-gray-500">
+    <div v-if="title" class="text-xs">{{ title }}</div>
+    <div class="neural-toolbar flex items-center gap-1">
+      <slot name="prefix"></slot>
+      <template v-for="(group, gi) in visibleGroups" :key="gi">
+        <div class="flex items-center gap-px bg-white rounded-md">
+          <template v-for="(item, ii) in group" :key="item.key ?? `${gi}-${ii}`">
+            <!-- 带下拉：PrimeVue SplitButton -->
+            <SplitButton
+              v-if="item.dropdownList?.length"
+              v-tooltip.top="!(showLabel || item.showLabel) ? item.label : ''"
+              :model="buildModel(item.dropdownList)"
+              :disabled="disabled || item.disabled || item.hidden"
+              :label="showLabel || item.showLabel ? item.label : ''"
+              text
+              size="small"
+              severity="secondary"
+              @click="handleClick(item.key)"
+            >
+              <template #icon>
+                <NeuralIcon v-if="item.icon" :name="item.icon" :size="14" />
+              </template>
+              <template #menuitemicon="scope">
+                <NeuralIcon v-if="scope.item.icon" :name="scope.item.icon as string" :size="14" />
+              </template>
+            </SplitButton>
+            <!-- 普通按钮：PrimeVue Button -->
+            <Button
+              v-else
+              v-if="!item.hidden"
+              v-tooltip.top="!(showLabel || item.showLabel) ? item.label : ''"
+              text
+              size="small"
+              variant="text"
+              severity="secondary"
+              v-bind="item"
+              :disabled="disabled || item.disabled || item.hidden"
+              :iconOnly="!(showLabel || item.showLabel)"
+              @click="handleClick(item.key)"
+            >
+              <NeuralIcon
+                v-if="item.icon"
+                :name="item.icon as string"
+                :size="14"
+                :color="item.color"
+              />
+              {{ showLabel || item.showLabel ? item.label : '' }}
+            </Button>
+          </template>
+        </div>
+      </template>
+      <slot name="suffix"></slot>
+    </div>
   </div>
 </template>

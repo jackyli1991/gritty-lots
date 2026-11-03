@@ -10,7 +10,7 @@ import type { PageNeuralStore } from '@neural/store';
 export function initPageNeural(store: PageNeuralStore) {
   if (store.pages.length) return;
 
-  const initialPage = createPage({ name: '初始页面' });
+  const initialPage = createPage({ name: '首页', deletable: false }); // 根页面，不能被删除
   store.addPage(initialPage);
 
   // store.initData({

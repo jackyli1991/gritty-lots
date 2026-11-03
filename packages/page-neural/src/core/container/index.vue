@@ -29,7 +29,7 @@
 
   // 点击激活当前容器
   const handleActive = () => {
-    pageNeuralStore.setActiveNodeId(props.id || '');
+    pageNeuralStore.setActiveContainerId(props.id || '');
     openModal?.({
       key: 'container',
       props: container.value?.props || {},
@@ -45,7 +45,7 @@
     :style="containerStyle"
     @click.stop="handleActive"
   >
-    <DroppableItem :id="props.id || ''" :active="pageNeuralStore.activeNodeId === props.id">
+    <DroppableItem :id="props.id || ''" :active="pageNeuralStore.activeContainerId === props.id">
       <slot></slot>
       <PageNeuralContainer v-for="child in container?.children || []" :key="child" :id="child" />
     </DroppableItem>

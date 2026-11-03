@@ -171,7 +171,8 @@ export function useModal(options: UserModalOptions) {
       {
         default: () =>
           h(NeuralForm, {
-            key: `form-${modalKey.value}`, // 表单实例复用避免重建
+            // key 带上节点 id：切换节点/页面时重建表单实例，避免 PrimeVue Form 字段状态沿用上一个节点的旧值
+            key: `form-${modalKey.value}-${(nodeFullData.value as { id?: string })?.id ?? ''}`,
             data: nodeProps.value,
             ...formConfigMerge,
             fieldSetCollapsable: formFieldSetCollapsable.value, // 非手风琴模式，全部可独立展开/折叠

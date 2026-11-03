@@ -1,4 +1,5 @@
 import type { FormItemProps } from '@neural/components/form';
+import { cloneDeep } from 'lodash-es';
 import type { DefineComponent } from 'vue';
 
 const models = import.meta.glob<{ default: DefineComponent }>('./*.ts', { eager: true });
@@ -38,7 +39,8 @@ export function getFormModel(fields: string[]) {
   return fields.reduce(
     (acc, cur) => ({
       ...acc,
-      [cur]: { ...modelMaps[cur].model },
+      // 深拷贝避免各节点共享 model 单例中的嵌套对象引用
+      [cur]: cloneDeep(modelMaps[cur].model),
     }),
     {}
   );

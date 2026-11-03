@@ -30,7 +30,7 @@
         label: modalConfig.delete.label,
         icon: 'Trash2',
         key: 'delete',
-        color: 'red',
+        severity: 'danger',
         deleteConfig: modalConfig.delete,
       });
     }
@@ -38,7 +38,7 @@
   });
 
   function handleClick(key: string) {
-    const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeNodeId);
+    const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeContainerId);
     if (key === 'delete') {
       // 获取删除配置
       const toolbarItem = toolbarData.value[0].find((it) => it.key === 'delete');
@@ -76,5 +76,10 @@
 </script>
 
 <template>
-  <NeuralToolbar :data="toolbarData" @click="handleClick" />
+  <NeuralToolbar
+    v-if="pageNeuralStore.activeContainerId"
+    :data="toolbarData"
+    title="容器"
+    @click="handleClick"
+  />
 </template>
