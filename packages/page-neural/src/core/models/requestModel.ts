@@ -25,14 +25,13 @@ function getForm(options: Record<string, any>): FormItemProps {
 }
 
 const model = {
-  url: '/test/api',
+  name: '',
+  url: '',
   method: 'GET',
-  headers: {
-    keyword: 'params',
-  },
+  headers: {},
   params: {},
-  enable: true,
-  responseField: 'result.list',
+  enable: false,
+  responseField: '',
 };
 
 export default {

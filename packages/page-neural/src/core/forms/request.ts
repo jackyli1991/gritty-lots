@@ -3,7 +3,28 @@ import { z } from 'zod';
 
 const schema: FormItemProps[] = [
   {
-    label: '请求地址',
+    label: '名称',
+    fieldName: 'name',
+    component: 'Input',
+    class: 'col-span-3',
+    componentProps: {
+      placeholder: '描述请求的功能',
+    },
+    help: [],
+    required: true,
+  },
+  {
+    label: '',
+    fieldName: 'enable',
+    component: 'ToggleButton',
+    class: 'col-span-1',
+    componentProps: {
+      onLabel: '已启用',
+      offLabel: '已禁用',
+    },
+  },
+  {
+    label: '地址',
     fieldName: 'url',
     component: 'Input',
     class: 'col-span-3',
@@ -17,20 +38,10 @@ const schema: FormItemProps[] = [
     tips: '必须以/开头，示例：/request/api',
   },
   {
-    label: '',
-    fieldName: 'enable',
-    component: 'ToggleButton',
-    class: 'col-span-1',
-    componentProps: {
-      onLabel: '启用',
-      offLabel: '禁用',
-    },
-  },
-  {
-    label: '请求方法',
+    label: '方法',
     fieldName: 'method',
     component: 'Select',
-    class: 'col-span-2',
+    class: 'col-span-1',
     componentProps: {
       placeholder: '请选择',
       optionLabel: 'label',
@@ -49,7 +60,7 @@ const schema: FormItemProps[] = [
     label: '响应字段',
     fieldName: 'responseField',
     component: 'InputText',
-    class: 'col-span-2',
+    class: 'col-span-4',
     componentProps: {
       placeholder: '取response中的数据，示例：data.list',
       showClear: true,

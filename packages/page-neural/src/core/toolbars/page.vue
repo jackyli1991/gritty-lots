@@ -42,6 +42,11 @@
         hidden: !activePage.value || !activePage.value?.deletable,
       },
       {
+        label: '锁定页面',
+        icon: 'Lock',
+        key: 'lockPage',
+      },
+      {
         label: '新增页面',
         icon: 'Plus',
         key: 'addPage',
@@ -50,7 +55,7 @@
     ],
     [
       {
-        label: '锁定布局',
+        label: '确认布局',
         icon: 'Check',
         key: 'lockLayout',
         showLabel: true,
@@ -140,6 +145,11 @@
     addPage: handleAddPage,
     // 编辑页面
     editPage: handleEditPage,
+    // 锁定页面
+    lockPage: () => {
+      // pageNeuralStore.setPageLock(true);
+      // neuralToastSuccess('已锁定');
+    },
     // 删除页面
     deletePage: () => {
       if (!activePage.value) {
