@@ -1,7 +1,13 @@
 import { CONTAINER_ROOT_ID } from '@neural/const';
 import { createContainer } from '@neural/core/forms/container';
 import { generateSplitterNode } from '@neural/core/layout/utils';
-import type { Container, LayoutPanelNode, Page, LayoutSplitterNode } from '@neural/types';
+import type {
+  Container,
+  DataSource,
+  LayoutPanelNode,
+  Page,
+  LayoutSplitterNode,
+} from '@neural/types';
 import { generateId } from '@neural/utils';
 import { defineStore } from 'pinia';
 
@@ -20,6 +26,8 @@ export const usePageNeuralStore = defineStore('page-neural', {
     layouts: [] as LayoutSplitterNode[],
     // 页面列表
     pages: [] as Page[],
+    // 数据源列表
+    dataSources: [] as DataSource[],
   }),
   getters: {
     // 返回获取容器的函数
@@ -113,6 +121,21 @@ export const usePageNeuralStore = defineStore('page-neural', {
     // 设置当前激活的页面id
     setActivePageId(id: string) {
       this.activePageId = id;
+    },
+    // 新增数据源
+    addDataSource(dataSource: DataSource) {
+      this.dataSources.push(dataSource);
+    },
+    // 更新数据源（按 id 原地替换，保持列表顺序）
+    updateDataSource(dataSource: DataSource) {
+      const index = this.dataSources.findIndex((item) => item.id === dataSource.id);
+      if (index !== -1) {
+        this.dataSources[index] = dataSource;
+      }
+    },
+    // 删除数据源
+    deleteDataSource(id: string) {
+      this.dataSources = this.dataSources.filter((item) => item.id !== id);
     },
     // 新增页面：为其生成独立的根布局并自动切换到该页面
     addPage(page: Page) {

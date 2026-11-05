@@ -25,7 +25,8 @@ export interface FormOptions {
   rules: any; // 表单校验规则
   submitText?: string; // 提交按钮文本
   closeText?: string; // 关闭按钮文本
-  onSubmit?: (key: string, data: Record<string, any>) => void; // 提交回调函数
+  connectedComponent?: any; // 关联组件
+  onSubmit?: (data: any, key: string) => void; // 提交回调函数
 }
 
 export interface DragNodeOptions {
@@ -73,4 +74,17 @@ export interface Page {
   deletable: boolean; // 是否可删除
   layoutId: string; // 关联的根布局 id
   props: Record<string, any>; // 页面属性
+}
+
+// 数据源
+export interface DataSource {
+  id?: string; // 数据源 id
+  name: string; // 数据源名称
+  type: 'json' | 'http'; // 数据源类型
+  json: string; // JSON 字符串内容 （仅当 type 为 json 时）
+  url: string; // 数据源 url
+  method: string; // HTTP 方法 'get' | 'post' 等
+  headers: Record<string, string>; // HTTP 请求头
+  params: Record<string, string>; // HTTP 请求参数
+  responseField: string; // 响应字段
 }

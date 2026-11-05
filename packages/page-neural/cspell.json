@@ -43,7 +43,9 @@
     "splitterpanel",
     "resizeend",
     "steplist",
-    "confirmpopup"
+    "confirmpopup",
+    "vnode",
+    "speeddial"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

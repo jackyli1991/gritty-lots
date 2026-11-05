@@ -13,16 +13,34 @@ const schema: FormItemProps[] = [
     help: [],
     required: true,
   },
+
   {
-    label: '',
-    fieldName: 'enable',
-    component: 'ToggleButton',
+    label: '类型',
+    fieldName: 'type',
+    component: 'Select',
     class: 'col-span-1',
     componentProps: {
-      onLabel: '已启用',
-      offLabel: '已禁用',
+      placeholder: '请选择',
+      optionLabel: 'label',
+      optionValue: 'value',
+      options: [
+        { label: 'JSON', value: 'json' },
+        { label: 'HTTP', value: 'http' },
+      ],
     },
+    help: [],
+    required: true,
   },
+  // {
+  //   label: '',
+  //   fieldName: 'enable',
+  //   component: 'ToggleButton',
+  //   class: 'col-span-1',
+  //   componentProps: {
+  //     onLabel: '已启用',
+  //     offLabel: '已禁用',
+  //   },
+  // },
   {
     label: '地址',
     fieldName: 'url',
@@ -93,8 +111,10 @@ const schema: FormItemProps[] = [
 ];
 
 const rules = z.object({
-  url: z.string().min(1, '请输入请求地址'),
-  method: z.string().min(1, '请输入请求方法'),
+  name: z.string('请输入请求名称').min(1),
+  type: z.string('请选择请求类型').min(1),
+  url: z.string('请输入请求地址').min(1),
+  method: z.string('请选择请求方法').min(1),
 });
 
 export default {
@@ -103,10 +123,12 @@ export default {
     schema,
     rules,
     columns: 4,
+    autoComplete: false,
   },
   // 弹窗配置
   modalConfig: {
     header: '请求配置',
     component: 'drawer',
+    dismissable: false, // 点击外部区域不关闭弹窗
   },
 };

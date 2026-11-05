@@ -1,17 +1,17 @@
 <script setup lang="ts">
-  import { NeuralToolbar, NeuralIcon } from '@neural/components';
-  import type { ToolbarItem } from '@neural/components/toolbar';
+  import { NeuralIcon } from '@neural/components';
   import type { OpenModal } from '@neural/composables/userModal';
   import { useNeuralToast } from '@neural/composables/useToast';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createPage } from '@neural/core/forms/page';
   import { usePageNeuralStore } from '@neural/store';
-  import { useLayoutStore } from '@neural/store/layout';
+  // import { useLayoutStore } from '@neural/store/layout';
   import type { Page } from '@neural/types';
-  import { invokeAction, type ActionTree, type Paths } from '@neural/utils';
   import { merge } from 'lodash-es';
   import { storeToRefs } from 'pinia';
+  import Button from 'primevue/button';
   import Select from 'primevue/select';
+  import SpeedDial from 'primevue/speeddial';
   import { computed, h, inject } from 'vue';
 
   // 由最外层 core/index.vue 注入，此处不再创建独立弹窗实例
@@ -21,54 +21,53 @@
   const { neuralConfirm } = useNeuralConfirm();
   // 页面切换：下拉选择当前页面，加号按钮新增页面
   const pageNeuralStore = usePageNeuralStore();
-  const layoutStore = useLayoutStore();
   const { pages, activePageId, activePage } = storeToRefs(pageNeuralStore);
 
   const options = computed(() => pages.value.map((page) => ({ label: page.name, value: page.id })));
 
   // 工具栏配置
-  const toolbarData = computed<ToolbarItem[][]>(() => [
-    [
-      {
-        label: '编辑页面',
-        icon: 'Edit',
-        key: 'editPage',
-      },
-      {
-        label: '删除页面',
-        icon: 'Trash2',
-        key: 'deletePage',
-        severity: 'danger',
-        hidden: !activePage.value || !activePage.value?.deletable,
-      },
-      {
-        label: '锁定页面',
-        icon: 'Lock',
-        key: 'lockPage',
-      },
-      {
-        label: '新增页面',
-        icon: 'Plus',
-        key: 'addPage',
-        severity: 'primary',
-      },
-    ],
-    [
-      {
-        label: '确认布局',
-        icon: 'Check',
-        key: 'lockLayout',
-        showLabel: true,
-        severity: 'primary',
-        hidden: layoutStore.locked,
-      },
-      {
-        label: '编辑布局',
-        icon: 'Layout',
-        key: 'unlockLayout',
-        hidden: !layoutStore.locked,
-      },
-    ],
+  const toolbarData = computed(() => [
+    {
+      label: '新增页面',
+      icon: h(NeuralIcon, { name: 'Plus' }),
+      severity: 'primary',
+      command: handleAddPage,
+    },
+    {
+      label: '编辑页面',
+      icon: h(NeuralIcon, { name: 'Edit' }),
+      command: handleEditPage,
+    },
+    {
+      label: '删除页面',
+      icon: h(NeuralIcon, { name: 'Trash2', color: 'red' }),
+      severity: 'danger',
+      visible: !activePage.value || activePage.value?.deletable,
+      command: handleDeletePage,
+    },
+    {
+      label: '锁定页面',
+      icon: h(NeuralIcon, { name: 'Lock' }),
+      command: handleLockPage,
+    },
+    // {
+    //   label: '确认布局',
+    //   icon: h(NeuralIcon, { name: 'Check' }),
+    //   severity: 'primary',
+    //   visible: !activePage.value?.layoutLock,
+    //   command: handleLockLayout,
+    // },
+    {
+      label: '编辑布局',
+      icon: h(NeuralIcon, { name: 'Layout' }),
+      visible: activePage.value?.layoutLock,
+      command: handleUnlockLayout,
+    },
+    {
+      label: '数据源',
+      icon: h(NeuralIcon, { name: 'Database' }),
+      command: handleAddDataSource,
+    },
   ]);
 
   // 新增页面
@@ -121,55 +120,60 @@
     });
   }
 
-  const actions = {
-    // 锁定布局
-    lockLayout: () => {
-      pageNeuralStore.setLayoutLock(true);
-      neuralToastSuccess('已锁定');
-      pageNeuralStore.ensureLayoutContainers();
-    },
-    // 解锁布局
-    unlockLayout: () => {
-      neuralConfirm({
-        message: '是否重新编辑页面布局？',
-        header: '页面布局',
-        type: 'alert',
-        confirm: () => {
-          pageNeuralStore.setLayoutLock(false);
-          neuralToastSuccess('已解锁', '可以重新编辑布局');
-        },
-        reject: () => {},
-      });
-    },
-    // 新增页面
-    addPage: handleAddPage,
-    // 编辑页面
-    editPage: handleEditPage,
-    // 锁定页面
-    lockPage: () => {
-      // pageNeuralStore.setPageLock(true);
-      // neuralToastSuccess('已锁定');
-    },
-    // 删除页面
-    deletePage: () => {
-      if (!activePage.value) {
-        return;
-      }
-      neuralConfirm({
-        message: '删除后页面关联的所有组件也将被删除，是否继续？',
-        header: '删除页面',
-        type: 'delete',
-        confirm: () => {
-          // pageNeuralStore.deletePage(activePage.value.id);
-          neuralToastSuccess('to do');
-        },
-        reject: () => {},
-      });
-    },
-  } satisfies ActionTree;
+  // 删除页面
+  function handleDeletePage() {
+    if (!activePage.value) {
+      return;
+    }
+    neuralConfirm({
+      message: '删除后页面关联的所有组件也将被删除，是否继续？',
+      header: '删除页面',
+      type: 'delete',
+      confirm: () => {
+        // pageNeuralStore.deletePage(activePage.value.id);
+        neuralToastSuccess('to do');
+      },
+      reject: () => {},
+    });
+  }
 
-  function handleClick(key: string) {
-    invokeAction(actions, key as Paths<typeof actions>);
+  // 锁定页面
+  function handleLockPage() {
+    // pageNeuralStore.setPageLock(true);
+    neuralToastSuccess('to do');
+  }
+
+  // 锁定布局
+  function handleLockLayout() {
+    pageNeuralStore.setLayoutLock(true);
+    neuralToastSuccess('已锁定');
+    pageNeuralStore.ensureLayoutContainers();
+  }
+
+  // 解锁布局
+  function handleUnlockLayout() {
+    neuralConfirm({
+      message: '是否重新编辑页面布局？',
+      header: '页面布局',
+      type: 'alert',
+      confirm: () => {
+        pageNeuralStore.setLayoutLock(false);
+        neuralToastSuccess('已解锁', '可以重新编辑布局');
+      },
+      reject: () => {},
+    });
+  }
+
+  // 新增数据源
+  function handleAddDataSource() {
+    if (!activePage.value) {
+      return;
+    }
+    openModal?.({
+      key: 'database',
+      props: {},
+      nodeData: {},
+    });
   }
 
   // select 自定义选项
@@ -190,8 +194,9 @@
 </script>
 
 <template>
-  <NeuralToolbar :data="toolbarData" title="页面" @click="handleClick">
-    <template #prefix>
+  <div class="flex flex-col gap-1 text-gray-500">
+    <div class="text-xs">页面</div>
+    <div class="flex items-center gap-2">
       <Select
         v-model="activePageId"
         class="w-40"
@@ -207,6 +212,20 @@
           <component :is="getOption(slotProps.option.value)" />
         </template>
       </Select>
-    </template>
-  </NeuralToolbar>
+      <span class="relative w-7 h-7">
+        <SpeedDial
+          :model="toolbarData"
+          direction="down"
+          :buttonProps="{ size: 'small', rounded: true, iconOnly: true }"
+          :tooltipOptions="{ position: 'right', event: 'hover' }"
+          :style="{ position: 'absolute', top: '0', right: '0' }"
+        >
+        </SpeedDial>
+      </span>
+      <Button v-if="!activePage?.layoutLock" size="small" variant="text" @click="handleLockLayout">
+        <NeuralIcon :size="14" name="Check" />
+        锁定布局
+      </Button>
+    </div>
+  </div>
 </template>
