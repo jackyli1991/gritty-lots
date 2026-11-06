@@ -79,7 +79,7 @@
       nodeData: newPage,
       formConfig: {
         submitText: '新增',
-        onSubmit: async (key, data) => {
+        onSubmit: async (data, key) => {
           console.log('提交数据', key, data);
           const { name, description, ...props } = data;
           newPage.name = name;
@@ -108,7 +108,7 @@
       nodeData: activePage.value,
       formConfig: {
         submitText: '保存',
-        onSubmit: async (key, data) => {
+        onSubmit: async (data, key) => {
           console.log('提交数据', key, data);
           const { name, description, ...props } = data;
           // 以新对象为 merge 目标，避免 lodash merge 原地修改页面已有的嵌套对象引用
@@ -184,7 +184,7 @@
       return null;
     }
     info.layoutLock = page.layoutLock;
-    info.useHttp = page.props?.requestModel?.enable || false;
+    info.useHttp = page.props?.dataModel?.enable || false;
     return h('div', { class: 'flex items-center gap-1' }, [
       h('span', {}, page.name),
       info.layoutLock && h(NeuralIcon, { name: 'Layout', size: 12 }),

@@ -66,7 +66,7 @@ export const initialContainers: Container[] = [
         backgroundClip: 'border-box',
         scale: [1, 1],
       },
-      requestModel: {
+      dataModel: {
         url: '/test/api',
         method: 'GET',
         headers: { keyword: 'params' },
@@ -131,7 +131,7 @@ export const initialContainers: Container[] = [
         backgroundClip: 'border-box',
         scale: [1, 1],
       },
-      requestModel: {
+      dataModel: {
         url: '/test/api',
         method: 'GET',
         headers: { keyword: 'params' },
@@ -196,7 +196,7 @@ export const initialContainers: Container[] = [
         backgroundClip: 'border-box',
         scale: [1, 1],
       },
-      requestModel: {
+      dataModel: {
         url: '/test/api',
         method: 'GET',
         headers: { keyword: 'params' },

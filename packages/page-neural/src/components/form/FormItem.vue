@@ -14,7 +14,13 @@
     <!-- FormField插槽拿到 $field: {invalid, error} -->
     <FormField v-slot="$field" :name="name" :initial-value="initialValue">
       <slot :field="$field" />
-      <p v-if="tips" class="text-xs text-gray-400 font-light py-1">{{ tips }}</p>
+      <!-- tips 支持字符串、VNode 或渲染函数 -->
+      <p v-if="typeof tips === 'string'" class="text-xs text-gray-400 font-light py-1">
+        {{ tips }}
+      </p>
+      <div v-else-if="tips" class="text-xs text-gray-400 font-light py-1">
+        <component :is="tips" />
+      </div>
       <Message
         v-if="$field.invalid"
         severity="error"
@@ -32,6 +38,7 @@
   import { FormField } from '@primevue/forms';
   import Message from 'primevue/message';
   import vTooltip from 'primevue/tooltip';
+  import type { VNode } from 'vue';
 
   import NeuralIcon from '../icon';
   // import Label from 'primevue/label'
@@ -43,7 +50,7 @@
     required?: boolean; // 是否必填项（可选）
     initialValue?: unknown; // 初始值（可选）
     help?: string[]; // 帮助信息（可选）
-    tips?: string; // 提示信息（可选）
+    tips?: string | VNode | (() => VNode); // 提示信息，支持字符串、VNode 或渲染函数
   }
   withDefaults(defineProps<Props>(), {
     showLabel: true,

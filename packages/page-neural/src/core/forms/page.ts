@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 const fieldSetMaps: string[] = [
   'backgroundModel', // 背景模型
-  'requestModel', // 请求模型
+  'dataModel', // 数据模型
 ];
 
 // 表单项

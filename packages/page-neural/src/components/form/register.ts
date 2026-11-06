@@ -13,6 +13,7 @@ import ToggleSwitch from 'primevue/toggleswitch'; // 开关按钮
 import BackgroundModel from '../backgroundModel'; // 背景模型编辑器
 import BoxModel from '../boxModel'; // 盒模型编辑器
 import Checkbox from '../checkbox'; // 复选框
+import CodeMirror from '../codeMirror'; // 代码编辑器
 import ColorPicker from '../colorPicker'; // 颜色选择器
 import Divider from '../divider'; // 分隔线
 import Input from '../input'; // 输入框
@@ -25,6 +26,7 @@ export {
   InputText,
   Select,
   ObjectEditor,
+  CodeMirror,
   Input,
   Textarea,
   Slider,

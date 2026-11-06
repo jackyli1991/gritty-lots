@@ -2,7 +2,9 @@
   import { NeuralIcon } from '@neural/components';
   import CodeMirror from '@neural/components/codeMirror';
   import type { OpenModal } from '@neural/composables/userModal';
+  import MethodTag from '@neural/core/components/MethodTag.vue';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
+  import { createRequest } from '@neural/core/forms/request';
   import { usePageNeuralStore } from '@neural/store';
   import type { DataSource } from '@neural/types';
   import { getObjectValueByPath, generateId } from '@neural/utils';
@@ -29,8 +31,10 @@
 
   // 顶部添加：复用请求配置弹窗，提交后写入 store 并选中新数据源
   function addDataSource() {
+    const requestForm = createRequest();
     openModal?.({
       key: 'request',
+      props: requestForm,
       formConfig: {
         submitText: '新增',
         onSubmit: (data: DataSource) => {
@@ -226,13 +230,16 @@
               :pt="{ root: { style: { padding: '0 4px', fontSize: '10px' } } }"
             />
           </div>
-          <!-- HTTP 数据源展示请求地址与方法 -->
+          <!-- 第二行：HTTP 展示请求方法与地址，JSON 展示 JSON 字符串（单行超出隐藏） -->
           <div
-            v-if="item.type === 'http'"
-            class="flex items-center gap-1 truncate text-[11px] text-gray-400 dark:text-gray-500"
+            v-if="item.type === 'http' || item.type === 'json'"
+            class="flex min-w-0 items-center gap-1 truncate text-[11px] text-gray-400 dark:text-gray-500"
           >
-            <span class="shrink-0 font-semibold">{{ item.method || 'GET' }}</span>
-            <span class="truncate">{{ item.url || '-' }}</span>
+            <template v-if="item.type === 'http'">
+              <MethodTag :method="item.method" />
+              <span class="truncate">{{ item.url || '-' }}</span>
+            </template>
+            <span v-else class="truncate">{{ item.json || '-' }}</span>
           </div>
         </div>
         <!-- 空态 -->

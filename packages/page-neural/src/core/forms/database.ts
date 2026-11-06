@@ -12,7 +12,7 @@ export default {
   },
   // 弹窗配置
   modalConfig: {
-    header: '数据源配置',
+    header: '数据源列表',
     // 左列表 + 右预览的分栏布局，需要更宽的弹窗；flex 纵向布局保证内容区可撑满并内部滚动
     class: 'w-[80vw]! h-[80vh]! flex flex-col',
     component: 'dialog',
