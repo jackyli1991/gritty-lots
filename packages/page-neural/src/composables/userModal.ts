@@ -79,6 +79,10 @@ function getFormConfig(
   schemaName: string
 ) {
   const config = merge({}, formConfig, selfFormConfig);
+  // lodash merge 会深拷贝普通对象，组件定义对象被克隆后引用发生变化，
+  // 会让 h() 每次渲染都视为新的组件类型从而重新挂载面板，导致面板内部状态（如选中项）丢失，
+  // 因此这里还原为原始组件引用
+  config.connectedComponent = selfFormConfig.connectedComponent ?? formConfig.connectedComponent;
   if (!schemaName) return config;
   return {
     ...config,
@@ -161,7 +165,7 @@ export function useModal(options: UserModalOptions) {
     // 合并表单配置
     const formConfigMerge = getFormConfig(formConfig, entry.selfFormConfig, schemaName);
 
-    console.log('entry', entry);
+    // console.log('entry', entry);
 
     return h(
       component === 'drawer' ? Drawer : Dialog,

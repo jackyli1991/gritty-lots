@@ -2,12 +2,10 @@
   import { DragDropProvider } from '@dnd-kit/vue';
   // import { useAttrConfig } from '@neural/composables/useAttrConfig';
   import { useModal } from '@neural/composables/userModal';
-  // import { CONTAINER_ROOT_ID } from '@neural/const';
   import { crud } from '@neural/core/crud';
   import { formMaps } from '@neural/core/forms';
   import DragMonitorPanel from '@neural/dnd/components/dragMonitorPanel.vue';
   import DragOverlay from '@neural/dnd/components/dragOverlay.vue';
-  import Materials from '@neural/materials/index.vue';
   import { usePageNeuralStore } from '@neural/store';
   // import Container from '@neural/render/container/index.vue';
   import { useLayoutStore } from '@neural/store/layout';
@@ -68,8 +66,8 @@
           <PageToolbar />
           <!-- 容器编辑 -->
           <template v-if="layoutStore.locked">
+            <MaterialToolbar />
             <ContainerToolbar />
-            <MaterialToolbar v-model="showMaterials" />
           </template>
         </div>
         <div>
@@ -87,8 +85,6 @@
         <!-- 拖拽监控 -->
         <DragMonitorPanel @dragStart="showMaterials = false" @droppedIn="handleDroppedIn" />
       </div>
-      <!-- 左侧组件库 -->
-      <Materials :visible="showMaterials" @update:visible="showMaterials = $event" />
       <!-- 所有confirm dialog落地 -->
       <ConfirmDialog />
       <!-- 所有toast落地 -->

@@ -28,8 +28,8 @@
   /**
    * 点击图标时触发的事件
    */
-  function handleClick() {
-    emit('click');
+  function handleClick(event: MouseEvent) {
+    emit('click', event);
   }
 </script>
 

@@ -1,5 +1,5 @@
-import { CONTAINER_TYPE } from '@neural/const';
 import { createContainer } from '@neural/core/forms/container';
+import { CONTAINER_TYPE } from '@neural/materials/containers';
 // import { usePageNeuralStore } from '@neural/store';
 import type { DragNodeOptions, Container } from '@neural/types';
 

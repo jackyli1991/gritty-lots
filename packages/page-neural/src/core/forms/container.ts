@@ -1,6 +1,6 @@
 import type { FormItemProps } from '@neural/components/form';
-import { CONTAINER_TYPE } from '@neural/const';
 import { getFormSchema, getFormModel } from '@neural/core/models';
+import { CONTAINER_TYPE } from '@neural/materials/containers';
 import type { Container } from '@neural/types';
 import { generateId } from '@neural/utils';
 import { merge } from 'lodash-es';

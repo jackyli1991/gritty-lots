@@ -1,6 +1,6 @@
-import { CONTAINER_ROOT_ID } from '@neural/const';
 import { createContainer } from '@neural/core/forms/container';
 import { generateSplitterNode } from '@neural/core/layout/utils';
+import { CONTAINER_ROOT_ID } from '@neural/materials/containers';
 import type {
   Container,
   DataSource,

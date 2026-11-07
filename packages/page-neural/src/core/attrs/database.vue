@@ -51,6 +51,8 @@
 
   // 编辑：复用请求配置弹窗，以选中数据为初始值，提交后按 id 原地更新并保持选中
   function editDataSource(item: DataSource) {
+    // 编辑即选中当前项，保证右侧预览与编辑目标一致
+    activeId.value = item.id ?? '';
     openModal?.({
       key: 'request',
       props: { ...item },
@@ -60,7 +62,6 @@
         onSubmit: (data: DataSource) => {
           const dataSource: DataSource = { ...item, ...data, id: item.id };
           pageNeuralStore.updateDataSource(dataSource);
-          activeId.value = item.id ?? '';
         },
       },
     });
@@ -68,7 +69,6 @@
 
   // 删除：二次确认后移除，若删除的是选中项则重置选中并丢弃进行中的请求结果
   function deleteDataSource(item: DataSource, event: Event) {
-    console.log(item, event);
     neuralConfirm({
       target: event.currentTarget as HTMLElement,
       message: `确认删除数据源【${item.name || '未命名'}】吗？`,
@@ -85,6 +85,11 @@
         activeId.value = dataSources.value[0]?.id ?? '';
       },
     });
+  }
+
+  // 选择数据源：更新选中项并触发预览
+  function selectDataSource(item: DataSource) {
+    activeId.value = item.id ?? '';
   }
 
   // ---------- 右侧预览 ----------
@@ -198,7 +203,7 @@
               ? 'bg-gray-100 text-(--p-primary-500) dark:bg-gray-800'
               : 'text-gray-600 dark:text-gray-300'
           "
-          @click="activeId = item.id ?? ''"
+          @click="selectDataSource(item)"
         >
           <div class="flex items-center gap-1.5">
             <NeuralIcon :name="item.type === 'json' ? 'FileJson2' : 'Globe'" :size="13" />
@@ -207,22 +212,12 @@
             <div
               class="ml-auto flex shrink-0 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100"
             >
-              <button
-                type="button"
-                class="flex size-5 items-center justify-center rounded text-gray-400 transition-colors hover:bg-gray-200 hover:text-(--p-primary-500) dark:hover:bg-gray-700"
-                title="编辑"
-                @click.stop="editDataSource(item)"
-              >
+              <Button text icon-only size="small" @click="editDataSource(item)">
                 <NeuralIcon name="Pencil" :size="12" />
-              </button>
-              <button
-                type="button"
-                class="flex size-5 items-center justify-center rounded text-gray-400 transition-colors hover:bg-gray-200 hover:text-red-500 dark:hover:bg-gray-700"
-                title="删除"
-                @click.stop="deleteDataSource(item, $event)"
-              >
+              </Button>
+              <Button text icon-only size="small" @click.capture="deleteDataSource(item, $event)">
                 <NeuralIcon name="Trash2" :size="12" />
-              </button>
+              </Button>
             </div>
             <Tag
               :severity="item.type === 'json' ? 'success' : 'info'"

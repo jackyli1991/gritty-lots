@@ -1,20 +1,24 @@
+import type { MaterialModule } from '@neural/types/materials';
+
 export default {
   type: 'font',
-  icon: 'Font',
-  name: '字体类',
-  description: '字体类，用于组织页面的字体。',
-  children: [
+  icon: 'ALargeSmall',
+  name: '字体',
+  description: '字体，用于组织页面的字体。',
+  list: [
     {
-      name: '字体',
-      type: 'font',
+      name: '艺术字',
+      type: 'artistic-font',
       icon: 'Font',
-      description: '字体，用于组织页面的字体。',
+      description: '艺术字，用于组织页面的艺术字字体。',
+      children: [],
     },
     {
-      name: '字体大小',
-      type: 'font-size',
-      icon: 'FontSize',
-      description: '字体大小，用于组织页面的字体大小。',
+      name: '普通字',
+      type: 'normal-font',
+      icon: 'Font',
+      description: '普通字，用于组织页面的普通字字体。',
+      children: [],
     },
   ],
-};
+} satisfies MaterialModule;

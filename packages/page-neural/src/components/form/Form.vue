@@ -304,7 +304,6 @@
   // 验证规则：在 zodResolver 结果上剔除 hidden / required:false 字段的校验错误
   const resolver = computed(() => {
     const baseResolver = zodResolver(props.rules);
-    console.log('baseResolver', props.rules);
     return async (options: any) => {
       const result = await baseResolver(options);
       const errors = result?.errors;

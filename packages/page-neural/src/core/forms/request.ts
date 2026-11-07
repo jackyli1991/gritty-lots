@@ -119,7 +119,7 @@ const schema: FormItemProps[] = [
       placeholder: 'JSON数据',
     },
     help: [],
-    required: false,
+    required: true,
     dependencies: {
       trigger: ['type'],
       resolve: ({ values }: { values: Record<string, any> }) => ({
@@ -134,6 +134,17 @@ const rules = z.object({
   type: z.string('请选择请求类型').min(1),
   url: z.string('请输入请求地址').min(1),
   method: z.string('请选择请求方法').min(1),
+  json: z.string('JSON数据不能为空').refine(
+    (str) => {
+      try {
+        JSON.parse(str);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    { message: 'JSON字符串格式非法，无法解析' }
+  ),
 });
 
 export default {
