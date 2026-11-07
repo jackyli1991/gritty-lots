@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { type LucideProps } from '@lucide/vue';
   import { setLucideProps } from '@lucide/vue';
-  import { computed } from 'vue';
+  import { computed, type Component } from 'vue';
 
   import icons from '../../icons';
 
@@ -23,7 +23,8 @@
     strokeWidth: 1,
   });
 
-  const icon = computed(() => icons[props.name as keyof typeof icons]);
+  // 图标命名空间同时包含工具函数等导出，这里统一收窄为组件类型供 <component :is> 使用
+  const icon = computed(() => icons[props.name as keyof typeof icons] as Component | undefined);
 
   /**
    * 点击图标时触发的事件

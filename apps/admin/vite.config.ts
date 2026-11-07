@@ -68,7 +68,8 @@ export default defineConfig(({ mode }) => {
           clientsClaim: true,
           globPatterns: ['**/*.{html,js,css,png,jpg,svg,ico,woff2}'],
           // 默认 2 MiB 上限会因 router chunk（聚合 eager glob 的全部视图）超限而中断构建
-          maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+          // 主包已超过 4 MiB，上限放宽到 8 MiB 以覆盖当前体积
+          maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
           runtimeCaching: [
             {
               urlPattern: ({ url }) => url.origin === 'https://api.iconify.design',
