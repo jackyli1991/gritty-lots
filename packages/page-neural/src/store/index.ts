@@ -1,6 +1,5 @@
 import { createContainer } from '@neural/core/forms/container';
 import { generateSplitterNode } from '@neural/core/layout/utils';
-import { CONTAINER_ROOT_ID } from '@neural/materials/containers';
 import type {
   Container,
   DataSource,
@@ -100,10 +99,10 @@ export const usePageNeuralStore = defineStore('page-neural', {
       if (!deleteContainer) {
         return false;
       }
-      if (deleteContainer.subType === CONTAINER_ROOT_ID) {
-        console.log('不能删除根容器', '拒绝');
-        return false;
-      }
+      // if (deleteContainer.subType === CONTAINER_ROOT_ID) {
+      //   console.log('不能删除根容器', '拒绝');
+      //   return false;
+      // }
       // 从父容器的children中删除
       if (deleteContainer.parentId) {
         const parent = this.containers.find((item) => item.id === deleteContainer.parentId);
@@ -183,20 +182,27 @@ export const usePageNeuralStore = defineStore('page-neural', {
         if (!panel.containerId) {
           panel.containerId = generateId('c');
         }
+        const containerExit = this.getContainer(panel.containerId);
         // 容器不存在才生成
-        if (!this.containers.some((c) => c.id === panel.containerId)) {
+        if (!containerExit) {
           const container = createContainer({
             id: panel.containerId,
-            name: `面板容器-${panel.containerId.slice(-4)}`,
-            subType: CONTAINER_ROOT_ID,
+            name: panel.name,
+            subType: panel.containerType,
             props: {
               boxModel: {
                 width: 100,
                 height: 100,
               },
+              backgroundModel: {
+                backgroundColor: panel.backgroundColor,
+              },
             },
           });
           this.containers.push(container);
+        } else {
+          // 容器已存在，更新类型
+          containerExit.subType = panel.containerType;
         }
       }
     },

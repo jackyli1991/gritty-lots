@@ -48,3 +48,11 @@ export const sizeOptions = [
   { label: 'auto', value: 'auto' },
   { label: '自定义', value: 'custom' },
 ];
+
+// 容器类型选项
+export const containerOptions = [
+  { label: '普通容器', value: 'normal' },
+  { label: '表格容器', value: 'table' },
+  { label: '表单容器', value: 'form' },
+  { label: '抽屉容器', value: 'drawer' },
+];

@@ -229,6 +229,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
       {
         id: 'l-13da5858-3522-4c61-8e40-286cd4a82f0c',
         type: 'splitterPanel',
+        containerType: 'normal',
         useUnit: '%',
         sizeValue: 10.8,
         percentage: 10.8,
@@ -243,6 +244,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
               {
                 id: 'l-c88256a6-d810-4faf-a59b-98292e036fe9',
                 type: 'splitterPanel',
+                containerType: 'normal',
                 useUnit: '%',
                 sizeValue: 14.18,
                 percentage: 14.18,
@@ -252,6 +254,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
               {
                 id: 'l-049f088a-8145-4f07-a0e6-69aa79d9088b',
                 type: 'splitterPanel',
+                containerType: 'normal',
                 useUnit: '%',
                 sizeValue: 54.82,
                 percentage: 54.82,
@@ -265,6 +268,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
       {
         id: 'l-b7994b13-51b2-4a27-bf3c-942c4e67826b',
         type: 'splitterPanel',
+        containerType: 'normal',
         useUnit: '%',
         sizeValue: 67.11,
         percentage: 67.11,
@@ -282,6 +286,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
       {
         id: 'l-5e9a44fe-f37d-4af5-8f55-333369fdba06',
         type: 'splitterPanel',
+        containerType: 'normal',
         useUnit: '%',
         sizeValue: 50,
         percentage: 50,
@@ -291,6 +296,7 @@ export const initialLayouts: LayoutSplitterNode[] = [
       {
         id: 'l-6d21d7cb-79f6-4cd5-ba79-34da6be26a8f',
         type: 'splitterPanel',
+        containerType: 'normal',
         useUnit: '%',
         sizeValue: 50,
         percentage: 50,

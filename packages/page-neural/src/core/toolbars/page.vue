@@ -5,7 +5,7 @@
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createPage } from '@neural/core/forms/page';
   import { usePageNeuralStore } from '@neural/store';
-  // import { useLayoutStore } from '@neural/store/layout';
+  import { useLayoutStore } from '@neural/store/layout';
   import type { Page } from '@neural/types';
   import { merge } from 'lodash-es';
   import { storeToRefs } from 'pinia';
@@ -21,6 +21,7 @@
   const { neuralConfirm } = useNeuralConfirm();
   // 页面切换：下拉选择当前页面，加号按钮新增页面
   const pageNeuralStore = usePageNeuralStore();
+  const layoutStore = useLayoutStore();
   const { pages, activePageId, activePage } = storeToRefs(pageNeuralStore);
 
   const options = computed(() => pages.value.map((page) => ({ label: page.name, value: page.id })));
@@ -148,6 +149,7 @@
     pageNeuralStore.setLayoutLock(true);
     neuralToastSuccess('已锁定');
     pageNeuralStore.ensureLayoutContainers();
+    layoutStore.clearSelectedNode();
   }
 
   // 解锁布局

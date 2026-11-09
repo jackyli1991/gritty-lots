@@ -1,6 +1,5 @@
 import type { FormItemProps } from '@neural/components/form';
 import { getFormSchema, getFormModel } from '@neural/core/models';
-import { CONTAINER_TYPE } from '@neural/materials/containers';
 import type { Container } from '@neural/types';
 import { generateId } from '@neural/utils';
 import { merge } from 'lodash-es';
@@ -8,7 +7,7 @@ import { z } from 'zod';
 
 const fieldSetMaps: string[] = [
   'boxModel', // 盒模型
-  'layoutModel', // 布局模型
+  // 'layoutModel', // 布局模型
   'backgroundModel', // 背景模型
   'dataModel', // 数据模型
 ];
@@ -39,7 +38,7 @@ export default {
       defaultCollapsed: true, // 默认是否折叠
     },
     delete: {
-      enable: true, // 是否启用删除按钮
+      enable: false, // 是否启用删除按钮
       label: '删除容器', // 删除按钮文本
       message: '确认删除容器【{{name}}】吗？', // 删除确认消息
     },
@@ -71,7 +70,7 @@ export function createContainer({
   return {
     id: id || generateId('c'),
     name: name || '容器',
-    type: CONTAINER_TYPE,
+    type: 'container',
     subType,
     parentId,
     props: merge(getFormModel(fieldSetMaps), props || {}),

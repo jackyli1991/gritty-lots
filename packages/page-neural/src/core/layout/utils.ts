@@ -28,6 +28,16 @@ export function panelFlexStyle(panel: LayoutPanelNode): Record<string, string> {
 }
 
 /**
+ * 计算面板盒模型样式：在 flex 尺寸基础上叠加背景色
+ * @param panel 面板节点
+ */
+export function panelStyle(panel: LayoutPanelNode): Record<string, string> {
+  const style = panelFlexStyle(panel);
+  if (panel.backgroundColor) style.backgroundColor = panel.backgroundColor;
+  return style;
+}
+
+/**
  * 计算面板在缩略图中的 flex 样式：始终按 panel.percentage 等比分配，
  * 与画布中实际单位（px / %）无关，保证缩略图比例稳定
  * @param panel 面板节点
@@ -44,10 +54,12 @@ export function percentFlexStyle(panel: LayoutPanelNode): Record<string, string>
 export function generatePanelNode(overrides?: Partial<LayoutPanelNode>): LayoutPanelNode {
   return {
     id: generateId('l'),
+    name: '面板',
     type: 'splitterPanel',
     useUnit: DEFAULT_PANEL_UNIT,
     sizeValue: 50,
     percentage: 50,
+    containerType: 'normal',
     containerId: '',
     children: [],
     ...overrides,
@@ -70,6 +82,7 @@ export function generateSplitterNode({
   const panels = children ?? [generatePanelNode(), generatePanelNode()];
   return {
     id: generateId('l'),
+    name: layout === 'horizontal' ? '水平分隔器' : '垂直分隔器',
     type: 'splitter',
     layout,
     gap: 0,
@@ -84,6 +97,50 @@ export function generateSplitterNode({
  */
 export function getPanelSplitter(panel: LayoutPanelNode): LayoutSplitterNode | undefined {
   return panel.children[0];
+}
+
+/**
+ * 在布局树中按 id 深度优先查找节点
+ * @param root 根分隔器
+ * @param id 目标节点 id
+ */
+export function findLayoutNode(
+  root: LayoutSplitterNode | undefined,
+  id: string
+): LayoutSplitterNode | LayoutPanelNode | undefined {
+  if (!root) return undefined;
+  if (root.id === id) return root;
+
+  for (const panel of root.children) {
+    if (panel.id === id) return panel;
+    const found = findLayoutNode(getPanelSplitter(panel), id);
+    if (found) return found;
+  }
+
+  return undefined;
+}
+
+/**
+ * 查找面板所属的直接父分隔器
+ * @param root 根分隔器
+ * @param panelId 面板 id
+ */
+export function findPanelParentSplitter(
+  root: LayoutSplitterNode | undefined,
+  panelId: string
+): LayoutSplitterNode | undefined {
+  if (!root) return undefined;
+
+  for (const panel of root.children) {
+    if (panel.id === panelId) return root;
+    const nested = getPanelSplitter(panel);
+    if (!nested) continue;
+
+    const found = findPanelParentSplitter(nested, panelId);
+    if (found) return found;
+  }
+
+  return undefined;
 }
 
 /**

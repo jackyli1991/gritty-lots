@@ -48,17 +48,24 @@ export interface Container {
 // 布局面板节点
 export interface LayoutPanelNode {
   id: string; // 面板节点 id
+  name?: string; // 面板名称（可编辑，缺省时显示占位）
   type: 'splitterPanel'; // 节点类型
   percentage: number; // 百分比值，面板在所属分隔器中的占比
   sizeValue?: number; // 分隔器尺寸值（按 useUnit 解释）
   useUnit?: 'px' | '%'; // 分隔器尺寸单位 'vw' | 'vh'
+  backgroundColor?: string; // 背景颜色（十六进制格式）
+  containerType: ContainerType; // 容器类型（仅叶子面板可切换）
   containerId: string; // 管理的容器 id
   children: LayoutSplitterNode[]; // 子内容：嵌套分隔器（最多一个，数组以便递归统一处理）
 }
 
+// 容器类型取值，来源 src/data/options.ts 的 containerOptions
+export type ContainerType = 'normal' | 'table' | 'form' | 'drawer';
+
 // 布局分隔器节点
 export interface LayoutSplitterNode {
   id: string; // 分隔器节点 id
+  name?: string; // 分隔器名称（可编辑，缺省时显示占位）
   type: 'splitter'; // 节点类型
   layout: 'horizontal' | 'vertical'; // 布局方向
   gap: number; // 分隔器间距（px）

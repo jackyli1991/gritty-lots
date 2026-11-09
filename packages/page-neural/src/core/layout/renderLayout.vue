@@ -1,12 +1,14 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
   import Container from '@neural/core/container/index.vue';
+  import { containerOptions } from '@neural/data/options';
   import { useLayoutStore } from '@neural/store/layout';
   import type { LayoutPanelNode, LayoutSplitterNode } from '@neural/types';
   import { generateId } from '@neural/utils/uuid';
   import { storeToRefs } from 'pinia';
   import ContextMenu from 'primevue/contextmenu';
   import type { MenuItem } from 'primevue/menuitem';
+  import Tag from 'primevue/tag';
   import {
     computed,
     inject,
@@ -24,7 +26,7 @@
     generatePanelNode,
     generateSplitterNode,
     getPanelSplitter,
-    panelFlexStyle,
+    panelStyle,
     toPercentage,
   } from './utils';
 
@@ -57,9 +59,13 @@
   // 悬停面板所属分隔器的高亮边框：outline 内嵌 2px，不占布局空间也不会被父面板裁剪
   const HIGHLIGHT_CLASS = '[outline:2px_solid_var(--p-primary-500)] [outline-offset:-2px]';
 
+  // 选中面板的描边（实线）与选中分隔器的描边（虚线，与悬停的实线区分）
+  const SELECTED_CLASS = '[outline:2px_solid_var(--p-primary-500)] [outline-offset:-2px]';
+  const SELECTED_SPLITTER_CLASS = '[outline:2px_dashed_var(--p-primary-500)] [outline-offset:-2px]';
+
   // 悬停高亮状态由布局 store 统一维护，嵌套分隔器共享同一份
   const layoutStore = useLayoutStore();
-  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId, locked } =
+  const { hoveredPanelId, treeHoveredPanelId, treeHoveredSplitterId, locked, selectedNode } =
     storeToRefs(layoutStore);
 
   // 本分隔器是否为悬停面板的直接父级：仅直接父分隔器绘制高亮边框、仅其面板显示指示线
@@ -71,6 +77,16 @@
   const isHighlighted = computed(
     () => isHoveredSplitter.value || treeHoveredSplitterId.value === props.node?.id
   );
+
+  // 当前分隔器是否为图层树中选中的节点
+  const isSelectedSplitter = computed(
+    () => selectedNode.value?.type === 'splitter' && selectedNode.value.id === props.node?.id
+  );
+
+  // 按 containerType 取值反查 label，用于叶子面板 Tag 展示
+  function containerTypeLabel(type?: string): string {
+    return containerOptions.find((item) => item.value === type)?.label ?? type ?? '';
+  }
 
   // flex 容器根元素，用于测量容器轴向像素及面板真实像素（gutter 拖拽边界保护）
   const containerRef = ref<HTMLElement | null>(null);
@@ -395,6 +411,11 @@
     }
     open(event, buildPanelMenu(index));
   }
+
+  // 点击面板：同步选中态到布局 store（阻止冒泡，避免嵌套面板把选中覆盖成外层面板）
+  function onPanelClick(panel: LayoutPanelNode) {
+    layoutStore.selectNode('splitterPanel', panel.id);
+  }
 </script>
 
 <template>
@@ -407,6 +428,7 @@
       border && !locked ? '[outline:1px_solid_var(--color-gray-200)] -outline-offset-1' : '',
       isHorizontal ? '' : 'flex-col',
       isHighlighted && !locked ? HIGHLIGHT_CLASS : '',
+      isSelectedSplitter ? SELECTED_SPLITTER_CLASS : '',
       gutterDrag ? 'select-none' : '',
     ]"
     :style="{ gap: `${node?.gap || 0}px` }"
@@ -420,11 +442,17 @@
         :data-panel="index"
         :data-panel-id="panel.id"
         class="page-layout-splitter-panel relative overflow-hidden transition-colors"
-        :class="{
-          'bg-black/5 dark:bg-white/10':
-            hoveredPanelId === panel.id || treeHoveredPanelId === panel.id,
-        }"
-        :style="panelFlexStyle(panel)"
+        :class="[
+          {
+            'bg-black/5 dark:bg-white/10':
+              hoveredPanelId === panel.id || treeHoveredPanelId === panel.id,
+          },
+          selectedNode?.type === 'splitterPanel' && selectedNode.id === panel.id
+            ? SELECTED_CLASS
+            : '',
+        ]"
+        :style="panelStyle(panel)"
+        @click.stop="onPanelClick(panel)"
         @contextmenu="(event: Event) => onPanelContextMenu(event, index)"
       >
         <!-- 悬停时：红色指示线沿分隔方向贯穿面板（仅悬停面板的直接父分隔器内显示） -->
@@ -435,6 +463,15 @@
           :use-unit="panel.useUnit"
           :disabled="locked"
           @toggle-unit="toggleUnit(panel)"
+        />
+        <!-- 叶子面板中间显示容器类型 Tag（仅编辑态、有 containerType 时） -->
+        <Tag
+          v-if="!locked && !getPanelSplitter(panel) && panel.containerType"
+          class="pointer-events-none absolute left-1 top-1"
+          size="small"
+          severity="secondary"
+          :value="containerTypeLabel(panel.containerType)"
+          :pt="{ root: { style: { padding: '2px 6px', fontSize: '10px' } } }"
         />
         <!-- 递归子分隔器 -->
         <RenderLayout
