@@ -201,8 +201,9 @@ export const usePageNeuralStore = defineStore('page-neural', {
           });
           this.containers.push(container);
         } else {
-          // 容器已存在，更新类型
+          // 容器已存在，更新类型和名称
           containerExit.subType = panel.containerType;
+          containerExit.name = panel.name as string;
         }
       }
     },

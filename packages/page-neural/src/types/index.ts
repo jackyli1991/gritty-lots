@@ -60,7 +60,7 @@ export interface LayoutPanelNode {
 }
 
 // 容器类型取值，来源 src/data/options.ts 的 containerOptions
-export type ContainerType = 'normal' | 'table' | 'form' | 'drawer';
+export type ContainerType = 'normal' | 'table' | 'form' | 'drawer' | 'tabs';
 
 // 布局分隔器节点
 export interface LayoutSplitterNode {

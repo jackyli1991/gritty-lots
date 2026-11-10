@@ -55,4 +55,5 @@ export const containerOptions = [
   { label: '表格容器', value: 'table' },
   { label: '表单容器', value: 'form' },
   { label: '抽屉容器', value: 'drawer' },
+  { label: 'Tabs容器', value: 'tabs' },
 ];

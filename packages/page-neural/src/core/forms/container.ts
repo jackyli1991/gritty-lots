@@ -10,6 +10,7 @@ const fieldSetMaps: string[] = [
   // 'layoutModel', // 布局模型
   'backgroundModel', // 背景模型
   'dataModel', // 数据模型
+  'containerModel', // 容器自定义模型
 ];
 
 // 表单项

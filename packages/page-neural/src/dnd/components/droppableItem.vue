@@ -19,7 +19,7 @@
 <template>
   <div
     ref="element"
-    class="w-full h-full rounded-[inherit] border border-transparent [&:hover:not(:has(*:hover))]:border-(--p-primary-500) [&:hover:not(:has(*:hover))]:border-dashed"
+    class="page-neural-droppable w-full h-full rounded-[inherit] border border-transparent [&:hover:not(:has(.page-neural-droppable:hover))]:border-(--p-primary-500) [&:hover:not(:has(.page-neural-droppable:hover))]:border-dashed"
     :class="{
       'border-(--p-primary-500)!': isDropTarget || props.active,
     }"

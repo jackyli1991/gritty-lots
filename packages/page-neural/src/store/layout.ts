@@ -19,7 +19,7 @@ export const useLayoutStore = defineStore('page-neural-layout', {
     // 当前选中的节点（树、属性面板与画布共享，单选）
     selectedNode: null as { id: string; type: 'splitter' | 'splitterPanel' } | null,
     // 右下角图层与属性面板显隐（锁定布局时自动隐藏，解锁时自动打开）
-    layersVisible: false,
+    layersVisible: true,
   }),
   getters: {
     // 布局是否锁定：取当前激活页面的 layoutLock，作为所有编辑入口的统一开关

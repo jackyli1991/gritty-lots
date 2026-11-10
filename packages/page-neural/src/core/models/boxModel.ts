@@ -14,7 +14,7 @@ function getForm(options: Record<string, any>): FormItemProps {
         class: 'col-span-full',
         componentProps: {},
         help: [],
-        tips: '用于设置盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
+        tips: '盒模型属性，包括外边距、内边距、边框、圆角、宽度、高度及单位。',
         ...options,
       },
     ],

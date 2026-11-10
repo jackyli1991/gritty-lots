@@ -44,6 +44,7 @@ const defaultModalConfig = {
   drawer: {
     position: 'right',
     showCloseIcon: true,
+    modal: false,
     class: '!w-[32rem]',
     pt: {
       header: {
@@ -93,9 +94,10 @@ function getFormConfig(
 function getModalHeader(
   modalConfig: Omit<ModalOptions, 'component'>,
   formConfig: FormOptions,
-  schemaName: string
+  schemaName: string,
+  nodeFullData: Record<string, any>
 ) {
-  let title = modalConfig.header || '配置';
+  let title = nodeFullData?.name || modalConfig.header || '配置';
   if (!schemaName) return title;
   const schema = formConfig.schema.find((item: any) => item.schemaName === schemaName);
   return schema?.label ? `${title} - ${schema.label}` : title;
@@ -228,7 +230,7 @@ export function useModal(options: UserModalOptions) {
                   h(
                     'span',
                     { class: 'text-sm font-bold' },
-                    getModalHeader(rest, formConfig, schemaName)
+                    getModalHeader(rest, formConfig, schemaName, entry.nodeFullData)
                   ),
                   collapseConfig.enable &&
                     h(

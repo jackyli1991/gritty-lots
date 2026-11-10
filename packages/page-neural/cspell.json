@@ -49,7 +49,10 @@
     "Togger",
     "toggle",
     "SPLITTABLE",
-    "Splittable"
+    "Splittable",
+    "datatable",
+    "tablecontainer",
+    "emptymessagecell"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

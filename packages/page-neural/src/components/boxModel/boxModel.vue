@@ -115,7 +115,7 @@
                 <div class="bm-inner">
                   <!-- Content 区域（width × height） -->
                   <div
-                    class="flex items-center justify-center gap-1 min-w-[8.75rem] min-h-[3.125rem] bg-white dark:bg-gray-900 border border-dashed border-gray-700 dark:border-gray-300 rounded-sm p-2"
+                    class="flex items-center justify-center gap-1 min-w-35 min-h-12.5 bg-white dark:bg-gray-900 border border-dashed border-gray-700 dark:border-gray-300 rounded-sm p-2"
                   >
                     <span
                       class="cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 rounded px-1 transition-colors text-xs text-gray-700 dark:text-gray-200 select-none"
