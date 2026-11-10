@@ -67,7 +67,8 @@
             panel.containerType = type;
           },
         });
-        return;
+      } else {
+        panel.containerType = type;
       }
     },
   });

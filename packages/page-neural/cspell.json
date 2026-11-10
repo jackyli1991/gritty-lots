@@ -45,7 +45,11 @@
     "steplist",
     "confirmpopup",
     "vnode",
-    "speeddial"
+    "speeddial",
+    "Togger",
+    "toggle",
+    "SPLITTABLE",
+    "Splittable"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

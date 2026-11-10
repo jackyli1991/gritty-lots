@@ -160,6 +160,7 @@
       type: 'alert',
       confirm: () => {
         pageNeuralStore.setLayoutLock(false);
+        layoutStore.setLayersVisible(true);
         neuralToastSuccess('已解锁', '可以重新编辑布局');
       },
       reject: () => {},

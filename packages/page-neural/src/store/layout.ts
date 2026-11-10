@@ -18,6 +18,8 @@ export const useLayoutStore = defineStore('page-neural-layout', {
     treeHoveredSplitterId: null as string | null,
     // 当前选中的节点（树、属性面板与画布共享，单选）
     selectedNode: null as { id: string; type: 'splitter' | 'splitterPanel' } | null,
+    // 右下角图层与属性面板显隐（锁定布局时自动隐藏，解锁时自动打开）
+    layersVisible: false,
   }),
   getters: {
     // 布局是否锁定：取当前激活页面的 layoutLock，作为所有编辑入口的统一开关
@@ -122,6 +124,14 @@ export const useLayoutStore = defineStore('page-neural-layout', {
     updateSplitterGap(splitter: LayoutSplitterNode, gap: number) {
       if (this.locked) return;
       splitter.gap = Math.max(0, Math.round(gap));
+    },
+    // 设置图层与属性面板显隐
+    setLayersVisible(visible: boolean) {
+      this.layersVisible = visible;
+    },
+    // 切换图层与属性面板显隐
+    toggleLayers() {
+      this.layersVisible = !this.layersVisible;
     },
   },
 });

@@ -358,28 +358,42 @@
     ];
   }
 
+  // 表格/表单容器不可拆分、不可前后添加（容器内部有自己的布局模型）
+  const NON_SPLITTABLE_TYPES = ['table', 'form'];
+
+  /** 面板容器类型是否禁止拆分与前后添加 */
+  function isNonSplittablePanel(panel: LayoutPanelNode): boolean {
+    return NON_SPLITTABLE_TYPES.includes(panel.containerType ?? '');
+  }
+
   /** 构建面板右键菜单，前后添加图标随父分隔器方向变化 */
   function buildPanelMenu(index: number): MenuItem[] {
+    const panel = props.node.children[index];
+    const lockedPanel = isNonSplittablePanel(panel);
     return [
       {
         label: '水平拆分',
         icon: 'Columns2',
-        command: () => splitPanel(props.node.children[index], 'horizontal'),
+        disabled: lockedPanel,
+        command: () => splitPanel(panel, 'horizontal'),
       },
       {
         label: '垂直拆分',
         icon: 'Rows2',
-        command: () => splitPanel(props.node.children[index], 'vertical'),
+        disabled: lockedPanel,
+        command: () => splitPanel(panel, 'vertical'),
       },
       { separator: true },
       {
         label: '在前面添加',
         icon: isHorizontal.value ? 'ArrowLeftToLine' : 'ArrowUpToLine',
+        disabled: lockedPanel,
         command: () => addPanel(index),
       },
       {
         label: '在后面添加',
         icon: isHorizontal.value ? 'ArrowRightToLine' : 'ArrowDownToLine',
+        disabled: lockedPanel,
         command: () => addPanel(index + 1),
       },
       { separator: true },

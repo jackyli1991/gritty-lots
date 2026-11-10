@@ -30,6 +30,15 @@ function handleAddDataSource(openModal: OpenModal | null) {
   });
 }
 
+// 打开数据源弹窗
+function openDataSourceModal(openModal: OpenModal | null) {
+  openModal?.({
+    key: 'database',
+    props: {},
+    nodeData: {},
+  });
+}
+
 /**
  * 数据源提示：tips 使用渲染函数，才能在组件渲染上下文中执行 inject
  * 拿到 core/index.vue 通过 provide('neural-modal') 注入的 openModal
@@ -37,7 +46,18 @@ function handleAddDataSource(openModal: OpenModal | null) {
 function dataSourceTips() {
   const openModal = inject<OpenModal | null>('neural-modal', null);
   return h('div', {}, [
-    h('span', {}, '选择已有的数据源。如果没有，请先'),
+    h('span', {}, '选择'),
+    h(
+      Button,
+      {
+        security: 'primary',
+        variant: 'text',
+        size: 'small',
+        onClick: () => openDataSourceModal(openModal),
+      },
+      { default: () => '已有的数据源' }
+    ),
+    h('span', {}, '。如果没有，请先'),
     h(
       Button,
       {
@@ -55,10 +75,18 @@ function dataSourceTips() {
 const typeBadgeClass =
   'rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-300';
 
-// 数据源下拉选择框
+// 数据源下拉选择框（启用内置过滤：按 name/url/json 模糊查询）
 const dataBaseSelect = h(
   Select,
-  {},
+  {
+    filter: true,
+    filterFields: ['name', 'url', 'json'],
+    filterMatchMode: 'contains',
+    filterPlaceholder: '搜索数据源名称/URL/JSON...',
+    autoFilterFocus: true,
+    resetFilterOnHide: true,
+    emptyFilterMessage: '未找到匹配的数据源',
+  },
   {
     // value 作用域插槽：选中项回显依次显示 name、type、method、url、json（单行截断）
     value: (scope: { value: any; placeholder: string }) => {

@@ -6,7 +6,7 @@
   import { storeToRefs } from 'pinia';
   import { computed, ref } from 'vue';
 
-  import { getPanelSplitter, percentFlexStyle } from './layout/utils';
+  import { getPanelSplitter, percentFlexStyle } from './utils';
 
   // 布局缩略图：默认收起为 Layout 图标，点击展开等比缩略布局树，悬停画布面板时对应色块高亮；
   // 递归子实例以 bare 模式直出缩略主体，不重复渲染外壳
@@ -36,7 +36,10 @@
   <!-- 外壳：固定图标占位，点击图标切换；展开的缩略图卡片绝对定位在图标上方，不占布局空间 -->
   <div v-if="!bare" class="relative h-6 w-6">
     <button
-      class="absolute inset-0 z-20 flex items-center justify-center rounded text-gray-400 transition-colors hover:text-(--p-primary-500)"
+      class="absolute inset-0 z-20 flex items-center justify-center rounded-full text-gray-400 transition-colors hover:text-(--p-primary-500)"
+      :class="
+        expanded ? 'text-white bg-(--p-primary-500) hover:bg-(--p-primary-600) dark:text-white' : ''
+      "
       title="切换布局缩略图"
       @click="expanded = !expanded"
     >
@@ -44,7 +47,7 @@
     </button>
     <div
       v-show="expanded"
-      class="absolute bottom-9 left-1 z-10 h-30 w-40 overflow-hidden rounded border border-gray-300 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900"
+      class="absolute bottom-9 right-1 z-10 h-30 w-40 overflow-hidden rounded border border-gray-300 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900"
     >
       <MiniMaps bare />
     </div>

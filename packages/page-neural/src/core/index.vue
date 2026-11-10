@@ -16,17 +16,17 @@
   import type { DragNodeOptions } from '@neural/types';
   import Button from 'primevue/button';
   import Toast from 'primevue/toast';
-  import { provide, ref } from 'vue';
+  import { provide } from 'vue';
 
   import ConfirmDialog from './confirmDialog.vue';
   import { initPageNeural } from './init';
   import Layout from './layout/index.vue';
-  import MiniMaps from './mini-maps.vue';
+  import LayersTogger from './layout/layers-togger.vue';
+  import MiniMaps from './layout/mini-maps.vue';
   import ContainerToolbar from './toolbars/container.vue';
   import MaterialToolbar from './toolbars/material.vue';
   import PageToolbar from './toolbars/page.vue';
 
-  const showMaterials = ref(false);
   const { createNode } = crud();
   const pageNeuralStore = usePageNeuralStore();
   const layoutStore = useLayoutStore();
@@ -80,10 +80,14 @@
       </div>
       <!-- 底部状态栏 -->
       <div class="p-1 flex justify-between items-center">
-        <!-- 左下角布局缩略图：展示布局树层级关系 -->
-        <MiniMaps />
         <!-- 拖拽监控 -->
-        <DragMonitorPanel @dragStart="showMaterials = false" @droppedIn="handleDroppedIn" />
+        <DragMonitorPanel @droppedIn="handleDroppedIn" />
+        <div class="flex items-center gap-1">
+          <!-- 图层与属性面板切换按钮 -->
+          <LayersTogger />
+          <!-- 布局缩略图：展示布局树层级关系 -->
+          <MiniMaps />
+        </div>
       </div>
       <!-- 所有confirm dialog落地 -->
       <ConfirmDialog />
