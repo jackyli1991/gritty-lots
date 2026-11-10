@@ -1,5 +1,5 @@
 import type { FormInstance } from '@primevue/forms';
-import type { VNode } from 'vue';
+import type { Component } from 'vue';
 
 // 限定为 register.ts 中实际导出的组件名，避免用任意 string 索引 components
 export type FormComponentName = keyof typeof import('./register');
@@ -21,14 +21,16 @@ export interface FormItemProps {
   label: string; // 表单项的标签
   showLabel?: boolean; // 是否显示标签
   fieldName?: string; // 表单项的字段名
+  icon?: string; // 表单项的图标（可选）
+  modalConfig?: Record<string, any>; // 表单项的弹窗配置（可选）,渲染单个表单项时，可以通过modalConfig来配置弹窗的属性，优先级高于forms目录下配置的全表单modalConfig
   modelValues?: Record<string, string>; // 额外的双向绑定值（可选），当一个组件同时绑定多个值时使用此字段提供fieldName之外的其他值名
   component?: FormComponentName; // 表单项的组件类型
-  renderComponent?: VNode; // 自定义渲染的 VNode（h() 生成），优先级高于 component
+  renderComponent?: Component; // 自定义渲染的 VNode（h() 生成），优先级高于 component
   class?: string; // 表单项的类名（可选）
   componentProps?: Record<string, any>; // 表单项的组件属性
   help?: string[]; // 表单项的帮助信息（可选）
   required?: boolean; // 是否必填项
-  tips?: string | VNode | (() => VNode); // 表单项的提示信息，支持字符串、VNode 或渲染函数
+  tips?: string | Component | (() => Component); // 表单项的提示信息，支持字符串、Component 或渲染函数
   children?: FormItemProps[]; // 子表单项（可选）
   formGroup?: boolean; // 是否为分组表单项
   disabled?: boolean; // 是否禁用

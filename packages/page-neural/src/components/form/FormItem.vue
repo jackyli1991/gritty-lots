@@ -38,7 +38,7 @@
   import { FormField } from '@primevue/forms';
   import Message from 'primevue/message';
   import vTooltip from 'primevue/tooltip';
-  import type { VNode } from 'vue';
+  import type { Component } from 'vue';
 
   import NeuralIcon from '../icon';
   // import Label from 'primevue/label'
@@ -50,7 +50,7 @@
     required?: boolean; // 是否必填项（可选）
     initialValue?: unknown; // 初始值（可选）
     help?: string[]; // 帮助信息（可选）
-    tips?: string | VNode | (() => VNode); // 提示信息，支持字符串、VNode 或渲染函数
+    tips?: string | Component | (() => Component); // 提示信息，支持字符串、Component 或渲染函数
   }
   withDefaults(defineProps<Props>(), {
     showLabel: true,

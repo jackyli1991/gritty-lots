@@ -44,7 +44,7 @@ const defaultModalConfig = {
   drawer: {
     position: 'right',
     showCloseIcon: true,
-    modal: false,
+    // modal: false,
     class: '!w-[32rem]',
     pt: {
       header: {
@@ -89,6 +89,19 @@ function getFormConfig(
     ...config,
     schema: config.schema.filter((item: any) => item.schemaName === schemaName),
   };
+}
+
+// 更新弹窗配置
+function updateModalConfig(
+  formConfigMerge: FormOptions,
+  restModalConfig: Omit<ModalOptions, 'component'>,
+  schemaName: string
+) {
+  const schema = formConfigMerge.schema.find((item: any) => item.schemaName === schemaName);
+  if (schema) {
+    const modalConfig = schema.modalConfig || {};
+    merge(restModalConfig, modalConfig);
+  }
 }
 
 function getModalHeader(
@@ -144,37 +157,37 @@ export function useModal(options: UserModalOptions) {
       return null;
     }
 
-    const { component, ...rest } = merge({}, modalConfig, entry.selfModalConfig);
+    const { component, ...restModalConfig } = merge({}, modalConfig, entry.selfModalConfig);
+
+    // 合并表单配置
+    const formConfigMerge = getFormConfig(formConfig, entry.selfFormConfig, schemaName);
+
+    if (schemaName) updateModalConfig(formConfigMerge, restModalConfig, schemaName);
 
     // 删除按钮配置
     const deleteConfig = {
       enable: false,
       message: '确认删除吗？',
       label: '删除',
-      ...rest.delete,
+      ...restModalConfig.delete,
     };
 
     // 手风琴模式配置
     const collapseConfig = {
       enable: false,
       defaultCollapsed: true,
-      ...rest.collapse,
+      ...restModalConfig.collapse,
     };
 
     // 表单手风琴模式，取配置值
     entry.fieldSetCollapsable = collapseConfig.defaultCollapsed ?? true;
-
-    // 合并表单配置
-    const formConfigMerge = getFormConfig(formConfig, entry.selfFormConfig, schemaName);
-
-    // console.log('entry', entry);
 
     return h(
       component === 'drawer' ? Drawer : Dialog,
       {
         key: entry.id, // 稳定 key，避免弹窗列表重渲染时 Dialog/Drawer 被销毁重建
         ...defaultModalConfig[component as keyof typeof defaultModalConfig],
-        ...rest,
+        ...restModalConfig,
         visible: entry.visible,
         'onUpdate:visible': (visible: boolean) => {
           closeEntry(entry, visible);
@@ -230,7 +243,7 @@ export function useModal(options: UserModalOptions) {
                   h(
                     'span',
                     { class: 'text-sm font-bold' },
-                    getModalHeader(rest, formConfig, schemaName, entry.nodeFullData)
+                    getModalHeader(restModalConfig, formConfig, schemaName, entry.nodeFullData)
                   ),
                   collapseConfig.enable &&
                     h(

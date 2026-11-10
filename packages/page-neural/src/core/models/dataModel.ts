@@ -240,7 +240,7 @@ function getForm(options: Record<string, any>): FormItemProps {
         ...options,
       },
     ],
-  } as FormItemProps;
+  };
 }
 
 const model = {

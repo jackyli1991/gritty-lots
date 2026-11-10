@@ -6,13 +6,17 @@ function getForm(options: Record<string, any>): FormItemProps {
     label: '自定义参数',
     formGroup: true,
     component: 'Fieldset',
-    icon: 'Box',
+    icon: 'PencilRuler',
+    // 单独展示containerModel时的弹窗配置
+    modalConfig: {
+      class: 'w-[50vw]',
+    },
     children: [
       {
         label: '',
         fieldName: 'containerModel',
         component: 'Select',
-        renderComponent: ContainerAttrs as any,
+        renderComponent: ContainerAttrs,
         class: 'col-span-full',
         componentProps: {},
         help: [],
@@ -20,7 +24,7 @@ function getForm(options: Record<string, any>): FormItemProps {
         ...options,
       },
     ],
-  } as FormItemProps;
+  };
 }
 
 const model = {};
