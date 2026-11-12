@@ -47,10 +47,16 @@ export const usePageNeuralStore = defineStore('page-neural', {
   },
   actions: {
     // 初始化数据
-    initData(payload: { containers: Container[]; layouts: LayoutSplitterNode[]; pages: Page[] }) {
+    initData(payload: {
+      containers: Container[];
+      layouts: LayoutSplitterNode[];
+      pages: Page[];
+      dataSources: DataSource[];
+    }) {
       this.containers = payload.containers;
       this.layouts = payload.layouts;
       this.pages = payload.pages;
+      this.dataSources = payload.dataSources;
       if (payload.containers.length) this.setActiveContainerId(payload.containers[0].id);
       if (payload.pages.length) this.setActivePageId(payload.pages[0].id);
     },

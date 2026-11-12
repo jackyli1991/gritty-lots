@@ -5,9 +5,10 @@
   import MethodTag from '@neural/core/components/MethodTag.vue';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createRequest } from '@neural/core/forms/request';
+  import { fetchDataSource } from '@neural/render/utils/fetch';
   import { usePageNeuralStore } from '@neural/store';
   import type { DataSource } from '@neural/types';
-  import { getObjectValueByPath, generateId } from '@neural/utils';
+  import { generateId } from '@neural/utils';
   import Button from 'primevue/button';
   import Tag from 'primevue/tag';
   import { computed, ref, watch, inject } from 'vue';
@@ -120,44 +121,9 @@
     responsePreview.value = '';
 
     try {
-      const method = (source.method || 'GET').toUpperCase();
-      // 支持相对路径（如 /api/xxx），基于当前站点 origin 补全
-      const url = new URL(source.url, window.location.origin);
-      const headers: Record<string, string> = { ...source.headers };
-
-      let body: string | undefined;
-      if (method === 'GET' || method === 'HEAD') {
-        Object.entries(source.params || {}).forEach(([key, value]) =>
-          url.searchParams.append(key, value)
-        );
-      } else {
-        body = JSON.stringify(source.params || {});
-        if (!Object.keys(headers).some((key) => key.toLowerCase() === 'content-type')) {
-          headers['Content-Type'] = 'application/json';
-        }
-      }
-
-      const response = await fetch(url.toString(), { method, headers, body });
+      const data = await fetchDataSource(source);
       if (seq !== requestSeq) return;
-      if (!response.ok) {
-        throw new Error(`请求失败：${response.status} ${response.statusText}`);
-      }
-
-      const text = await response.text();
-      let pretty = text;
-      try {
-        const parsed = JSON.parse(text);
-        // 配置了响应字段则取对应路径的数据，否则展示完整响应
-        const picked = source.responseField
-          ? getObjectValueByPath(parsed, source.responseField, parsed)
-          : parsed;
-        pretty = typeof picked === 'string' ? picked : JSON.stringify(picked, null, 2);
-      } catch {
-        // 非 JSON 响应直接展示原文
-      }
-
-      if (seq !== requestSeq) return;
-      responsePreview.value = pretty;
+      responsePreview.value = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
     } catch (error) {
       if (seq !== requestSeq) return;
       errorMessage.value = error instanceof Error ? error.message : String(error);

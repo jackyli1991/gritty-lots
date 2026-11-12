@@ -22,7 +22,7 @@ export interface FormItemProps {
   showLabel?: boolean; // 是否显示标签
   fieldName?: string; // 表单项的字段名
   icon?: string; // 表单项的图标（可选）
-  modalConfig?: Record<string, any>; // 表单项的弹窗配置（可选）,渲染单个表单项时，可以通过modalConfig来配置弹窗的属性，优先级高于forms目录下配置的全表单modalConfig
+  modalConfig?: Record<string, any>; // 表单项的弹窗配置（可选）,渲染单个表单项时，可以通过modalConfig来配置弹窗的属性，优先级高于forms目录下配置的外层表单modalConfig
   modelValues?: Record<string, string>; // 额外的双向绑定值（可选），当一个组件同时绑定多个值时使用此字段提供fieldName之外的其他值名
   component?: FormComponentName; // 表单项的组件类型
   renderComponent?: Component; // 自定义渲染的 VNode（h() 生成），优先级高于 component

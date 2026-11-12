@@ -37,8 +37,12 @@
     return tools;
   });
 
+  const activeContainer = computed(() =>
+    pageNeuralStore.getContainer(pageNeuralStore.activeContainerId)
+  );
+
   function handleClick(key: string) {
-    const activeContainer = pageNeuralStore.getContainer(pageNeuralStore.activeContainerId);
+    if (!activeContainer.value) return;
     if (key === 'delete') {
       // 获取删除配置
       const toolbarItem = toolbarData.value[0].find((it) => it.key === 'delete');
@@ -60,8 +64,8 @@
 
     openModal?.({
       key: `container.${key}`, // 只打开指定配置
-      props: activeContainer?.props || {},
-      nodeData: activeContainer as Record<string, any>,
+      props: activeContainer.value?.props || {},
+      nodeData: activeContainer.value as Record<string, any>,
       modalConfig: {
         component: 'dialog', // 对话框方式
         delete: {
@@ -79,7 +83,7 @@
   <NeuralToolbar
     v-if="pageNeuralStore.activeContainerId"
     :data="toolbarData"
-    title="容器"
+    :title="activeContainer?.name || '容器'"
     @click="handleClick"
   />
 </template>

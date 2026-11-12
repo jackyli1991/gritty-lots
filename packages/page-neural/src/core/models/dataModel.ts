@@ -158,6 +158,18 @@ const dataBaseSelect = h(
   }
 );
 
+const dependencies = {
+  trigger: ['sourceId'],
+  resolve: ({ values }: { values: Record<string, any> }) => {
+    const sourceId = values.sourceId;
+    const dataSource = usePageNeuralStore().dataSources.find((item) => item.id === sourceId);
+    const hidden = !sourceId || dataSource?.type === 'json';
+    return {
+      hidden,
+    };
+  },
+};
+
 function getForm(options: Record<string, any>): FormItemProps {
   return {
     label: '数据源',
@@ -220,19 +232,19 @@ function getForm(options: Record<string, any>): FormItemProps {
               },
               help: [],
               required: false,
-              dependencies: {
-                trigger: ['sourceId'],
-                resolve: ({ values }: { values: Record<string, any> }) => {
-                  const sourceId = values.sourceId;
-                  const dataSource = usePageNeuralStore().dataSources.find(
-                    (item) => item.id === sourceId
-                  );
-                  const hidden = !sourceId || dataSource?.type === 'json';
-                  return {
-                    hidden,
-                  };
-                },
+              dependencies,
+            },
+            {
+              label: '响应字段',
+              fieldName: 'responseField',
+              component: 'Input',
+              class: 'col-span-full',
+              componentProps: {
+                placeholder: '基于数据源的响应字段再进行解析',
               },
+              help: [],
+              required: false,
+              dependencies,
             },
           ],
         },
@@ -247,6 +259,7 @@ const model = {
   enable: false,
   sourceId: '',
   params: {},
+  responseField: '',
 };
 
 export default {

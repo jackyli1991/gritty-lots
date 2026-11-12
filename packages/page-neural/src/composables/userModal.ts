@@ -85,23 +85,23 @@ function getFormConfig(
   // 因此这里还原为原始组件引用
   config.connectedComponent = selfFormConfig.connectedComponent ?? formConfig.connectedComponent;
   if (!schemaName) return config;
+  const schema = config.schema.find((item: any) => item.schemaName === schemaName);
+  if (!schema) return config;
+  const isFormGroup = schema.formGroup;
   return {
     ...config,
-    schema: config.schema.filter((item: any) => item.schemaName === schemaName),
+    schema: isFormGroup ? schema.children || [] : schema,
   };
 }
 
 // 更新弹窗配置
-function updateModalConfig(
-  formConfigMerge: FormOptions,
-  restModalConfig: Omit<ModalOptions, 'component'>,
-  schemaName: string
-) {
-  const schema = formConfigMerge.schema.find((item: any) => item.schemaName === schemaName);
+function getSchemaModalConfig(formConfig: FormOptions, schemaName: string) {
+  const schema = formConfig.schema.find((item: any) => item.schemaName === schemaName);
   if (schema) {
     const modalConfig = schema.modalConfig || {};
-    merge(restModalConfig, modalConfig);
+    return modalConfig;
   }
+  return {};
 }
 
 function getModalHeader(
@@ -157,12 +157,15 @@ export function useModal(options: UserModalOptions) {
       return null;
     }
 
-    const { component, ...restModalConfig } = merge({}, modalConfig, entry.selfModalConfig);
+    let { component, ...restModalConfig } = merge({}, modalConfig, entry.selfModalConfig);
 
     // 合并表单配置
     const formConfigMerge = getFormConfig(formConfig, entry.selfFormConfig, schemaName);
 
-    if (schemaName) updateModalConfig(formConfigMerge, restModalConfig, schemaName);
+    if (schemaName) {
+      const schemaModalConfig = getSchemaModalConfig(formConfig, schemaName);
+      restModalConfig = merge({}, restModalConfig, schemaModalConfig);
+    }
 
     // 删除按钮配置
     const deleteConfig = {

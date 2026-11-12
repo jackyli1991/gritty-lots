@@ -52,7 +52,13 @@
     "Splittable",
     "datatable",
     "tablecontainer",
-    "emptymessagecell"
+    "emptymessagecell",
+    "scrollarea",
+    "scrollareacontent",
+    "scrollareahandle",
+    "scrollareascrollbar",
+    "scrollareaviewport",
+    "Gridlines"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],
