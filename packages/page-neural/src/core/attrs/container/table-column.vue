@@ -1,67 +1,98 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 rounded-md border border-gray-200 p-2 dark:border-gray-700">
     <!-- 顶部工具条：添加列 -->
     <div class="flex shrink-0 items-center justify-between gap-2">
       <div class="flex min-w-0 flex-1 items-center gap-2">
-        <span class="shrink-0 text-xs text-gray-500 dark:text-gray-400"
-          >共 {{ model.length }} 列</span
-        >
         <!-- 搜索框：按标题 / 字段 / 类型过滤左侧列列表 -->
         <InputText
           v-model="keyword"
-          class="w-50"
+          class="w-50 border-0! border-b-1!"
           size="small"
+          :pt="{
+            root: {
+              style: {
+                borderRadius: 0,
+              },
+            },
+          }"
           placeholder="按标题、类型、字段快速检索"
           :formControl="{ noValidate: true }"
         />
+        <!-- <span class="shrink-0 text-xs text-gray-500 dark:text-gray-400"
+          >共 {{ model.length }} 列</span
+        > -->
       </div>
-      <div class="relative shrink-0">
-        <Button size="small" :disabled="availableTypes === 0" @click="toggleAddMenu">
-          <NeuralIcon name="Plus" :size="14" />
-          <span class="ml-1">添加列</span>
-        </Button>
-        <!-- 弹层：列出所有列类型，已被占用的单例类型置灰 -->
-        <Popover ref="addMenuPopover">
-          <Listbox
-            :options="allTypeOptions()"
-            option-label="label"
-            option-value="value"
-            option-disabled="disabled"
+      <div class="flex shrink-0 items-center gap-1">
+        <!-- 选中列的复制 / 删除操作 -->
+        <div class="flex items-center gap-0.5">
+          <Button text size="small" :disabled="!canCopyActive" @click="copyColumn(activeIndex)">
+            <NeuralIcon name="Copy" :size="12" />
+            <span>复制</span>
+          </Button>
+          <Button
+            text
             size="small"
-            class="min-w-[160px]"
-            :form-control="{ novalidate: true }"
-            @update:modelValue="addColumn"
+            severity="danger"
+            :disabled="!activeColumn"
+            @click="removeColumn(activeIndex)"
           >
-            <template #option="{ option }">
-              <div class="flex items-center gap-2">
-                <NeuralIcon :name="TYPE_ICON[option.value as TableColumnType]" :size="13" />
-                <span>{{ option.label }}</span>
-                <span
-                  v-if="option.disabled"
-                  class="ml-auto text-[10px] text-gray-400 dark:text-gray-500"
-                >
-                  已存在
-                </span>
-              </div>
-            </template>
-          </Listbox>
-        </Popover>
+            <NeuralIcon name="Trash2" :size="12" />
+            <span>删除</span>
+          </Button>
+        </div>
+        <div class="relative shrink-0">
+          <Button size="small" :disabled="availableTypes === 0" @click="toggleAddMenu">
+            <NeuralIcon name="Plus" :size="14" />
+            <span>添加列</span>
+          </Button>
+          <!-- 弹层：列出所有列类型，已被占用的单例类型置灰 -->
+          <Popover ref="addMenuPopover">
+            <Listbox
+              :options="allTypeOptions()"
+              option-label="label"
+              option-value="value"
+              option-disabled="disabled"
+              size="small"
+              class="min-w-[160px]"
+              :form-control="{ novalidate: true }"
+              @update:modelValue="addColumn"
+            >
+              <template #option="{ option }">
+                <div class="flex items-center gap-2">
+                  <NeuralIcon :name="TYPE_ICON[option.value as TableColumnType]" :size="13" />
+                  <span>{{ option.label }}</span>
+                  <span
+                    v-if="option.disabled"
+                    class="ml-auto text-[10px] text-gray-400 dark:text-gray-500"
+                  >
+                    已存在
+                  </span>
+                </div>
+              </template>
+            </Listbox>
+          </Popover>
+        </div>
       </div>
     </div>
 
     <!-- 上：Tab 头部（PrimeVue ScrollArea 横向滚动 + 拖拽排序） -->
-    <ScrollArea class="shrink-0 rounded-md border border-gray-200 dark:border-gray-700">
-      <ScrollAreaViewport class="!overflow-y-hidden">
-        <ScrollAreaContent class="flex items-center gap-2 px-1 py-1">
-          <template v-if="filteredColumns.length > 0">
-            <SortableColumnItem
-              v-for="({ col, index: sourceIndex }, position) in filteredColumns"
+    <ScrollArea class="border-0!">
+      <ScrollAreaViewport class="px-0! py-2!">
+        <ScrollAreaContent>
+          <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-2 pb-1">
+            <SortableItem
+              v-for="(col, position) in filteredColumns"
               :key="col.id"
               :id="col.id"
               :index="position"
               :disabled="isFiltering"
+              type="sortableColumn"
+              :data="{
+                name: `${col.title || '未命名'}${col.field ? `(${col.field})` : ''}`,
+                icon: TYPE_ICON[col.type],
+              }"
               group="table-columns"
-              class="group flex shrink-0 cursor-grab items-center gap-1.5 rounded px-2.5 py-1.5 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800"
+              class="group inline-block flex shrink-0 cursor-grab items-center gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800"
               :class="
                 activeId === col.id
                   ? 'border-b-2 border-(--p-primary-500) bg-gray-100 text-(--p-primary-500) dark:bg-gray-800'
@@ -70,34 +101,13 @@
               @click="selectColumn(col)"
             >
               <div class="flex flex-row items-center gap-1.5">
-                <NeuralIcon :name="TYPE_ICON[col.type]" :size="13" />
-                <span class="max-w-[140px] truncate font-medium">{{ col.title || '未命名' }}</span>
-                <!-- 操作按钮：flex 流内紧跟文字右侧；默认宽度折叠为 0 不占位，hover 展开 -->
-                <div
-                  class="ml-1 flex shrink-0 items-center gap-0.5 overflow-hidden opacity-0 transition-[width,opacity] duration-150 group-hover:w-auto group-hover:opacity-100"
+                <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
+                <span class="max-w-[140px] truncate font-medium"
+                  >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
                 >
-                  <Button
-                    text
-                    icon-only
-                    size="small"
-                    :disabled="SINGLETON_COLUMN_TYPES.has(col.type)"
-                    @click.stop="copyColumn(sourceIndex)"
-                  >
-                    <NeuralIcon name="Copy" :size="12" />
-                  </Button>
-                  <Button
-                    text
-                    icon-only
-                    size="small"
-                    severity="danger"
-                    @click.stop="removeColumn(sourceIndex)"
-                  >
-                    <NeuralIcon name="Trash2" :size="12" />
-                  </Button>
-                </div>
               </div>
-            </SortableColumnItem>
-          </template>
+            </SortableItem>
+          </div>
 
           <!-- Tab 头部空态：区分"未找到匹配"和"无列" -->
           <div
@@ -115,9 +125,7 @@
     </ScrollArea>
 
     <!-- 下：选中列的配置表单 -->
-    <div
-      class="flex min-h-[300px] max-h-[400px] flex-1 flex-col gap-2 overflow-auto rounded-md border border-gray-200 p-2 dark:border-gray-700"
-    >
+    <div class="flex flex-1 flex-col gap-2 overflow-auto">
       <template v-if="activeColumn">
         <NeuralForm
           :key="activeColumn.id"
@@ -127,23 +135,7 @@
           :columns="3"
           @update:model-value="onColumnChange"
         />
-
-        <span
-          v-if="!isDataColumn(activeColumn.type)"
-          class="text-[11px] text-gray-400 dark:text-gray-500"
-        >
-          内置列，仅支持配置标题与类型
-        </span>
       </template>
-
-      <!-- 未选中：顶部可能有过滤导致当前无选中，或数组初始为空 -->
-      <div
-        v-else
-        class="flex h-full flex-col items-center justify-center gap-1 text-xs text-gray-400 dark:text-gray-500"
-      >
-        <NeuralIcon name="MousePointerClick" :size="20" />
-        <span>{{ model.length > 0 ? '点击顶部列进行配置' : '暂无列，点击右上角添加' }}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -153,15 +145,15 @@
   import { isSortable } from '@dnd-kit/vue/sortable';
   import { NeuralIcon, NeuralForm } from '@neural/components';
   import type { FormItemProps } from '@neural/components/form';
+  import { createNewColumn, getColumnSchema } from '@neural/core/forms/table-column';
   import {
-    ALIGN_OPTIONS,
     ALL_TYPE_VALUES,
-    FIXED_OPTIONS,
-    SINGLETON_COLUMN_TYPES,
     TABLE_COLUMN_TYPE_LABEL,
     TYPE_ICON,
-    isDataColumn,
+    getBlockedColumnTypes,
+    isColumnTypeBlocked,
   } from '@neural/data/table';
+  import SortableItem from '@neural/dnd/components/sortableItem.vue';
   import type { TableColumn, TableColumnType } from '@neural/types/table';
   import { generateId } from '@neural/utils';
   import Button from 'primevue/button';
@@ -176,8 +168,6 @@
   import type { DefineComponent } from 'vue';
   import { computed, ref, useTemplateRef, watch } from 'vue';
   import { z } from 'zod';
-
-  import SortableColumnItem from './sortable-column-item.vue';
 
   defineOptions({ name: 'ColumnAttrs' });
 
@@ -212,99 +202,33 @@
     );
   }
 
-  /** 搜索过滤后的列，附带原始索引供复制、删除使用；支持空格分隔多关键字（需全部命中） */
+  /** 搜索过滤后的列；支持空格分隔多关键字（需全部命中） */
   const filteredColumns = computed(() => {
     const keywords = keyword.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    return model.value
-      .map((col, index) => ({ col, index }))
-      .filter(({ col }) => keywords.every((item) => matchKeyword(col, item)));
+    return model.value.filter((col) => keywords.every((item) => matchKeyword(col, item)));
   });
 
   /** 当前选中的列 */
   const activeColumn = computed(() => model.value.find((col) => col.id === activeId.value) ?? null);
 
-  /** 数据列专属字段的隐藏联动：非数据列不渲染字段/宽度/对齐/固定/排序 */
-  const hideForNonDataColumn = {
-    trigger: ['type'],
-    resolve: ({ values }: { values: Record<string, any> }) => ({
-      hidden: !isDataColumn(values.type as TableColumnType),
-    }),
-  };
+  /** 当前选中列在列数组中的索引，未选中时为 -1 */
+  const activeIndex = computed(() => model.value.findIndex((col) => col.id === activeId.value));
 
-  /** 选中列的配置表单 schema */
-  const columnSchema = computed<FormItemProps[]>(() => {
-    const occupied = occupiedSingletonTypes();
-    return [
-      {
-        fieldName: 'title',
-        label: '标题',
-        component: 'Input',
-        componentProps: { placeholder: '列标题' },
-      },
-      {
-        fieldName: 'type',
-        label: '类型',
-        component: 'Select',
-        componentProps: {
-          optionLabel: 'label',
-          optionValue: 'value',
-          optionDisabled: (option: { disabled: boolean }) => option.disabled,
-          options: ALL_TYPE_VALUES.map((type) => ({
-            label: TABLE_COLUMN_TYPE_LABEL[type],
-            value: type,
-            disabled:
-              SINGLETON_COLUMN_TYPES.has(type) &&
-              occupied.has(type) &&
-              type !== activeColumn.value?.type,
-          })),
-        },
-      },
-      {
-        fieldName: 'field',
-        label: '字段',
-        component: 'Input',
-        componentProps: { placeholder: '绑定字段' },
-        dependencies: hideForNonDataColumn,
-      },
-      {
-        fieldName: 'width',
-        label: '宽度',
-        component: 'InputNumber',
-        componentProps: { min: 0, showButtons: false, placeholder: '自适应' },
-        dependencies: hideForNonDataColumn,
-      },
-      {
-        fieldName: 'align',
-        label: '对齐',
-        component: 'Select',
-        componentProps: {
-          optionLabel: 'label',
-          optionValue: 'value',
-          options: ALIGN_OPTIONS,
-        },
-        dependencies: hideForNonDataColumn,
-      },
-      {
-        fieldName: 'fixed',
-        label: '固定',
-        component: 'Select',
-        componentProps: {
-          optionLabel: 'label',
-          optionValue: 'value',
-          options: FIXED_OPTIONS,
-          showClear: true,
-        },
-        dependencies: hideForNonDataColumn,
-      },
-      {
-        fieldName: 'sortable',
-        label: '可排序',
-        component: 'ToggleSwitch',
-        componentProps: {},
-        dependencies: hideForNonDataColumn,
-      },
-    ];
-  });
+  /** 当前被阻塞的列类型集合（单例已占用 + 互斥组已占用） */
+  const blockedTypes = computed(() => getBlockedColumnTypes(model.value.map((c) => c.type)));
+
+  /** 选中列是否可复制：复制后会产生同类型，若该类型当前被阻塞则不允许 */
+  const canCopyActive = computed(
+    () => !!activeColumn.value && !blockedTypes.value.has(activeColumn.value.type)
+  );
+
+  /** 选中列的配置表单 schema：静态定义在 forms/table-column，实时参数从当前页传入 */
+  const columnSchema = computed<FormItemProps[]>(() =>
+    getColumnSchema({
+      blockedTypes: blockedTypes.value,
+      activeType: activeColumn.value?.type,
+    })
+  );
 
   /** 列配置表单校验规则（暂无需校验字段） */
   const columnRules = z.object({});
@@ -317,21 +241,16 @@
     );
   }
 
-  /** 当前已被占用的单例类型 */
-  const occupiedSingletonTypes = (): Set<TableColumnType> =>
-    new Set(model.value.map((c) => c.type).filter((t) => SINGLETON_COLUMN_TYPES.has(t)));
-
   /** 添加列按钮下拉的完整选项（含 disabled 状态） */
   function allTypeOptions(): {
     value: TableColumnType;
     label: string;
     disabled: boolean;
   }[] {
-    const occupied = occupiedSingletonTypes();
     return ALL_TYPE_VALUES.map((t) => ({
       value: t,
       label: TABLE_COLUMN_TYPE_LABEL[t],
-      disabled: SINGLETON_COLUMN_TYPES.has(t) && occupied.has(t),
+      disabled: blockedTypes.value.has(t),
     }));
   }
 
@@ -340,26 +259,18 @@
 
   /** 添加新列并选中 */
   function addColumn(type: TableColumnType) {
-    if (SINGLETON_COLUMN_TYPES.has(type) && occupiedSingletonTypes().has(type)) return;
+    if (
+      isColumnTypeBlocked(
+        type,
+        model.value.map((c) => c.type)
+      )
+    )
+      return;
     const column = createNewColumn(type);
     model.value.push(column);
     activeId.value = column.id;
     addMenuPopover.value?.hide();
     commit();
-  }
-
-  /** 构造新列默认值 */
-  function createNewColumn(type: TableColumnType): TableColumn {
-    return {
-      id: generateId('col'),
-      type,
-      title: TABLE_COLUMN_TYPE_LABEL[type],
-      field: '',
-      width: null,
-      align: 'left',
-      fixed: null,
-      sortable: false,
-    };
   }
 
   /** 选中列 */
@@ -369,8 +280,17 @@
 
   /** 复制列：在当前列后插入同配置的新列并选中 */
   function copyColumn(index: number) {
+    if (index < 0) return;
     const source = model.value[index];
     if (!source) return;
+    // 复制后会多出一个同类型列：若该类型当前已阻塞（单例占用或互斥组占用）则不允许
+    if (
+      isColumnTypeBlocked(
+        source.type,
+        model.value.map((c) => c.type)
+      )
+    )
+      return;
     const column: TableColumn = { ...source, id: generateId('col') };
     model.value.splice(index + 1, 0, column);
     activeId.value = column.id;
@@ -379,6 +299,7 @@
 
   /** 删除列：保持选中有效项 */
   function removeColumn(index: number) {
+    if (index < 0) return;
     const [removed] = model.value.splice(index, 1);
     if (removed?.id === activeId.value) {
       const next = model.value[index] ?? model.value[index - 1];
@@ -393,6 +314,8 @@
   /** 拖拽结束后按可排序项索引重排列数组 */
   useDragDropMonitor({
     onDragEnd(event) {
+      console.log('表格列拖拽结束: 类型', event.operation?.source?.type);
+      if (event.operation?.source?.type !== 'sortableColumn') return;
       if (event.canceled) return;
       const { source } = event.operation;
       if (!source || !isSortable(source) || source.group !== COLUMN_SORT_GROUP) return;

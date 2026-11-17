@@ -14,6 +14,7 @@
     id: props.id,
     element,
     data: props.data,
+    type: 'draggable',
   });
 </script>
 

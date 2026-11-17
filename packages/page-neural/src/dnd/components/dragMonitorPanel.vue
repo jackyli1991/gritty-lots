@@ -52,7 +52,7 @@
     },
     // 拖拽开始触发
     onDragStart(event: DragStartEvent) {
-      // console.log('拖拽开始', event.operation)
+      console.log('拖拽开始: 类型', event.operation?.source?.type);
       activeId.value = event.operation?.source?.id as string;
       dragStatus.value = '拖拽中';
       emit('dragStart', activeId.value);
@@ -76,14 +76,16 @@
     },
     // 拖拽结束触发
     onDragEnd(event: DragEndEvent) {
-      // console.log('拖拽结束', event)
+      console.log('拖拽结束: 类型', event.operation?.source?.type);
       if (event.canceled) {
         dragStatus.value = '已取消';
       } else {
         const { source, target } = event.operation;
         if (target) {
           dragStatus.value = '已放置';
-          emit('droppedIn', { source, target });
+          if (source?.type === 'draggable') {
+            emit('droppedIn', { source, target });
+          }
         } else {
           dragStatus.value = '目标为空';
         }

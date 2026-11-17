@@ -11,6 +11,10 @@
     group: string;
     /** 是否禁用拖拽（如搜索过滤时，避免可见索引与真实索引错位） */
     disabled?: boolean;
+    /** 列数据 */
+    data?: Record<string, any>;
+    /** 列类型 */
+    type?: string;
   }
 
   const props = defineProps<SortableColumnItemProps>();
@@ -22,6 +26,8 @@
     index: () => props.index,
     group: () => props.group,
     disabled: () => props.disabled ?? false,
+    data: () => props.data,
+    type: () => props.type ?? 'sortable',
     element,
   });
 </script>

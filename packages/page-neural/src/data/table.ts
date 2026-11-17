@@ -1,71 +1,142 @@
 import type { TableColumnAlign, TableColumnFixed, TableColumnType } from '@neural/types/table';
 
-/** 单例列类型：表格中最多存在一个 */
-export const SINGLETON_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set([
-  'selection',
-  'multiSelection',
-  'index',
-  'button',
-]);
+import { ALIGN_OPTIONS, FIXED_OPTIONS } from './options';
+
+export type { TableColumnAlign, TableColumnFixed };
+export { ALIGN_OPTIONS, FIXED_OPTIONS };
+
+/** 列类型元数据：title 显示名称 / type 类型键 / single 是否单例 / icon 图标 / isData 是否数据列 / mutex 互斥组 */
+export interface TableColumnMeta {
+  /** 列类型键 */
+  type: TableColumnType;
+  /** 显示名称 */
+  title: string;
+  /** 是否单例（整个表格最多存在一个） */
+  single: boolean;
+  /** 图标名称 */
+  icon: string;
+  /** 是否数据列（需要 field/width/align 等字段） */
+  isData: boolean;
+  /**
+   * 互斥组标识：同一互斥组内的所有类型不能同时出现在一张表格中。
+   * 例如单选列与多选列同属 "select" 组，只能二选一。
+   */
+  mutex?: string;
+}
+
+/** 所有列类型的统一元数据源 */
+export const TABLE_COLUMN_META: readonly TableColumnMeta[] = [
+  {
+    type: 'selection',
+    title: '单选列',
+    single: true,
+    icon: 'CircleDot',
+    isData: false,
+    mutex: 'select',
+  },
+  {
+    type: 'multiSelection',
+    title: '多选列',
+    single: true,
+    icon: 'SquareCheck',
+    isData: false,
+    mutex: 'select',
+  },
+  { type: 'index', title: '序号列', single: true, icon: 'Hash', isData: false },
+  { type: 'text', title: '文本', single: false, icon: 'Type', isData: true },
+  { type: 'tag', title: '标签', single: false, icon: 'Tag', isData: true },
+  { type: 'image', title: '图片', single: false, icon: 'Image', isData: true },
+  { type: 'link', title: '链接', single: false, icon: 'Link2', isData: true },
+  { type: 'button', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
+];
+
+/** 类型键 → 元数据的快速映射 */
+const META_BY_TYPE: ReadonlyMap<TableColumnType, TableColumnMeta> = new Map(
+  TABLE_COLUMN_META.map((meta) => [meta.type, meta])
+);
+
+/** 所有列类型数组，保持 TABLE_COLUMN_META 的顺序 */
+export const ALL_TYPE_VALUES: TableColumnType[] = TABLE_COLUMN_META.map((m) => m.type);
 
 /** 列类型显示名称，供配置面板的下拉选项使用 */
-export const TABLE_COLUMN_TYPE_LABEL: Record<TableColumnType, string> = {
-  selection: '单选列',
-  multiSelection: '多选列',
-  index: '序号列',
-  text: '文本',
-  tag: '标签',
-  image: '图片',
-  link: '链接',
-  button: '操作',
-};
-
-/** 所有列类型数组，按固定顺序 */
-export const ALL_TYPE_VALUES: TableColumnType[] = [
-  'selection',
-  'multiSelection',
-  'index',
-  'text',
-  'tag',
-  'image',
-  'link',
-  'button',
-];
+export const TABLE_COLUMN_TYPE_LABEL: Readonly<Record<TableColumnType, string>> = Object.freeze(
+  Object.fromEntries(TABLE_COLUMN_META.map((m) => [m.type, m.title]))
+) as Record<TableColumnType, string>;
 
 /** 列类型图标 */
-export const TYPE_ICON: Record<TableColumnType, string> = {
-  selection: 'CircleDot',
-  multiSelection: 'SquareCheck',
-  index: 'Hash',
-  text: 'Type',
-  tag: 'Tag',
-  image: 'Image',
-  link: 'Link2',
-  button: 'MousePointerClick',
-};
+export const TYPE_ICON: Readonly<Record<TableColumnType, string>> = Object.freeze(
+  Object.fromEntries(TABLE_COLUMN_META.map((m) => [m.type, m.icon]))
+) as Record<TableColumnType, string>;
 
-/** 水平对齐选项 */
-export const ALIGN_OPTIONS: { label: string; value: TableColumnAlign }[] = [
-  { label: '左', value: 'left' },
-  { label: '中', value: 'center' },
-  { label: '右', value: 'right' },
-];
-
-/** 固定列选项 */
-export const FIXED_OPTIONS: { label: string; value: TableColumnFixed }[] = [
-  { label: '左固定', value: 'left' },
-  { label: '右固定', value: 'right' },
-];
+/** 单例列类型：表格中最多存在一个 */
+export const SINGLETON_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set(
+  TABLE_COLUMN_META.filter((m) => m.single).map((m) => m.type)
+);
 
 /** 数据列类型集合：需要 field/width/align 等字段的类型 */
-export const DATA_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set([
-  'text',
-  'tag',
-  'image',
-  'link',
-]);
+export const DATA_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set(
+  TABLE_COLUMN_META.filter((m) => m.isData).map((m) => m.type)
+);
 
 /** 是否为数据列（需要绑定字段的列类型） */
 export function isDataColumn(type: TableColumnType): boolean {
-  return DATA_COLUMN_TYPES.has(type);
+  return META_BY_TYPE.get(type)?.isData ?? false;
 }
+
+/** 是否为单例列（整个表格最多存在一个） */
+export function isSingletonColumn(type: TableColumnType): boolean {
+  return META_BY_TYPE.get(type)?.single ?? false;
+}
+
+/** 是否属于互斥组（同组内类型不能同时存在） */
+export function isMutexColumn(type: TableColumnType): boolean {
+  return !!META_BY_TYPE.get(type)?.mutex;
+}
+
+/**
+ * 根据现有列类型，返回当前被阻塞的列类型集合（无法再添加）。
+ * 覆盖两类规则：
+ *   1. 单例规则：single === true 的类型，若已存在则无法再次添加
+ *   2. 互斥规则：同一 mutex 组内若任意类型已存在，则组内所有类型均被阻塞
+ */
+export function getBlockedColumnTypes(
+  existing: readonly TableColumnType[]
+): ReadonlySet<TableColumnType> {
+  const occupied = new Set(existing);
+  const blocked = new Set<TableColumnType>();
+
+  for (const meta of TABLE_COLUMN_META) {
+    // 规则 1：单例已被占用
+    if (meta.single && occupied.has(meta.type)) {
+      blocked.add(meta.type);
+    }
+    // 规则 2：互斥组内任意成员已占用 → 组内全部类型阻塞
+    if (meta.mutex) {
+      const groupOccupied = TABLE_COLUMN_META.some(
+        (m) => m.mutex === meta.mutex && occupied.has(m.type)
+      );
+      if (groupOccupied) {
+        for (const m of TABLE_COLUMN_META) {
+          if (m.mutex === meta.mutex) blocked.add(m.type);
+        }
+      }
+    }
+  }
+
+  return blocked;
+}
+
+/** 基于 blocked 集合，判断某类型是否可用（用于按钮禁用 / Select optionDisabled） */
+export function isColumnTypeBlocked(
+  type: TableColumnType,
+  existing: readonly TableColumnType[]
+): boolean {
+  return getBlockedColumnTypes(existing).has(type);
+}
+
+/** 根据类型键获取完整元数据 */
+export function getColumnMeta(type: TableColumnType): TableColumnMeta | undefined {
+  return META_BY_TYPE.get(type);
+}
+
+// ---------- 以下为与列类型无关的其他配置（已迁移至 options.ts） ----------

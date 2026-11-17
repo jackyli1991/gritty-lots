@@ -9,9 +9,9 @@
   <DragOverlay>
     <div
       v-if="operation.source?.data"
-      class="flex items-center gap-3 p-3 rounded-lg border border-(--p-primary-color) dark:border-(--p-primary-color) bg-(--p-primary-color) text-white cursor-grab transition-colors"
+      class="flex items-center gap-1 p-1 rounded-lg bg-(--p-primary-color) text-white cursor-grab transition-colors text-nowrap"
     >
-      <NeuralIcon :name="operation.source?.data.icon" :size="20" />
+      <NeuralIcon :name="operation.source?.data.icon" :size="14" />
       <span class="text-xs font-medium text-white dark:text-white">{{
         operation.source?.data.name
       }}</span>

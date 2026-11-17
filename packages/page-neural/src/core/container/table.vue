@@ -5,6 +5,7 @@
 -->
 <script setup lang="ts">
   import { fetchByDataModel } from '@neural/render/utils/fetch';
+  import { resolveColumnProps, resolveSelectionMode } from '@neural/render/utils/table';
   import { usePageNeuralStore } from '@neural/store';
   import type { TableColumn } from '@neural/types/table';
   import { useDebounceFn } from '@vueuse/core';
@@ -41,11 +42,7 @@
   const columns = computed<TableColumn[]>(() => containerModel.value.columns || []);
 
   /** 映射到 DataTable 的 selectionMode prop */
-  const selectionMode = computed<'' | 'single' | 'multiple'>(() => {
-    if (columns.value.some((c) => c.type === 'selection')) return 'single';
-    if (columns.value.some((c) => c.type === 'multiSelection')) return 'multiple';
-    return '';
-  });
+  const selectionMode = computed(() => resolveSelectionMode(columns.value));
 
   /** 容器数据源配置 */
   const dataModel = computed(() => container.value?.props.dataModel || {});
@@ -103,18 +100,7 @@
       </div>
     </template>
 
-    <!-- 动态列：按配置顺序渲染 -->
-    <Column
-      v-for="col in columns"
-      :key="col.id"
-      :field="
-        col.type !== 'index' && col.type !== 'selection' && col.type !== 'multiSelection'
-          ? col.field
-          : undefined
-      "
-      :header="col.title || undefined"
-      :sortable="col.type === 'text' || col.type === 'link' ? col.sortable : undefined"
-      :style="{ width: col.width ? `${col.width}px` : undefined, textAlign: col.align }"
-    />
+    <!-- 动态列：按配置顺序渲染，属性映射由 resolveColumnProps 统一处理 -->
+    <Column v-for="col in columns" :key="col.id" v-bind="resolveColumnProps(col)" />
   </DataTable>
 </template>

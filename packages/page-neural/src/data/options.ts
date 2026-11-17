@@ -1,3 +1,5 @@
+import type { TableColumnAlign, TableColumnFixed } from '@neural/types/table';
+
 // 单位选项
 export const unitOptions = [
   { label: '%', value: '%' },
@@ -56,4 +58,17 @@ export const containerOptions = [
   { label: '表单容器', value: 'form' },
   { label: '抽屉容器', value: 'drawer' },
   { label: 'Tabs容器', value: 'tabs' },
+];
+
+// 列水平对齐选项
+export const ALIGN_OPTIONS: { label: string; value: TableColumnAlign }[] = [
+  { label: '左', value: 'left' },
+  { label: '中', value: 'center' },
+  { label: '右', value: 'right' },
+];
+
+// 列固定选项
+export const FIXED_OPTIONS: { label: string; value: TableColumnFixed }[] = [
+  { label: '左固定', value: 'left' },
+  { label: '右固定', value: 'right' },
 ];
