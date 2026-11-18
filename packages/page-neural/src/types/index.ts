@@ -88,10 +88,10 @@ export interface DataSource {
   id?: string; // 数据源 id
   name: string; // 数据源名称
   type: 'json' | 'http'; // 数据源类型
-  json: string; // JSON 字符串内容 （仅当 type 为 json 时）
-  url: string; // 数据源 url
-  method: string; // HTTP 方法 'get' | 'post' 等
-  headers: Record<string, string>; // HTTP 请求头
-  params: Record<string, string>; // HTTP 请求参数
-  responseField: string; // 响应字段
+  json?: string; // JSON 字符串内容 （仅当 type 为 json 时）
+  url?: string; // 数据源 url
+  method?: string; // HTTP 方法 'get' | 'post' 等
+  headers?: Record<string, string>; // HTTP 请求头
+  params?: Record<string, string>; // HTTP 请求参数
+  responseField?: string; // 响应字段
 }

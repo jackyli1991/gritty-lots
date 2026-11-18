@@ -4,9 +4,11 @@
 @props id?: string
 -->
 <script setup lang="ts">
-  import { fetchByDataModel } from '@neural/render/utils/fetch';
+  import { getColumnMeta } from '@neural/data/table';
+  import { fetchByDataModel, resolveDataByDataModel } from '@neural/render/utils/fetch';
   import { resolveColumnProps, resolveSelectionMode } from '@neural/render/utils/table';
   import { usePageNeuralStore } from '@neural/store';
+  import { useDataSourceStore } from '@neural/store/dataSource';
   import type { TableColumn } from '@neural/types/table';
   import { useDebounceFn } from '@vueuse/core';
   import Column from 'primevue/column';
@@ -33,6 +35,7 @@
   });
 
   const pageNeuralStore = usePageNeuralStore();
+  const dataSourceStore = useDataSourceStore();
 
   const container = computed(() => pageNeuralStore.getContainer(props.id || ''));
 
@@ -58,9 +61,11 @@
 
   async function runLoad() {
     const seq = ++requestSeq;
-    const result = await fetchByDataModel(dataModel.value, pageNeuralStore.dataSources);
+    const originId = container.value?.id ?? props.id ?? '';
+    await fetchByDataModel(originId, dataModel.value, pageNeuralStore.dataSources);
     if (seq !== requestSeq) return;
-    tableData.value = result;
+    const response = dataSourceStore.getResponse(originId, dataModel.value.sourceId);
+    tableData.value = resolveDataByDataModel(dataModel.value, response?.data);
   }
 
   // 首次立即执行，后续 300ms 防抖合并连续变更
@@ -101,6 +106,11 @@
     </template>
 
     <!-- 动态列：按配置顺序渲染，属性映射由 resolveColumnProps 统一处理 -->
-    <Column v-for="col in columns" :key="col.id" v-bind="resolveColumnProps(col)" />
+    <Column v-for="col in columns" :key="col.id" v-bind="resolveColumnProps(col)">
+      <!-- 列类型注册了渲染组件时，用 body 插槽渲染自定义单元格 -->
+      <template v-if="getColumnMeta(col.type)?.component" #body="slotProps">
+        <component :is="getColumnMeta(col.type)!.component" :row="slotProps.data" :column="col" />
+      </template>
+    </Column>
   </DataTable>
 </template>

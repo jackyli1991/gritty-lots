@@ -12,6 +12,8 @@ export interface PrimeColumnProps {
   header?: string;
   /** 是否可排序 */
   sortable?: boolean;
+  /** 表头单元格内联样式。 */
+  pt?: Record<string, any>;
   /**
    * 表头单元格内联样式。
    * width / align 同时应用到 headerStyle 与 bodyStyle，保证表头与表体视觉对齐。
@@ -22,8 +24,16 @@ export interface PrimeColumnProps {
   /** 单选 / 多选列专用 */
   selectionMode?: 'single' | 'multiple';
   /** 固定列（左/右），PrimeVue 5 Column 支持 */
-  frozen?: boolean | 'left' | 'right';
+  frozen?: boolean;
+  /** 固定列对齐方式 */
+  alignFrozen?: 'left' | 'right';
 }
+
+const alignMaps = {
+  left: 'flex-start',
+  right: 'flex-end',
+  center: 'center',
+};
 
 /**
  * 从 TableColumn 配置生成 PrimeVue Column 的 props。
@@ -38,8 +48,6 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
     props.selectionMode = 'single';
   } else if (col.type === 'multiSelection') {
     props.selectionMode = 'multiple';
-  } else if (col.type === 'index') {
-    props.header = col.title || '序号';
   }
 
   // 数据列通用 props
@@ -49,21 +57,34 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
     props.sortable = col.sortable;
   }
 
-  // width + align 同时应用到表头和表体，避免仅 bodyStyle 或仅 headerStyle 造成对齐错位
-  const style: Record<string, string> = {};
-  if (col.width) style.width = `${col.width}px`;
-  if (col.align) style.textAlign = col.align;
-  if (Object.keys(style).length) {
-    props.headerStyle = { ...style };
-    props.bodyStyle = { ...style };
+  // type === 'index' 时，默认添加序号标题
+  if (col.type === 'index') {
+    props.header = col.title || '序号';
   }
 
-  // 固定列
+  // fixed: 列固定
   if (col.fixed) {
-    props.frozen = col.fixed;
+    props.frozen = !!col.fixed;
+    props.alignFrozen = col.fixed;
   }
 
-  console.log(props);
+  // width + align 同时应用到表头和表体，避免仅 bodyStyle 或仅 headerStyle 造成对齐错位
+  const bodyStyle: Record<string, string> = {};
+  const headerStyle: Record<string, string> = {};
+  const commonStyle: Record<string, string> = {};
+  if (col.width) bodyStyle.width = `${col.width}px`;
+  if (col.align) {
+    headerStyle.display = 'flex';
+    headerStyle.justifyContent = alignMaps[col.align];
+
+    bodyStyle.textAlign = col.align;
+  }
+  props.pt = {
+    columnheadercontent: {
+      style: { ...commonStyle, ...headerStyle },
+    },
+  };
+  props.bodyStyle = { ...commonStyle, ...bodyStyle };
 
   return props;
 }

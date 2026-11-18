@@ -58,7 +58,11 @@
     "scrollareahandle",
     "scrollareascrollbar",
     "scrollareaviewport",
-    "Gridlines"
+    "Gridlines",
+    "treenode",
+    "treeselect",
+    "systemstatus",
+    "columnheadercontent"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

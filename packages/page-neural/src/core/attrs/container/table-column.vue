@@ -145,7 +145,7 @@
   import { isSortable } from '@dnd-kit/vue/sortable';
   import { NeuralIcon, NeuralForm } from '@neural/components';
   import type { FormItemProps } from '@neural/components/form';
-  import { createNewColumn, getColumnSchema } from '@neural/core/forms/table-column';
+  import { createTableColumn, getColumnSchema } from '@neural/core/forms/table-column';
   import {
     ALL_TYPE_VALUES,
     TABLE_COLUMN_TYPE_LABEL,
@@ -266,7 +266,7 @@
       )
     )
       return;
-    const column = createNewColumn(type);
+    const column = createTableColumn(type);
     model.value.push(column);
     activeId.value = column.id;
     addMenuPopover.value?.hide();

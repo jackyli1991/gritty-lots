@@ -1,5 +1,5 @@
-/** 表格列类型：决定该列在 DataTable 中的渲染方式 */
-export type TableColumnType =
+/** 内置列类型：决定该列在 DataTable 中的渲染方式 */
+export type BuiltinTableColumnType =
   | 'selection' // 单选列
   | 'multiSelection' // 多选列
   | 'index' // 序号列
@@ -8,6 +8,9 @@ export type TableColumnType =
   | 'image' // 图片
   | 'link' // 链接
   | 'button'; // 操作列
+
+/** 表格列类型：内置类型 + 通过 registerTableColumn 注册的自定义类型 */
+export type TableColumnType = BuiltinTableColumnType | (string & {});
 
 /** 水平对齐 */
 export type TableColumnAlign = 'left' | 'center' | 'right';
@@ -32,6 +35,8 @@ export interface TableColumn {
   fixed: TableColumnFixed;
   /** 是否可排序（仅数据类型列有效） */
   sortable: boolean;
+  /** 自定义列注册时通过配置表单追加的字段（平铺存储） */
+  [key: string]: unknown;
 }
 
 export interface TableModelValue {

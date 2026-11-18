@@ -1,3 +1,4 @@
+import { useDataSourceStore } from '@neural/store/dataSource';
 import type { DataSource } from '@neural/types';
 import { getObjectValueByPath } from '@neural/utils';
 
@@ -67,34 +68,58 @@ export async function fetchDataSource(
 }
 
 /**
- * 基于容器 dataModel 加载表格数据
- * 业务层直接传入 dataModel 与数据源列表，内部处理数据源查找、参数合并、响应提取
+ * 按容器 dataModel 从响应数据中解析行数据
+ * @param dataModel 容器上的数据模型配置
+ * @param data fetchDataSource 返回的响应数据
+ * @returns 可直接用于 DataTable 的行数组；无法解析为对象或数组时返回空数组
+ */
+export function resolveDataByDataModel(
+  dataModel: DataModelOptions,
+  data: unknown
+): Record<string, unknown>[] {
+  const { responseField } = dataModel;
+  let picked = data;
+
+  if (responseField && data && typeof data === 'object') {
+    picked = getObjectValueByPath(data as Record<string, unknown>, responseField, data);
+  }
+  if (Array.isArray(picked)) return picked as Record<string, unknown>[];
+  if (picked && typeof picked === 'object') return [picked as Record<string, unknown>];
+  return [];
+}
+
+/**
+ * 基于容器 dataModel 请求数据，并将原始响应写入统一的数据源响应 store
+ * @param originId 发起请求的容器 / 组件 / 页面 id
  * @param dataModel 容器上的数据模型配置
  * @param dataSources 全局数据源列表（通常来自 store）
- * @returns 可直接用于 DataTable 的行数组；未启用 / 未配置 / 请求失败均返回空数组
  */
 export async function fetchByDataModel(
+  originId: string,
   dataModel: DataModelOptions,
   dataSources: DataSource[]
-): Promise<Record<string, unknown>[]> {
-  const { enable, sourceId, params, responseField } = dataModel;
-  if (!enable || !sourceId) return [];
+): Promise<void> {
+  const { enable, sourceId, params } = dataModel;
+  const dataSourceStore = useDataSourceStore();
+  const cacheResponse = (data: unknown) => {
+    dataSourceStore.setResponse({ originId, sourceId: sourceId || '', data });
+  };
+
+  if (!enable || !sourceId) {
+    cacheResponse(null);
+    return;
+  }
 
   const source = dataSources.find((item) => item.id === sourceId);
-  if (!source) return [];
+  if (!source) {
+    cacheResponse(null);
+    return;
+  }
 
   try {
-    // 先按数据源自身配置获取响应数据
     const raw = await fetchDataSource(source, params || {});
-    let picked = raw;
-    // 再按容器级 responseField 从数据中二次解析对应字段
-    if (responseField && raw && typeof raw === 'object') {
-      picked = getObjectValueByPath(raw as Record<string, unknown>, responseField, raw);
-    }
-    if (Array.isArray(picked)) return picked as Record<string, unknown>[];
-    if (picked && typeof picked === 'object') return [picked as Record<string, unknown>];
-    return [];
+    cacheResponse(raw);
   } catch {
-    return [];
+    cacheResponse(null);
   }
 }

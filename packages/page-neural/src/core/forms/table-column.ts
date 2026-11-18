@@ -4,18 +4,25 @@ import {
   ALL_TYPE_VALUES,
   FIXED_OPTIONS,
   TABLE_COLUMN_TYPE_LABEL,
-  isDataColumn,
 } from '@neural/data/table';
 import type { TableColumn, TableColumnType } from '@neural/types/table';
 import { generateId } from '@neural/utils';
 
 /** 表单字段的隐藏联动：非数据列不渲染 field / width / align / fixed / sortable */
-export const hideForNonDataColumn = {
-  trigger: ['type'],
-  resolve: ({ values }: { values: Record<string, any> }) => ({
-    hidden: !isDataColumn(values.type as TableColumnType),
-  }),
-};
+// export const hideForNonDataColumn = {
+//   trigger: ['type'],
+//   resolve: ({ values }: { values: Record<string, any> }) => ({
+//     hidden: !isDataColumn(values.type as TableColumnType),
+//   }),
+// };
+
+/** 各列类型通过 registerTableColumn 追加的配置表单项 */
+const COLUMN_FORM_SCHEMA = new Map<TableColumnType, FormItemProps[]>();
+
+/** 注册某列类型追加的配置表单项 */
+export function registerColumnFormSchema(type: TableColumnType, schema: FormItemProps[]): void {
+  COLUMN_FORM_SCHEMA.set(type, [...schema]);
+}
 
 /**
  * 列配置表单 schema 工厂。
@@ -29,7 +36,7 @@ export function getColumnSchema(params: {
 }): FormItemProps[] {
   const { blockedTypes, activeType } = params;
 
-  return [
+  const baseSchema: FormItemProps[] = [
     {
       fieldName: 'title',
       label: '标题',
@@ -57,14 +64,20 @@ export function getColumnSchema(params: {
       label: '字段',
       component: 'Input',
       componentProps: { placeholder: '绑定字段' },
-      dependencies: hideForNonDataColumn,
+      // dependencies: hideForNonDataColumn,
     },
     {
       fieldName: 'width',
       label: '宽度',
       component: 'InputNumber',
-      componentProps: { min: 0, showButtons: true, placeholder: '自适应', fluid: true },
-      dependencies: hideForNonDataColumn,
+      componentProps: {
+        min: 0,
+        showButtons: true,
+        placeholder: '自适应',
+        fluid: true,
+        suffix: 'px',
+      },
+      // dependencies: hideForNonDataColumn,
     },
     {
       fieldName: 'align',
@@ -75,7 +88,7 @@ export function getColumnSchema(params: {
         optionValue: 'value',
         options: ALIGN_OPTIONS,
       },
-      dependencies: hideForNonDataColumn,
+      // dependencies: hideForNonDataColumn,
     },
     {
       fieldName: 'fixed',
@@ -87,26 +100,30 @@ export function getColumnSchema(params: {
         options: FIXED_OPTIONS,
         showClear: true,
       },
-      dependencies: hideForNonDataColumn,
+      // dependencies: hideForNonDataColumn,
     },
     {
       fieldName: 'sortable',
       label: '可排序',
       component: 'ToggleSwitch',
       componentProps: {},
-      dependencies: hideForNonDataColumn,
+      // dependencies: hideForNonDataColumn,
     },
   ];
+
+  // 合并当前列类型追加的表单项
+  const extraSchema = activeType ? (COLUMN_FORM_SCHEMA.get(activeType) ?? []) : [];
+  return [...baseSchema, ...extraSchema];
 }
 
-/** 构造新列默认值 */
-export function createNewColumn(type: TableColumnType): TableColumn {
+/** 构造表格列默认值 */
+export function createTableColumn(type: TableColumnType): TableColumn {
   return {
     id: generateId('col'),
     type,
     title: TABLE_COLUMN_TYPE_LABEL[type],
     field: '',
-    width: null,
+    width: 200,
     align: 'left',
     fixed: null,
     sortable: false,
@@ -115,6 +132,3 @@ export function createNewColumn(type: TableColumnType): TableColumn {
 
 // 用于 FormItemProps / FormItemProps[] 的类型占位，避免上层必须自行引入
 export type { FormItemProps };
-
-// 保留 isDataColumn 的便捷再导出，方便组件侧按需消费
-export { isDataColumn };

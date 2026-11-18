@@ -1,4 +1,5 @@
 import type { TableColumnAlign, TableColumnFixed, TableColumnType } from '@neural/types/table';
+import type { Component } from 'vue';
 
 import { ALIGN_OPTIONS, FIXED_OPTIONS } from './options';
 
@@ -22,10 +23,12 @@ export interface TableColumnMeta {
    * 例如单选列与多选列同属 "select" 组，只能二选一。
    */
   mutex?: string;
+  /** 列渲染组件 */
+  component?: Component;
 }
 
-/** 所有列类型的统一元数据源 */
-export const TABLE_COLUMN_META: readonly TableColumnMeta[] = [
+/** 所有列类型的统一元数据源（内置结构型列 + 注册追加） */
+export const TABLE_COLUMN_META: TableColumnMeta[] = [
   {
     type: 'selection',
     title: '单选列',
@@ -43,15 +46,11 @@ export const TABLE_COLUMN_META: readonly TableColumnMeta[] = [
     mutex: 'select',
   },
   { type: 'index', title: '序号列', single: true, icon: 'Hash', isData: false },
-  { type: 'text', title: '文本', single: false, icon: 'Type', isData: true },
-  { type: 'tag', title: '标签', single: false, icon: 'Tag', isData: true },
-  { type: 'image', title: '图片', single: false, icon: 'Image', isData: true },
-  { type: 'link', title: '链接', single: false, icon: 'Link2', isData: true },
   { type: 'button', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
 ];
 
 /** 类型键 → 元数据的快速映射 */
-const META_BY_TYPE: ReadonlyMap<TableColumnType, TableColumnMeta> = new Map(
+const META_BY_TYPE = new Map<TableColumnType, TableColumnMeta>(
   TABLE_COLUMN_META.map((meta) => [meta.type, meta])
 );
 
@@ -59,24 +58,43 @@ const META_BY_TYPE: ReadonlyMap<TableColumnType, TableColumnMeta> = new Map(
 export const ALL_TYPE_VALUES: TableColumnType[] = TABLE_COLUMN_META.map((m) => m.type);
 
 /** 列类型显示名称，供配置面板的下拉选项使用 */
-export const TABLE_COLUMN_TYPE_LABEL: Readonly<Record<TableColumnType, string>> = Object.freeze(
-  Object.fromEntries(TABLE_COLUMN_META.map((m) => [m.type, m.title]))
-) as Record<TableColumnType, string>;
+export const TABLE_COLUMN_TYPE_LABEL: Record<string, string> = Object.fromEntries(
+  TABLE_COLUMN_META.map((m) => [m.type, m.title])
+) as Record<string, string>;
 
 /** 列类型图标 */
-export const TYPE_ICON: Readonly<Record<TableColumnType, string>> = Object.freeze(
-  Object.fromEntries(TABLE_COLUMN_META.map((m) => [m.type, m.icon]))
-) as Record<TableColumnType, string>;
+export const TYPE_ICON: Record<string, string> = Object.fromEntries(
+  TABLE_COLUMN_META.map((m) => [m.type, m.icon])
+) as Record<string, string>;
 
 /** 单例列类型：表格中最多存在一个 */
-export const SINGLETON_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set(
+export const SINGLETON_COLUMN_TYPES: Set<TableColumnType> = new Set(
   TABLE_COLUMN_META.filter((m) => m.single).map((m) => m.type)
 );
 
 /** 数据列类型集合：需要 field/width/align 等字段的类型 */
-export const DATA_COLUMN_TYPES: ReadonlySet<TableColumnType> = new Set(
+export const DATA_COLUMN_TYPES: Set<TableColumnType> = new Set(
   TABLE_COLUMN_META.filter((m) => m.isData).map((m) => m.type)
 );
+
+/** 判断列类型是否已注册 */
+export function hasColumnType(type: TableColumnType): boolean {
+  return META_BY_TYPE.has(type);
+}
+
+/**
+ * 追加列元数据，并同步所有派生索引。
+ * 重复检测由调用方（registerTableColumn）负责。
+ */
+export function addColumnMeta(meta: TableColumnMeta): void {
+  TABLE_COLUMN_META.push(meta);
+  META_BY_TYPE.set(meta.type, meta);
+  ALL_TYPE_VALUES.push(meta.type);
+  TABLE_COLUMN_TYPE_LABEL[meta.type] = meta.title;
+  TYPE_ICON[meta.type] = meta.icon;
+  if (meta.single) SINGLETON_COLUMN_TYPES.add(meta.type);
+  if (meta.isData) DATA_COLUMN_TYPES.add(meta.type);
+}
 
 /** 是否为数据列（需要绑定字段的列类型） */
 export function isDataColumn(type: TableColumnType): boolean {

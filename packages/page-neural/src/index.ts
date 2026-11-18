@@ -6,7 +6,10 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 
 import { NeuralGraph } from './core/index';
+import { registerTableColumn } from './core/tools/registerTableColumn.ts';
 import { mergeI18nMessages } from './i18n/index.ts';
+/* oxlint-disable import/no-unassigned-import */
+import './render/table/register';
 
 export default {
   install(app: any, options: any) {
@@ -49,3 +52,7 @@ export default {
     app.use(ToastService);
   },
 };
+
+// 注册表格列
+export { registerTableColumn };
+export type { TableColumnMeta } from './data/table';
