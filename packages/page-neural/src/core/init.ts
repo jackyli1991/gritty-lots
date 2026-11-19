@@ -1,4 +1,4 @@
-// import { createPage } from '@neural/core/forms/page';
+import { createPage } from '@neural/core/forms/page';
 import type { PageNeuralStore } from '@neural/store';
 
 import { initialContainers, initialLayouts, initialPages, initialDataSources } from '../mockData';
@@ -9,10 +9,10 @@ import { initialContainers, initialLayouts, initialPages, initialDataSources } f
  * @param store page-neural store 实例
  */
 export function initPageNeural(store: PageNeuralStore) {
-  // if (store.pages.length) return;
+  if (store.pages.length) return;
 
-  // const initialPage = createPage({ name: '首页', deletable: false }); // 根页面，不能被删除
-  // store.addPage(initialPage);
+  const initialPage = createPage({ name: '首页', deletable: false }); // 根页面，不能被删除
+  store.addPage(initialPage);
 
   store.initData({
     containers: initialContainers,

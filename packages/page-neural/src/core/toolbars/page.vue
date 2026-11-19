@@ -4,6 +4,8 @@
   import { useNeuralToast } from '@neural/composables/useToast';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createPage } from '@neural/core/forms/page';
+  import type { DataModelOptions } from '@neural/render/utils/fetch';
+  import { resolveDataModelMode } from '@neural/render/utils/fetch';
   import { usePageNeuralStore } from '@neural/store';
   import { useLayoutStore } from '@neural/store/layout';
   import type { Page } from '@neural/types';
@@ -179,6 +181,15 @@
     });
   }
 
+  /** 数据模型是否已配置实际数据来源（默认 source 模式但未选数据源时不算） */
+  function hasDataModel(dataModel?: DataModelOptions | null): boolean {
+    const mode = resolveDataModelMode(dataModel);
+    if (!dataModel || !mode) return false;
+    if (mode === 'source') return !!dataModel.sourceId;
+    if (mode === 'custom') return !!dataModel.customJson?.trim();
+    return !!dataModel.referenceId;
+  }
+
   // select 自定义选项
   function getOption(id: string) {
     let page = pageNeuralStore.getPage(id);
@@ -187,7 +198,7 @@
       return null;
     }
     info.layoutLock = page.layoutLock;
-    info.useHttp = page.props?.dataModel?.enable || false;
+    info.useHttp = hasDataModel(page.props?.dataModel);
     return h('div', { class: 'flex items-center gap-1' }, [
       h('span', {}, page.name),
       info.layoutLock && h(NeuralIcon, { name: 'Layout', size: 12 }),

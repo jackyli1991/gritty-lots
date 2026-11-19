@@ -16,7 +16,7 @@ registerTableColumn(
   [
     {
       fieldName: 'tagOptions',
-      label: '标签选项数据',
+      label: '枚举数据',
       component: 'DataSourcePicker',
       componentProps: {},
     },

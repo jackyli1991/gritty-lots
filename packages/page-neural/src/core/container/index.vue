@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useData } from '@neural/composables/useData';
   import type { OpenModal } from '@neural/composables/userModal';
   import DroppableItem from '@neural/dnd/components/droppableItem.vue';
   // import type { Container } from '@neural/types';
@@ -24,6 +25,9 @@
   const pageNeuralStore = usePageNeuralStore();
 
   const props = defineProps<ContainerProps>();
+
+  // 容器统一入口：触发数据加载（watch(dataModel, immediate) 负责首次 + 后续变更）
+  useData(props.id);
 
   // 容器子类型 → 基座组件；字符串 :is 未注册时会退化为原生标签，必须显式映射
   const CONTAINER_COMPONENTS: Record<string, Component> = {

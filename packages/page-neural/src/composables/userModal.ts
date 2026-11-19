@@ -8,8 +8,9 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import Drawer from 'primevue/drawer';
 import ToggleButton from 'primevue/togglebutton';
+import vTooltip from 'primevue/tooltip';
 import type { Component, VNode } from 'vue';
-import { ref, computed, defineComponent, h } from 'vue';
+import { ref, computed, defineComponent, h, withDirectives } from 'vue';
 
 interface UserModalOptions {
   formMaps: Record<string, { formConfig: FormOptions; modalConfig: ModalOptions }>;
@@ -185,6 +186,26 @@ export function useModal(options: UserModalOptions) {
     // 表单手风琴模式，取配置值
     entry.fieldSetCollapsable = collapseConfig.defaultCollapsed ?? true;
 
+    // 标题节点：悬浮显示节点完整数据中的 id
+    const titleId = entry.nodeFullData?.id;
+    const titleNode = withDirectives(
+      h(
+        'span',
+        { class: 'text-sm font-bold' },
+        getModalHeader(restModalConfig, formConfig, schemaName, entry.nodeFullData)
+      ),
+      titleId
+        ? [
+            [
+              vTooltip,
+              { value: String(titleId), class: 'max-w-[500px]!', autoHide: false },
+              '',
+              { bottom: true },
+            ],
+          ]
+        : []
+    );
+
     return h(
       component === 'drawer' ? Drawer : Dialog,
       {
@@ -243,11 +264,7 @@ export function useModal(options: UserModalOptions) {
                   class: 'flex items-center gap-2',
                 },
                 [
-                  h(
-                    'span',
-                    { class: 'text-sm font-bold' },
-                    getModalHeader(restModalConfig, formConfig, schemaName, entry.nodeFullData)
-                  ),
+                  titleNode,
                   collapseConfig.enable &&
                     h(
                       ToggleButton,

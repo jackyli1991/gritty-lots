@@ -19,7 +19,7 @@
         {{ tips }}
       </p>
       <div v-else-if="tips" class="text-xs text-gray-400 font-light py-1">
-        <component :is="tips" />
+        <component :is="tips" :field="$field" />
       </div>
       <Message
         v-if="$field.invalid"

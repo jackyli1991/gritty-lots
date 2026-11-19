@@ -4,16 +4,13 @@
 @props id?: string
 -->
 <script setup lang="ts">
+  import { useData } from '@neural/composables/useData';
   import { getColumnMeta } from '@neural/data/table';
-  import { fetchByDataModel, resolveDataByDataModel } from '@neural/render/utils/fetch';
   import { resolveColumnProps, resolveSelectionMode } from '@neural/render/utils/table';
-  import { usePageNeuralStore } from '@neural/store';
-  import { useDataSourceStore } from '@neural/store/dataSource';
   import type { TableColumn } from '@neural/types/table';
-  import { useDebounceFn } from '@vueuse/core';
   import Column from 'primevue/column';
   import DataTable from 'primevue/datatable';
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
 
   defineOptions({
     name: 'PageTableContainer',
@@ -34,11 +31,10 @@
     },
   });
 
-  const pageNeuralStore = usePageNeuralStore();
-  const dataSourceStore = useDataSourceStore();
+  // 容器统一入口 index.vue 已触发数据加载，此处仅消费
+  const { container, data, loading } = useData(props.id, { autoLoad: false });
 
-  const container = computed(() => pageNeuralStore.getContainer(props.id || ''));
-
+  /** 容器级配置（列 / 空文案 / 选择模式 等） */
   const containerModel = computed(() => container.value?.props.containerModel || {});
 
   /** 列配置数组 */
@@ -47,57 +43,23 @@
   /** 映射到 DataTable 的 selectionMode prop */
   const selectionMode = computed(() => resolveSelectionMode(columns.value));
 
-  /** 容器数据源配置 */
-  const dataModel = computed(() => container.value?.props.dataModel || {});
-
-  /** 表格数据 */
-  const tableData = ref<Record<string, unknown>[]>([]);
-
   /** 选中行（供 selectionMode 使用） */
   const selectedRows = ref<Record<string, unknown>[]>([]);
-
-  // 竞态保护：丢弃过期请求结果
-  let requestSeq = 0;
-
-  async function runLoad() {
-    const seq = ++requestSeq;
-    const originId = container.value?.id ?? props.id ?? '';
-    await fetchByDataModel(originId, dataModel.value, pageNeuralStore.dataSources);
-    if (seq !== requestSeq) return;
-    const response = dataSourceStore.getResponse(originId, dataModel.value.sourceId);
-    tableData.value = resolveDataByDataModel(dataModel.value, response?.data);
-  }
-
-  // 首次立即执行，后续 300ms 防抖合并连续变更
-  const debouncedRunLoad = useDebounceFn(runLoad, 300);
-  let firstRun = true;
-
-  watch(
-    dataModel,
-    () => {
-      if (firstRun) {
-        firstRun = false;
-        runLoad();
-      } else {
-        debouncedRunLoad();
-      }
-    },
-    { immediate: true, deep: true }
-  );
 </script>
 
 <template>
   <DataTable
     v-if="container"
-    :value="tableData"
+    :value="data"
     class="page-table-container h-full w-full"
     :pt="pt"
     scrollable
+    :loading="loading"
     v-bind="containerModel"
     :selection-mode="selectionMode"
     v-model:selection="selectedRows"
   >
-    <template #empty>
+    <template v-if="!loading" #empty>
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-xs text-gray-400 dark:text-gray-500"
       >

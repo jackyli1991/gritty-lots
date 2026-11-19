@@ -48,17 +48,25 @@ export const usePageNeuralStore = defineStore('page-neural', {
   actions: {
     // 初始化数据
     initData(payload: {
-      containers: Container[];
-      layouts: LayoutSplitterNode[];
-      pages: Page[];
-      dataSources: DataSource[];
+      containers?: Container[];
+      layouts?: LayoutSplitterNode[];
+      pages?: Page[];
+      dataSources?: DataSource[];
     }) {
-      this.containers = payload.containers;
-      this.layouts = payload.layouts;
-      this.pages = payload.pages;
-      this.dataSources = payload.dataSources;
-      if (payload.containers.length) this.setActiveContainerId(payload.containers[0].id);
-      if (payload.pages.length) this.setActivePageId(payload.pages[0].id);
+      // 初始化页面
+      if (payload.pages?.length) {
+        this.pages = payload.pages;
+        this.setActivePageId(payload.pages[0].id);
+      }
+      // 初始化布局
+      if (payload.layouts?.length) this.layouts = payload.layouts;
+      // 初始化容器
+      if (payload.containers?.length) {
+        this.containers = payload.containers;
+        this.setActiveContainerId(payload.containers[0].id);
+      }
+      // 初始化数据源
+      if (payload.dataSources?.length) this.dataSources = payload.dataSources;
     },
     // 删除操作
     async onDelete(nodeType: string) {

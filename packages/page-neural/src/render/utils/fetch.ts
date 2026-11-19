@@ -1,16 +1,25 @@
+import {
+  findDataModelByOriginId,
+  pickByResponseField,
+  resolveDataModelMode,
+  type DataModelMode,
+  type DataModelOptions,
+} from '@neural/render/utils/shared';
 import { useDataSourceStore } from '@neural/store/dataSource';
 import type { DataSource } from '@neural/types';
-import { getObjectValueByPath } from '@neural/utils';
 
-/**
- * 数据模型配置（容器 props.dataModel 的结构）
- */
-export interface DataModelOptions {
-  enable?: boolean;
-  sourceId?: string;
-  params?: Record<string, string>;
-  /** 容器级响应字段，基于数据源自身 responseField 进行解析，若未配置则返回完整响应数据 */
-  responseField?: string;
+// 从 shared.ts 重新导出，保持原有 API 不变
+export type { DataModelMode, DataModelOptions };
+export { findDataModelByOriginId, pickByResponseField, resolveDataModelMode };
+
+/** 解析自定义 JSON，空值或非法 JSON 返回 null */
+export function parseCustomJson(customJson?: string): unknown {
+  if (!customJson?.trim()) return null;
+  try {
+    return JSON.parse(customJson);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -35,6 +44,7 @@ export async function fetchDataSource(
 
   const method = (source.method || 'GET').toUpperCase();
   // 支持相对路径（如 /api/xxx），基于当前站点 origin 补全
+  if (!source.url) throw new Error('HTTP 数据源未配置请求地址');
   const url = new URL(source.url, window.location.origin);
   const headers: Record<string, string> = { ...source.headers };
   const requestParams = { ...source.params, ...params };
@@ -67,8 +77,13 @@ export async function fetchDataSource(
   }
 }
 
+// fetchDataSource 内部用到的工具，从 utils 引入
+import { getObjectValueByPath } from '@neural/utils';
+
 /**
  * 按容器 dataModel 从响应数据中解析行数据
+ * 自定义模式的数据已是最终结构，不再应用 responseField；
+ * 引用 / 数据源模式对传入 data 应用 responseField（若配置）
  * @param dataModel 容器上的数据模型配置
  * @param data fetchDataSource 返回的响应数据
  * @returns 可直接用于 DataTable 的行数组；无法解析为对象或数组时返回空数组
@@ -77,11 +92,12 @@ export function resolveDataByDataModel(
   dataModel: DataModelOptions,
   data: unknown
 ): Record<string, unknown>[] {
+  const mode = resolveDataModelMode(dataModel);
   const { responseField } = dataModel;
   let picked = data;
 
-  if (responseField && data && typeof data === 'object') {
-    picked = getObjectValueByPath(data as Record<string, unknown>, responseField, data);
+  if (mode !== 'custom') {
+    picked = pickByResponseField(data, responseField);
   }
   if (Array.isArray(picked)) return picked as Record<string, unknown>[];
   if (picked && typeof picked === 'object') return [picked as Record<string, unknown>];
@@ -89,7 +105,10 @@ export function resolveDataByDataModel(
 }
 
 /**
- * 基于容器 dataModel 请求数据，并将原始响应写入统一的数据源响应 store
+ * 基于容器 dataModel 获取数据，并将结果写入统一的数据源响应 store
+ * - custom：解析 JSON 后写入 data
+ * - reference：递归确保被引用实体已缓存，仅存 referenceId（读取时递归解析并应用每一跳 responseField）
+ * - source+http：发起请求后存入原始响应；source+json：不发起请求，data 置空（读取时实时解析）
  * @param originId 发起请求的容器 / 组件 / 页面 id
  * @param dataModel 容器上的数据模型配置
  * @param dataSources 全局数据源列表（通常来自 store）
@@ -99,27 +118,46 @@ export async function fetchByDataModel(
   dataModel: DataModelOptions,
   dataSources: DataSource[]
 ): Promise<void> {
-  const { enable, sourceId, params } = dataModel;
+  const mode = resolveDataModelMode(dataModel);
   const dataSourceStore = useDataSourceStore();
-  const cacheResponse = (data: unknown) => {
-    dataSourceStore.setResponse({ originId, sourceId: sourceId || '', data });
-  };
 
-  if (!enable || !sourceId) {
-    cacheResponse(null);
+  if (!mode) {
+    dataSourceStore.setCustom(originId, null);
     return;
   }
 
-  const source = dataSources.find((item) => item.id === sourceId);
+  // 自定义：解析 JSON 并缓存
+  if (mode === 'custom') {
+    dataSourceStore.setCustom(originId, parseCustomJson(dataModel.customJson));
+    return;
+  }
+
+  // 引用：先递归确保被引用实体的数据已缓存，再只存 referenceId
+  if (mode === 'reference') {
+    const referencedModel = findDataModelByOriginId(dataModel.referenceId);
+    if (referencedModel) {
+      await fetchByDataModel(dataModel.referenceId!, referencedModel, dataSources);
+    }
+    dataSourceStore.setReference(originId, dataModel.referenceId);
+    return;
+  }
+
+  // source 模式
+  const source = dataSources.find((item) => item.id === dataModel.sourceId);
   if (!source) {
-    cacheResponse(null);
+    dataSourceStore.setSource(originId, dataModel.sourceId, null);
     return;
   }
 
-  try {
-    const raw = await fetchDataSource(source, params || {});
-    cacheResponse(raw);
-  } catch {
-    cacheResponse(null);
+  if (source.type === 'http') {
+    try {
+      const raw = await fetchDataSource(source, dataModel.params || {});
+      dataSourceStore.setSource(originId, dataModel.sourceId, raw);
+    } catch {
+      dataSourceStore.setSource(originId, dataModel.sourceId, null);
+    }
+  } else {
+    // JSON 数据源不发请求，data 置空；读取时由 store.getResponse 实时解析
+    dataSourceStore.setSource(originId, dataModel.sourceId, null);
   }
 }
