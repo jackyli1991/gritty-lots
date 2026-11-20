@@ -4,9 +4,9 @@
   import { useNeuralToast } from '@neural/composables/useToast';
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createPage } from '@neural/core/forms/page';
-  import type { DataModelOptions } from '@neural/render/utils/fetch';
-  import { resolveDataModelMode } from '@neural/render/utils/fetch';
+  import type { DataModelOptions } from '@neural/core/models/dataModel';
   import { usePageNeuralStore } from '@neural/store';
+  import { resolveDataModelMode } from '@neural/store/dataSource';
   import { useLayoutStore } from '@neural/store/layout';
   import type { Page } from '@neural/types';
   import { merge } from 'lodash-es';

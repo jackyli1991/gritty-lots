@@ -1,3 +1,5 @@
+import type { DataModelOptions } from '@neural/core/models/dataModel';
+
 /** 内置列类型：决定该列在 DataTable 中的渲染方式 */
 export type BuiltinTableColumnType =
   | 'selection' // 单选列
@@ -35,6 +37,8 @@ export interface TableColumn {
   fixed: TableColumnFixed;
   /** 是否可排序（仅数据类型列有效） */
   sortable: boolean;
+  /** 标签列：枚举数据的数据模型配置 */
+  tagOptions?: DataModelOptions;
   /** 自定义列注册时通过配置表单追加的字段（平铺存储） */
   [key: string]: unknown;
 }

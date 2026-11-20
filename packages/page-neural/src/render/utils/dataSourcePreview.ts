@@ -2,8 +2,6 @@ import { usePageNeuralStore } from '@neural/store';
 import { useDataSourceStore } from '@neural/store/dataSource';
 import type { DataSource } from '@neural/types';
 
-import { findDataModelByOriginId, resolveDataByDataModel } from './fetch';
-
 /** 数据源选择值 */
 export interface DataSourcePreviewSelection {
   /** 发起请求的容器 / 组件 / 页面 id；JSON 数据源为空字符串 */
@@ -24,7 +22,7 @@ function parseJsonSource(source?: DataSource): unknown {
 
 /**
  * 解析数据源选择值对应的预览数据
- * JSON 数据源返回解析后的 JSON；层级来源返回按 dataModel 解析后的表格数据
+ * JSON 数据源返回解析后的 JSON；层级来源返回引用目标的原始数据（不应用引用源的 responseField）
  */
 export function resolveDataSourcePreview(selection: DataSourcePreviewSelection): unknown {
   const pageNeuralStore = usePageNeuralStore();
@@ -35,8 +33,6 @@ export function resolveDataSourcePreview(selection: DataSourcePreviewSelection):
     return parseJsonSource(source);
   }
 
-  // 层级来源：取统一 store 中缓存的响应，再按该实体的 dataModel 解析
-  const dataSourceStore = useDataSourceStore();
-  const response = dataSourceStore.getResponse(selection.originId, selection.sourceId);
-  return resolveDataByDataModel(findDataModelByOriginId(selection.originId) ?? {}, response?.data);
+  // 层级来源：取引用链落点实体的原始数据，由调用方再按当前实体的 responseField 解析
+  return useDataSourceStore().getRawData(selection.originId);
 }

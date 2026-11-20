@@ -4,16 +4,11 @@
   import ObjectEditor from '@neural/components/objectEditor';
   import { nestedFormControl } from '@neural/composables/useForm';
   import MethodTag from '@neural/core/components/MethodTag.vue';
+  import type { DataModelMode, DataModelOptions } from '@neural/core/models/dataModel';
   import { resolveDataSourcePreview } from '@neural/render/utils/dataSourcePreview';
-  import type { DataModelMode, DataModelOptions } from '@neural/render/utils/fetch';
-  import {
-    fetchDataSource,
-    parseCustomJson,
-    pickByResponseField,
-    resolveDataByDataModel,
-    resolveDataModelMode,
-  } from '@neural/render/utils/fetch';
+  import { fetchDataSource } from '@neural/render/utils/fetch';
   import { usePageNeuralStore } from '@neural/store';
+  import { parseJson, pickByResponseField, resolveDataModelMode } from '@neural/store/dataSource';
   import type { Container, DataSource, LayoutSplitterNode } from '@neural/types';
   import Button from 'primevue/button';
   import Dialog from 'primevue/dialog';
@@ -345,13 +340,29 @@
     }
   });
 
+  /** 按数据模型从响应数据中解析行数据；自定义模式的数据已是最终结构，不应用 responseField */
+  function resolveDataByDataModel(
+    dataModel: DataModelOptions,
+    data: unknown
+  ): Record<string, unknown>[] {
+    const mode = resolveDataModelMode(dataModel);
+    let picked = data;
+
+    if (mode !== 'custom') {
+      picked = pickByResponseField(data, dataModel.responseField);
+    }
+    if (Array.isArray(picked)) return picked as Record<string, unknown>[];
+    if (picked && typeof picked === 'object') return [picked as Record<string, unknown>];
+    return [];
+  }
+
   /** 按当前模式解析预览数据并打开弹窗 */
   async function openPreview() {
     const dataModel: DataModelOptions = { ...props.modelValue, mode: mode.value };
     previewData.value = null;
     previewVisible.value = true;
 
-    // 引用：读取目标实体已缓存的解析结果，再按 responseField 提取指定字段
+    // 引用：读取目标实体的原始数据（不应用引用源的 responseField），再按当前 responseField 提取
     if (mode.value === 'reference') {
       const referenced = resolveDataSourcePreview({
         originId: dataModel.referenceId ?? '',
@@ -363,7 +374,7 @@
 
     // 自定义：直接解析 JSON 并按数据模型规则转换
     if (mode.value === 'custom') {
-      previewData.value = resolveDataByDataModel(dataModel, parseCustomJson(dataModel.customJson));
+      previewData.value = resolveDataByDataModel(dataModel, parseJson(dataModel.customJson));
       return;
     }
 

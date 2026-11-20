@@ -8,6 +8,25 @@ import { generateId } from '@neural/utils';
 import Button from 'primevue/button';
 import { h, inject } from 'vue';
 
+/** 数据模型的获取方式，与 fetch.ts 保持一致 */
+export type DataModelMode = 'reference' | 'source' | 'custom';
+
+/** 数据模型配置的扁平字段（共享定义，避免 fetch ↔ store 循环依赖） */
+export interface DataModelOptions {
+  /** 获取方式；缺省时按已有字段推断 */
+  mode?: DataModelMode;
+  /** 引用模式：来源页面 / 容器 / 节点 id */
+  referenceId?: string;
+  /** 数据源模式：数据源 id */
+  sourceId?: string;
+  /** 数据源模式：请求参数 */
+  params?: Record<string, string>;
+  /** 引用 / 数据源模式：响应字段路径 */
+  responseField?: string;
+  /** 自定义模式：JSON 字符串 */
+  customJson?: string;
+}
+
 /** 添加数据源 */
 function handleAddDataSource(openModal: OpenModal | null) {
   const requestForm = createRequest();
@@ -44,7 +63,10 @@ function dataSourceTips(slotScope: any) {
   const openModal = inject<OpenModal | null>('neural-modal', null);
   const mode = slotScope.field.value.mode;
   if (mode === 'reference')
-    return h('div', {}, '使用页面/容器/组件的已有数据，可以指定具体字段，如 "userInfo.username"。');
+    return h('div', {}, [
+      h('div', {}, '1、引用页面/容器/组件的已有数据；'),
+      h('div', {}, '2、不应用引用源的responseField解析字段，如需指定字段，可自定义responseField。'),
+    ]);
   if (mode === 'custom')
     return h('div', {}, '自定义模式，需要手动输入 JSON 数据，当前配置项独享。');
   return h('div', {}, [
@@ -94,9 +116,9 @@ function getForm(options: Record<string, any>): FormItemProps {
   };
 }
 
-const model = {
+const model: DataModelOptions = {
   mode: 'source',
-  originId: '',
+  referenceId: '',
   sourceId: '',
   params: {},
   responseField: '',

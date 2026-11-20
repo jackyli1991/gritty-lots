@@ -1,20 +1,18 @@
-import { findDataModelByOriginId, pickByResponseField } from '@neural/render/utils/shared';
+import type { DataModelOptions } from '@neural/core/models/dataModel';
+import { fetchDataSource } from '@neural/render/utils/fetch';
+import {
+  findDataModelByOriginId,
+  pickByResponseField,
+  resolveDataModelMode,
+} from '@neural/render/utils/shared';
 import { usePageNeuralStore } from '@neural/store';
-import type { DataSource } from '@neural/types';
 import { defineStore } from 'pinia';
 
-/** 三种缓存模式，与 fetch.ts 的 DataModelMode 保持一致 */
-type CacheMode = 'reference' | 'source' | 'custom';
+// 从 shared.ts 重新导出，统一由本模块对外提供数据模型相关工具与类型
+export { findDataModelByOriginId, pickByResponseField, resolveDataModelMode };
 
-/** 容器 / 组件 / 页面请求后的数据源响应记录 */
-export interface DataSourceResponse {
-  /** 发起请求的容器 / 组件 / 页面 id */
-  originId: string;
-  /** 数据源 id（reference 模式为空） */
-  sourceId: string;
-  /** 解析后的数据 */
-  data: unknown;
-}
+/** 三种缓存模式 */
+type CacheMode = 'reference' | 'source' | 'custom';
 
 /** 缓存条目，以 originId 为键存储，按 mode 携带不同的附加信息 */
 interface DataSourceResponseEntry {
@@ -27,21 +25,28 @@ interface DataSourceResponseEntry {
   data: unknown;
 }
 
-/** 解析 JSON 数据源的 json 字符串，非法 JSON 返回 null */
-function parseJsonSource(source?: DataSource): unknown {
-  if (!source?.json) return null;
+/** 解析 JSON，空值或非法 JSON 返回 null */
+export function parseJson(json?: string): unknown {
+  if (!json?.trim()) return null;
   try {
-    return JSON.parse(source.json);
+    return JSON.parse(json);
   } catch {
     return null;
   }
 }
 
+/** 读取条目的原始数据：source 模式实时从数据源配置解析或返回缓存的原始响应；custom 直接返回缓存数据 */
+function getEntryRawData(entry: DataSourceResponseEntry): unknown {
+  if (entry.mode !== 'source') return entry.data;
+  const source = usePageNeuralStore().dataSources.find((item) => item.id === entry.sourceId);
+  return source?.type === 'json' ? parseJson(source.json) : entry.data;
+}
+
 /**
- * 递归解析引用链：沿 reference 链路遍历到落点实体，返回该实体经 dataModel.responseField 解析后的数据。
- * 每一跳都对目标实体的 dataModel.responseField 应用一次，使中间容器的响应字段也生效。
+ * 取引用链落点实体的原始数据：只沿 reference 链路向下，
+ * 不应用引用源（含中间跳）的 responseField
  */
-function resolveCachedData(
+function resolveReferenceData(
   state: Record<string, DataSourceResponseEntry>,
   originId: string,
   visited: Set<string>
@@ -53,52 +58,88 @@ function resolveCachedData(
   if (!entry) return null;
 
   if (entry.mode === 'reference') {
-    // 先递归拿到被引用实体的数据，再对当前实体应用其 dataModel.responseField
-    const rawReferenced = resolveCachedData(state, entry.referenceId!, visited);
-    const refModel = findDataModelByOriginId(originId);
-    return pickByResponseField(rawReferenced, refModel?.responseField);
+    return resolveReferenceData(state, entry.referenceId!, visited);
+  }
+  return getEntryRawData(entry);
+}
+
+/**
+ * 解析指定实体的数据
+ * - reference：只取引用源的原始数据，不应用引用源的 responseField，仅应用当前实体自己的 responseField
+ * - source：应用当前实体的 responseField（JSON 实时解析 / HTTP 使用原始响应）
+ * - custom：解析后的 JSON 直接返回（自定义模式不应用 responseField）
+ */
+function resolveCachedData(
+  state: Record<string, DataSourceResponseEntry>,
+  originId: string,
+  visited: Set<string>
+): any {
+  if (!originId || visited.has(originId)) return null;
+  visited.add(originId);
+
+  const entry = state[originId];
+  if (!entry) return null;
+
+  const currentModel = findDataModelByOriginId(originId);
+
+  if (entry.mode === 'reference') {
+    const rawReferenced = resolveReferenceData(state, entry.referenceId!, visited);
+    return pickByResponseField(rawReferenced, currentModel?.responseField);
   }
 
   if (entry.mode === 'source') {
-    const source = usePageNeuralStore().dataSources.find((item) => item.id === entry.sourceId);
-    if (source?.type === 'json') {
-      // JSON 数据源不缓存，实时从配置解析
-      const json = parseJsonSource(source);
-      // 再对当前实体的 dataModel.responseField 应用一次
-      const currentModel = findDataModelByOriginId(originId);
-      return pickByResponseField(json, currentModel?.responseField);
-    }
-    // HTTP 数据源返回原始响应（已由 fetchDataSource 应用 source 自身 responseField）
-    // 再对当前实体的 dataModel.responseField 应用一次
-    const currentModel = findDataModelByOriginId(originId);
-    return pickByResponseField(entry.data, currentModel?.responseField);
+    return pickByResponseField(getEntryRawData(entry), currentModel?.responseField);
   }
 
-  // custom：解析后的 JSON 直接返回（自定义模式不应用 responseField）
+  // custom：解析后的 JSON 直接返回
   return entry.data;
 }
 
-/** 按请求方 id 缓存接口响应；读取时递归解析引用链并应用每一跳的 responseField，JSON 数据源直接从配置解析 */
+/**
+ * 数据源响应缓存与取数入口
+ * - 查询：fetchDataByModel 按 dataModel 拉取数据并写入缓存
+ * - 获取：getDataByModel 读取缓存，递归解析引用链后按 dataModel 直接返回最终行数据
+ */
 export const useDataSourceStore = defineStore('page-neural-data-source', {
   state: () => ({
     /** 以 originId 为键，值为带 mode 的条目 */
     responses: {} as Record<string, DataSourceResponseEntry>,
   }),
   getters: {
-    getResponse:
+    /**
+     * 按 originId 读取缓存，递归解析引用链后再按 dataModel 解析为最终行数据
+     * @param originId 发起请求的容器 / 组件 / 页面 id
+     * @param dataModel 容器上的数据模型配置
+     * @returns 可直接用于 DataTable 的行数组；无缓存或数据源不匹配时返回 null
+     */
+    getDataByModel:
       (state) =>
-      (originId: string, sourceId = ''): DataSourceResponse | undefined => {
+      (originId: string, dataModel: DataModelOptions = {}): any => {
         const entry = state.responses[originId];
-        if (!entry) return undefined;
+        if (!entry) return null;
 
         // 数据源一致性校验：source 模式下请求的 sourceId 必须匹配
-        if (entry.mode === 'source' && sourceId && entry.sourceId !== sourceId) {
-          return undefined;
+        if (
+          entry.mode === 'source' &&
+          dataModel.sourceId &&
+          entry.sourceId !== dataModel.sourceId
+        ) {
+          return null;
         }
-
+        // resolveCachedData 已按每一跳的 responseField 解析
         const data = resolveCachedData(state.responses, originId, new Set());
-        return { originId, sourceId: sourceId || entry.sourceId || '', data };
+        console.log('getData------------>', originId, dataModel, data);
+        return data;
       },
+
+    /**
+     * 读取原始数据：沿引用链向下，不应用任何实体的 responseField
+     * @param originId 容器 / 组件 / 页面 id
+     */
+    getRawData:
+      (state) =>
+      (originId: string): unknown =>
+        resolveReferenceData(state.responses, originId, new Set()),
   },
   actions: {
     /** 自定义模式 */
@@ -114,6 +155,66 @@ export const useDataSourceStore = defineStore('page-neural-data-source', {
     /** 数据源模式：sourceId + data（JSON 数据源传 null） */
     setSource(originId: string, sourceId: string | undefined, data: unknown) {
       this.responses[originId] = { mode: 'source', sourceId, data };
+    },
+
+    /**
+     * 基于容器 dataModel 查询数据，并将结果写入缓存
+     * - custom：解析 JSON 后写入 data
+     * - reference：递归确保被引用实体已缓存，仅存 referenceId（读取时递归解析并应用每一跳 responseField）
+     * - source+http：发起请求后存入原始响应；source+json：不发起请求，data 置空（读取时实时解析）
+     * @param originId 发起请求的容器 / 组件 / 页面 id
+     * @param dataModel 容器上的数据模型配置
+     * @param params 额外请求参数，同名字段覆盖 dataModel.params
+     */
+    async fetchDataByModel(
+      originId: string,
+      dataModel: DataModelOptions,
+      params: Record<string, string> = {}
+    ): Promise<void> {
+      const mode = resolveDataModelMode(dataModel);
+      console.log('fetchData------------>', mode);
+
+      if (!mode) {
+        this.setCustom(originId, null);
+        return;
+      }
+
+      // 自定义：解析 JSON 并缓存
+      if (mode === 'custom') {
+        this.setCustom(originId, parseJson(dataModel.customJson));
+        return;
+      }
+
+      // 引用：只存 referenceId
+      if (mode === 'reference') {
+        // const referencedModel = findDataModelByOriginId(dataModel.referenceId);
+        // if (referencedModel) {
+        //   await this.fetchDataByModel(dataModel.referenceId!, referencedModel);
+        // }
+        this.setReference(originId, dataModel.referenceId);
+        return;
+      }
+
+      // source 模式
+      const source = usePageNeuralStore().dataSources.find(
+        (item) => item.id === dataModel.sourceId
+      );
+      if (!source) {
+        this.setSource(originId, dataModel.sourceId, null);
+        return;
+      }
+
+      if (source.type === 'http') {
+        try {
+          const raw = await fetchDataSource(source, { ...dataModel.params, ...params });
+          this.setSource(originId, dataModel.sourceId, raw);
+        } catch {
+          this.setSource(originId, dataModel.sourceId, null);
+        }
+      } else {
+        // JSON 数据源不发请求，data 置空；读取时由 getDataByModel 实时解析
+        this.setSource(originId, dataModel.sourceId, null);
+      }
     },
   },
 });
