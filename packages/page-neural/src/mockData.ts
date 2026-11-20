@@ -251,6 +251,12 @@ export const initialDataSources: DataSource[] = [
     id: 'd-40708f69-3570-4ed6-807d-dd9b41dc5d98',
     name: '用户状态枚举',
     type: 'json',
-    json: '[\n  { "label": "禁用", "value": 0 },\n  { "label": "启用", "value": 1 },\n  { "label": "离职", "value": 2 }\n]',
+    json: '[\n  { "label": "禁用", "value": 0 },\n  { "label": "启用", "value": 1 },\n  { "label": "离职", "value": 2, "severity": "danger" }\n]',
+  },
+  {
+    id: 'd-d700ac0a-de65-473e-9c98-cd6e8d210244',
+    name: '用户状态枚举2',
+    type: 'json',
+    json: '{\n  "0": "禁用",\n  "1": "启用",\n  "2": {\n    "label": "离职",\n    "severity": "info"\n  }\n}',
   },
 ];

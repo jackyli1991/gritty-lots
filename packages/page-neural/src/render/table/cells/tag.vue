@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useData } from '@neural/composables/useData';
-  import { getEnumLabel } from '@neural/render/utils/common';
+  import { getEnumLabel, getEnumProps } from '@neural/render/utils/common';
   import type { TableColumn } from '@neural/types/table';
   import Tag from 'primevue/tag';
   import { computed } from 'vue';
@@ -23,8 +23,15 @@
     if (value === undefined || value === null || value === '') return '-';
     return getEnumLabel(data.value, value) ?? String(value);
   });
+
+  // 标签属性
+  const tagProps = computed(() => {
+    const value = props.row[props.column.field];
+    if (value === undefined || value === null || value === '') return {};
+    return getEnumProps(data.value, value);
+  });
 </script>
 
 <template>
-  <Tag :value="text" size="small" />
+  <Tag :value="text" size="small" v-bind="tagProps" />
 </template>

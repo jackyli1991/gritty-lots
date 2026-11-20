@@ -18,6 +18,7 @@
   });
 
   const imageStyle = computed(() => ({
+    display: 'inline-block',
     height: `${props.column.imageSize}px`,
     width: `${props.column.imageSize}px`,
     borderRadius: `${props.column.imageBorderRadius}px`,

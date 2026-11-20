@@ -26,7 +26,7 @@
     rel="noopener noreferrer"
     class="block truncate text-(--p-primary-500) hover:underline"
   >
-    {{ href }}
+    点击跳转
   </a>
   <span v-else class="text-gray-400">-</span>
 </template>
