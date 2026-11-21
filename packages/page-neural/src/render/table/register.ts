@@ -18,6 +18,7 @@ registerTableColumn(
       fieldName: 'tagOptions',
       label: '枚举数据',
       component: 'DataSourcePicker',
+      class: 'col-span-full',
       componentProps: {},
     },
   ]

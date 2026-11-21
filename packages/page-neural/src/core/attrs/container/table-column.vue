@@ -1,20 +1,15 @@
 <template>
-  <div class="flex flex-col gap-2 rounded-md border border-gray-200 p-2 dark:border-gray-700">
+  <div class="flex flex-col gap-2 rounded-md border border-gray-200 dark:border-gray-700">
     <!-- 顶部工具条：添加列 -->
-    <div class="flex shrink-0 items-center justify-between gap-2">
+    <div
+      class="flex shrink-0 items-center justify-between gap-2 p-2 border-b border-gray-200 dark:border-gray-700"
+    >
       <div class="flex min-w-0 flex-1 items-center gap-2">
         <!-- 搜索框：按标题 / 字段 / 类型过滤左侧列列表 -->
         <InputText
           v-model="keyword"
-          class="w-50 border-0! border-b-1!"
+          class="w-50 border-0! shadow-none! bg-(--p-primary-100)!"
           size="small"
-          :pt="{
-            root: {
-              style: {
-                borderRadius: 0,
-              },
-            },
-          }"
           placeholder="按标题、类型、字段快速检索"
           :formControl="{ noValidate: true }"
         />
@@ -76,7 +71,7 @@
     </div>
 
     <!-- 上：Tab 头部（PrimeVue ScrollArea 横向滚动 + 拖拽排序） -->
-    <ScrollArea class="border-0!">
+    <ScrollArea class="border-0! px-2">
       <ScrollAreaViewport class="px-0! py-2!">
         <ScrollAreaContent>
           <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-2 pb-1">
@@ -125,7 +120,7 @@
     </ScrollArea>
 
     <!-- 下：选中列的配置表单 -->
-    <div class="flex flex-1 flex-col gap-2 overflow-auto">
+    <div class="flex flex-1 flex-col gap-2 overflow-auto px-2">
       <template v-if="activeColumn">
         <NeuralForm
           :key="activeColumn.id"
