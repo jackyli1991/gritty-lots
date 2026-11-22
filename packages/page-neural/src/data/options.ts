@@ -72,3 +72,13 @@ export const FIXED_OPTIONS: { label: string; value: TableColumnFixed }[] = [
   { label: '左固定', value: 'left' },
   { label: '右固定', value: 'right' },
 ];
+
+// 标签类型选项
+export const SEVERITY_OPTIONS = [
+  { label: '普通', value: 'secondary' },
+  { label: '成功', value: 'success' },
+  { label: '通知', value: 'info' },
+  { label: '警告', value: 'warn' },
+  { label: '错误', value: 'danger' },
+  { label: '高对比', value: 'contrast' },
+];

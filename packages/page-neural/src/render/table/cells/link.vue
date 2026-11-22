@@ -16,6 +16,15 @@
     const value = props.row[props.column.field];
     return typeof value === 'string' ? value : '';
   });
+
+  /** 链接文本：未配置或为空时回退为链接地址，过长时保留首尾各 12 个字符 */
+  const text = computed(() => {
+    const linkText = props.column.linkText?.trim();
+    if (linkText) return linkText;
+    return href.value.length > 24
+      ? `${href.value.slice(0, 12)}···${href.value.slice(-12)}`
+      : href.value;
+  });
 </script>
 
 <template>
@@ -26,7 +35,7 @@
     rel="noopener noreferrer"
     class="block truncate text-(--p-primary-500) hover:underline"
   >
-    点击跳转
+    {{ text }}
   </a>
   <span v-else class="text-gray-400">-</span>
 </template>

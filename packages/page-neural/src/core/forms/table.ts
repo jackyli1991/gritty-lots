@@ -1,5 +1,6 @@
 import type { FormItemProps } from '@neural/components/form';
 import ColumnAttrs from '@neural/core/attrs/container/table-column.vue';
+import type { TableModelValue } from '@neural/types/table';
 import { z } from 'zod';
 
 const schema: FormItemProps[] = [
@@ -97,7 +98,7 @@ export default {
 /**
  * 创建表格表单模型
  */
-export function createTable() {
+export function createTable(): TableModelValue {
   return {
     size: 'medium',
     showGridlines: false,

@@ -1,15 +1,11 @@
 import type { DataModelOptions } from '@neural/core/models/dataModel';
 import { fetchDataSource } from '@neural/render/utils/fetch';
-import {
-  findDataModelByOriginId,
-  pickByResponseField,
-  resolveDataModelMode,
-} from '@neural/render/utils/shared';
+import { pickByResponseField, resolveDataModelMode } from '@neural/render/utils/shared';
 import { usePageNeuralStore } from '@neural/store';
 import { defineStore } from 'pinia';
 
 // 从 shared.ts 重新导出，统一由本模块对外提供数据模型相关工具与类型
-export { findDataModelByOriginId, pickByResponseField, resolveDataModelMode };
+export { pickByResponseField, resolveDataModelMode };
 
 /** 三种缓存模式 */
 type CacheMode = 'reference' | 'source' | 'custom';
@@ -68,10 +64,12 @@ function resolveReferenceData(
  * - reference：只取引用源的原始数据，不应用引用源的 responseField，仅应用当前实体自己的 responseField
  * - source：应用当前实体的 responseField（JSON 实时解析 / HTTP 使用原始响应）
  * - custom：解析后的 JSON 直接返回（自定义模式不应用 responseField）
+ * dataModel 由调用方（getDataByModel）直接传入，不再反查 store
  */
 function resolveCachedData(
   state: Record<string, DataSourceResponseEntry>,
   originId: string,
+  dataModel: DataModelOptions,
   visited: Set<string>
 ): any {
   if (!originId || visited.has(originId)) return null;
@@ -80,15 +78,13 @@ function resolveCachedData(
   const entry = state[originId];
   if (!entry) return null;
 
-  const currentModel = findDataModelByOriginId(originId);
-
   if (entry.mode === 'reference') {
     const rawReferenced = resolveReferenceData(state, entry.referenceId!, visited);
-    return pickByResponseField(rawReferenced, currentModel?.responseField);
+    return pickByResponseField(rawReferenced, dataModel.responseField);
   }
 
   if (entry.mode === 'source') {
-    return pickByResponseField(getEntryRawData(entry), currentModel?.responseField);
+    return pickByResponseField(getEntryRawData(entry), dataModel.responseField);
   }
 
   // custom：解析后的 JSON 直接返回
@@ -127,7 +123,7 @@ export const useDataSourceStore = defineStore('page-neural-data-source', {
           return null;
         }
         // resolveCachedData 已按每一跳的 responseField 解析
-        const data = resolveCachedData(state.responses, originId, new Set());
+        const data = resolveCachedData(state.responses, originId, dataModel, new Set());
         console.log('getData------------>', originId, dataModel, data);
         return data;
       },
@@ -187,10 +183,6 @@ export const useDataSourceStore = defineStore('page-neural-data-source', {
 
       // 引用：只存 referenceId
       if (mode === 'reference') {
-        // const referencedModel = findDataModelByOriginId(dataModel.referenceId);
-        // if (referencedModel) {
-        //   await this.fetchDataByModel(dataModel.referenceId!, referencedModel);
-        // }
         this.setReference(originId, dataModel.referenceId);
         return;
       }

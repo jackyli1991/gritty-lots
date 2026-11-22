@@ -15,6 +15,7 @@
   import InputText from 'primevue/inputtext';
   import Select from 'primevue/select';
   import SelectButton from 'primevue/selectbutton';
+  import vTooltip from 'primevue/tooltip';
   import type { TreeNode } from 'primevue/treenode';
   import TreeSelect from 'primevue/treeselect';
   import { computed, provide, ref, watch } from 'vue';
@@ -516,15 +517,15 @@
         <!-- 选中项回显：名称、类型、method、url/json -->
         <template #value="{ placeholder }">
           <div v-if="selectedSource" class="flex min-w-0 items-center gap-2">
-            <span class="text-sm font-medium text-gray-800 dark:text-gray-100">
-              {{ selectedSource.name }}
-            </span>
             <span
               class="shrink-0 rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-300"
             >
               {{ selectedSource.type?.toUpperCase() }}
             </span>
             <MethodTag v-if="selectedSource.method" :method="selectedSource.method" />
+            <span class="text-sm font-medium text-gray-800 dark:text-gray-100">
+              {{ selectedSource.name }}
+            </span>
             <span
               v-if="sourceDetail(selectedSource)"
               class="truncate font-mono text-xs text-gray-400 dark:text-gray-500"
@@ -537,28 +538,20 @@
           </span>
         </template>
 
-        <!-- 选项：名称 + 类型徽标 + method + url/json -->
+        <!-- 选项：名称 + 类型徽标，url/json 走悬停提示 -->
         <template #option="{ option }">
-          <div class="flex min-w-0 flex-col gap-1 py-1">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-medium text-gray-800 dark:text-gray-100">
-                {{ option.name }}
-              </span>
-              <span
-                class="shrink-0 rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-300"
-              >
-                {{ option.type?.toUpperCase() }}
-              </span>
-            </div>
-            <div class="flex max-w-[500px] items-center gap-2">
-              <MethodTag v-if="option.method" :method="option.method" />
-              <span
-                v-if="sourceDetail(option)"
-                class="truncate font-mono text-xs text-gray-400 dark:text-gray-500"
-              >
-                {{ sourceDetail(option) }}
-              </span>
-            </div>
+          <div
+            v-tooltip="sourceDetail(option)"
+            class="flex min-w-0 items-center gap-2 overflow-hidden py-1"
+          >
+            <span
+              class="shrink-0 rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-700 dark:text-gray-300"
+            >
+              {{ option.type?.toUpperCase() }}
+            </span>
+            <span class="min-w-0 truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+              {{ option.name }}
+            </span>
           </div>
         </template>
       </Select>

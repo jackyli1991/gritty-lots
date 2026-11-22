@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 rounded-md border border-gray-200 dark:border-gray-700">
+  <div class="flex flex-col gap-2 bg-white rounded-md border border-gray-200 dark:border-gray-700">
     <!-- 顶部工具条：添加列 -->
     <div
       class="flex shrink-0 items-center justify-between gap-2 p-2 border-b border-gray-200 dark:border-gray-700"
@@ -8,9 +8,9 @@
         <!-- 搜索框：按标题 / 字段 / 类型过滤左侧列列表 -->
         <InputText
           v-model="keyword"
-          class="w-50 border-0! shadow-none! bg-(--p-primary-100)!"
+          class="w-50 border-0! shadow-none! bg-(--p-primary-50)!"
           size="small"
-          placeholder="按标题、类型、字段快速检索"
+          placeholder="按标题、类型、字段检索"
           :formControl="{ noValidate: true }"
         />
         <!-- <span class="shrink-0 text-xs text-gray-500 dark:text-gray-400"
@@ -38,7 +38,7 @@
         <div class="relative shrink-0">
           <Button size="small" :disabled="availableTypes === 0" @click="toggleAddMenu">
             <NeuralIcon name="Plus" :size="14" />
-            <span>添加列</span>
+            <span>添加</span>
           </Button>
           <!-- 弹层：列出所有列类型，已被占用的单例类型置灰 -->
           <Popover ref="addMenuPopover">
@@ -87,7 +87,7 @@
                 icon: TYPE_ICON[col.type],
               }"
               group="table-columns"
-              class="group inline-block flex shrink-0 cursor-grab items-center gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800"
+              class="group inline-block flex shrink-0 cursor-grab items-center gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100"
               :class="
                 activeId === col.id
                   ? 'border-b-2 border-(--p-primary-500) bg-gray-100 text-(--p-primary-500) dark:bg-gray-800'

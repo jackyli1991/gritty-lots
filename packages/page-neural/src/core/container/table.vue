@@ -6,8 +6,12 @@
 <script setup lang="ts">
   import { useData } from '@neural/composables/useData';
   import { getColumnMeta } from '@neural/data/table';
-  import { resolveColumnProps, resolveSelectionMode } from '@neural/render/utils/table';
-  import type { TableColumn } from '@neural/types/table';
+  import {
+    resolveColumnProps,
+    resolveSelectionMode,
+    resolveTableProps,
+  } from '@neural/render/utils/table';
+  import type { TableColumn, TableModelValue } from '@neural/types/table';
   import Column from 'primevue/column';
   import DataTable from 'primevue/datatable';
   import { computed, ref } from 'vue';
@@ -35,7 +39,9 @@
   const { container, data, loading } = useData(props.id, { autoLoad: false });
 
   /** 容器级配置（列 / 空文案 / 选择模式 等） */
-  const containerModel = computed(() => container.value?.props.containerModel || {});
+  const containerModel = computed<TableModelValue>(
+    () => (container.value?.props.containerModel as TableModelValue) || ({} as TableModelValue)
+  );
 
   /** 列配置数组 */
   const columns = computed<TableColumn[]>(() => containerModel.value.columns || []);
@@ -55,7 +61,7 @@
     :pt="pt"
     scrollable
     :loading="loading"
-    v-bind="containerModel"
+    v-bind="resolveTableProps(containerModel)"
     :selection-mode="selectionMode"
     v-model:selection="selectedRows"
   >

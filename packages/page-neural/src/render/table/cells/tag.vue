@@ -24,11 +24,14 @@
     return getEnumLabel(data.value, value) ?? String(value);
   });
 
-  // 标签属性
-  const tagProps = computed(() => {
+  // 标签属性：枚举数据中指定的类型优先，未指定时回退列上的默认类型
+  const tagProps = computed<Record<string, unknown>>(() => {
     const value = props.row[props.column.field];
     if (value === undefined || value === null || value === '') return {};
-    return getEnumProps(data.value, value);
+    return {
+      severity: props.column.severity,
+      ...getEnumProps(data.value, value),
+    };
   });
 </script>
 

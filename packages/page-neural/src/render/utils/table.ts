@@ -1,5 +1,5 @@
 import { isDataColumn } from '@neural/data/table';
-import type { TableColumn } from '@neural/types/table';
+import type { TableColumn, TableModelValue } from '@neural/types/table';
 
 /**
  * PrimeVue DataTable Column 组件可接收的核心 props。
@@ -87,6 +87,21 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
   props.bodyStyle = { ...commonStyle, ...bodyStyle };
 
   return props;
+}
+
+/**
+ * 从表格容器模型解析出可直接绑定到 PrimeVue DataTable 的 props。
+ * 只透传 DataTable 认识的字段，排除：
+ * - columns：由模板用 resolveColumnProps 单独渲染
+ * - emptyText：由 #empty 插槽单独消费
+ * 后续新增配置（如分页）在此处转换为 DataTable 所需的 prop，而不是靠 v-bind 原样透传。
+ */
+export function resolveTableProps(model: TableModelValue) {
+  return {
+    size: model.size,
+    showGridlines: model.showGridlines,
+    stripedRows: model.stripedRows,
+  };
 }
 
 /**

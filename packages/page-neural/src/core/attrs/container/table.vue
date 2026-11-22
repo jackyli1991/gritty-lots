@@ -3,17 +3,14 @@
 </template>
 
 <script setup lang="ts">
-  // import type { TableModelValue } from '@neural/types/table';
   import { NeuralForm } from '@neural/components';
-  import tableConfig from '@neural/core/forms/table';
-  import { createTable } from '@neural/core/forms/table';
+  import tableConfig, { createTable } from '@neural/core/forms/table';
+  import type { TableModelValue } from '@neural/types/table';
   import { onMounted } from 'vue';
 
   /** v-model 绑定，带默认值 */
-  const model = defineModel<Record<string, any>>({
-    default: () => {
-      return createTable();
-    },
+  const model = defineModel<TableModelValue>({
+    default: () => createTable(),
   });
 
   onMounted(() => {
