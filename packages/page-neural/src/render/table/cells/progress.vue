@@ -70,12 +70,10 @@
 
 <template>
   <ProgressBar
-    v-if="value !== null"
     class="w-full"
     :value="value ?? 0"
     mode="determinate"
     :show-value="showValue"
     :pt="pt"
   />
-  <span v-else class="text-gray-400">-</span>
 </template>

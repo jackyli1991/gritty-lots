@@ -22,7 +22,7 @@
 </script>
 
 <template>
-  <div v-if="color" class="inline-block">
+  <div class="inline-block">
     <span class="flex items-center gap-2 overflow-hidden">
       <span
         class="inline-block size-4 shrink-0 rounded-sm border border-gray-200 dark:border-gray-700"
@@ -33,5 +33,4 @@
       </span>
     </span>
   </div>
-  <span v-else class="text-gray-400">-</span>
 </template>

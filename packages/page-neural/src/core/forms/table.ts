@@ -47,6 +47,13 @@ const schema: FormItemProps[] = [
     componentProps: {},
   },
   {
+    fieldName: 'emptyCellPlaceholder',
+    label: '数据缺省占位',
+    component: 'Input',
+    componentProps: {},
+    tips: '表格单元格数据为空时的占位符',
+  },
+  {
     fieldName: '',
     label: '',
     showLabel: false,
@@ -104,6 +111,7 @@ export function createTable(): TableModelValue {
     showGridlines: false,
     stripedRows: false,
     emptyText: '暂无数据',
+    emptyCellPlaceholder: '-',
     columns: [],
   };
 }

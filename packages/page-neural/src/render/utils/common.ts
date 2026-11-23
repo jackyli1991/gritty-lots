@@ -6,14 +6,26 @@ export interface EnumOption {
 
 /**
  * 查找匹配的枚举项
- * 数组形式按 value 严格匹配；对象形式以 value 为键查找，返回对应的字符串或对象
+ * 数组形式按 value 严格匹配；数组项为字符串时按索引匹配 value；
+ * 对象形式以 value 为键查找，返回对应的字符串或对象
  */
 function findEnumEntry(data: unknown, value: unknown): EnumOption | string | undefined {
   if (Array.isArray(data)) {
-    return data.find(
+    const matched = data.find(
       (item): item is EnumOption =>
         !!item && typeof item === 'object' && (item as EnumOption).value === value
     );
+    if (matched) return matched;
+
+    // 字符串数组：以数组索引作为 value 匹配
+    if (typeof value === 'number' || (typeof value === 'string' && value.trim() !== '')) {
+      const index = Number(value);
+      if (Number.isInteger(index) && index >= 0 && index < data.length) {
+        const item = data[index];
+        if (typeof item === 'string') return item;
+      }
+    }
+    return undefined;
   }
   if (data && typeof data === 'object') {
     return (data as Record<string, unknown>)[String(value)] as EnumOption | string | undefined;

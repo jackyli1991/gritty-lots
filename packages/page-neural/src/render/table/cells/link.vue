@@ -29,7 +29,6 @@
 
 <template>
   <a
-    v-if="href"
     :href="href"
     target="_blank"
     rel="noopener noreferrer"
@@ -37,5 +36,4 @@
   >
     {{ text }}
   </a>
-  <span v-else class="text-gray-400">-</span>
 </template>

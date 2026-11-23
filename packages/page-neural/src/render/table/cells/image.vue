@@ -26,6 +26,5 @@
 </script>
 
 <template>
-  <img v-if="src" :src="src" alt="" :style="imageStyle" />
-  <span v-else class="text-gray-400">-</span>
+  <img :src="src" alt="" :style="imageStyle" />
 </template>

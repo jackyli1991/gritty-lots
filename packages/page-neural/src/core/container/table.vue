@@ -5,7 +5,7 @@
 -->
 <script setup lang="ts">
   import { useData } from '@neural/composables/useData';
-  import { getColumnMeta } from '@neural/data/table';
+  import { getColumnMeta, isDataColumn } from '@neural/data/table';
   import {
     resolveColumnProps,
     resolveSelectionMode,
@@ -51,6 +51,14 @@
 
   /** 选中行（供 selectionMode 使用） */
   const selectedRows = ref<Record<string, unknown>[]>([]);
+
+  /** 数据缺省占位：字段为 undefined / null 时展示，未配置时默认 '-' */
+  const emptyCellPlaceholder = computed(() => containerModel.value.emptyCellPlaceholder ?? '-');
+
+  /** 字段值是否为空：undefined / null / '' 视为空 */
+  function isEmptyFieldValue(value: unknown): boolean {
+    return value === undefined || value === null || value === '';
+  }
 </script>
 
 <template>
@@ -77,9 +85,21 @@
 
     <!-- 动态列：按配置顺序渲染，属性映射由 resolveColumnProps 统一处理 -->
     <Column v-for="col in columns" :key="col.id" v-bind="resolveColumnProps(col)">
-      <!-- 列类型注册了渲染组件时，用 body 插槽渲染自定义单元格 -->
-      <template v-if="getColumnMeta(col.type)?.component" #body="slotProps">
-        <component :is="getColumnMeta(col.type)!.component" :row="slotProps.data" :column="col" />
+      <template v-if="col.type === 'index' || isDataColumn(col.type)" #body="slotProps">
+        <!-- 自动序号列 -->
+        <template v-if="col.type === 'index'">{{ slotProps.index + 1 }}</template>
+        <!-- 数据列：字段为 undefined / null / '' 时展示缺省占位 -->
+        <template v-else-if="col.field && isEmptyFieldValue(slotProps.data[col.field])">
+          {{ emptyCellPlaceholder }}
+        </template>
+        <!-- 列类型注册了渲染组件时，用组件渲染自定义单元格 -->
+        <component
+          v-else-if="getColumnMeta(col.type)?.component"
+          :is="getColumnMeta(col.type)!.component"
+          :row="slotProps.data"
+          :column="col"
+        />
+        <template v-else>{{ slotProps.data[col.field] }}</template>
       </template>
     </Column>
   </DataTable>

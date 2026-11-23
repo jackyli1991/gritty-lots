@@ -85,5 +85,6 @@ export interface TableModelValue {
   showGridlines?: boolean;
   stripedRows?: boolean;
   emptyText?: string;
+  emptyCellPlaceholder?: string;
   columns: TableColumn[];
 }
