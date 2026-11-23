@@ -55,11 +55,13 @@
 
 <template>
   <DataTable
-    v-if="container"
+    v-if="container && Array.isArray(data)"
     :value="data"
     class="page-table-container h-full w-full"
     :pt="pt"
     scrollable
+    resizableColumns
+    columnResizeMode="expand"
     :loading="loading"
     v-bind="resolveTableProps(containerModel)"
     :selection-mode="selectionMode"

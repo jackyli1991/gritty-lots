@@ -1,6 +1,8 @@
 import { registerTableColumn } from '@neural/core/tools/registerTableColumn';
 import { SEVERITY_OPTIONS } from '@neural/data/options';
+import type { TableColumn } from '@neural/types/table';
 
+import ColorColumn from './cells/color.vue';
 import ImageColumn from './cells/image.vue';
 import LinkColumn from './cells/link.vue';
 import MultiTagColumn from './cells/multiTag.vue';
@@ -19,7 +21,10 @@ registerTableColumn(
       componentProps: { fluid: true, min: 1 },
       tips: '最多显示的行数，超出时省略号显示',
     },
-  ]
+  ],
+  {
+    rows: 1,
+  }
 );
 
 registerTableColumn(
@@ -44,7 +49,16 @@ registerTableColumn(
       },
       tips: '在枚举数据中没有指定标签类型时，使用此类型',
     },
-  ]
+  ],
+  {
+    severity: 'info',
+    tagOptions: {
+      mode: 'source',
+      params: undefined,
+      responseField: '',
+      sourceId: '',
+    },
+  }
 );
 
 registerTableColumn(
@@ -84,7 +98,17 @@ registerTableColumn(
       componentProps: { min: 1, fluid: true },
       tips: '最多显示的标签数量，超出时+n显示',
     },
-  ]
+  ],
+  {
+    maxTags: 2,
+    severity: 'info',
+    tagOptions: {
+      mode: 'source',
+      params: undefined,
+      responseField: '',
+      sourceId: '',
+    },
+  }
 );
 
 registerTableColumn(
@@ -109,7 +133,11 @@ registerTableColumn(
       component: 'InputNumber',
       componentProps: { fluid: true, suffix: 'px', min: 0 },
     },
-  ]
+  ],
+  {
+    imageSize: 28,
+    imageBorderRadius: 6,
+  }
 );
 
 registerTableColumn(
@@ -128,7 +156,10 @@ registerTableColumn(
       component: 'Input',
       componentProps: { placeholder: '自定义链接文本', maxLength: 20 },
     },
-  ]
+  ],
+  {
+    linkText: '点击查看',
+  }
 );
 
 registerTableColumn(
@@ -152,7 +183,73 @@ registerTableColumn(
       fieldName: 'barHeight',
       label: '进度条高度(px)',
       component: 'InputNumber',
-      componentProps: { fluid: true, min: 6, max: 20 },
+      componentProps: { fluid: true, min: 6, max: 28 },
     },
-  ]
+    {
+      fieldName: 'processColors',
+      label: '进度条颜色配置',
+      component: 'EditorTable',
+      class: 'col-span-full',
+      componentProps: {
+        columns: [
+          {
+            field: 'value',
+            title: '阈值(小于时显示对应颜色)',
+            type: 'text',
+            align: 'center',
+            width: 100,
+            editConfig: {
+              enable: true,
+              component: 'InputNumber',
+              fluid: true,
+              min: 0,
+              max: 100,
+              showButtons: true,
+              placeholder: '小于此阈值时显示对应的颜色',
+            },
+          },
+          {
+            field: 'color',
+            title: '颜色',
+            type: 'color',
+            align: 'center',
+            width: 100,
+            editConfig: {
+              enable: true,
+              component: 'ColorPicker',
+            },
+          },
+        ] as Omit<TableColumn, 'id'>[],
+      },
+      tips: '配置进度条的颜色，小于阈值显示对应的颜色，以第一个匹配的阈值为准',
+    },
+  ],
+  {
+    showValue: true,
+    barHeight: 16,
+    processColors: [],
+  }
+);
+
+registerTableColumn(
+  {
+    type: 'color',
+    title: '颜色',
+    single: false,
+    icon: 'Palette',
+    isData: true,
+    component: ColorColumn,
+  },
+  [
+    {
+      fieldName: 'showColorValue',
+      label: '显示颜色值',
+      component: 'ToggleSwitch',
+      componentProps: {},
+      tips: '关闭后仅显示颜色块，不显示颜色文本',
+    },
+  ],
+  {
+    showColorValue: true,
+  }
 );

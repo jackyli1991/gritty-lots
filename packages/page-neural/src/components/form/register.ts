@@ -17,6 +17,7 @@ import CodeMirror from '../codeMirror'; // 代码编辑器
 import ColorPicker from '../colorPicker'; // 颜色选择器
 import DataSourcePicker from '../dataSourcePicker'; // 数据源选择器
 import Divider from '../divider'; // 分隔线
+import EditorTable from '../editorTable'; // 编辑表格
 import Input from '../input'; // 输入框
 import InputNumberSelectGroup from '../InputNumberSelectGroup'; // 数字输入框 + 选择器组合
 import LayoutModel from '../layoutModel'; // 布局模型编辑器
@@ -46,4 +47,5 @@ export {
   NeuralForm,
   LayoutModel,
   DataSourcePicker,
+  EditorTable,
 };

@@ -14,9 +14,10 @@
   // import { VueFlow } from '@vue-flow/core';
   // import { MiniMap } from '@vue-flow/minimap';
   import type { DragNodeOptions } from '@neural/types';
+  import { useClipboard } from '@vueuse/core';
   import Button from 'primevue/button';
   import Toast from 'primevue/toast';
-  import { provide } from 'vue';
+  import { provide, unref } from 'vue';
 
   import ConfirmDialog from './confirmDialog.vue';
   import { initPageNeural } from './init';
@@ -54,6 +55,27 @@
       target: data.target,
     });
   }
+
+  const { copy } = useClipboard();
+
+  function copyMockData() {
+    const source = `
+import type { Container, LayoutSplitterNode, Page, DataSource } from '@neural/types';
+
+// 页面
+export const initialPages: Page[] = ${JSON.stringify(unref(pageNeuralStore.pages))}
+
+// 布局
+export const initialLayouts: LayoutSplitterNode[] = ${JSON.stringify(unref(pageNeuralStore.layouts))}
+
+// 容器
+export const initialContainers: Container[] = ${JSON.stringify(unref(pageNeuralStore.containers))}
+
+// 数据源
+export const initialDataSources: DataSource[] = ${JSON.stringify(unref(pageNeuralStore.dataSources))}
+`;
+    copy(source);
+  }
 </script>
 
 <template>
@@ -71,7 +93,7 @@
           </template>
         </div>
         <div>
-          <Button size="small">保存</Button>
+          <Button size="small" @click="copyMockData">保存(一键mock)</Button>
         </div>
       </div>
       <!-- 内容区域 -->

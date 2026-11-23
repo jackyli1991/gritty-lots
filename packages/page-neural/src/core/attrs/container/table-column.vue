@@ -48,7 +48,7 @@
               option-value="value"
               option-disabled="disabled"
               size="small"
-              class="min-w-[160px]"
+              class="min-w-40"
               :form-control="{ novalidate: true }"
               @update:modelValue="addColumn"
             >
@@ -87,7 +87,7 @@
                 icon: TYPE_ICON[col.type],
               }"
               group="table-columns"
-              class="group inline-block flex shrink-0 cursor-grab items-center gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100"
+              class="group inline-block shrink-0 cursor-grab gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100"
               :class="
                 activeId === col.id
                   ? 'border-b-2 border-(--p-primary-500) bg-gray-100 text-(--p-primary-500) dark:bg-gray-800'
@@ -97,7 +97,7 @@
             >
               <div class="flex flex-row items-center gap-1.5">
                 <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
-                <span class="max-w-[140px] truncate font-medium"
+                <span class="max-w-40 truncate font-medium"
                   >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
                 >
               </div>

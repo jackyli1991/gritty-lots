@@ -5,10 +5,8 @@
   import { nestedFormControl } from '@neural/composables/useForm';
   import MethodTag from '@neural/core/components/MethodTag.vue';
   import type { DataModelMode, DataModelOptions } from '@neural/core/models/dataModel';
-  import { resolveDataSourcePreview } from '@neural/render/utils/dataSourcePreview';
-  import { fetchDataSource } from '@neural/render/utils/fetch';
   import { usePageNeuralStore } from '@neural/store';
-  import { parseJson, pickByResponseField, resolveDataModelMode } from '@neural/store/dataSource';
+  import { resolveDataModelMode, useDataSourceStore } from '@neural/store/dataSource';
   import type { Container, DataSource, LayoutSplitterNode } from '@neural/types';
   import Button from 'primevue/button';
   import Dialog from 'primevue/dialog';
@@ -40,6 +38,9 @@
   provide('$pcFormField', { formControl: nestedFormControl });
 
   const pageNeuralStore = usePageNeuralStore();
+
+  /** 数据源缓存与取数 store，预览复用它保证与渲染时一致 */
+  const dataSourceStore = useDataSourceStore();
 
   /** 三种获取方式 */
   const MODE_OPTIONS: { label: string; value: DataModelMode }[] = [
@@ -341,52 +342,18 @@
     }
   });
 
-  /** 按数据模型从响应数据中解析行数据；自定义模式的数据已是最终结构，不应用 responseField */
-  function resolveDataByDataModel(
-    dataModel: DataModelOptions,
-    data: unknown
-  ): Record<string, unknown>[] {
-    const mode = resolveDataModelMode(dataModel);
-    let picked = data;
+  /** 预览使用的独立缓存键，避免覆盖真实实体（页面 / 容器 / 节点）的数据缓存 */
+  const PREVIEW_ORIGIN_ID = '__data-source-preview__';
 
-    if (mode !== 'custom') {
-      picked = pickByResponseField(data, dataModel.responseField);
-    }
-    if (Array.isArray(picked)) return picked as Record<string, unknown>[];
-    if (picked && typeof picked === 'object') return [picked as Record<string, unknown>];
-    return [];
-  }
-
-  /** 按当前模式解析预览数据并打开弹窗 */
+  /** 按当前模式预览数据：统一走数据源 store 的取数与解析，保证与渲染时一致 */
   async function openPreview() {
     const dataModel: DataModelOptions = { ...props.modelValue, mode: mode.value };
     previewData.value = null;
     previewVisible.value = true;
-
-    // 引用：读取目标实体的原始数据（不应用引用源的 responseField），再按当前 responseField 提取
-    if (mode.value === 'reference') {
-      const referenced = resolveDataSourcePreview({
-        originId: dataModel.referenceId ?? '',
-        sourceId: dataModel.sourceId ?? '',
-      });
-      previewData.value = pickByResponseField(referenced, dataModel.responseField);
-      return;
-    }
-
-    // 自定义：直接解析 JSON 并按数据模型规则转换
-    if (mode.value === 'custom') {
-      previewData.value = resolveDataByDataModel(dataModel, parseJson(dataModel.customJson));
-      return;
-    }
-
-    // 数据源：拉取数据后按 responseField 解析为表格可用数据
-    const source = selectedSource.value;
-    if (!source) return;
-
     previewLoading.value = true;
     try {
-      const raw = await fetchDataSource(source, dataModel.params || {});
-      previewData.value = resolveDataByDataModel(dataModel, raw);
+      await dataSourceStore.fetchDataByModel(PREVIEW_ORIGIN_ID, dataModel);
+      previewData.value = dataSourceStore.getDataByModel(PREVIEW_ORIGIN_ID, dataModel);
     } catch {
       previewData.value = null;
     } finally {
@@ -406,7 +373,7 @@
         :size="size"
         :allow-empty="false"
         :disabled="disabled"
-        class="min-w-0 flex-1"
+        class="min-w-0"
         :form-control="nestedFormControl"
         @update:model-value="onModeChange"
       />
@@ -415,9 +382,9 @@
       <Button
         text
         rounded
+        v-tooltip.top="{ value: '预览数据' }"
         :size="size"
         severity="secondary"
-        aria-label="预览数据"
         :disabled="!canPreview"
         @click="openPreview"
       >

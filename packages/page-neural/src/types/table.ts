@@ -1,4 +1,20 @@
 import type { DataModelOptions } from '@neural/core/models/dataModel';
+import type { Component } from 'vue';
+
+/** 内置编辑组件类型 */
+export type BuiltinEditComponentType = 'InputText' | 'InputNumber' | 'Select';
+
+/** 单元格编辑配置 */
+export interface TableColumnEditConfig {
+  /** 是否开启编辑 */
+  enable: boolean;
+  /** 编辑组件：内置字符串 key，或直接传 Vue Component */
+  component?: BuiltinEditComponentType | Component;
+  /** Select 等组件的选项数据 */
+  options?: unknown[];
+  /** 透传给编辑组件的额外 props（如 InputNumber 的 min/max、Select 的 optionLabel 等） */
+  [key: string]: unknown;
+}
 
 /** 内置列类型：决定该列在 DataTable 中的渲染方式 */
 export type BuiltinTableColumnType =
@@ -11,6 +27,7 @@ export type BuiltinTableColumnType =
   | 'image' // 图片
   | 'link' // 链接
   | 'progress' // 进度条
+  | 'color' // 颜色
   | 'button'; // 操作列
 
 /** 表格列类型：内置类型 + 通过 registerTableColumn 注册的自定义类型 */
@@ -32,13 +49,13 @@ export interface TableColumn {
   /** 绑定字段；非数据列（selection/multiSelection/index/button）留空 */
   field: string;
   /** 列宽（像素），0 / null 表示自适应 */
-  width: number | null;
+  width?: number | null;
   /** 水平对齐 */
-  align: TableColumnAlign;
+  align?: TableColumnAlign;
   /** 固定列位置 */
-  fixed: TableColumnFixed;
+  fixed?: TableColumnFixed;
   /** 是否可排序（仅数据类型列有效） */
-  sortable: boolean;
+  sortable?: boolean;
   /** 标签 / 多标签列：枚举数据的数据模型配置 */
   tagOptions?: DataModelOptions;
   /** 标签类型 */
@@ -55,6 +72,10 @@ export interface TableColumn {
   showValue?: boolean;
   /** 进度条列：进度条高度（px），未配置时默认 6 */
   barHeight?: number;
+  /** 颜色列：是否显示颜色值文本，默认显示 */
+  showColorValue?: boolean;
+  /** 单元格编辑配置 */
+  editConfig?: TableColumnEditConfig;
   /** 自定义列注册时通过配置表单追加的字段（平铺存储） */
   [key: string]: unknown;
 }

@@ -32,6 +32,41 @@ export const initialPages: Page[] = [
   },
 ];
 
+// 布局
+export const initialLayouts: LayoutSplitterNode[] = [
+  {
+    id: 'l-8c86d1ce-6a49-4a20-9d44-80cf4f84af68',
+    name: '页面root',
+    type: 'splitter',
+    layout: 'vertical',
+    gap: 8,
+    children: [
+      {
+        id: 'l-714becb3-62aa-4c85-a780-9b18fb022174',
+        name: '搜索表单',
+        type: 'splitterPanel',
+        useUnit: 'px',
+        sizeValue: 87,
+        percentage: 13.85,
+        containerType: 'normal',
+        containerId: 'c-a4dde768-4c34-4a2a-9e58-f28906e87ce2',
+        children: [],
+      },
+      {
+        id: 'l-eb2600b3-bf1d-4d51-ab19-66deb8b1379c',
+        name: '列表表格',
+        type: 'splitterPanel',
+        useUnit: '%',
+        sizeValue: 83.44,
+        percentage: 83.44,
+        containerType: 'table',
+        containerId: 'c-f11e0b36-4849-48cb-b858-347285ac2149',
+        children: [],
+      },
+    ],
+  },
+];
+
 // 容器
 export const initialContainers: Container[] = [
   {
@@ -43,30 +78,12 @@ export const initialContainers: Container[] = [
     props: {
       boxModel: {
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
-        border: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          style: 'solid',
-          color: '',
-        },
+        border: { top: 0, right: 0, bottom: 0, left: 0, style: 'solid', color: '' },
         padding: { top: 0, right: 0, bottom: 0, left: 0 },
         width: 100,
         height: 100,
-        borderRadius: {
-          topLeft: 0,
-          topRight: 0,
-          bottomRight: 0,
-          bottomLeft: 0,
-        },
-        units: {
-          margin: 'px',
-          border: 'px',
-          padding: 'px',
-          width: '%',
-          height: '%',
-        },
+        borderRadius: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        units: { margin: 'px', border: 'px', padding: 'px', width: '%', height: '%' },
       },
       backgroundModel: {
         backgroundColor: '#fff',
@@ -100,30 +117,12 @@ export const initialContainers: Container[] = [
     props: {
       boxModel: {
         margin: { top: 0, right: 0, bottom: 0, left: 0 },
-        border: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          style: 'solid',
-          color: '',
-        },
+        border: { top: 0, right: 0, bottom: 0, left: 0, style: 'solid', color: '' },
         padding: { top: 0, right: 0, bottom: 0, left: 0 },
         width: 100,
         height: 100,
-        borderRadius: {
-          topLeft: 0,
-          topRight: 0,
-          bottomRight: 0,
-          bottomLeft: 0,
-        },
-        units: {
-          margin: 'px',
-          border: 'px',
-          padding: 'px',
-          width: '%',
-          height: '%',
-        },
+        borderRadius: { topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 },
+        units: { margin: 'px', border: 'px', padding: 'px', width: '%', height: '%' },
       },
       backgroundModel: {
         backgroundColor: '#fff',
@@ -207,45 +206,23 @@ export const initialContainers: Container[] = [
             fixed: null,
             sortable: false,
           },
+          {
+            id: 'col-29d97eb6-c696-49af-a07c-4c4f916bb1a4',
+            type: 'progress',
+            title: '进度条',
+            field: 'qr_size',
+            width: 200,
+            align: 'left',
+            fixed: null,
+            sortable: false,
+            showValue: true,
+            barHeight: 16,
+            processColors: [],
+          },
         ],
       },
     },
     children: [],
-  },
-];
-
-// 布局
-export const initialLayouts: LayoutSplitterNode[] = [
-  {
-    id: 'l-8c86d1ce-6a49-4a20-9d44-80cf4f84af68',
-    name: '页面root',
-    type: 'splitter',
-    layout: 'vertical',
-    gap: 8,
-    children: [
-      {
-        id: 'l-714becb3-62aa-4c85-a780-9b18fb022174',
-        name: '搜索表单',
-        type: 'splitterPanel',
-        useUnit: 'px',
-        sizeValue: 87,
-        percentage: 13.85,
-        containerType: 'normal',
-        containerId: 'c-a4dde768-4c34-4a2a-9e58-f28906e87ce2',
-        children: [],
-      },
-      {
-        id: 'l-eb2600b3-bf1d-4d51-ab19-66deb8b1379c',
-        name: '列表表格',
-        type: 'splitterPanel',
-        useUnit: '%',
-        sizeValue: 83.44,
-        percentage: 83.44,
-        containerType: 'table',
-        containerId: 'c-f11e0b36-4849-48cb-b858-347285ac2149',
-        children: [],
-      },
-    ],
   },
 ];
 
@@ -264,10 +241,7 @@ export const initialDataSources: DataSource[] = [
       authorization:
         'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3OTUyNjY1OTUsIm5iZiI6MTc5NTI2NjU5NSwiZXhwIjoxODI2ODAyNTk1LCJyY29kZSI6OTI5NzA0LCJ1aWQiOjI3MDR9.QuZvKDJ1qTp46s7Xh6cUrpOPOfDWGW5VHrB8jEBK5WY',
     },
-    params: {
-      page: '1',
-      pageSize: '20',
-    },
+    params: { page: '1', pageSize: '20' },
   },
   {
     id: 'd-40708f69-3570-4ed6-807d-dd9b41dc5d98',

@@ -29,16 +29,42 @@
     return Number.isFinite(n) && n >= 0 ? n : 10;
   });
 
+  /** 进度条颜色配置项：阈值 + 颜色 */
+  interface ProcessColorItem {
+    value: number | string;
+    color: string;
+  }
+
   /**
-   * 通过 pt root 控制进度条高度：
-   * - class 提供样式钩子
-   * - style 覆盖设计令牌 --p-progressbar-height，根元素的 height 由该令牌驱动
+   * 匹配当前进度对应的颜色：
+   * 按配置顺序取第一个满足「进度 <= 阈值」的项；未命中时返回 null，沿用默认主题色。
+   */
+  const activeColor = computed<string | null>(() => {
+    const current = value.value;
+    if (current === null) return null;
+
+    const list = props.column.processColors;
+    if (!Array.isArray(list)) return null;
+
+    for (const item of list as ProcessColorItem[]) {
+      const threshold = Number(item?.value);
+      if (!Number.isFinite(threshold)) continue;
+      if (current <= threshold) return item.color || null;
+    }
+    return null;
+  });
+
+  /**
+   * 通过 pt 控制进度条样式：
+   * - root：class 提供样式钩子，style 覆盖设计令牌 --p-progressbar-height
+   * - value：命中颜色配置时以行内 background 覆盖填充色
    */
   const pt = computed(() => ({
     root: {
       class: 'page-progress-bar',
       style: { '--p-progressbar-height': `${barHeight.value}px` } as Record<string, string>,
     },
+    value: activeColor.value ? { style: { background: activeColor.value } } : {},
   }));
 </script>
 

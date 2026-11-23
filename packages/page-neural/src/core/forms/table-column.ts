@@ -19,9 +19,17 @@ import { generateId } from '@neural/utils';
 /** 各列类型通过 registerTableColumn 追加的配置表单项 */
 const COLUMN_FORM_SCHEMA = new Map<TableColumnType, FormItemProps[]>();
 
+/** 各列类型新增列时的默认值（对应配置表单项的初始值） */
+const COLUMN_DEFAULTS = new Map<TableColumnType, Record<string, unknown>>();
+
 /** 注册某列类型追加的配置表单项 */
 export function registerColumnFormSchema(type: TableColumnType, schema: FormItemProps[]): void {
   COLUMN_FORM_SCHEMA.set(type, [...schema]);
+}
+
+/** 注册某列类型新增列时的默认值 */
+export function registerColumnDefaults(type: TableColumnType, defaults: Record<string, unknown>) {
+  COLUMN_DEFAULTS.set(type, { ...defaults });
 }
 
 /**
@@ -116,8 +124,12 @@ export function getColumnSchema(params: {
   return [...baseSchema, ...extraSchema];
 }
 
-/** 构造表格列默认值 */
+/** 构造表格列默认值，合并该类型注册的默认配置 */
 export function createTableColumn(type: TableColumnType): TableColumn {
+  const defaults = { ...COLUMN_DEFAULTS.get(type) };
+  // id / type 由创建过程决定，不允许被默认值覆盖
+  delete defaults.id;
+  delete defaults.type;
   return {
     id: generateId('col'),
     type,
@@ -127,6 +139,7 @@ export function createTableColumn(type: TableColumnType): TableColumn {
     align: 'left',
     fixed: null,
     sortable: false,
+    ...defaults,
   };
 }
 

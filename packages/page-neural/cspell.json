@@ -62,7 +62,9 @@
     "treenode",
     "treeselect",
     "systemstatus",
-    "columnheadercontent"
+    "columnheadercontent",
+    "unref",
+    "bodycell"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="inline-block" @click.stop>
     <InputColor v-model="value" :formControl="formControl" format="rgba">
       <InputColorSwatch @click="handleClick" :class="['cursor-pointer', sizeClass]">
         <InputColorTransparencyGrid />
@@ -63,7 +63,21 @@
     size: 'default',
   });
 
-  const value = defineModel<string>();
+  const model = defineModel<string>();
+
+  /**
+   * 空值归一化：
+   * PrimeVue InputColor 收到 null/undefined 时内部回退为默认色 #ff0000；
+   * 收到空串时 hasValue 为真但解析失败，同样回退成红色。
+   * 因此对外统一将空值（undefined / null / ''）视为「未选色」，
+   * 保证 swatch 展示为空，而不是默认红色。
+   */
+  const value = computed<string | undefined>({
+    get: () => model.value || undefined,
+    set: (val) => {
+      model.value = val ?? undefined;
+    },
+  });
 
   /** 根据 size 属性映射 swatch 尺寸类名 */
   const sizeClass = computed(() => {
