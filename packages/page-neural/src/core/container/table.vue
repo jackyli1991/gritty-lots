@@ -71,6 +71,7 @@
     resizableColumns
     columnResizeMode="expand"
     :loading="loading"
+    removableSort
     v-bind="resolveTableProps(containerModel)"
     :selection-mode="selectionMode"
     v-model:selection="selectedRows"

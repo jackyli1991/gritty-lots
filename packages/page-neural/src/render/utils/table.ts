@@ -20,7 +20,7 @@ export interface PrimeColumnProps {
    */
   headerStyle?: Record<string, string>;
   /** 表体单元格内联样式。 */
-  bodyStyle?: Record<string, string>;
+  style?: Record<string, string>;
   /** 单选 / 多选列专用 */
   selectionMode?: 'single' | 'multiple';
   /** 固定列（左/右），PrimeVue 5 Column 支持 */
@@ -69,22 +69,26 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
   }
 
   // width + align 同时应用到表头和表体，避免仅 bodyStyle 或仅 headerStyle 造成对齐错位
-  const bodyStyle: Record<string, string> = {};
+  const style: Record<string, string> = {
+    paddingLeft: '8px',
+    paddingRight: '8px',
+  };
   const headerStyle: Record<string, string> = {};
   const commonStyle: Record<string, string> = {};
-  if (col.width) bodyStyle.width = `${col.width}px`;
+  if (col.width) style.minWidth = `${col.width}px`;
+  if (col.width) style.maxWidth = `${col.width}px`;
   if (col.align) {
     headerStyle.display = 'flex';
     headerStyle.justifyContent = alignMaps[col.align];
 
-    bodyStyle.textAlign = col.align;
+    style.textAlign = col.align;
   }
   props.pt = {
     columnheadercontent: {
       style: { ...commonStyle, ...headerStyle },
     },
   };
-  props.bodyStyle = { ...commonStyle, ...bodyStyle };
+  props.style = { ...commonStyle, ...style };
 
   return props;
 }

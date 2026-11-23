@@ -11,7 +11,15 @@ const schema: FormItemProps[] = [
     component: 'Divider',
     class: 'col-span-full',
     componentProps: {
-      text: '表格基础',
+      text: '基础配置',
+      pt: {
+        root: {
+          style: '--p-divider-horizontal-padding: 0',
+        },
+        content: {
+          class: 'font-bold',
+        },
+      },
     },
   },
   {

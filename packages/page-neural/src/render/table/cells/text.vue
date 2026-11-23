@@ -32,6 +32,9 @@
           WebkitLineClamp: String(rows.value),
           WebkitBoxOrient: 'vertical',
           overflow: 'hidden',
+          // DataTable 的 td 默认 white-space: nowrap，需复位才能换行
+          whiteSpace: 'normal',
+          overflowWrap: 'break-word',
         }
       : undefined
   );
