@@ -179,26 +179,22 @@
     <!-- 单位选择 Popover：点击单位值时弹出 Listbox 进行选择 -->
     <Popover ref="unitPopover">
       <Listbox
+        v-bind="defaultProps.Listbox"
         :options="unitOptions"
-        optionLabel="label"
-        optionValue="value"
         :modelValue="currentUnitValue"
         @update:modelValue="onUnitSelect"
         :formControl="{ novalidate: true }"
-        size="small"
       />
     </Popover>
 
     <!-- 边框样式选择 Popover：点击样式值时弹出 Listbox 进行选择 -->
     <Popover ref="stylePopover">
       <Listbox
+        v-bind="defaultProps.Listbox"
         :options="borderStyleOptions"
-        optionLabel="label"
-        optionValue="value"
         :modelValue="model.border.style"
         @update:modelValue="onStyleSelect"
         :formControl="{ novalidate: true }"
-        size="small"
       />
     </Popover>
   </div>
@@ -206,6 +202,7 @@
 
 <script lang="ts" setup>
   import { borderStyleOptions, unitOptions } from '@neural/data';
+  import { defaultProps } from '@neural/data/defaultProps';
   import Badge from 'primevue/badge';
   import Button from 'primevue/button';
   import InputNumber from 'primevue/inputnumber';

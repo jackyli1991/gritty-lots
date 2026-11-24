@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
+  import { defaultProps } from '@neural/data/defaultProps';
   import { containerOptions } from '@neural/data/options';
   import { usePageNeuralStore } from '@neural/store';
   import { useLayoutStore } from '@neural/store/layout';
@@ -182,12 +183,10 @@
       <label class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
         <span class="shrink-0">类型</span>
         <Select
+          v-bind="defaultProps.Select"
           v-model="containerTypeModel"
           class="w-full"
-          size="small"
           :options="containerOptions"
-          optionLabel="label"
-          optionValue="value"
           :disabled="locked || !!getPanelSplitter(panelNode)"
         />
       </label>

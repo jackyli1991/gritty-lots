@@ -27,8 +27,6 @@ const schema: FormItemProps[] = [
     label: '尺寸',
     component: 'SelectButton',
     componentProps: {
-      optionLabel: 'label',
-      optionValue: 'value',
       options: [
         { label: '小', value: 'small' },
         { label: '中', value: 'medium' },

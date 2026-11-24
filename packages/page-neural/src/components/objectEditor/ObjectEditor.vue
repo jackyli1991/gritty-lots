@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { defaultProps } from '@neural/data/defaultProps';
   import { isEqual } from 'lodash-es';
   import Button from 'primevue/button';
   import InputText from 'primevue/inputtext';
@@ -296,12 +297,10 @@
   <div ref="rootEl" class="w-full" :class="{ 'opacity-60 pointer-events-none': disabled }">
     <div class="flex justify-between items-center gap-2 mb-1">
       <SelectButton
+        v-bind="defaultProps.SelectButton"
         v-model="editType"
         :options="stateOptions"
-        optionLabel="label"
-        optionValue="value"
         :optionDisabled="isModeOptionDisabled"
-        size="small"
         :allowEmpty="false"
         :disabled="disabled"
         :formControl="nestedFormControl"
@@ -348,11 +347,9 @@
               :formControl="nestedFormControl"
             />
             <Select
+              v-bind="defaultProps.Select"
               :modelValue="item.type"
               :options="typeOptions"
-              optionLabel="label"
-              optionValue="value"
-              size="small"
               class="w-22 shrink-0"
               :disabled="disabled"
               :formControl="nestedFormControl"

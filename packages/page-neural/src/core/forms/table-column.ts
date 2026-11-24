@@ -56,8 +56,6 @@ export function getColumnSchema(params: {
       label: '类型',
       component: 'Select',
       componentProps: {
-        optionLabel: 'label',
-        optionValue: 'value',
         optionDisabled: (option: { disabled: boolean }) => option.disabled,
         options: ALL_TYPE_VALUES.map((type) => ({
           label: TABLE_COLUMN_TYPE_LABEL[type],
@@ -80,9 +78,7 @@ export function getColumnSchema(params: {
       component: 'InputNumber',
       componentProps: {
         min: 0,
-        showButtons: true,
         placeholder: '自适应',
-        fluid: true,
         suffix: 'px',
       },
       // dependencies: hideForNonDataColumn,
@@ -92,8 +88,6 @@ export function getColumnSchema(params: {
       label: '对齐',
       component: 'Select',
       componentProps: {
-        optionLabel: 'label',
-        optionValue: 'value',
         options: ALIGN_OPTIONS,
       },
       // dependencies: hideForNonDataColumn,
@@ -103,8 +97,6 @@ export function getColumnSchema(params: {
       label: '固定',
       component: 'Select',
       componentProps: {
-        optionLabel: 'label',
-        optionValue: 'value',
         options: FIXED_OPTIONS,
         showClear: true,
       },

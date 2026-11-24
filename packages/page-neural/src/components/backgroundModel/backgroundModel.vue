@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import { defaultProps } from '@neural/data/defaultProps';
   import Button from 'primevue/button';
   import type { FileUploadUploaderEvent } from 'primevue/fileupload';
   import FileUpload from 'primevue/fileupload';
@@ -211,12 +212,10 @@
       <div class="flex flex-col gap-2">
         <span class="text-xs font-medium text-gray-600 dark:text-gray-300">翻转</span>
         <Listbox
+          v-bind="defaultProps.Listbox"
           :modelValue="flipSelection"
           :options="flipOptions"
-          optionLabel="label"
-          optionValue="value"
           :multiple="true"
-          size="small"
           class="w-32"
           :formControl="{ novalidate: true }"
           @update:modelValue="flipSelection = $event"

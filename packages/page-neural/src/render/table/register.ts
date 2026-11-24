@@ -1,5 +1,4 @@
 import { registerTableColumn } from '@neural/core/tools/registerTableColumn';
-import { SEVERITY_OPTIONS } from '@neural/data/options';
 import type { TableColumn } from '@neural/types/table';
 
 import ColorColumn from './cells/color.vue';
@@ -18,7 +17,7 @@ registerTableColumn(
       fieldName: 'rows',
       label: '最多显示行数',
       component: 'InputNumber',
-      componentProps: { fluid: true, min: 1 },
+      componentProps: { min: 1 },
       tips: '最多显示的行数，超出时省略号显示',
     },
   ],
@@ -40,13 +39,9 @@ registerTableColumn(
     {
       fieldName: 'severity',
       label: '标签默认类型',
-      component: 'Select',
+      component: 'TagTypes',
       class: 'col-span-full',
-      componentProps: {
-        options: SEVERITY_OPTIONS,
-        optionLabel: 'label',
-        optionValue: 'value',
-      },
+      componentProps: {},
       tips: '在枚举数据中没有指定标签类型时，使用此类型',
     },
   ],
@@ -81,13 +76,9 @@ registerTableColumn(
     {
       fieldName: 'severity',
       label: '标签默认类型',
-      component: 'Select',
+      component: 'TagTypes',
       class: 'col-span-2',
-      componentProps: {
-        options: SEVERITY_OPTIONS,
-        optionLabel: 'label',
-        optionValue: 'value',
-      },
+      componentProps: {},
       tips: '在枚举数据中没有指定标签类型时，使用此类型',
     },
     {
@@ -95,7 +86,7 @@ registerTableColumn(
       label: '最大显示数量',
       component: 'InputNumber',
       class: 'col-span-1',
-      componentProps: { min: 1, fluid: true },
+      componentProps: { min: 1 },
       tips: '最多显示的标签数量，超出时+n显示',
     },
   ],
@@ -125,13 +116,13 @@ registerTableColumn(
       fieldName: 'imageSize',
       label: '图片大小',
       component: 'InputNumber',
-      componentProps: { fluid: true, suffix: 'px', min: 10 },
+      componentProps: { suffix: 'px', min: 10 },
     },
     {
       fieldName: 'imageBorderRadius',
       label: '圆角半径',
       component: 'InputNumber',
-      componentProps: { fluid: true, suffix: 'px', min: 0 },
+      componentProps: { suffix: 'px', min: 0 },
     },
   ],
   {
@@ -183,7 +174,7 @@ registerTableColumn(
       fieldName: 'barHeight',
       label: '进度条高度(px)',
       component: 'InputNumber',
-      componentProps: { fluid: true, min: 6, max: 28 },
+      componentProps: { min: 6, max: 28 },
     },
     {
       fieldName: 'processColors',

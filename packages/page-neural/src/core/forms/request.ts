@@ -27,9 +27,6 @@ const schema: FormItemProps[] = [
     component: 'Select',
     class: 'col-span-2',
     componentProps: {
-      placeholder: '请选择',
-      optionLabel: 'label',
-      optionValue: 'value',
       options: [
         { label: 'JSON数据', value: 'json' },
         { label: 'HTTP请求', value: 'http' },
@@ -59,9 +56,6 @@ const schema: FormItemProps[] = [
     component: 'Select',
     class: 'col-span-1',
     componentProps: {
-      placeholder: '请选择',
-      optionLabel: 'label',
-      optionValue: 'value',
       options: [
         { label: 'GET', value: 'GET' },
         { label: 'POST', value: 'POST' },

@@ -110,6 +110,7 @@
 </template>
 
 <script setup lang="ts">
+  import { defaultProps } from '@neural/data/defaultProps';
   import type { FormFieldState, FormInstance } from '@primevue/forms';
   import { Form } from '@primevue/forms';
   import { zodResolver } from '@primevue/forms/resolvers/zod'; // 重点！resolver单独路径
@@ -350,8 +351,15 @@
     return obj;
   };
 
-  /** 组件绑定属性：合并 componentProps、额外双向绑定与顶层 disabled */
+  /** 取组件的默认属性配置；未配置或自定义渲染组件时返回空对象 */
+  const getComponentDefaultProps = (component?: string): Record<string, any> => {
+    if (!component) return {};
+    return defaultProps[component] ?? {};
+  };
+
+  /** 组件绑定属性：默认属性 → componentProps → 额外双向绑定 → 顶层 disabled */
   const getComponentAttrs = (item: FormItemProps) => ({
+    ...getComponentDefaultProps(item.component),
     ...item.componentProps,
     ...getExtraModelValues(item),
     ...(item.disabled !== undefined ? { disabled: item.disabled } : {}),

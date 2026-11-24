@@ -43,23 +43,27 @@ const alignMaps = {
 export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
   const props: PrimeColumnProps = {};
 
-  // 内建列各自的专用 props
+  // 通用 props
+  props.field = col.field;
+  props.header = col.title || undefined;
+
+  // 单选列、多选列专用 props
   if (col.type === 'selection') {
     props.selectionMode = 'single';
+    props.header = '';
   } else if (col.type === 'multiSelection') {
     props.selectionMode = 'multiple';
-  }
-
-  // 数据列通用 props
-  if (isDataColumn(col.type)) {
-    props.field = col.field;
-    props.header = col.title || undefined;
-    props.sortable = col.sortable;
+    props.header = '';
   }
 
   // type === 'index' 时，默认添加序号标题
   if (col.type === 'index') {
     props.header = col.title || '序号';
+  }
+
+  // 数据列启用排序
+  if (isDataColumn(col.type)) {
+    props.sortable = col.sortable;
   }
 
   // fixed: 列固定
@@ -68,7 +72,7 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
     props.alignFrozen = col.fixed;
   }
 
-  // width + align 同时应用到表头和表体，避免仅 bodyStyle 或仅 headerStyle 造成对齐错位
+  // width + align 同时应用到表头和表体
   const style: Record<string, string> = {
     paddingLeft: '8px',
     paddingRight: '8px',

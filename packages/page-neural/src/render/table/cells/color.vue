@@ -23,12 +23,15 @@
 
 <template>
   <div class="inline-block">
-    <span class="flex items-center gap-2 overflow-hidden">
+    <span class="flex items-center overflow-hidden">
       <span
         class="inline-block size-4 shrink-0 rounded-sm border border-gray-200 dark:border-gray-700"
         :style="{ backgroundColor: color }"
       />
-      <span v-if="showColorValue" class="truncate text-xs text-gray-600 dark:text-gray-300">
+      <span
+        v-if="showColorValue && color"
+        class="truncate text-xs text-gray-600 dark:text-gray-300 ml-2"
+      >
         {{ color }}
       </span>
     </span>

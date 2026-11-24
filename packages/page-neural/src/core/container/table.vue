@@ -5,13 +5,14 @@
 -->
 <script setup lang="ts">
   import { useData } from '@neural/composables/useData';
-  import { getColumnMeta, isDataColumn } from '@neural/data/table';
+  import { getColumnMeta, isDataColumn, isOperationColumn } from '@neural/data/table';
   import {
     resolveColumnProps,
     resolveSelectionMode,
     resolveTableProps,
   } from '@neural/render/utils/table';
   import type { TableColumn, TableModelValue } from '@neural/types/table';
+  import Button from 'primevue/button';
   import Column from 'primevue/column';
   import DataTable from 'primevue/datatable';
   import { computed, ref } from 'vue';
@@ -86,11 +87,12 @@
 
     <!-- 动态列：按配置顺序渲染，属性映射由 resolveColumnProps 统一处理 -->
     <Column v-for="col in columns" :key="col.id" v-bind="resolveColumnProps(col)">
-      <template v-if="col.type === 'index' || isDataColumn(col.type)" #body="slotProps">
-        <!-- 自动序号列 -->
-        <template v-if="col.type === 'index'">{{ slotProps.index + 1 }}</template>
-        <!-- 数据列：字段为 undefined / null / '' 时展示缺省占位 -->
-        <template v-else-if="col.field && isEmptyFieldValue(slotProps.data[col.field])">
+      <!-- 自动序号列 -->
+      <template v-if="col.type === 'index'" #body="slotProps">{{ slotProps.index + 1 }}</template>
+      <!-- 数据列 -->
+      <template v-else-if="isDataColumn(col.type)" #body="slotProps">
+        <!-- 字段为 undefined / null / '' 时展示缺省占位 -->
+        <template v-if="col.field && isEmptyFieldValue(slotProps.data[col.field])">
           {{ emptyCellPlaceholder }}
         </template>
         <!-- 列类型注册了渲染组件时，用组件渲染自定义单元格 -->
@@ -101,6 +103,13 @@
           :column="col"
         />
         <template v-else>{{ slotProps.data[col.field] }}</template>
+      </template>
+      <!-- 操作列 -->
+      <template v-else-if="isOperationColumn(col.type)" #body="slotProps">
+        <!-- 操作列渲染 -->
+        <Button size="small" variant="text" severity="info" label="详情" />
+        <Button size="small" variant="text" severity="success" label="编辑" />
+        <Button size="small" variant="text" severity="danger" label="删除" />
       </template>
     </Column>
   </DataTable>

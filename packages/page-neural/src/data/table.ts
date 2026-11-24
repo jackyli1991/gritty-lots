@@ -46,7 +46,7 @@ export const TABLE_COLUMN_META: TableColumnMeta[] = [
     mutex: 'select',
   },
   { type: 'index', title: '序号列', single: true, icon: 'Hash', isData: false },
-  { type: 'button', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
+  { type: 'action', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
 ];
 
 /** 类型键 → 元数据的快速映射 */
@@ -99,6 +99,11 @@ export function addColumnMeta(meta: TableColumnMeta): void {
 /** 是否为数据列（需要绑定字段的列类型） */
 export function isDataColumn(type: TableColumnType): boolean {
   return META_BY_TYPE.get(type)?.isData ?? false;
+}
+
+/** 是否为操作列（需要绑定按钮的列类型） */
+export function isOperationColumn(type: TableColumnType): boolean {
+  return META_BY_TYPE.get(type)?.type === 'action';
 }
 
 /** 是否为单例列（整个表格最多存在一个） */
