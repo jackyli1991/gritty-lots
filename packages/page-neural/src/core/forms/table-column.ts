@@ -7,6 +7,7 @@ import {
 } from '@neural/data/table';
 import type { TableColumn, TableColumnType } from '@neural/types/table';
 import { generateId } from '@neural/utils';
+import { cloneDeep } from 'lodash-es';
 
 /** 表单字段的隐藏联动：非数据列不渲染 field / width / align / fixed / sortable */
 // export const hideForNonDataColumn = {
@@ -32,6 +33,69 @@ export function registerColumnDefaults(type: TableColumnType, defaults: Record<s
   COLUMN_DEFAULTS.set(type, { ...defaults });
 }
 
+export const tableColumnSchema: FormItemProps[] = [
+  {
+    fieldName: 'title',
+    label: '标题',
+    component: 'Input',
+    componentProps: { placeholder: '列标题' },
+  },
+  {
+    fieldName: 'type',
+    label: '类型',
+    component: 'Select',
+    componentProps: {},
+    // componentProps: {
+    //   optionDisabled: (option: { disabled: boolean }) => option.disabled,
+    //   options: ALL_TYPE_VALUES.map((type) => ({
+    //     label: TABLE_COLUMN_TYPE_LABEL[type],
+    //     value: type,
+    //     // 允许切换到当前列自身的类型；其余类型若被阻塞（单例或互斥）则禁用
+    //     disabled: blockedTypes.has(type) && type !== activeType,
+    //   })),
+    // },
+  },
+  {
+    fieldName: 'field',
+    label: '字段',
+    component: 'Input',
+    componentProps: { placeholder: '绑定字段' },
+  },
+  {
+    fieldName: 'width',
+    label: '宽度',
+    component: 'InputNumber',
+    componentProps: {
+      min: 0,
+      placeholder: '自适应',
+      suffix: 'px',
+    },
+  },
+  {
+    fieldName: 'align',
+    label: '对齐',
+    component: 'Select',
+    componentProps: {
+      options: ALIGN_OPTIONS,
+    },
+  },
+  {
+    fieldName: 'fixed',
+    label: '固定',
+    component: 'Select',
+    componentProps: {
+      options: FIXED_OPTIONS,
+      showClear: true,
+    },
+  },
+  {
+    fieldName: 'sortable',
+    label: '可排序',
+    component: 'ToggleSwitch',
+    componentProps: {},
+  },
+];
+
 /**
  * 列配置表单 schema 工厂。
  * 实时计算部分（阻塞状态、当前选中类型）由调用方传入，保持 schema 本身为纯函数。
@@ -44,76 +108,22 @@ export function getColumnSchema(params: {
 }): FormItemProps[] {
   const { blockedTypes, activeType } = params;
 
-  const baseSchema: FormItemProps[] = [
-    {
-      fieldName: 'title',
-      label: '标题',
-      component: 'Input',
-      componentProps: { placeholder: '列标题' },
-    },
-    {
-      fieldName: 'type',
-      label: '类型',
-      component: 'Select',
-      componentProps: {
-        optionDisabled: (option: { disabled: boolean }) => option.disabled,
-        options: ALL_TYPE_VALUES.map((type) => ({
-          label: TABLE_COLUMN_TYPE_LABEL[type],
-          value: type,
-          // 允许切换到当前列自身的类型；其余类型若被阻塞（单例或互斥）则禁用
-          disabled: blockedTypes.has(type) && type !== activeType,
-        })),
-      },
-    },
-    {
-      fieldName: 'field',
-      label: '字段',
-      component: 'Input',
-      componentProps: { placeholder: '绑定字段' },
-      // dependencies: hideForNonDataColumn,
-    },
-    {
-      fieldName: 'width',
-      label: '宽度',
-      component: 'InputNumber',
-      componentProps: {
-        min: 0,
-        placeholder: '自适应',
-        suffix: 'px',
-      },
-      // dependencies: hideForNonDataColumn,
-    },
-    {
-      fieldName: 'align',
-      label: '对齐',
-      component: 'Select',
-      componentProps: {
-        options: ALIGN_OPTIONS,
-      },
-      // dependencies: hideForNonDataColumn,
-    },
-    {
-      fieldName: 'fixed',
-      label: '固定',
-      component: 'Select',
-      componentProps: {
-        options: FIXED_OPTIONS,
-        showClear: true,
-      },
-      // dependencies: hideForNonDataColumn,
-    },
-    {
-      fieldName: 'sortable',
-      label: '可排序',
-      component: 'ToggleSwitch',
-      componentProps: {},
-      // dependencies: hideForNonDataColumn,
-    },
-  ];
+  const tableColumnSchemaCopy = cloneDeep(tableColumnSchema);
+  // 动态计算类型选项
+  const typeSchema = tableColumnSchemaCopy.find((item) => item.fieldName === 'type');
+  typeSchema!.componentProps = {
+    optionDisabled: (option: { disabled: boolean }) => option.disabled,
+    options: ALL_TYPE_VALUES.map((type) => ({
+      label: TABLE_COLUMN_TYPE_LABEL[type],
+      value: type,
+      // 允许切换到当前列自身的类型；其余类型若被阻塞（单例或互斥）则禁用
+      disabled: blockedTypes.has(type) && type !== activeType,
+    })),
+  };
 
   // 合并当前列类型追加的表单项
   const extraSchema = activeType ? (COLUMN_FORM_SCHEMA.get(activeType) ?? []) : [];
-  return [...baseSchema, ...extraSchema];
+  return [...tableColumnSchemaCopy, ...extraSchema];
 }
 
 /** 构造表格列默认值，合并该类型注册的默认配置 */

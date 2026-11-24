@@ -5,14 +5,14 @@
 -->
 <script setup lang="ts">
   import { useData } from '@neural/composables/useData';
-  import { getColumnMeta, isDataColumn, isOperationColumn } from '@neural/data/table';
+  import { getColumnMeta, isDataColumn } from '@neural/data/table';
+  import ActionColumn from '@neural/render/table/cells/action.vue';
   import {
     resolveColumnProps,
     resolveSelectionMode,
     resolveTableProps,
   } from '@neural/render/utils/table';
   import type { TableColumn, TableModelValue } from '@neural/types/table';
-  import Button from 'primevue/button';
   import Column from 'primevue/column';
   import DataTable from 'primevue/datatable';
   import { computed, ref } from 'vue';
@@ -104,10 +104,18 @@
         />
         <template v-else>{{ slotProps.data[col.field] }}</template>
       </template>
-      <!-- 操作列 -->
-      <template v-else-if="isOperationColumn(col.type)" #body="slotProps">
-        <!-- 操作列渲染 -->
-        <component :is="getColumnMeta(col.type)!.component" :row="slotProps.data" :column="col" />
+    </Column>
+    <!-- 操作列 -->
+    <Column
+      v-if="containerModel.actionColumnEnable"
+      v-bind="resolveColumnProps(containerModel.actionColumnConfig || {})"
+    >
+      <template #body="slotProps">
+        <ActionColumn
+          :row="slotProps.data"
+          :column="containerModel.actionColumnConfig || {}"
+          :actionBtns="containerModel.actionBtns || []"
+        />
       </template>
     </Column>
   </DataTable>

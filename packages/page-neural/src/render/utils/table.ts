@@ -1,5 +1,5 @@
 import { isDataColumn } from '@neural/data/table';
-import type { TableColumn, TableModelValue } from '@neural/types/table';
+import type { TableColumn, TableModelValue, TableColumnType } from '@neural/types/table';
 
 /**
  * PrimeVue DataTable Column 组件可接收的核心 props。
@@ -40,7 +40,7 @@ const alignMaps = {
  * 统一处理字段映射、样式合并（width + align 同时应用到 headerStyle / bodyStyle），
  * 让渲染层只需要 `<Column v-bind="resolveColumnProps(col)" />`。
  */
-export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
+export function resolveColumnProps(col: Partial<TableColumn>): PrimeColumnProps {
   const props: PrimeColumnProps = {};
 
   // 通用 props
@@ -62,7 +62,7 @@ export function resolveColumnProps(col: TableColumn): PrimeColumnProps {
   }
 
   // 数据列启用排序
-  if (isDataColumn(col.type)) {
+  if (isDataColumn(col?.type as TableColumnType)) {
     props.sortable = col.sortable;
   }
 

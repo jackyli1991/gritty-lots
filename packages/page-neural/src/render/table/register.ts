@@ -1,8 +1,6 @@
-import TableActionAttrs from '@neural/core/attrs/container/table-action.vue';
 import { registerTableColumn } from '@neural/core/tools/registerTableColumn';
 import type { TableColumn } from '@neural/types/table';
 
-import ActionColumn from './cells/action.vue';
 import ColorColumn from './cells/color.vue';
 import ImageColumn from './cells/image.vue';
 import LinkColumn from './cells/link.vue';
@@ -244,43 +242,5 @@ registerTableColumn(
   ],
   {
     showColorValue: true,
-  }
-);
-
-registerTableColumn(
-  {
-    type: 'action',
-    title: '操作',
-    single: true,
-    icon: 'MousePointerClick',
-    isData: false,
-    component: ActionColumn,
-  },
-  [
-    {
-      fieldName: 'actionBtns',
-      label: '按钮配置',
-      renderComponent: TableActionAttrs,
-      class: 'col-span-full',
-      componentProps: {},
-    },
-    {
-      fieldName: 'showBtnCount',
-      label: '显示按钮数量',
-      component: 'InputNumber',
-      componentProps: { min: 1 },
-      tips: '最多显示的按钮数量，超出时「更多」下拉显示',
-    },
-    {
-      fieldName: 'moreBtnText',
-      label: '更多按钮文本',
-      component: 'InputText',
-      componentProps: { placeholder: '请输入', maxLength: 10 },
-    },
-  ],
-  {
-    showBtnCount: 2,
-    moreBtnText: '更多',
-    actionBtns: [],
   }
 );

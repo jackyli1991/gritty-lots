@@ -109,6 +109,9 @@ export interface TableModelValue {
   emptyText?: string;
   emptyCellPlaceholder?: string;
   columns: TableColumn[];
-  showActionColumn?: boolean;
+  actionColumnEnable?: boolean;
+  actionColumnConfig?: Pick<TableColumn, 'width' | 'align' | 'fixed' | 'id' | 'title'> & {
+    showActionCount?: number;
+  };
   actionBtns?: TableActionButton[];
 }

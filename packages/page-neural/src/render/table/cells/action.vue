@@ -9,8 +9,10 @@
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
-    /** 当前列配置 */
-    column: TableColumn;
+    /** c操作列配置 */
+    column: Partial<TableColumn>;
+    /** 操作列按钮列表 */
+    actionBtns: TableActionButton[];
   }
 
   const props = defineProps<Props>();
@@ -18,14 +20,14 @@
   /** 「更多」下拉菜单引用 */
   const moreMenu = ref<InstanceType<typeof Menu> | null>(null);
 
-  /** 操作列配置的按钮列表 */
+  /** 操作列按钮列表 */
   const buttons = computed<TableActionButton[]>(() =>
-    Array.isArray(props.column.actionBtns) ? props.column.actionBtns : []
+    Array.isArray(props.actionBtns) ? props.actionBtns : []
   );
 
-  /** 直接展示的按钮数量：未配置时全部直接展示 */
+  /** 直接展示的按钮数量：未配置 / 非法值时全部直接展示 */
   const visibleCount = computed(() => {
-    const count = Number(props.column.showBtnCount);
+    const count = Number(props.column.showActionCount);
     return Number.isFinite(count) && count > 0 ? count : buttons.value.length;
   });
 
@@ -34,9 +36,6 @@
 
   /** 收进「更多」下拉的按钮 */
   const overflowButtons = computed(() => buttons.value.slice(visibleCount.value));
-
-  /** 「更多」按钮文本，未配置时回退默认文案 */
-  const moreText = computed(() => props.column.moreBtnText?.trim() || '更多');
 
   /** 「更多」下拉菜单项 */
   const moreItems = computed<MenuItem[]>(() =>
@@ -65,7 +64,7 @@
       <!-- 超出展示数量的按钮收进「更多」下拉 -->
       <template v-if="overflowButtons.length > 0">
         <Button class="gap-1!" size="small" text @click="toggleMoreMenu">
-          <span>{{ moreText }}</span>
+          <span>更多</span>
           <NeuralIcon name="ChevronDown" :size="12" />
         </Button>
         <Menu ref="moreMenu" :model="moreItems" popup />

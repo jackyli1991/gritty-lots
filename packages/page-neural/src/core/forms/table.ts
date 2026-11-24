@@ -1,8 +1,11 @@
 import type { FormItemProps } from '@neural/components/form';
 import TableActionAttrs from '@neural/core/attrs/container/table-action.vue';
 import TableColumnAttrs from '@neural/core/attrs/container/table-column.vue';
+import { tableColumnSchema, createTableColumn } from '@neural/core/forms/table-column';
 import type { TableModelValue } from '@neural/types/table';
 import { z } from 'zod';
+
+const excludeFields = ['type', 'field', 'sortable'];
 
 const schema: FormItemProps[] = [
   {
@@ -71,10 +74,42 @@ const schema: FormItemProps[] = [
     component: 'Fieldset',
     children: [
       {
-        fieldName: 'showActionColumn',
-        label: '显示操作列',
+        fieldName: 'actionColumnEnable',
+        label: '启用操作列',
         component: 'ToggleSwitch',
+        class: 'col-span-full',
         componentProps: {},
+      },
+      {
+        fieldName: 'actionColumnConfig',
+        label: '',
+        showLabel: false,
+        component: 'NeuralForm',
+        class: 'col-span-full',
+        componentProps: {
+          schema: [
+            ...tableColumnSchema.filter((item) => !excludeFields.includes(item.fieldName || '')),
+            {
+              fieldName: 'showActionCount',
+              label: '展示按钮数量',
+              component: 'InputNumber',
+              componentProps: {
+                min: 1,
+              },
+              tips: '最多显示的按钮数量，超出时「更多」下拉显示',
+            },
+          ],
+          columns: 2,
+          rules: z.object({
+            showActionCount: z.number().min(1, '展示按钮数量不能小于1'),
+          }),
+        },
+        dependencies: {
+          trigger: ['actionColumnEnable'],
+          resolve: ({ values }: { values: Record<string, any> }) => ({
+            hidden: !values.actionColumnEnable,
+          }),
+        },
       },
       {
         fieldName: 'actionBtns',
@@ -83,6 +118,12 @@ const schema: FormItemProps[] = [
         renderComponent: TableActionAttrs,
         class: 'col-span-full',
         componentProps: {},
+        dependencies: {
+          trigger: ['actionColumnEnable'],
+          resolve: ({ values }: { values: Record<string, any> }) => ({
+            visible: values.actionColumnEnable,
+          }),
+        },
       },
     ],
   },
@@ -90,7 +131,14 @@ const schema: FormItemProps[] = [
     label: '表格分页',
     formGroup: true,
     component: 'Fieldset',
-    children: [],
+    children: [
+      {
+        fieldName: 'pagination',
+        label: '启用分页',
+        component: 'ToggleSwitch',
+        componentProps: {},
+      },
+    ],
   },
 ];
 
@@ -117,6 +165,12 @@ export default {
  * 创建表格表单模型
  */
 export function createTable(): TableModelValue {
+  const column = createTableColumn('action');
+  column.title = '操作';
+  column.fixed = 'right';
+  column.width = 100;
+  column.align = 'center';
+
   return {
     size: 'medium',
     showGridlines: false,
@@ -124,7 +178,16 @@ export function createTable(): TableModelValue {
     emptyText: '暂无数据',
     emptyCellPlaceholder: '-',
     columns: [],
-    showActionColumn: false,
+    actionColumnEnable: false,
+    // 操作列配置仅保留渲染所需的列属性，与 TableModelValue.actionColumnConfig 的 Pick 类型保持一致
+    actionColumnConfig: {
+      id: column.id,
+      title: column.title,
+      width: column.width,
+      align: column.align,
+      fixed: column.fixed,
+      showActionCount: 2,
+    },
     actionBtns: [],
   };
 }
