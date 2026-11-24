@@ -64,7 +64,8 @@
     "systemstatus",
     "columnheadercontent",
     "unref",
-    "bodycell"
+    "bodycell",
+    "roughjs"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

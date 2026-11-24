@@ -72,9 +72,9 @@
 
     <!-- 上：Tab 头部（PrimeVue ScrollArea 横向滚动 + 拖拽排序） -->
     <ScrollArea class="border-0! px-2">
-      <ScrollAreaViewport class="px-0! py-2!">
+      <ScrollAreaViewport class="px-0! py-2! overflow-y-hidden!">
         <ScrollAreaContent>
-          <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-2 pb-1">
+          <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-1 pb-2">
             <SortableItem
               v-for="(col, position) in filteredColumns"
               :key="col.id"
@@ -87,19 +87,21 @@
                 icon: TYPE_ICON[col.type],
               }"
               group="table-columns"
-              class="group inline-block shrink-0 cursor-grab gap-1.5 rounded px-1.5 py-1 text-xs transition-[color,background-color,border-color] duration-150 hover:bg-gray-100 dark:hover:bg-gray-800 bg-gray-100"
-              :class="
-                activeId === col.id
-                  ? 'border-b-2 border-(--p-primary-500) bg-gray-100 text-(--p-primary-500) dark:bg-gray-800'
-                  : 'border-b-2 border-transparent text-gray-600 dark:text-gray-300'
-              "
+              class="group relative inline-block shrink-0 cursor-grab"
               @click="selectColumn(col)"
             >
-              <div class="flex flex-row items-center gap-1.5">
-                <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
-                <span class="max-w-40 truncate font-medium"
-                  >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
+              <!-- 手绘下划线标注选中项 -->
+              <div v-rough-underline="activeId === col.id" class="inline-block px-1.5 py-1">
+                <Button
+                  size="small"
+                  :severity="activeId === col.id ? 'contrast' : 'secondary'"
+                  variant="text"
                 >
+                  <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
+                  <span class="truncate font-medium"
+                    >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
+                  >
+                </Button>
               </div>
             </SortableItem>
           </div>
@@ -148,6 +150,7 @@
     getBlockedColumnTypes,
     isColumnTypeBlocked,
   } from '@neural/data/table';
+  import { vRoughUnderline } from '@neural/directives/roughUnderline';
   import SortableItem from '@neural/dnd/components/sortableItem.vue';
   import type { TableColumn, TableColumnType } from '@neural/types/table';
   import { generateId } from '@neural/utils';

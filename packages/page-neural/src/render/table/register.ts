@@ -1,6 +1,8 @@
+import TableActionAttrs from '@neural/core/attrs/container/table-action.vue';
 import { registerTableColumn } from '@neural/core/tools/registerTableColumn';
 import type { TableColumn } from '@neural/types/table';
 
+import ActionColumn from './cells/action.vue';
 import ColorColumn from './cells/color.vue';
 import ImageColumn from './cells/image.vue';
 import LinkColumn from './cells/link.vue';
@@ -185,7 +187,7 @@ registerTableColumn(
         columns: [
           {
             field: 'value',
-            title: '阈值(小于时显示对应颜色)',
+            title: '阈值(小于等于时显示对应颜色)',
             type: 'text',
             align: 'center',
             width: 100,
@@ -196,7 +198,7 @@ registerTableColumn(
               min: 0,
               max: 100,
               showButtons: true,
-              placeholder: '小于此阈值时显示对应的颜色',
+              placeholder: '请输入阈值，范围0-100',
             },
           },
           {
@@ -212,7 +214,7 @@ registerTableColumn(
           },
         ] as Omit<TableColumn, 'id'>[],
       },
-      tips: '配置进度条的颜色，小于阈值显示对应的颜色，以第一个匹配的阈值为准',
+      tips: '配置进度条的颜色，小于等于阈值显示对应的颜色，以第一个匹配的阈值为准',
     },
   ],
   {
@@ -242,5 +244,43 @@ registerTableColumn(
   ],
   {
     showColorValue: true,
+  }
+);
+
+registerTableColumn(
+  {
+    type: 'action',
+    title: '操作',
+    single: true,
+    icon: 'MousePointerClick',
+    isData: false,
+    component: ActionColumn,
+  },
+  [
+    {
+      fieldName: 'actionBtns',
+      label: '按钮配置',
+      renderComponent: TableActionAttrs,
+      class: 'col-span-full',
+      componentProps: {},
+    },
+    {
+      fieldName: 'showBtnCount',
+      label: '显示按钮数量',
+      component: 'InputNumber',
+      componentProps: { min: 1 },
+      tips: '最多显示的按钮数量，超出时「更多」下拉显示',
+    },
+    {
+      fieldName: 'moreBtnText',
+      label: '更多按钮文本',
+      component: 'InputText',
+      componentProps: { placeholder: '请输入', maxLength: 10 },
+    },
+  ],
+  {
+    showBtnCount: 2,
+    moreBtnText: '更多',
+    actionBtns: [],
   }
 );

@@ -78,6 +78,7 @@ export const SEVERITY_OPTIONS = [
   { label: '普通', value: 'secondary' },
   { label: '成功', value: 'success' },
   { label: '通知', value: 'info' },
+  // { label: '提醒', value: 'help' },
   { label: '警告', value: 'warn' },
   { label: '错误', value: 'danger' },
   { label: '高对比', value: 'contrast' },

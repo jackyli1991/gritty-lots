@@ -46,7 +46,7 @@ export const TABLE_COLUMN_META: TableColumnMeta[] = [
     mutex: 'select',
   },
   { type: 'index', title: '序号列', single: true, icon: 'Hash', isData: false },
-  { type: 'action', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
+  // { type: 'action', title: '操作', single: true, icon: 'MousePointerClick', isData: false },
 ];
 
 /** 类型键 → 元数据的快速映射 */

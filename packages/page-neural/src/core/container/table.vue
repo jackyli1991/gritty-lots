@@ -107,9 +107,7 @@
       <!-- 操作列 -->
       <template v-else-if="isOperationColumn(col.type)" #body="slotProps">
         <!-- 操作列渲染 -->
-        <Button size="small" variant="text" severity="info" label="详情" />
-        <Button size="small" variant="text" severity="success" label="编辑" />
-        <Button size="small" variant="text" severity="danger" label="删除" />
+        <component :is="getColumnMeta(col.type)!.component" :row="slotProps.data" :column="col" />
       </template>
     </Column>
   </DataTable>

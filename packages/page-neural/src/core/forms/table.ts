@@ -1,91 +1,96 @@
 import type { FormItemProps } from '@neural/components/form';
-import ColumnAttrs from '@neural/core/attrs/container/table-column.vue';
+import TableActionAttrs from '@neural/core/attrs/container/table-action.vue';
+import TableColumnAttrs from '@neural/core/attrs/container/table-column.vue';
 import type { TableModelValue } from '@neural/types/table';
 import { z } from 'zod';
 
 const schema: FormItemProps[] = [
   {
-    fieldName: '',
-    label: '',
-    showLabel: false,
-    component: 'Divider',
+    label: '表格配置',
+    formGroup: true,
+    component: 'Fieldset',
     class: 'col-span-full',
-    componentProps: {
-      text: '基础配置',
-      pt: {
-        root: {
-          style: '--p-divider-horizontal-padding: 0',
-        },
-        content: {
-          class: 'font-bold',
+    children: [
+      {
+        fieldName: 'size',
+        label: '尺寸',
+        component: 'SelectButton',
+        componentProps: {
+          options: [
+            { label: '小', value: 'small' },
+            { label: '中', value: 'medium' },
+            { label: '大', value: 'large' },
+          ],
         },
       },
-    },
+      {
+        fieldName: 'showGridlines',
+        label: '显示网格线',
+        component: 'ToggleSwitch',
+        componentProps: {},
+      },
+      {
+        fieldName: 'stripedRows',
+        label: '斑马行',
+        component: 'ToggleSwitch',
+        componentProps: {},
+      },
+      {
+        fieldName: 'emptyText',
+        label: '空数据提示',
+        component: 'Input',
+        componentProps: {},
+      },
+      {
+        fieldName: 'emptyCellPlaceholder',
+        label: '数据缺省占位',
+        component: 'Input',
+        componentProps: {},
+        tips: '表格单元格数据为空时的占位符',
+      },
+    ],
   },
   {
-    fieldName: 'size',
-    label: '尺寸',
-    component: 'SelectButton',
-    componentProps: {
-      options: [
-        { label: '小', value: 'small' },
-        { label: '中', value: 'medium' },
-        { label: '大', value: 'large' },
-      ],
-    },
+    label: '表格列',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [
+      {
+        fieldName: 'columns',
+        label: '',
+        showLabel: false,
+        class: 'col-span-full',
+        renderComponent: TableColumnAttrs,
+        componentProps: {},
+      },
+    ],
   },
   {
-    fieldName: 'showGridlines',
-    label: '显示网格线',
-    component: 'ToggleSwitch',
-    componentProps: {},
+    label: '表格操作',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [
+      {
+        fieldName: 'showActionColumn',
+        label: '显示操作列',
+        component: 'ToggleSwitch',
+        componentProps: {},
+      },
+      {
+        fieldName: 'actionBtns',
+        label: '',
+        showLabel: false,
+        renderComponent: TableActionAttrs,
+        class: 'col-span-full',
+        componentProps: {},
+      },
+    ],
   },
   {
-    fieldName: 'stripedRows',
-    label: '斑马行',
-    component: 'ToggleSwitch',
-    componentProps: {},
-  },
-  {
-    fieldName: 'emptyText',
-    label: '空数据提示',
-    component: 'Input',
-    componentProps: {},
-  },
-  {
-    fieldName: 'emptyCellPlaceholder',
-    label: '数据缺省占位',
-    component: 'Input',
-    componentProps: {},
-    tips: '表格单元格数据为空时的占位符',
-  },
-  {
-    fieldName: '',
-    label: '',
-    showLabel: false,
-    component: 'Divider',
-    class: 'col-span-full',
-    componentProps: {
-      text: '表格列',
-    },
-  },
-  {
-    fieldName: 'columns',
-    label: '',
-    showLabel: false,
-    class: 'col-span-full',
-    renderComponent: ColumnAttrs,
-    componentProps: {},
-  },
-  {
-    fieldName: '',
-    label: '',
-    showLabel: false,
-    component: 'Divider',
-    class: 'col-span-full',
-    componentProps: {
-      text: '表格分页',
-    },
+    label: '表格分页',
+    formGroup: true,
+    component: 'Fieldset',
+    children: [],
   },
 ];
 
@@ -119,5 +124,7 @@ export function createTable(): TableModelValue {
     emptyText: '暂无数据',
     emptyCellPlaceholder: '-',
     columns: [],
+    showActionColumn: false,
+    actionBtns: [],
   };
 }

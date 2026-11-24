@@ -28,7 +28,7 @@ export type BuiltinTableColumnType =
   | 'link' // 链接
   | 'progress' // 进度条
   | 'color' // 颜色
-  | 'button'; // 操作列
+  | 'action'; // 操作列
 
 /** 表格列类型：内置类型 + 通过 registerTableColumn 注册的自定义类型 */
 export type TableColumnType = BuiltinTableColumnType | (string & {});
@@ -39,6 +39,22 @@ export type TableColumnAlign = 'left' | 'center' | 'right';
 /** 固定列位置 */
 export type TableColumnFixed = 'left' | 'right' | null;
 
+/** 操作列按钮配置 */
+export interface TableActionButton {
+  /** 按钮唯一标识 */
+  id: string;
+  /** 按钮文本 */
+  content: string;
+  /** 按钮类型 */
+  severity?: 'secondary' | 'success' | 'info' | 'warn' | 'danger' | 'contrast';
+  /** 按钮样式 */
+  variant?: 'outlined' | 'text' | 'link';
+  /** 是否为圆形按钮 */
+  rounded?: boolean;
+  /** 是否带阴影 */
+  raised?: boolean;
+}
+
 export interface TableColumn {
   /** 行唯一 id，排序 / diff 用 */
   id: string;
@@ -46,7 +62,7 @@ export interface TableColumn {
   type: TableColumnType;
   /** 列标题（selection/multiSelection/index 可不填） */
   title: string;
-  /** 绑定字段；非数据列（selection/multiSelection/index/button）留空 */
+  /** 绑定字段；非数据列（selection/multiSelection/index/action）留空 */
   field: string;
   /** 列宽（像素），0 / null 表示自适应 */
   width?: number | null;
@@ -74,6 +90,12 @@ export interface TableColumn {
   barHeight?: number;
   /** 颜色列：是否显示颜色值文本，默认显示 */
   showColorValue?: boolean;
+  /** 操作列：按钮配置 */
+  actionBtns?: TableActionButton[];
+  /** 操作列：最多直接展示的按钮数量，超出部分收进「更多」下拉 */
+  showBtnCount?: number;
+  /** 操作列：「更多」按钮文本，未配置时默认「更多」 */
+  moreBtnText?: string;
   /** 单元格编辑配置 */
   editConfig?: TableColumnEditConfig;
   /** 自定义列注册时通过配置表单追加的字段（平铺存储） */
@@ -87,4 +109,6 @@ export interface TableModelValue {
   emptyText?: string;
   emptyCellPlaceholder?: string;
   columns: TableColumn[];
+  showActionColumn?: boolean;
+  actionBtns?: TableActionButton[];
 }

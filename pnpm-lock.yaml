@@ -229,6 +229,12 @@ importers:
       primevue:
         specifier: ^5.0.1
         version: 5.0.1(vue@3.5.40(typescript@6.0.3))
+      rough-notation:
+        specifier: ^0.5.1
+        version: 0.5.1
+      roughjs:
+        specifier: ^4.6.6
+        version: 4.6.6
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -3115,6 +3121,9 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  hachure-fill@0.5.2:
+    resolution: {integrity: sha512-3GKBOn+m2LX9iq+JC1064cSFprJY4jL1jCXTcpnfER5HYE2l/4EfWSGzkPa/ZDBmYI0ZOEj5VHV/eKnPGkHuOg==}
+
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
     engines: {node: '>= 0.4'}
@@ -3757,6 +3766,9 @@ packages:
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
 
+  path-data-parser@0.1.0:
+    resolution: {integrity: sha512-NOnmBpt5Y2RWbuv0LMzsayp3lVylAHLPUTut412ZA3l+C4uw4ZVkQbjShYCQ8TCpUMdPapr4YjUqLYD6v68j+w==}
+
   path-key@3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
     engines: {node: '>=8'}
@@ -3800,6 +3812,12 @@ packages:
 
   pkg-types@2.3.1:
     resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
+
+  points-on-curve@0.2.0:
+    resolution: {integrity: sha512-0mYKnYYe9ZcqMCWhUjItv/oHjvgEsfKvnUTg8sAtnHr3GVy7rGkXCb6d5cSyqrWqL4k81b9CPg3urd+T7aop3A==}
+
+  points-on-path@0.2.1:
+    resolution: {integrity: sha512-25ClnWWuw7JbWZcgqY/gJ4FQWadKxGWk+3kR/7kD0tCaDtPPMj7oHu2ToLaVhfpnHrZzYby2w6tUA0eOIuUg8g==}
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -3908,6 +3926,12 @@ packages:
     resolution: {integrity: sha512-HzD4IdphaPMvuAacnL/vtoq5B8FwqewKvxTtqYibWvP6VDyZ+UsTtlw5F8HIOIIpLQAkN2NOP/0sM3puo9xN/A==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
+
+  rough-notation@0.5.1:
+    resolution: {integrity: sha512-ITHofTzm13cWFVfoGsh/4c/k2Mg8geKgBCwex71UZLnNuw403tCRjYPQ68jSAd37DMbZIePXPjDgY0XdZi9HPw==}
+
+  roughjs@4.6.6:
+    resolution: {integrity: sha512-ZUz/69+SYpFN/g/lUlo2FXcIjRkSu3nDarreVdGGndHEBJ6cXPdKguS8JGxwj5HA5xIbVKSmLgr5b3AWxtRfvQ==}
 
   run-applescript@7.1.0:
     resolution: {integrity: sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==}
@@ -7578,6 +7602,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  hachure-fill@0.5.2: {}
+
   has-bigints@1.1.0: {}
 
   has-flag@4.0.0: {}
@@ -8136,6 +8162,8 @@ snapshots:
 
   path-browserify@1.0.1: {}
 
+  path-data-parser@0.1.0: {}
+
   path-key@3.1.1: {}
 
   path-parse@1.0.7: {}
@@ -8174,6 +8202,13 @@ snapshots:
       confbox: 0.2.4
       exsolve: 1.1.1
       pathe: 2.0.3
+
+  points-on-curve@0.2.0: {}
+
+  points-on-path@0.2.1:
+    dependencies:
+      path-data-parser: 0.1.0
+      points-on-curve: 0.2.0
 
   possible-typed-array-names@1.1.0: {}
 
@@ -8365,6 +8400,15 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.65.1
       '@rollup/rollup-win32-x64-msvc': 4.65.1
       fsevents: 2.3.3
+
+  rough-notation@0.5.1: {}
+
+  roughjs@4.6.6:
+    dependencies:
+      hachure-fill: 0.5.2
+      path-data-parser: 0.1.0
+      points-on-curve: 0.2.0
+      points-on-path: 0.2.1
 
   run-applescript@7.1.0: {}
 
