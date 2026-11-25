@@ -22,7 +22,7 @@
             text
             iconOnly
             size="small"
-            :disabled="!activeAction"
+            :disabled="!activeAction || isMoreActive"
             @click="copyAction(activeIndex)"
           >
             <NeuralIcon name="Copy" :size="12" />
@@ -33,7 +33,7 @@
             iconOnly
             size="small"
             severity="danger"
-            :disabled="!activeAction"
+            :disabled="!activeAction || isMoreActive"
             @click="removeActionWithConfirm"
           >
             <NeuralIcon name="Trash2" :size="12" />
@@ -50,42 +50,69 @@
       <ScrollAreaViewport class="px-0! py-2! overflow-y-hidden!">
         <ScrollAreaContent>
           <div v-if="filteredActions.length > 0" class="flex items-center flex-nowrap gap-1">
-            <SortableItem
-              v-for="(action, position) in filteredActions"
-              :key="action.id"
-              :id="action.id"
-              :index="position"
-              :disabled="isFiltering"
-              type="sortableAction"
-              :data="{
-                name: action.content || '未命名',
-                icon: 'MousePointerClick',
-              }"
-              group="table-actions"
-              class="group relative inline-block shrink-0 cursor-grab"
-              @click="selectAction(action)"
-            >
-              <!-- 手绘下划线标注选中项 -->
-              <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
-                <Button
-                  :label="action.content || '未命名'"
-                  :severity="action.severity"
-                  :variant="action.variant"
-                  :rounded="action.rounded"
-                  :raised="action.raised"
-                  size="small"
-                  :class="{ 'gap-1!': true }"
-                >
-                  <NeuralIcon v-if="action.icon" :name="action.icon" :size="12" />
-                  <span>{{ action.content || '未命名' }}</span>
-                </Button>
-                <!-- 推拽排序时若点击到↑按钮上，会阻止排序操作。增加此透明层以实现正常拖拽 -->
-                <div
-                  v-rough-underline="activeId === action.id"
-                  class="absolute top-0 left-0 right-0 bottom-2 bg-transparent z-10"
-                ></div>
+            <template v-for="action in filteredActions" :key="action.id">
+              <!-- 真实按钮：可拖拽排序 -->
+              <SortableItem
+                v-if="action.id !== MORE_ACTION_BTN_ID"
+                :id="action.id"
+                :index="realIndexOf(action.id)"
+                :disabled="isFiltering"
+                type="sortableAction"
+                :data="{
+                  name: action.content || '未命名',
+                  icon: 'MousePointerClick',
+                }"
+                group="table-actions"
+                class="group relative inline-block shrink-0 cursor-grab"
+                @click="selectAction(action)"
+              >
+                <!-- 手绘下划线标注选中项 -->
+                <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
+                  <Button
+                    :label="action.content || '未命名'"
+                    :severity="action.severity"
+                    :variant="action.variant"
+                    :rounded="action.rounded"
+                    :raised="action.raised"
+                    size="small"
+                    :class="{ 'gap-1!': true }"
+                  >
+                    <NeuralIcon v-if="action.icon" :name="action.icon" :size="12" />
+                    <span>{{ action.content || '未命名' }}</span>
+                  </Button>
+                  <!-- 推拽排序时若点击到↑按钮上，会阻止排序操作。增加此透明层以实现正常拖拽 -->
+                  <div
+                    v-rough-underline="activeId === action.id"
+                    class="absolute top-0 left-0 right-0 bottom-2 bg-transparent z-10"
+                  ></div>
+                </div>
+              </SortableItem>
+              <!-- 「更多」按钮：固定在展示数量索引处，不可拖拽，仅可选中编辑 -->
+              <div
+                v-else
+                class="group relative inline-block shrink-0"
+                @click="selectAction(action)"
+              >
+                <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
+                  <Button
+                    :label="action.content || '未命名'"
+                    :severity="action.severity"
+                    :variant="action.variant"
+                    :rounded="action.rounded"
+                    :raised="action.raised"
+                    size="small"
+                    :class="{ 'gap-1!': true }"
+                  >
+                    <NeuralIcon v-if="action.icon" :name="action.icon" :size="12" />
+                    <span>{{ action.content || '未命名' }}</span>
+                  </Button>
+                  <div
+                    v-rough-underline="activeId === action.id"
+                    class="absolute top-0 left-0 right-0 bottom-2 bg-transparent z-10"
+                  ></div>
+                </div>
               </div>
-            </SortableItem>
+            </template>
           </div>
 
           <!-- Tab 头部空态：区分"未找到匹配"和"无按钮" -->
@@ -128,6 +155,7 @@
   import buttonConfig, { createButton } from '@neural/core/forms/button';
   import { vRoughUnderline } from '@neural/directives/roughUnderline';
   import SortableItem from '@neural/dnd/components/sortableItem.vue';
+  import { MORE_ACTION_BTN_ID } from '@neural/types/table';
   import { generateId } from '@neural/utils';
   import Button from 'primevue/button';
   import InputText from 'primevue/inputtext';
@@ -137,7 +165,7 @@
   import ScrollAreaScrollbar from 'primevue/scrollareascrollbar';
   import ScrollAreaViewport from 'primevue/scrollareaviewport';
   import vTooltip from 'primevue/tooltip';
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref, useAttrs, watch } from 'vue';
 
   defineOptions({ name: 'ActionAttrs' });
 
@@ -145,9 +173,52 @@
 
   const model = defineModel<ActionModel[]>({ default: () => [] });
 
-  /** 提交变更：以新数组回写，保证视图与表单同步更新 */
-  function commit() {
-    model.value = model.value.map((action) => ({ ...action }));
+  /** 透传的表单值，用于读取操作列配置中的展示按钮数量 */
+  const attrs = useAttrs();
+
+  /** 配置的展示按钮数量：未配置 / 非法值时为 0（不限制，不注入「更多」） */
+  const showActionCount = computed(() => {
+    const formValues = attrs.formValues as Record<string, any> | undefined;
+    const n = Number(formValues?.actionColumnConfig?.showActionCount);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  });
+
+  /** 用户真实配置的按钮（剔除自动注入的「更多」占位按钮，用于计数 / 排序） */
+  const realActions = computed<ActionModel[]>(() =>
+    model.value.filter((action) => action.id !== MORE_ACTION_BTN_ID)
+  );
+
+  /** 编辑器展示的完整按钮列表（真实按钮 + 插入在展示数量索引处的「更多」），用于选中 / 编辑 / 渲染 */
+  const displayActions = computed<ActionModel[]>(() => model.value);
+
+  /** 构造「更多」按钮：结构与普通按钮完全一致，仅 id 固定 */
+  function createMoreAction(): ActionModel {
+    const action = createButton();
+    action.id = MORE_ACTION_BTN_ID;
+    action.content = '更多';
+    return action;
+  }
+
+  /** 按展示数量同步「更多」按钮：真实按钮数 > 展示数时插入到展示数量索引处，否则移除；保留已有「更多」的配置 */
+  function withMore(list: ActionModel[]): ActionModel[] {
+    const real = list.filter((action) => action.id !== MORE_ACTION_BTN_ID);
+    const existingMore =
+      list.find((action) => action.id === MORE_ACTION_BTN_ID) ??
+      model.value.find((action) => action.id === MORE_ACTION_BTN_ID) ??
+      null;
+    if (showActionCount.value > 0 && real.length > showActionCount.value) {
+      // 「更多」插入到展示数量对应的索引位置，可视化标记截断点
+      const insertAt = Math.min(showActionCount.value, real.length);
+      const result = [...real];
+      result.splice(insertAt, 0, existingMore ?? createMoreAction());
+      return result;
+    }
+    return real;
+  }
+
+  /** 用最新的真实按钮列表重写 model（自动注入 / 移除「更多」） */
+  function applyList(list: ActionModel[]) {
+    model.value = withMore(list);
   }
 
   /** 当前选中的按钮 id */
@@ -170,18 +241,30 @@
   /** 搜索过滤后的按钮；支持空格分隔多关键字（需全部命中按钮名称） */
   const filteredActions = computed(() => {
     const keywords = keyword.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    return model.value.filter((action) => keywords.every((item) => matchKeyword(action, item)));
+    // 保留 model 中「更多」的索引位置（展示数量处），且不受搜索过滤影响，便于随时编辑
+    return displayActions.value.filter((action) => {
+      if (action.id === MORE_ACTION_BTN_ID) return true;
+      return keywords.every((item) => matchKeyword(action, item));
+    });
   });
 
-  /** 当前选中的按钮 */
+  /** 真实按钮在 realActions 中的索引（供 SortableItem 使用，避免「更多」占位导致索引错位） */
+  function realIndexOf(id: string): number {
+    return realActions.value.findIndex((action) => action.id === id);
+  }
+
+  /** 当前选中的按钮（含「更多」） */
   const activeAction = computed(
-    () => model.value.find((action) => action.id === activeId.value) ?? null
+    () => displayActions.value.find((action) => action.id === activeId.value) ?? null
   );
 
-  /** 当前选中按钮在数组中的索引，未选中时为 -1 */
+  /** 当前选中按钮在 realActions 中的索引（复制 / 删除仅作用于真实按钮），未选中时为 -1 */
   const activeIndex = computed(() =>
-    model.value.findIndex((action) => action.id === activeId.value)
+    realActions.value.findIndex((action) => action.id === activeId.value)
   );
+
+  /** 当前选中的是否为「更多」按钮：不可复制 / 删除 */
+  const isMoreActive = computed(() => activeAction.value?.id === MORE_ACTION_BTN_ID);
 
   /** 选中按钮的配置表单 schema */
   const actionSchema = computed<FormItemProps[]>(() => buttonConfig.formConfig.schema);
@@ -189,22 +272,23 @@
   /** 按钮配置表单校验规则 */
   const actionRules = computed(() => buttonConfig.formConfig.rules);
 
-  /** 同步按钮配置到数组，保持 id 不变并触发表单更新 */
+  /** 同步按钮配置到数组，保持 id 不变并按展示数量重排「更多」 */
   function onActionChange(value: Record<string, any> | undefined) {
     if (!value) return;
-    model.value = model.value.map((action) =>
+    // 在完整列表（含「更多」）上替换，保持 id 不变；编辑「更多」时其配置也会被保留
+    const next = displayActions.value.map((action) =>
       action.id === activeId.value
         ? ({ ...action, ...value, id: action.id } as ActionModel)
         : action
     );
+    applyList(next);
   }
 
   /** 添加新按钮并选中 */
   function addAction() {
     const action = createButton();
-    model.value.push(action);
+    applyList([...realActions.value, action]);
     activeId.value = action.id;
-    commit();
   }
 
   /** 选中按钮 */
@@ -214,19 +298,22 @@
 
   /** 复制按钮：在当前按钮后插入同配置的新按钮并选中 */
   function copyAction(index: number) {
-    if (index < 0) return;
-    const source = model.value[index];
+    // 「更多」按钮由系统注入，不允许复制
+    if (index < 0 || isMoreActive.value) return;
+    const source = realActions.value[index];
     if (!source) return;
     const action: ActionModel = { ...source, id: generateId('button-') };
-    model.value.splice(index + 1, 0, action);
+    const list = [...realActions.value];
+    list.splice(index + 1, 0, action);
+    applyList(list);
     activeId.value = action.id;
-    commit();
   }
 
   /** 删除按钮：先弹确认，确认后再删除 */
   function removeActionWithConfirm(event: MouseEvent) {
     const action = activeAction.value;
-    if (!action) return;
+    // 「更多」按钮由系统按展示数量自动增删，不允许手动删除
+    if (!action || isMoreActive.value) return;
     neuralConfirm({
       target: event.currentTarget as HTMLElement,
       message: `确认删除按钮【${action.content || '未命名'}】吗？`,
@@ -237,13 +324,14 @@
 
   /** 删除按钮：保持选中有效项 */
   function removeAction(index: number) {
-    if (index < 0) return;
-    const [removed] = model.value.splice(index, 1);
+    if (index < 0 || isMoreActive.value) return;
+    const list = [...realActions.value];
+    const [removed] = list.splice(index, 1);
     if (removed?.id === activeId.value) {
-      const next = model.value[index] ?? model.value[index - 1];
+      const next = list[index] ?? list[index - 1];
       activeId.value = next?.id ?? '';
     }
-    commit();
+    applyList(list);
   }
 
   /** 按钮拖拽排序组标识，避免与页面其他拖拽区域互相干扰 */
@@ -260,19 +348,22 @@
       const from = source.initialIndex;
       const to = source.index;
       if (from === to) return;
-      const list = [...model.value];
+      const list = [...realActions.value];
       const [moved] = list.splice(from, 1);
       list.splice(to, 0, moved);
-      model.value = list;
+      applyList(list);
     },
   });
 
+  // 展示按钮数量变化（含初始化）时，重新注入 / 移除「更多」
+  watch(showActionCount, () => applyList(realActions.value), { immediate: true });
+
   // 选中项失效（外部替换/删除）时，回退到第一项
   watch(
-    () => model.value.map((action) => action.id).join(','),
+    () => realActions.value.map((action) => action.id).join(','),
     () => {
       if (activeAction.value) return;
-      activeId.value = model.value[0]?.id ?? '';
+      activeId.value = realActions.value[0]?.id ?? '';
     },
     { immediate: true }
   );

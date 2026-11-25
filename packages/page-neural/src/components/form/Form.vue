@@ -363,6 +363,7 @@
     ...item.componentProps,
     ...getExtraModelValues(item),
     ...(item.disabled !== undefined ? { disabled: item.disabled } : {}),
+    formValues: formValues.value,
   });
 
   // 处理字段值变化。事件参数才是新值，field.value 此时仍是更新前的值。

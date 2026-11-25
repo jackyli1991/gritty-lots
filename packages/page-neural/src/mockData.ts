@@ -556,7 +556,7 @@ export const initialDataSources: DataSource[] = [
     id: 'd-ebf0f2e6-dfe9-4f5e-a726-793ee1e54167',
     name: '资产列表分页查询',
     type: 'http',
-    url: 'http://localhost:5666/api/asset/assetList/getPageList',
+    url: 'https://fssc.gbuilderchina.com/testapi/asset/tagTemplate/getPageList',
     method: 'GET',
     responseField: 'result',
     json: '{}',

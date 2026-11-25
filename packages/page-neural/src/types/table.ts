@@ -39,6 +39,9 @@ export type TableColumnAlign = 'left' | 'center' | 'right';
 /** 固定列位置 */
 export type TableColumnFixed = 'left' | 'right' | null;
 
+/** 操作列「更多」按钮的固定 id，配置层注入 / 渲染层提取均据此识别 */
+export const MORE_ACTION_BTN_ID = 'table-action-more';
+
 /** 操作列按钮配置 */
 export interface ActionButton {
   /** 按钮唯一标识 */
