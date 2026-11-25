@@ -1,6 +1,9 @@
 import type { FormItemProps } from '@neural/components/form';
 import { SEVERITY_OPTIONS } from '@neural/data/options';
+import type { ActionButton } from '@neural/types/table';
 import { generateId } from '@neural/utils';
+import Button from 'primevue/button';
+import { h } from 'vue';
 import { z } from 'zod';
 
 const schema: FormItemProps[] = [
@@ -44,11 +47,36 @@ const schema: FormItemProps[] = [
     component: 'SelectButton',
     class: 'col-span-2',
     componentProps: {
+      class: 'whitespace-nowrap',
       options: [
         { label: '纯文本', value: 'text' },
         { label: '带边框', value: 'outlined' },
         { label: '填充', value: '' },
       ],
+    },
+  },
+  {
+    label: '图标',
+    fieldName: 'icon',
+    component: 'InputText',
+    class: 'col-span-2',
+    componentProps: {
+      placeholder: '图标名称',
+    },
+    tips: () => {
+      return h('span', {}, [
+        '输入',
+        h(
+          Button,
+          {
+            security: 'primary',
+            variant: 'text',
+            size: 'small',
+            onClick: () => window.open('https://lucide.dev/icons', '_blank'),
+          },
+          { default: () => 'Lucide 图标' }
+        ),
+      ]);
     },
   },
 ];
@@ -77,7 +105,7 @@ export default {
 /**
  * 创建按钮模型
  */
-export function createButton() {
+export function createButton(): ActionButton {
   return {
     id: generateId('button-'),
     content: '',
@@ -85,5 +113,6 @@ export function createButton() {
     variant: 'text',
     rounded: false,
     raised: false,
+    icon: '',
   };
 }

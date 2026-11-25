@@ -17,24 +17,30 @@
       <div class="flex shrink-0 items-center gap-1">
         <!-- 选中按钮的复制 / 删除操作 -->
         <div class="flex items-center gap-0.5">
-          <Button text size="small" :disabled="!activeAction" @click="copyAction(activeIndex)">
+          <Button
+            v-tooltip.top="{ value: '复制' }"
+            text
+            iconOnly
+            size="small"
+            :disabled="!activeAction"
+            @click="copyAction(activeIndex)"
+          >
             <NeuralIcon name="Copy" :size="12" />
-            <span>复制</span>
           </Button>
           <Button
+            v-tooltip.top="{ value: '删除' }"
             text
+            iconOnly
             size="small"
             severity="danger"
             :disabled="!activeAction"
-            @click="removeAction(activeIndex)"
+            @click="removeActionWithConfirm"
           >
             <NeuralIcon name="Trash2" :size="12" />
-            <span>删除</span>
           </Button>
         </div>
-        <Button size="small" @click="addAction">
+        <Button v-tooltip.top="{ value: '添加' }" iconOnly size="small" @click="addAction">
           <NeuralIcon name="Plus" :size="14" />
-          <span>添加</span>
         </Button>
       </div>
     </div>
@@ -43,7 +49,7 @@
     <ScrollArea class="border-0! px-2">
       <ScrollAreaViewport class="px-0! py-2! overflow-y-hidden!">
         <ScrollAreaContent>
-          <div v-if="filteredActions.length > 0" class="flex items-center flex-nowrap gap-1 pb-2">
+          <div v-if="filteredActions.length > 0" class="flex items-center flex-nowrap gap-1">
             <SortableItem
               v-for="(action, position) in filteredActions"
               :key="action.id"
@@ -60,7 +66,7 @@
               @click="selectAction(action)"
             >
               <!-- 手绘下划线标注选中项 -->
-              <div v-rough-underline="activeId === action.id" class="inline-block px-1.5 py-1">
+              <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
                 <Button
                   :label="action.content || '未命名'"
                   :severity="action.severity"
@@ -68,8 +74,16 @@
                   :rounded="action.rounded"
                   :raised="action.raised"
                   size="small"
-                  :class="{ 'max-w-32 truncate': true }"
-                />
+                  :class="{ 'gap-1!': true }"
+                >
+                  <NeuralIcon v-if="action.icon" :name="action.icon" :size="12" />
+                  <span>{{ action.content || '未命名' }}</span>
+                </Button>
+                <!-- 推拽排序时若点击到↑按钮上，会阻止排序操作。增加此透明层以实现正常拖拽 -->
+                <div
+                  v-rough-underline="activeId === action.id"
+                  class="absolute top-0 left-0 right-0 bottom-2 bg-transparent z-10"
+                ></div>
               </div>
             </SortableItem>
           </div>
@@ -110,6 +124,7 @@
   import { isSortable } from '@dnd-kit/vue/sortable';
   import { NeuralIcon, NeuralForm } from '@neural/components';
   import type { FormItemProps } from '@neural/components/form';
+  import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import buttonConfig, { createButton } from '@neural/core/forms/button';
   import { vRoughUnderline } from '@neural/directives/roughUnderline';
   import SortableItem from '@neural/dnd/components/sortableItem.vue';
@@ -121,6 +136,7 @@
   import ScrollAreaHandle from 'primevue/scrollareahandle';
   import ScrollAreaScrollbar from 'primevue/scrollareascrollbar';
   import ScrollAreaViewport from 'primevue/scrollareaviewport';
+  import vTooltip from 'primevue/tooltip';
   import { computed, ref, watch } from 'vue';
 
   defineOptions({ name: 'ActionAttrs' });
@@ -139,6 +155,9 @@
 
   /** 按钮搜索关键字 */
   const keyword = ref('');
+
+  /** 删除确认弹层 */
+  const { neuralConfirm } = useNeuralConfirm();
 
   /** 是否处于搜索过滤状态（过滤时禁用拖拽，避免可见索引与真实索引错位） */
   const isFiltering = computed(() => keyword.value.trim().length > 0);
@@ -202,6 +221,18 @@
     model.value.splice(index + 1, 0, action);
     activeId.value = action.id;
     commit();
+  }
+
+  /** 删除按钮：先弹确认，确认后再删除 */
+  function removeActionWithConfirm(event: MouseEvent) {
+    const action = activeAction.value;
+    if (!action) return;
+    neuralConfirm({
+      target: event.currentTarget as HTMLElement,
+      message: `确认删除按钮【${action.content || '未命名'}】吗？`,
+      type: 'delete',
+      confirm: () => removeAction(activeIndex.value),
+    });
   }
 
   /** 删除按钮：保持选中有效项 */

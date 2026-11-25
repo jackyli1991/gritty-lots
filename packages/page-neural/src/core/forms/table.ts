@@ -11,7 +11,7 @@ const schema: FormItemProps[] = [
   {
     label: '表格配置',
     formGroup: true,
-    component: 'Fieldset',
+    component: 'Panel',
     class: 'col-span-full',
     children: [
       {
@@ -56,7 +56,7 @@ const schema: FormItemProps[] = [
   {
     label: '表格列',
     formGroup: true,
-    component: 'Fieldset',
+    component: 'Panel',
     children: [
       {
         fieldName: 'columns',
@@ -71,15 +71,8 @@ const schema: FormItemProps[] = [
   {
     label: '表格操作',
     formGroup: true,
-    component: 'Fieldset',
+    component: 'Panel',
     children: [
-      {
-        fieldName: 'actionColumnEnable',
-        label: '启用操作列',
-        component: 'ToggleSwitch',
-        class: 'col-span-full',
-        componentProps: {},
-      },
       {
         fieldName: 'actionColumnConfig',
         label: '',
@@ -88,6 +81,13 @@ const schema: FormItemProps[] = [
         class: 'col-span-full',
         componentProps: {
           schema: [
+            {
+              fieldName: 'enable',
+              label: '启用',
+              component: 'ToggleSwitch',
+              componentProps: {},
+            },
+            // 使用表格列配置中的属性，移除部分字段
             ...tableColumnSchema.filter((item) => !excludeFields.includes(item.fieldName || '')),
             {
               fieldName: 'showActionCount',
@@ -104,12 +104,6 @@ const schema: FormItemProps[] = [
             showActionCount: z.number().min(1, '展示按钮数量不能小于1'),
           }),
         },
-        dependencies: {
-          trigger: ['actionColumnEnable'],
-          resolve: ({ values }: { values: Record<string, any> }) => ({
-            hidden: !values.actionColumnEnable,
-          }),
-        },
       },
       {
         fieldName: 'actionBtns',
@@ -118,19 +112,13 @@ const schema: FormItemProps[] = [
         renderComponent: TableActionAttrs,
         class: 'col-span-full',
         componentProps: {},
-        dependencies: {
-          trigger: ['actionColumnEnable'],
-          resolve: ({ values }: { values: Record<string, any> }) => ({
-            visible: values.actionColumnEnable,
-          }),
-        },
       },
     ],
   },
   {
     label: '表格分页',
     formGroup: true,
-    component: 'Fieldset',
+    component: 'Panel',
     children: [
       {
         fieldName: 'pagination',
@@ -165,6 +153,7 @@ export default {
  * 创建表格表单模型
  */
 export function createTable(): TableModelValue {
+  // 操作列默认配置
   const column = createTableColumn('action');
   column.title = '操作';
   column.fixed = 'right';
@@ -178,7 +167,6 @@ export function createTable(): TableModelValue {
     emptyText: '暂无数据',
     emptyCellPlaceholder: '-',
     columns: [],
-    actionColumnEnable: false,
     // 操作列配置仅保留渲染所需的列属性，与 TableModelValue.actionColumnConfig 的 Pick 类型保持一致
     actionColumnConfig: {
       id: column.id,
@@ -187,6 +175,7 @@ export function createTable(): TableModelValue {
       align: column.align,
       fixed: column.fixed,
       showActionCount: 2,
+      enable: true,
     },
     actionBtns: [],
   };

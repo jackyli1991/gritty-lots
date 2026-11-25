@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { NeuralIcon } from '@neural/components';
-  import type { TableActionButton, TableColumn } from '@neural/types/table';
+  import type { ActionButton, TableColumn } from '@neural/types/table';
   import Button from 'primevue/button';
   import Menu from 'primevue/menu';
   import type { MenuItem } from 'primevue/menuitem';
@@ -12,7 +12,7 @@
     /** c操作列配置 */
     column: Partial<TableColumn>;
     /** 操作列按钮列表 */
-    actionBtns: TableActionButton[];
+    actionBtns: ActionButton[];
   }
 
   const props = defineProps<Props>();
@@ -21,7 +21,7 @@
   const moreMenu = ref<InstanceType<typeof Menu> | null>(null);
 
   /** 操作列按钮列表 */
-  const buttons = computed<TableActionButton[]>(() =>
+  const buttons = computed<ActionButton[]>(() =>
     Array.isArray(props.actionBtns) ? props.actionBtns : []
   );
 
@@ -37,9 +37,11 @@
   /** 收进「更多」下拉的按钮 */
   const overflowButtons = computed(() => buttons.value.slice(visibleCount.value));
 
-  /** 「更多」下拉菜单项 */
+  /** 「更多」下拉菜单项：通过 custom 字段携带原始按钮数据，供 item 插槽使用 */
   const moreItems = computed<MenuItem[]>(() =>
-    overflowButtons.value.map((btn) => ({ label: btn.content }))
+    overflowButtons.value.map(
+      (btn) => ({ label: btn.content, icon: btn.icon, _btn: btn }) as MenuItem
+    )
   );
 
   /** 打开「更多」下拉菜单 */
@@ -54,20 +56,38 @@
       <Button
         v-for="btn in visibleButtons"
         :key="btn.id"
-        :label="btn.content"
         :severity="btn.severity"
         :variant="btn.variant"
         :rounded="btn.rounded"
         :raised="btn.raised"
         size="small"
-      />
+        class="gap-1!"
+      >
+        <NeuralIcon v-if="btn.icon" :name="btn.icon" :size="12" />
+        <span>{{ btn.content }}</span>
+      </Button>
       <!-- 超出展示数量的按钮收进「更多」下拉 -->
       <template v-if="overflowButtons.length > 0">
         <Button class="gap-1!" size="small" text @click="toggleMoreMenu">
           <span>更多</span>
           <NeuralIcon name="ChevronDown" :size="12" />
         </Button>
-        <Menu ref="moreMenu" :model="moreItems" popup />
+        <Menu ref="moreMenu" :model="moreItems" :pt="{ root: { class: 'min-w-auto!' } }" popup>
+          <template #item="{ item, props: itemProps }">
+            <Button
+              v-bind="itemProps.action"
+              :severity="(item._btn as ActionButton)?.severity"
+              :variant="(item._btn as ActionButton)?.variant ?? 'text'"
+              :rounded="(item._btn as ActionButton)?.rounded"
+              :raised="(item._btn as ActionButton)?.raised"
+              size="small"
+              class="gap-1!"
+            >
+              <NeuralIcon v-if="item.icon as string" :name="item.icon as string" :size="12" />
+              <span>{{ item.label }}</span>
+            </Button>
+          </template>
+        </Menu>
       </template>
     </div>
   </span>

@@ -40,7 +40,7 @@ export type TableColumnAlign = 'left' | 'center' | 'right';
 export type TableColumnFixed = 'left' | 'right' | null;
 
 /** 操作列按钮配置 */
-export interface TableActionButton {
+export interface ActionButton {
   /** 按钮唯一标识 */
   id: string;
   /** 按钮文本 */
@@ -53,6 +53,8 @@ export interface TableActionButton {
   rounded?: boolean;
   /** 是否带阴影 */
   raised?: boolean;
+  /** 图标名称 */
+  icon?: string;
 }
 
 export interface TableColumn {
@@ -91,7 +93,7 @@ export interface TableColumn {
   /** 颜色列：是否显示颜色值文本，默认显示 */
   showColorValue?: boolean;
   /** 操作列：按钮配置 */
-  actionBtns?: TableActionButton[];
+  actionBtns?: ActionButton[];
   /** 操作列：最多直接展示的按钮数量，超出部分收进「更多」下拉 */
   showBtnCount?: number;
   /** 操作列：「更多」按钮文本，未配置时默认「更多」 */
@@ -108,10 +110,13 @@ export interface TableModelValue {
   stripedRows?: boolean;
   emptyText?: string;
   emptyCellPlaceholder?: string;
+  // 表格列配置
   columns: TableColumn[];
-  actionColumnEnable?: boolean;
+  // 操作列配置
   actionColumnConfig?: Pick<TableColumn, 'width' | 'align' | 'fixed' | 'id' | 'title'> & {
     showActionCount?: number;
+    enable?: boolean;
   };
-  actionBtns?: TableActionButton[];
+  // 操作列按钮配置
+  actionBtns?: ActionButton[];
 }

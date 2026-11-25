@@ -107,7 +107,7 @@
     </Column>
     <!-- 操作列 -->
     <Column
-      v-if="containerModel.actionColumnEnable"
+      v-if="containerModel?.actionColumnConfig?.enable"
       v-bind="resolveColumnProps(containerModel.actionColumnConfig || {})"
     >
       <template #body="slotProps">

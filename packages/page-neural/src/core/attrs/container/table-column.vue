@@ -20,25 +20,37 @@
       <div class="flex shrink-0 items-center gap-1">
         <!-- 选中列的复制 / 删除操作 -->
         <div class="flex items-center gap-0.5">
-          <Button text size="small" :disabled="!canCopyActive" @click="copyColumn(activeIndex)">
+          <Button
+            v-tooltip.top="{ value: '复制' }"
+            text
+            iconOnly
+            size="small"
+            :disabled="!canCopyActive"
+            @click="copyColumn(activeIndex)"
+          >
             <NeuralIcon name="Copy" :size="12" />
-            <span>复制</span>
           </Button>
           <Button
+            v-tooltip.top="{ value: '删除' }"
             text
+            iconOnly
             size="small"
             severity="danger"
             :disabled="!activeColumn"
-            @click="removeColumn(activeIndex)"
+            @click="removeColumnWithConfirm"
           >
             <NeuralIcon name="Trash2" :size="12" />
-            <span>删除</span>
           </Button>
         </div>
         <div class="relative shrink-0">
-          <Button size="small" :disabled="availableTypes === 0" @click="toggleAddMenu">
+          <Button
+            v-tooltip.top="{ value: '添加' }"
+            iconOnly
+            size="small"
+            :disabled="availableTypes === 0"
+            @click="toggleAddMenu"
+          >
             <NeuralIcon name="Plus" :size="14" />
-            <span>添加</span>
           </Button>
           <!-- 弹层：列出所有列类型，已被占用的单例类型置灰 -->
           <Popover ref="addMenuPopover">
@@ -74,7 +86,7 @@
     <ScrollArea class="border-0! px-2">
       <ScrollAreaViewport class="px-0! py-2! overflow-y-hidden!">
         <ScrollAreaContent>
-          <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-1 pb-2">
+          <div v-if="filteredColumns.length > 0" class="flex items-center flex-nowrap gap-1">
             <SortableItem
               v-for="(col, position) in filteredColumns"
               :key="col.id"
@@ -91,17 +103,18 @@
               @click="selectColumn(col)"
             >
               <!-- 手绘下划线标注选中项 -->
-              <div v-rough-underline="activeId === col.id" class="inline-block px-1.5 py-1">
-                <Button
-                  size="small"
-                  :severity="activeId === col.id ? 'contrast' : 'secondary'"
-                  variant="text"
-                >
+              <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
+                <Button size="small" severity="secondary" :raised="activeId === col.id">
                   <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
                   <span class="truncate font-medium"
                     >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
                   >
                 </Button>
+                <!-- 推拽排序时若点击到↑按钮上，会阻止排序操作。增加此透明层以实现正常拖拽 -->
+                <div
+                  v-rough-underline="activeId === col.id"
+                  class="absolute top-0 left-0 right-0 bottom-2 bg-transparent z-10"
+                ></div>
               </div>
             </SortableItem>
           </div>
@@ -142,6 +155,7 @@
   import { isSortable } from '@dnd-kit/vue/sortable';
   import { NeuralIcon, NeuralForm } from '@neural/components';
   import type { FormItemProps } from '@neural/components/form';
+  import { useNeuralConfirm } from '@neural/core/confirmDialog.vue';
   import { createTableColumn, getColumnSchema } from '@neural/core/forms/table-column';
   import {
     ALL_TYPE_VALUES,
@@ -163,6 +177,7 @@
   import ScrollAreaHandle from 'primevue/scrollareahandle';
   import ScrollAreaScrollbar from 'primevue/scrollareascrollbar';
   import ScrollAreaViewport from 'primevue/scrollareaviewport';
+  import vTooltip from 'primevue/tooltip';
   import type { DefineComponent } from 'vue';
   import { computed, ref, useTemplateRef, watch } from 'vue';
   import { z } from 'zod';
@@ -189,6 +204,9 @@
 
   /** 列搜索关键字 */
   const keyword = ref('');
+
+  /** 删除确认弹层 */
+  const { neuralConfirm } = useNeuralConfirm();
 
   /** 是否处于搜索过滤状态（过滤时禁用拖拽，避免可见索引与真实索引错位） */
   const isFiltering = computed(() => keyword.value.trim().length > 0);
@@ -293,6 +311,19 @@
     model.value.splice(index + 1, 0, column);
     activeId.value = column.id;
     commit();
+  }
+
+  /** 删除列：先弹确认，确认后再删除 */
+  function removeColumnWithConfirm(event: MouseEvent) {
+    const col = activeColumn.value;
+    if (!col) return;
+    const name = col.title || col.field || '未命名';
+    neuralConfirm({
+      target: event.currentTarget as HTMLElement,
+      message: `确认删除列【${name}】吗？`,
+      type: 'delete',
+      confirm: () => removeColumn(activeIndex.value),
+    });
   }
 
   /** 删除列：保持选中有效项 */
