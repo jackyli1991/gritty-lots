@@ -2,6 +2,8 @@
   import type { TableColumn } from '@neural/types/table';
   import { computed } from 'vue';
 
+  import { useColumnData } from '../useColumnData';
+
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
@@ -11,29 +13,25 @@
 
   const props = defineProps<Props>();
 
-  /** 列绑定字段的链接地址 */
-  const href = computed(() => {
-    const value = props.row[props.column.field];
-    return typeof value === 'string' ? value : '';
-  });
+  const { fieldData, prefix, suffix } = useColumnData(props.row, props.column);
 
   /** 链接文本：未配置或为空时回退为链接地址，过长时保留首尾各 12 个字符 */
   const text = computed(() => {
     const linkText = props.column.linkText?.trim();
     if (linkText) return linkText;
-    return href.value.length > 24
-      ? `${href.value.slice(0, 12)}···${href.value.slice(-12)}`
-      : href.value;
+    return fieldData.length > 24
+      ? `${fieldData.slice(0, 12)}···${fieldData.slice(-12)}`
+      : fieldData;
   });
 </script>
 
 <template>
   <a
-    :href="href"
+    :href="fieldData"
     target="_blank"
     rel="noopener noreferrer"
     class="block truncate text-(--p-primary-500) hover:underline"
   >
-    {{ text }}
+    {{ prefix }}{{ text }}{{ suffix }}
   </a>
 </template>

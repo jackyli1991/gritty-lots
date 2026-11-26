@@ -3,6 +3,7 @@
 @props id?: string
 -->
 <script setup lang="ts">
+  import { NeuralFieldsSelect } from '@neural/components';
   import { useData } from '@neural/composables/useData';
   import Button from 'primevue/button';
   import { ref } from 'vue';
@@ -25,14 +26,22 @@
     page.value++;
     await loadData({ page: page.value });
   };
+
+  const modelValue = ref<string[]>([]);
 </script>
 
 <template>
   <div class="page-normal-container w-full h-full">
     <slot></slot>
-    {{ loading }}
-    {{ data }}
-    {{ container?.id }}
+    <NeuralFieldsSelect
+      v-model="modelValue"
+      selection-mode="multiple"
+      size="small"
+      customOption
+      class="w-1/2"
+      :data="data || {}"
+    />
+    {{ modelValue }}
     <Button label="刷新" @click="loadPage" />
     <!-- <PageNormalContainer v-for="child in container?.children || []" :key="child" :id="child" /> -->
   </div>

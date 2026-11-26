@@ -47,10 +47,10 @@
 
     <!-- Tab 头部（PrimeVue ScrollArea 横向滚动 + 拖拽排序） -->
     <ScrollArea class="border-0! px-2">
-      <ScrollAreaViewport class="px-0! py-2! overflow-y-hidden!">
+      <ScrollAreaViewport class="px-0! pt-8! pb-2! overflow-y-hidden!">
         <ScrollAreaContent>
           <div v-if="filteredActions.length > 0" class="flex items-center flex-nowrap gap-1">
-            <template v-for="action in filteredActions" :key="action.id">
+            <template v-for="(action, index) in filteredActions" :key="action.id">
               <!-- 真实按钮：可拖拽排序 -->
               <SortableItem
                 v-if="action.id !== MORE_ACTION_BTN_ID"
@@ -64,6 +64,11 @@
                 }"
                 group="table-actions"
                 class="group relative inline-block shrink-0 cursor-grab"
+                :class="{
+                  'before:pointer-events-none before:absolute before:-top-2 before:-left-1/2 before:right-0 before:h-2 before:border-t before:border-gray-400 before:content-[\'\']':
+                    isOverflowIndex(index),
+                  'before:rounded-tl-md before:border-l-2': isFirstOverflowIndex(index),
+                }"
                 @click="selectAction(action)"
               >
                 <!-- 手绘下划线标注选中项 -->
@@ -93,9 +98,14 @@
                 class="group relative inline-block shrink-0"
                 @click="selectAction(action)"
               >
+                <!-- 固定指引：说明「更多」之后的按钮将在下拉中展示 -->
+                <span
+                  class="pointer-events-none absolute -top-7 left-full whitespace-nowrap text-xs text-gray-400 dark:text-gray-500"
+                >
+                  【{{ action.content }}】后面的按钮在下拉中展示
+                </span>
                 <div class="inline-block relative px-1.5 py-1 pb-3 overflow-hidden">
                   <Button
-                    :label="action.content || '未命名'"
                     :severity="action.severity"
                     :variant="action.variant"
                     :rounded="action.rounded"
@@ -247,6 +257,21 @@
       return keywords.every((item) => matchKeyword(action, item));
     });
   });
+
+  /** 「更多」在过滤后列表中的索引，-1 表示当前未展示「更多」 */
+  const moreFilteredIndex = computed(() =>
+    filteredActions.value.findIndex((action) => action.id === MORE_ACTION_BTN_ID)
+  );
+
+  /** 是否为「更多」之后、会被收进下拉的按钮（按过滤后可见索引判断） */
+  function isOverflowIndex(index: number): boolean {
+    return moreFilteredIndex.value >= 0 && index > moreFilteredIndex.value;
+  }
+
+  /** 是否为「更多」之后的第一个按钮（标识线的起点） */
+  function isFirstOverflowIndex(index: number): boolean {
+    return moreFilteredIndex.value >= 0 && index === moreFilteredIndex.value + 1;
+  }
 
   /** 真实按钮在 realActions 中的索引（供 SortableItem 使用，避免「更多」占位导致索引错位） */
   function realIndexOf(id: string): number {

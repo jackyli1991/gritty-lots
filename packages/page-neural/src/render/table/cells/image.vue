@@ -2,6 +2,8 @@
   import type { TableColumn } from '@neural/types/table';
   import { computed } from 'vue';
 
+  import { useColumnData } from '../useColumnData';
+
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
@@ -11,11 +13,7 @@
 
   const props = defineProps<Props>();
 
-  /** 列绑定字段的图片地址 */
-  const src = computed(() => {
-    const value = props.row[props.column.field];
-    return typeof value === 'string' ? value : '';
-  });
+  const { fieldData } = useColumnData(props.row, props.column);
 
   const imageStyle = computed(() => ({
     display: 'inline-block',
@@ -26,5 +24,5 @@
 </script>
 
 <template>
-  <img :src="src" alt="" :style="imageStyle" />
+  <img :src="fieldData" alt="" :style="imageStyle" />
 </template>

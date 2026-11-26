@@ -55,11 +55,11 @@
   // 点击激活当前容器
   const handleActive = () => {
     pageNeuralStore.setActiveContainerId(props.id || '');
-    openModal?.({
-      key: 'container',
-      props: container.value?.props || {},
-      nodeData: container.value as Record<string, any>,
-    });
+    // openModal?.({
+    //   key: 'container',
+    //   props: container.value?.props || {},
+    //   nodeData: container.value as Record<string, any>,
+    // });
   };
 </script>
 

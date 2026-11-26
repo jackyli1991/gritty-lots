@@ -1,5 +1,6 @@
 import BackgroundModel from './backgroundModel';
 import BoxModel from './boxModel';
+import NeuralFieldsSelect from './fieldsSelect';
 import NeuralForm from './form';
 import NeuralIcon from './icon';
 import NeuralInput from './input';
@@ -14,4 +15,5 @@ export {
   BoxModel,
   BackgroundModel,
   LayoutModel,
+  NeuralFieldsSelect,
 };

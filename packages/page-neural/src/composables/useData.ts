@@ -23,7 +23,7 @@ interface UseDataReturn {
   /** 发起请求的实体 id（容器 id） */
   originId: ComputedRef<string>;
   /** 已解析的数据（从 store 缓存中读取并按 responseField 转换，无缓存时为 null） */
-  data: ComputedRef<Record<string, unknown>[] | null>;
+  data: ComputedRef<Record<string, unknown> | null>;
   /** 加载中 */
   loading: ReturnType<typeof ref<boolean>>;
   /** 手动触发一次数据加载（会写入统一数据源 store），params 会覆盖 dataModel.params 的同名字段 */

@@ -2,6 +2,8 @@
   import type { TableColumn } from '@neural/types/table';
   import { computed } from 'vue';
 
+  import { useColumnData } from '../useColumnData';
+
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
@@ -11,11 +13,7 @@
 
   const props = defineProps<Props>();
 
-  /** 列绑定字段的颜色值 */
-  const color = computed(() => {
-    const value = props.row[props.column.field];
-    return typeof value === 'string' ? value.trim() : '';
-  });
+  const { fieldData, prefix, suffix } = useColumnData(props.row, props.column);
 
   /** 是否显示颜色值文本，未配置时默认显示 */
   const showColorValue = computed(() => props.column.showColorValue !== false);
@@ -26,13 +24,13 @@
     <span class="flex items-center overflow-hidden">
       <span
         class="inline-block size-4 shrink-0 rounded-sm border border-gray-200 dark:border-gray-700"
-        :style="{ backgroundColor: color }"
+        :style="{ backgroundColor: fieldData }"
       />
       <span
-        v-if="showColorValue && color"
+        v-if="showColorValue && fieldData"
         class="truncate text-xs text-gray-600 dark:text-gray-300 ml-2"
       >
-        {{ color }}
+        {{ prefix }}{{ fieldData }}{{ suffix }}
       </span>
     </span>
   </div>

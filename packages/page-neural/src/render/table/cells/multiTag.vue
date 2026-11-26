@@ -6,6 +6,8 @@
   import vTooltip from 'primevue/tooltip';
   import { computed } from 'vue';
 
+  import { useColumnData } from '../useColumnData';
+
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
@@ -14,6 +16,8 @@
   }
 
   const props = defineProps<Props>();
+
+  const { fieldData, prefix, suffix } = useColumnData(props.row, props.column);
 
   // 列不是容器，直接指定数据模型配置，枚举数据以列 id 为键写入缓存
   const { data } = useData(props.column.id, { dataModel: props.column.tagOptions });
@@ -34,7 +38,7 @@
 
   /** 每个值的展示文本与标签属性：均从枚举数据中匹配，文本未命中时回退原始值 */
   const tags = computed(() =>
-    parseValues(props.row[props.column.field]).map((value) => ({
+    parseValues(fieldData).map((value) => ({
       label: getEnumLabel(data.value, value) ?? String(value),
       props: getEnumProps(data.value, value) ?? {},
     }))
@@ -59,6 +63,7 @@
 <template>
   <span v-if="!tags.length" class="text-gray-400">-</span>
   <span v-else>
+    <span>{{ prefix }}</span>
     <Tag
       v-for="(tag, index) in visibleTags"
       :key="index"
@@ -77,5 +82,6 @@
       size="small"
       :severity="props.column.severity"
     />
+    <span>{{ suffix }}</span>
   </span>
 </template>

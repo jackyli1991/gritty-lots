@@ -1,7 +1,9 @@
 <script setup lang="ts">
   import type { TableColumn } from '@neural/types/table';
-  import vTooltip from 'primevue/tooltip';
   import { computed, type CSSProperties } from 'vue';
+
+  // import vTooltip from 'primevue/tooltip';
+  import { useColumnData } from '../useColumnData';
 
   interface Props {
     /** 当前行数据 */
@@ -12,11 +14,7 @@
 
   const props = defineProps<Props>();
 
-  /** 列绑定字段的展示文本 */
-  const text = computed(() => {
-    const value = props.row[props.column.field];
-    return value === undefined || value === null || value === '' ? '-' : String(value);
-  });
+  const { fieldData, prefix, suffix } = useColumnData(props.row, props.column);
 
   /** 最多显示行数：未配置或非法时回退 1（单行） */
   const rows = computed(() => {
@@ -41,11 +39,8 @@
 </script>
 
 <template>
-  <span
-    class="block"
-    :class="{ truncate: rows === 1 }"
-    :style="clampStyle"
-    v-tooltip.top="{ value: text, autoHide: false }"
-    >{{ text }}</span
+  <!-- v-tooltip.top="{ value: fieldData, autoHide: false }" -->
+  <span v-if="fieldData" class="block" :class="{ truncate: rows === 1 }" :style="clampStyle"
+    >{{ prefix }}{{ fieldData }}{{ suffix }}</span
   >
 </template>

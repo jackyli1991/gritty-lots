@@ -96,7 +96,7 @@ const schema: FormItemProps[] = [
               componentProps: {
                 min: 1,
               },
-              tips: '最多显示的按钮数量，超出时「更多」下拉显示',
+              tips: '最多显示的按钮数量，超出时【更多】下拉显示',
             },
           ],
           columns: 2,

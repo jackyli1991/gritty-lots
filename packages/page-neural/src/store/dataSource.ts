@@ -124,7 +124,7 @@ export const useDataSourceStore = defineStore('page-neural-data-source', {
         }
         // resolveCachedData 已按每一跳的 responseField 解析
         const data = resolveCachedData(state.responses, originId, dataModel, new Set());
-        console.log('getData------------>', originId, dataModel, data);
+        // console.log('getData------------>', originId, dataModel, data);
         return data;
       },
 
@@ -168,7 +168,7 @@ export const useDataSourceStore = defineStore('page-neural-data-source', {
       params: Record<string, string> = {}
     ): Promise<void> {
       const mode = resolveDataModelMode(dataModel);
-      console.log('fetchData------------>', mode);
+      // console.log('fetchData------------>', mode);
 
       if (!mode) {
         this.setCustom(originId, null);

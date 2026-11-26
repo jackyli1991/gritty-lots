@@ -107,7 +107,12 @@
                 <Button size="small" severity="secondary" :raised="activeId === col.id">
                   <NeuralIcon :name="TYPE_ICON[col.type]" :size="14" />
                   <span class="truncate font-medium"
-                    >{{ col.title || '未命名' }}{{ col.field ? `(${col.field})` : '' }}</span
+                    >{{ col.title || '未命名'
+                    }}{{
+                      col.field?.length
+                        ? `(${resolveFieldPrefix(col.field)}${resolveField(col.field)}${resolveFieldSuffix(col.field)})`
+                        : ''
+                    }}</span
                   >
                 </Button>
                 <!-- 推拽排序时若点击到↑按钮上，会阻止排序操作。增加此透明层以实现正常拖拽 -->
@@ -166,6 +171,7 @@
   } from '@neural/data/table';
   import { vRoughUnderline } from '@neural/directives/roughUnderline';
   import SortableItem from '@neural/dnd/components/sortableItem.vue';
+  import { resolveField, resolveFieldPrefix, resolveFieldSuffix } from '@neural/render/utils/table';
   import type { TableColumn, TableColumnType } from '@neural/types/table';
   import { generateId } from '@neural/utils';
   import Button from 'primevue/button';
@@ -213,7 +219,7 @@
 
   /** 关键字是否命中列的标题、类型名称或字段名 */
   function matchKeyword(col: TableColumn, keywordText: string): boolean {
-    return [col.title, TABLE_COLUMN_TYPE_LABEL[col.type], col.field].some((text) =>
+    return [col.title, TABLE_COLUMN_TYPE_LABEL[col.type], resolveField(col.field)].some((text) =>
       text?.toLowerCase().includes(keywordText)
     );
   }

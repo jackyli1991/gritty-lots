@@ -42,6 +42,15 @@ export type TableColumnFixed = 'left' | 'right' | null;
 /** 操作列「更多」按钮的固定 id，配置层注入 / 渲染层提取均据此识别 */
 export const MORE_ACTION_BTN_ID = 'table-action-more';
 
+// 自定义字段
+export interface CustomField {
+  type: 'custom';
+  value: string;
+}
+
+// 表格列表字段
+export type Field = string | CustomField;
+
 /** 操作列按钮配置 */
 export interface ActionButton {
   /** 按钮唯一标识 */
@@ -68,7 +77,7 @@ export interface TableColumn {
   /** 列标题（selection/multiSelection/index 可不填） */
   title: string;
   /** 绑定字段；非数据列（selection/multiSelection/index/action）留空 */
-  field: string;
+  field: Field[];
   /** 列宽（像素），0 / null 表示自适应 */
   width?: number | null;
   /** 水平对齐 */

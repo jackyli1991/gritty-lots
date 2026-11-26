@@ -3,6 +3,8 @@
   import ProgressBar from 'primevue/progressbar';
   import { computed } from 'vue';
 
+  import { useColumnData } from '../useColumnData';
+
   interface Props {
     /** 当前行数据 */
     row: Record<string, unknown>;
@@ -12,9 +14,11 @@
 
   const props = defineProps<Props>();
 
+  const { fieldData } = useColumnData(props.row, props.column);
+
   /** 进度值：非数字时为 null，determinate 模式下不渲染进度条 */
   const value = computed<number | null>(() => {
-    const raw = props.row[props.column.field];
+    const raw = fieldData;
     const num = typeof raw === 'number' ? raw : Number(raw);
     if (!Number.isFinite(num)) return null;
     return Math.min(100, Math.max(0, num));

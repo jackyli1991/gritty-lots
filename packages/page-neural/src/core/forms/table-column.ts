@@ -1,10 +1,12 @@
 import type { FormItemProps } from '@neural/components/form';
+import { useData } from '@neural/composables/useData';
 import {
   ALIGN_OPTIONS,
   ALL_TYPE_VALUES,
   FIXED_OPTIONS,
   TABLE_COLUMN_TYPE_LABEL,
 } from '@neural/data/table';
+import { usePageNeuralStore } from '@neural/store';
 import type { TableColumn, TableColumnType } from '@neural/types/table';
 import { generateId } from '@neural/utils';
 import { cloneDeep } from 'lodash-es';
@@ -58,8 +60,22 @@ export const tableColumnSchema: FormItemProps[] = [
   {
     fieldName: 'field',
     label: '字段',
-    component: 'Input',
-    componentProps: { placeholder: '绑定字段' },
+    component: 'FieldsSelect', // 字段选择组件
+    componentProps: {
+      placeholder: '绑定字段',
+      selectionMode: 'single', // 只能选择一个字段
+      customOption: true, // 允许添加自定义内容
+      // filter: true,
+      // filterInputAutoFocus: true,
+      data: () => {
+        const pageNeuralStore = usePageNeuralStore();
+        const { data: containerData } = useData(pageNeuralStore.activeContainerId);
+        // 传入数组项用于获取字段
+        return Array.isArray(containerData.value) && containerData.value.length > 0
+          ? containerData.value[0]
+          : {};
+      },
+    },
   },
   {
     fieldName: 'width',
@@ -136,7 +152,7 @@ export function createTableColumn(type: TableColumnType): TableColumn {
     id: generateId('col'),
     type,
     title: TABLE_COLUMN_TYPE_LABEL[type],
-    field: '',
+    field: [],
     width: 200,
     align: 'left',
     fixed: null,

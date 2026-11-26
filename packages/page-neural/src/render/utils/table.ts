@@ -1,6 +1,6 @@
 import { isDataColumn } from '@neural/data/table';
-import type { TableColumn, TableModelValue, TableColumnType } from '@neural/types/table';
-
+import type { TableColumn, TableModelValue, TableColumnType, Field } from '@neural/types/table';
+import { isObject, isString } from 'lodash-es';
 /**
  * PrimeVue DataTable Column 组件可接收的核心 props。
  * 所有字段均为可选：按列类型选择性填充。
@@ -44,7 +44,7 @@ export function resolveColumnProps(col: Partial<TableColumn>): PrimeColumnProps 
   const props: PrimeColumnProps = {};
 
   // 通用 props
-  props.field = col.field;
+  props.field = col.field?.find((item) => isString(item)) || '';
   props.header = col.title || undefined;
 
   // 单选列、多选列专用 props
@@ -121,4 +121,56 @@ export function resolveSelectionMode(columns: readonly TableColumn[]): '' | 'sin
   if (columns.some((c) => c.type === 'selection')) return 'single';
   if (columns.some((c) => c.type === 'multiSelection')) return 'multiple';
   return '';
+}
+
+// 从配置中解析出有效字段
+export function resolveField(fieldArray: Field[]): string | undefined {
+  return fieldArray.find((item) => isString(item));
+}
+
+/**
+ * 从数据行解析出字段原值
+ */
+export function resolveFieldOriginData(
+  data: Record<string, any>,
+  fieldArray: Field[]
+): string | undefined {
+  if (!isObject(data)) return undefined;
+  const field = resolveField(fieldArray);
+  if (!field) return undefined;
+  return data[field];
+}
+
+/**
+ * 从配置中解析出字段前缀
+ * 从 fieldArray 起始一直提取数组项是对象且 type 为 custom 的项的 value 字段
+ * @param fieldArray
+ */
+export function resolveFieldPrefix(fieldArray: Field[]): string {
+  const field = resolveField(fieldArray);
+  if (!field) return '';
+  const fieldIndex = fieldArray.indexOf(field);
+  let prefix = '';
+  for (const item of fieldArray.slice(0, fieldIndex)) {
+    if (isString(item)) continue;
+    prefix += item.value.trim();
+  }
+  return prefix;
+}
+
+/**
+ * 从配置中解析出字段后缀
+ * 从 fieldArray 尾部一直提取数组项是对象且 type 为 custom 的项的 value 字段，提取完后再反转
+ * @param fieldArray
+ */
+export function resolveFieldSuffix(fieldArray: Field[]): string {
+  const field = resolveField(fieldArray);
+  if (!field) return '';
+  const fieldIndex = fieldArray.indexOf(field);
+  let suffix = '';
+  for (const item of fieldArray.slice(fieldIndex)) {
+    if (isString(item)) continue;
+    suffix += item.value.trim();
+  }
+  return suffix;
 }

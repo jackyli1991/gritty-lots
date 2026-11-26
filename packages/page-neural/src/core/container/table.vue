@@ -11,6 +11,9 @@
     resolveColumnProps,
     resolveSelectionMode,
     resolveTableProps,
+    resolveFieldOriginData,
+    resolveFieldPrefix,
+    resolveFieldSuffix,
   } from '@neural/render/utils/table';
   import type { TableColumn, TableModelValue } from '@neural/types/table';
   import Column from 'primevue/column';
@@ -92,7 +95,7 @@
       <!-- 数据列 -->
       <template v-else-if="isDataColumn(col.type)" #body="slotProps">
         <!-- 字段为 undefined / null / '' 时展示缺省占位 -->
-        <template v-if="col.field && isEmptyFieldValue(slotProps.data[col.field])">
+        <template v-if="isEmptyFieldValue(resolveFieldOriginData(slotProps.data, col.field))">
           {{ emptyCellPlaceholder }}
         </template>
         <!-- 列类型注册了渲染组件时，用组件渲染自定义单元格 -->
@@ -102,7 +105,11 @@
           :row="slotProps.data"
           :column="col"
         />
-        <template v-else>{{ slotProps.data[col.field] }}</template>
+        <template v-else>
+          {{ resolveFieldPrefix(col.field) }}
+          {{ resolveFieldOriginData(slotProps.data, col.field) }}
+          {{ resolveFieldSuffix(col.field) }}
+        </template>
       </template>
     </Column>
     <!-- 操作列 -->
