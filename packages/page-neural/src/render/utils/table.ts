@@ -44,7 +44,7 @@ export function resolveColumnProps(col: Partial<TableColumn>): PrimeColumnProps 
   const props: PrimeColumnProps = {};
 
   // 通用 props
-  props.field = col.field?.find((item) => isString(item)) || '';
+  props.field = isString(col.field) ? col.field : col.field?.find((item) => isString(item)) || '';
   props.header = col.title || undefined;
 
   // 单选列、多选列专用 props
@@ -124,8 +124,8 @@ export function resolveSelectionMode(columns: readonly TableColumn[]): '' | 'sin
 }
 
 // 从配置中解析出有效字段
-export function resolveField(fieldArray: Field[]): string | undefined {
-  return fieldArray.find((item) => isString(item));
+export function resolveField(fieldArray: Field[] | string): string | undefined {
+  return isString(fieldArray) ? fieldArray : fieldArray.find((item) => isString(item));
 }
 
 /**
@@ -133,7 +133,7 @@ export function resolveField(fieldArray: Field[]): string | undefined {
  */
 export function resolveFieldOriginData(
   data: Record<string, any>,
-  fieldArray: Field[]
+  fieldArray: Field[] | string
 ): string | undefined {
   if (!isObject(data)) return undefined;
   const field = resolveField(fieldArray);
@@ -146,7 +146,7 @@ export function resolveFieldOriginData(
  * 从 fieldArray 起始一直提取数组项是对象且 type 为 custom 的项的 value 字段
  * @param fieldArray
  */
-export function resolveFieldPrefix(fieldArray: Field[]): string {
+export function resolveFieldPrefix(fieldArray: Field[] | string): string {
   const field = resolveField(fieldArray);
   if (!field) return '';
   const fieldIndex = fieldArray.indexOf(field);
@@ -163,7 +163,7 @@ export function resolveFieldPrefix(fieldArray: Field[]): string {
  * 从 fieldArray 尾部一直提取数组项是对象且 type 为 custom 的项的 value 字段，提取完后再反转
  * @param fieldArray
  */
-export function resolveFieldSuffix(fieldArray: Field[]): string {
+export function resolveFieldSuffix(fieldArray: Field[] | string): string {
   const field = resolveField(fieldArray);
   if (!field) return '';
   const fieldIndex = fieldArray.indexOf(field);

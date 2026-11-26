@@ -15,7 +15,7 @@
   import InputNumber from 'primevue/inputnumber';
   import InputText from 'primevue/inputtext';
   import Select from 'primevue/select';
-  import { computed, type Component } from 'vue';
+  import { computed, watch, type Component } from 'vue';
 
   import NeuralIcon from '../icon';
 
@@ -36,7 +36,7 @@
 
   // ---------- Props & v-model ----------
 
-  const modelValue = defineModel<Record<string, unknown>[]>('modelValue', { required: true });
+  const modelValue = defineModel<Record<string, unknown>[]>('modelValue');
 
   const props = defineProps<{
     /** 列配置数组 */
@@ -64,6 +64,18 @@
     ...resolveColumnProps(ACTION_COLUMN),
     header: ACTION_COLUMN.title,
   }));
+
+  /** 初始进入或父组件更新时，若 v-model 传入的是字符串则自动归一化为数组 */
+  watch(
+    () => modelValue.value as unknown,
+    (value) => {
+      if (!Array.isArray(value)) {
+        console.warn('v-model 必须为数组，已自动归一化为 []');
+        modelValue.value = [];
+      }
+    },
+    { immediate: true, once: true }
+  );
 
   /**
    * 解析列的编辑组件。
@@ -108,11 +120,11 @@
       const cfg = col.editConfig;
       const comp = cfg?.component;
       if (comp === 'InputNumber') {
-        row[col.field] = 0;
+        row[col.field as string] = 0;
       } else if (comp === 'Select') {
-        row[col.field] = undefined;
+        row[col.field as string] = undefined;
       } else {
-        row[col.field] = '';
+        row[col.field as string] = '';
       }
     }
     return row;
@@ -204,13 +216,13 @@
             :column="col"
           />
           <!-- 默认：直接展示字段值 -->
-          <template v-else>{{ slotProps.data[col.field] }}</template>
+          <template v-else>{{ slotProps.data[col.field as string] }}</template>
         </template>
         <!-- 编辑模式：启用 editConfig.enable 的数据列渲染编辑组件 -->
         <template v-if="isEditable(col)" #editor="{ data }">
           <component
             :is="resolveEditComp(col)"
-            v-model="data[col.field]"
+            v-model="data[col.field as string]"
             v-bind="resolveEditProps(col)"
             size="small"
             :form-control="nestedFormControl"

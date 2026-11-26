@@ -77,7 +77,7 @@ export interface TableColumn {
   /** 列标题（selection/multiSelection/index 可不填） */
   title: string;
   /** 绑定字段；非数据列（selection/multiSelection/index/action）留空 */
-  field: Field[];
+  field: Field[] | string;
   /** 列宽（像素），0 / null 表示自适应 */
   width?: number | null;
   /** 水平对齐 */

@@ -54,7 +54,7 @@ const schema: FormItemProps[] = [
     ],
   },
   {
-    label: '表格列',
+    label: '数据列',
     formGroup: true,
     component: 'Panel',
     children: [
@@ -69,7 +69,7 @@ const schema: FormItemProps[] = [
     ],
   },
   {
-    label: '表格操作',
+    label: '操作列',
     formGroup: true,
     component: 'Panel',
     children: [
@@ -116,13 +116,13 @@ const schema: FormItemProps[] = [
     ],
   },
   {
-    label: '表格分页',
+    label: '分页',
     formGroup: true,
     component: 'Panel',
     children: [
       {
         fieldName: 'pagination',
-        label: '启用分页',
+        label: '启用',
         component: 'ToggleSwitch',
         componentProps: {},
       },
