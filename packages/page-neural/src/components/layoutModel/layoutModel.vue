@@ -17,6 +17,7 @@
     TextWrap,
   } from '@lucide/vue';
   import type { LucideIcon } from '@lucide/vue';
+  import { nestedFormControl } from '@neural/composables/useForm';
   import InputNumber from 'primevue/inputnumber';
   import SelectButton from 'primevue/selectbutton';
   import vTooltip from 'primevue/tooltip';
@@ -41,7 +42,7 @@
   // 内部控件同属一个布局字段而非独立表单项，需屏蔽外层 FormField 注入的表单上下文：
   // 否则 ToggleButton 的 d_value 会被 FormField 的字段值（布局对象）覆写，导致选中态丢失。
   // SelectButton 不会把 formControl 透传给内部 ToggleButton，故在此统一提供 novalidate 上下文。
-  provide('$pcFormField', { formControl: { novalidate: true } });
+  provide('$pcFormField', { formControl: nestedFormControl });
 
   /** v-model 绑定，带默认值 */
   const model = defineModel<LayoutModelValue>({

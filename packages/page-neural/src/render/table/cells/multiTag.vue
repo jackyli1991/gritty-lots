@@ -58,6 +58,12 @@
 
   /** 全部标签文本，+n 标签悬停时展示 */
   const allLabels = computed(() => tags.value.map((tag) => tag.label).join('、'));
+
+  /** 缓存 tooltip 配置的稳定引用，避免内联对象字面量导致递归更新 */
+  const tooltipValue = computed(() => {
+    const value = allLabels.value ?? '';
+    return value ? { value: String(value), autoHide: false } : undefined;
+  });
 </script>
 
 <template>
@@ -77,7 +83,7 @@
     />
     <Tag
       v-if="overflowCount > 0"
-      v-tooltip.top="{ value: allLabels, autoHide: false }"
+      v-tooltip.top="tooltipValue"
       :value="`+${overflowCount}`"
       size="small"
       :severity="props.column.severity"

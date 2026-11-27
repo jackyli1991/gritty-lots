@@ -131,4 +131,20 @@ export interface TableModelValue {
   };
   // 操作列按钮配置
   actionBtns?: ActionButton[];
+  // 分页配置
+  paginator?: boolean;
+  rows?: number;
+  alwaysShowPaginator?: boolean;
+  paginatorPosition?:
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-right'
+    | 'bottom-center'
+    | 'bottom-left'
+    | 'bottom-left';
+  pageLinkSize?: number;
+  rowsPerPageOptions?: number[];
+  paginatorTemplate?: number[];
+  currentPageReportTemplate?: Field[];
 }

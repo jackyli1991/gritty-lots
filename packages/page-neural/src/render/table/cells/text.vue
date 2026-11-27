@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import type { TableColumn } from '@neural/types/table';
-  import { computed, type CSSProperties } from 'vue';
+  import vTooltip from 'primevue/tooltip';
+  import { computed, unref, type CSSProperties } from 'vue';
 
-  // import vTooltip from 'primevue/tooltip';
   import { useColumnData } from '../useColumnData';
 
   interface Props {
@@ -36,11 +36,28 @@
         }
       : undefined
   );
+
+  /**
+   * tooltip 配置：
+   * 1. 用 computed 缓存稳定引用，避免模板内联对象字面量触发指令反复更新；
+   * 2. value 必须序列化为字符串——PrimeVue tooltip 指令内部会对 value 调用
+   *    `.trim()`，若 fieldData 是 number / boolean 等非字符串会抛 TypeError，
+   *    指令钩子抛错会导致 DataTable 渲染重试闭环，最终
+   *    Maximum recursive updates exceeded，表格无法渲染。
+   */
+  const tooltipValue = computed(() => {
+    const text = unref(fieldData) ?? '';
+    return text ? { value: String(text), autoHide: false } : undefined;
+  });
 </script>
 
 <template>
-  <!-- v-tooltip.top="{ value: fieldData, autoHide: false }" -->
-  <span v-if="fieldData" class="block" :class="{ truncate: rows === 1 }" :style="clampStyle"
+  <span
+    v-if="fieldData"
+    v-tooltip.top="tooltipValue"
+    class="block"
+    :class="{ truncate: rows === 1 }"
+    :style="clampStyle"
     >{{ prefix }}{{ fieldData }}{{ suffix }}</span
   >
 </template>

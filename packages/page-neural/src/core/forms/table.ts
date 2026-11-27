@@ -2,6 +2,11 @@ import type { FormItemProps } from '@neural/components/form';
 import TableActionAttrs from '@neural/core/attrs/container/table-action.vue';
 import TableColumnAttrs from '@neural/core/attrs/container/table-column.vue';
 import { tableColumnSchema, createTableColumn } from '@neural/core/forms/table-column';
+import {
+  rowsPerPageOptions,
+  paginatorTemplateOptions,
+  paginatorPositionOptions,
+} from '@neural/data/options';
 import type { TableModelValue } from '@neural/types/table';
 import { z } from 'zod';
 
@@ -121,10 +126,102 @@ const schema: FormItemProps[] = [
     component: 'Panel',
     children: [
       {
-        fieldName: 'pagination',
+        fieldName: 'paginator',
         label: '启用',
         component: 'ToggleSwitch',
         componentProps: {},
+      },
+      {
+        fieldName: 'rows',
+        label: '默认每页数量',
+        component: 'InputNumber',
+        componentProps: {
+          min: 10,
+          max: 100,
+        },
+      },
+      {
+        fieldName: 'alwaysShowPaginator',
+        label: '是否始终显示',
+        component: 'ToggleSwitch',
+        componentProps: {},
+        tips: '关闭后，分页器仅在页数超过1时显示。',
+      },
+      {
+        fieldName: 'paginatorPosition',
+        label: '位置',
+        component: 'Select',
+        componentProps: {
+          allowEmpty: false,
+          options: paginatorPositionOptions,
+        },
+      },
+      {
+        fieldName: 'paginatorTemplate',
+        label: '分页器模板',
+        component: 'Select',
+        class: 'col-span-full',
+        componentProps: {
+          multiple: true,
+          checkmark: true,
+          options: paginatorTemplateOptions,
+        },
+      },
+      {
+        fieldName: 'pageLinkSize',
+        label: '显示页码数量',
+        component: 'InputNumber',
+        componentProps: {
+          min: 1,
+          max: 20,
+        },
+        dependencies: {
+          trigger: ['paginatorTemplate'],
+          resolve: ({ values }: { values: Record<string, any> }) => ({
+            hidden: !values.paginatorTemplate.includes(2), // 模板中包含页码时可配置显示数量
+          }),
+        },
+      },
+      {
+        fieldName: 'rowsPerPageOptions',
+        label: '每页数量选项',
+        component: 'Select',
+        componentProps: {
+          multiple: true,
+          checkmark: true,
+          options: rowsPerPageOptions,
+        },
+        dependencies: {
+          trigger: ['paginatorTemplate'],
+          resolve: ({ values }: { values: Record<string, any> }) => ({
+            hidden: !values.paginatorTemplate.includes(5), // 模板中包含每页数量选项时可配置显示数量
+          }),
+        },
+      },
+      {
+        fieldName: 'currentPageReportTemplate',
+        label: '自定义信息模板',
+        component: 'FieldsSelect',
+        class: 'col-span-full',
+        componentProps: {
+          placeholder: '配置模板',
+          selectionMode: 'multiple', // 可以选择多个字段
+          customOption: true, // 允许添加自定义内容
+          data: {
+            currentPage: '当前页码',
+            totalPages: '总页数',
+            rows: '每页显示数量',
+            first: '开始于第n条',
+            last: '结束于第n条',
+            totalRecords: '总数',
+          },
+        },
+        dependencies: {
+          trigger: ['paginatorTemplate'],
+          resolve: ({ values }: { values: Record<string, any> }) => ({
+            hidden: !values.paginatorTemplate.includes(8), // 模板中包含自定义模板时可配置显示数量
+          }),
+        },
       },
     ],
   },
@@ -178,5 +275,13 @@ export function createTable(): TableModelValue {
       enable: true,
     },
     actionBtns: [],
+    paginator: true,
+    rows: 20,
+    alwaysShowPaginator: true,
+    paginatorPosition: 'bottom-right',
+    pageLinkSize: 5,
+    rowsPerPageOptions: [10, 20, 30, 50, 100],
+    paginatorTemplate: [0, 1, 2, 3, 4, 5],
+    currentPageReportTemplate: [],
   };
 }

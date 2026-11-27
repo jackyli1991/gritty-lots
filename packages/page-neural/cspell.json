@@ -65,7 +65,11 @@
     "columnheadercontent",
     "unref",
     "bodycell",
-    "roughjs"
+    "roughjs",
+    "checkmark",
+    "pcrowperpagedropdown",
+    "pcjumptopagedropdown",
+    "pcjumptopageinputtext"
   ],
   "ignoreWords": [],
   "dictionaries": ["vue", "typescript"],

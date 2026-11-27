@@ -192,7 +192,7 @@
   /** 拖拽结束后按索引重排已选值数组 */
   useDragDropMonitor({
     onDragEnd(event) {
-      if (event.operation?.source?.type !== 'sortable') return;
+      if (event.operation?.source?.type !== 'sortableFieldContent') return;
       if (event.canceled) return;
       const { source } = event.operation;
       if (!source || !isSortable(source) || source.group !== SELECTED_SORT_GROUP) return;
@@ -225,6 +225,7 @@
           :id="getItemKey(item)"
           :index="index"
           :group="SELECTED_SORT_GROUP"
+          type="sortableFieldContent"
           :data="{ name: isTreeValue(item) ? item : getItemText(item) }"
           class="inline-flex cursor-grab"
         >

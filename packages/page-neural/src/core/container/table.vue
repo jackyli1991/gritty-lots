@@ -30,15 +30,6 @@
 
   const props = defineProps<ContainerProps>();
 
-  const pt = ref({
-    tablecontainer: {
-      class: 'h-full',
-    },
-    emptymessagecell: {
-      class: 'border-0!',
-    },
-  });
-
   // 容器统一入口 index.vue 已触发数据加载，此处仅消费
   const { container, data, loading } = useData(props.id, { autoLoad: false });
 
@@ -70,12 +61,9 @@
     v-if="container && Array.isArray(data)"
     :value="data"
     class="page-table-container h-full w-full"
-    :pt="pt"
-    scrollable
-    resizableColumns
-    columnResizeMode="expand"
     :loading="loading"
-    removableSort
+    :first="0"
+    :totalRecords="3"
     v-bind="resolveTableProps(containerModel)"
     :selection-mode="selectionMode"
     v-model:selection="selectedRows"

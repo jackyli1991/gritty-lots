@@ -1,3 +1,4 @@
+import { paginatorTemplateOptions } from '@neural/data/options';
 import { isDataColumn } from '@neural/data/table';
 import type { TableColumn, TableModelValue, TableColumnType, Field } from '@neural/types/table';
 import { isObject, isString } from 'lodash-es';
@@ -33,6 +34,38 @@ const alignMaps = {
   left: 'flex-start',
   right: 'flex-end',
   center: 'center',
+};
+
+const pt = {
+  tablecontainer: {
+    class: 'flex-1',
+  },
+  emptymessagecell: {
+    class: 'border-0!',
+  },
+  // 分页器样式调整
+  pcPaginator: {
+    root: {
+      class: 'justify-center!',
+      style: {
+        '--p-paginator-nav-button-width': '32px',
+        '--p-paginator-nav-button-height': '32px',
+        '--p-paginator-current-page-report-font-size': '12px',
+      },
+    },
+    pcrowperpagedropdown: {
+      root: 'h-7',
+      label: 'leading-none',
+    },
+    pcjumptopagedropdown: {
+      root: 'h-7',
+      label: 'leading-none',
+    },
+    pcjumptopageinputtext: {
+      root: 'h-7',
+      label: 'leading-none',
+    },
+  },
 };
 
 /**
@@ -105,10 +138,51 @@ export function resolveColumnProps(col: Partial<TableColumn>): PrimeColumnProps 
  * 后续新增配置（如分页）在此处转换为 DataTable 所需的 prop，而不是靠 v-bind 原样透传。
  */
 export function resolveTableProps(model: TableModelValue) {
+  // 分页器-位置
+  const [paginatorPosition, align] = (model.paginatorPosition || 'bottom-right').split('-');
+  if (align === 'left') {
+    pt.pcPaginator.root.class = 'justify-start!';
+  } else if (align === 'right') {
+    pt.pcPaginator.root.class = 'justify-end!';
+  } else {
+    pt.pcPaginator.root.class = 'justify-center!';
+  }
+  // 分页器-模板选项：先排序，再取 paginatorTemplateOptions 中对应的 field 字段拼接
+  const paginatorTemplateArr = model.paginatorTemplate?.sort((a, b) => a - b) || [];
+  const paginatorTemplate = paginatorTemplateArr
+    .map((item) => paginatorTemplateOptions.find((opt) => opt.value === item)?.field || '')
+    .join(' ');
+  // 分页器-自定义模板
+  const currentPageReportTemplate = model.currentPageReportTemplate
+    ?.map((item: Field) => {
+      if (isObject(item) && item.type === 'custom') {
+        return item.value;
+      } else if (isString(item)) {
+        return ` {${item}} `;
+      } else {
+        return item;
+      }
+    })
+    .join('');
+
   return {
+    pt,
+    scrollable: true,
+    scrollHeight: 'flex',
+    resizableColumns: true,
+    columnResizeMode: 'expand',
+    removableSort: true,
     size: model.size,
     showGridlines: model.showGridlines,
     stripedRows: model.stripedRows,
+    paginator: model.paginator,
+    rows: model.rows,
+    alwaysShowPaginator: model.alwaysShowPaginator,
+    pageLinkSize: model.pageLinkSize,
+    rowsPerPageOptions: model.rowsPerPageOptions?.sort((a, b) => a - b) || [],
+    paginatorPosition,
+    paginatorTemplate,
+    currentPageReportTemplate,
   };
 }
 

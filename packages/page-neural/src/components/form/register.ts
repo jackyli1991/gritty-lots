@@ -4,7 +4,6 @@ import InputNumber from 'primevue/inputnumber';
 import InputText from 'primevue/inputtext'; // 输入框
 import Panel from 'primevue/panel'; // 面板
 import Select from 'primevue/select'; // 选择框
-import SelectButton from 'primevue/selectbutton'; // 选择框按钮
 import Slider from 'primevue/slider'; // 滑块
 import Textarea from 'primevue/textarea'; // 文本域
 import ToggleButton from 'primevue/togglebutton'; // 开关按钮
@@ -23,6 +22,7 @@ import Input from '../input'; // 输入框
 import InputNumberSelectGroup from '../InputNumberSelectGroup'; // 数字输入框 + 选择器组合
 import LayoutModel from '../layoutModel'; // 布局模型编辑器
 import ObjectEditor from '../objectEditor'; // 对象编辑器
+import SelectButton from '../selectButton'; // 选择框按钮（已隔离内部 ToggleButton 的表单上下文）
 import TagTypes from '../tagTypes'; // 标签类型选择器
 import NeuralForm from './Form.vue'; // 表单(用于嵌套表单)
 
