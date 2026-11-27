@@ -168,6 +168,7 @@ export function resolveTableProps(model: TableModelValue) {
   return {
     pt,
     scrollable: true,
+    lazy: true,
     scrollHeight: 'flex',
     resizableColumns: true,
     columnResizeMode: 'expand',

@@ -31,7 +31,10 @@
   const props = defineProps<ContainerProps>();
 
   // 容器统一入口 index.vue 已触发数据加载，此处仅消费
-  const { container, data, loading } = useData(props.id, { autoLoad: false });
+  const { container, data, loading, extraFieldsData } = useData(props.id, {
+    autoLoad: false,
+    extraFields: ['total'],
+  });
 
   /** 容器级配置（列 / 空文案 / 选择模式 等） */
   const containerModel = computed<TableModelValue>(
@@ -60,11 +63,11 @@
   <DataTable
     v-if="container && Array.isArray(data)"
     :value="data"
+    v-bind="resolveTableProps(containerModel)"
     class="page-table-container h-full w-full"
     :loading="loading"
     :first="0"
-    :totalRecords="3"
-    v-bind="resolveTableProps(containerModel)"
+    :totalRecords="extraFieldsData.total as number"
     :selection-mode="selectionMode"
     v-model:selection="selectedRows"
   >

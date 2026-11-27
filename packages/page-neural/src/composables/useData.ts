@@ -2,6 +2,7 @@ import type { DataModelOptions } from '@neural/core/models/dataModel';
 import { usePageNeuralStore } from '@neural/store';
 import { useDataSourceStore } from '@neural/store/dataSource';
 import type { Container } from '@neural/types';
+import { getObjectValueByPath } from '@neural/utils';
 import { useDebounceFn } from '@vueuse/core';
 import type { ComputedRef, MaybeRef } from 'vue';
 import { computed, ref, unref, watch } from 'vue';
@@ -13,6 +14,8 @@ interface UseDataOptions {
   autoLoad?: boolean;
   /** 防抖等待时间，毫秒，默认 300 */
   debounceMs?: number;
+  /** 额外需要获取的字段 */
+  extraFields?: string[];
 }
 
 interface UseDataReturn {
@@ -24,6 +27,8 @@ interface UseDataReturn {
   originId: ComputedRef<string>;
   /** 已解析的数据（从 store 缓存中读取并按 responseField 转换，无缓存时为 null） */
   data: ComputedRef<Record<string, unknown> | null>;
+  /** 额外字段数据：按 extraFields 从原始响应数据中提取 */
+  extraFieldsData: ComputedRef<Record<string, unknown>>;
   /** 加载中 */
   loading: ReturnType<typeof ref<boolean>>;
   /** 手动触发一次数据加载（会写入统一数据源 store），params 会覆盖 dataModel.params 的同名字段 */
@@ -41,7 +46,7 @@ export function useData(
   containerId: MaybeRef<string | undefined>,
   options: UseDataOptions = {}
 ): UseDataReturn {
-  const { autoLoad = true, debounceMs = 300 } = options;
+  const { autoLoad = true, debounceMs = 300, extraFields = [] } = options;
 
   const pageNeuralStore = usePageNeuralStore();
   const dataSourceStore = useDataSourceStore();
@@ -59,6 +64,25 @@ export function useData(
 
   /** 已解析的数据 */
   const data = computed(() => dataSourceStore.getDataByModel(originId.value, dataModel.value));
+
+  /**
+   * 从原始响应数据中按 extraFields 提取额外字段（如 total）
+   * 原始数据不做 responseField 解析，字段路径支持 a.b 形式
+   */
+  function getExtraFieldsData(): Record<string, unknown> {
+    if (!extraFields.length) return {};
+    const raw = dataSourceStore.getRawData(originId.value);
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
+    return Object.fromEntries(
+      extraFields.map((field) => [
+        field,
+        getObjectValueByPath(raw as Record<string, unknown>, field),
+      ])
+    );
+  }
+
+  /** 额外字段数据 */
+  const extraFieldsData = computed(getExtraFieldsData);
 
   /** 加载状态（每次手动 load 时置为 true） */
   const loading = ref(false);
@@ -96,5 +120,5 @@ export function useData(
     );
   }
 
-  return { container, dataModel, originId, data, loading, loadData };
+  return { container, dataModel, originId, data, loading, loadData, extraFieldsData };
 }

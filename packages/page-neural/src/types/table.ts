@@ -134,6 +134,7 @@ export interface TableModelValue {
   // 分页配置
   paginator?: boolean;
   rows?: number;
+  totalField?: string;
   alwaysShowPaginator?: boolean;
   paginatorPosition?:
     | 'top-left'

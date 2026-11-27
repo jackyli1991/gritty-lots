@@ -17,12 +17,12 @@ const schema: FormItemProps[] = [
     label: '表格配置',
     formGroup: true,
     component: 'Panel',
-    class: 'col-span-full',
     children: [
       {
         fieldName: 'size',
         label: '尺寸',
         component: 'SelectButton',
+        class: 'col-span-2',
         componentProps: {
           options: [
             { label: '小', value: 'small' },
@@ -35,24 +35,28 @@ const schema: FormItemProps[] = [
         fieldName: 'showGridlines',
         label: '显示网格线',
         component: 'ToggleSwitch',
+        class: 'col-span-2',
         componentProps: {},
       },
       {
         fieldName: 'stripedRows',
         label: '斑马行',
         component: 'ToggleSwitch',
+        class: 'col-span-2',
         componentProps: {},
       },
       {
         fieldName: 'emptyText',
         label: '空数据提示',
         component: 'Input',
+        class: 'col-span-2',
         componentProps: {},
       },
       {
         fieldName: 'emptyCellPlaceholder',
         label: '数据缺省占位',
         component: 'Input',
+        class: 'col-span-2',
         componentProps: {},
         tips: '表格单元格数据为空时的占位符',
       },
@@ -132,28 +136,39 @@ const schema: FormItemProps[] = [
         componentProps: {},
       },
       {
+        fieldName: 'alwaysShowPaginator',
+        label: '始终显示',
+        component: 'ToggleSwitch',
+        componentProps: {},
+        help: ['关闭后，分页器仅在页数超过1时显示。'],
+      },
+      {
         fieldName: 'rows',
         label: '默认每页数量',
         component: 'InputNumber',
+        class: 'col-span-2',
         componentProps: {
           min: 10,
           max: 100,
         },
       },
       {
-        fieldName: 'alwaysShowPaginator',
-        label: '是否始终显示',
-        component: 'ToggleSwitch',
-        componentProps: {},
-        tips: '关闭后，分页器仅在页数超过1时显示。',
-      },
-      {
         fieldName: 'paginatorPosition',
         label: '位置',
         component: 'Select',
+        class: 'col-span-2',
         componentProps: {
           allowEmpty: false,
           options: paginatorPositionOptions,
+        },
+      },
+      {
+        fieldName: 'totalField',
+        label: '总页数字段',
+        component: 'InputText',
+        class: 'col-span-2',
+        componentProps: {
+          placeholder: '取数据源中的字段',
         },
       },
       {
@@ -171,6 +186,7 @@ const schema: FormItemProps[] = [
         fieldName: 'pageLinkSize',
         label: '显示页码数量',
         component: 'InputNumber',
+        class: 'col-span-2',
         componentProps: {
           min: 1,
           max: 20,
@@ -186,6 +202,7 @@ const schema: FormItemProps[] = [
         fieldName: 'rowsPerPageOptions',
         label: '每页数量选项',
         component: 'Select',
+        class: 'col-span-2',
         componentProps: {
           multiple: true,
           checkmark: true,
@@ -236,7 +253,7 @@ export default {
   formConfig: {
     schema,
     rules,
-    columns: 2,
+    columns: 4,
   },
   // 弹窗配置
   // modalConfig: {
@@ -277,6 +294,7 @@ export function createTable(): TableModelValue {
     actionBtns: [],
     paginator: true,
     rows: 20,
+    totalField: '',
     alwaysShowPaginator: true,
     paginatorPosition: 'bottom-right',
     pageLinkSize: 5,
